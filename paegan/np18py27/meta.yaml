@@ -1,0 +1,84 @@
+package:
+  name: paegan
+  version: !!str 1.1
+
+source:
+
+  git_url: https://github.com/asascience-open/paegan.git
+  git_tag: 1.1
+
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - paegan = paegan:main
+    #
+    # Would create an entry point called paegan that calls paegan.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy
+    - scipy 
+    - netcdf4 
+    - shapely 
+    - pytz 
+    - python-dateutil 
+
+  run:
+    - python
+    - setuptools
+    - numpy
+    - scipy 
+    - netcdf4 
+    - shapely 
+    - pytz 
+    - python-dateutil 
+
+test:
+  # Python imports
+  imports:
+    - paegan
+    - paegan.logger
+    - paegan.roms
+    - paegan.cdm.grids
+    - paegan.cdm
+    - paegan.external
+    - paegan.cdm.dsg.collections.base
+    - paegan.utils
+    - paegan.cdm.dsg.features.base
+    - paegan.cdm.dsg.features
+    - paegan.cdm.dsg.collections
+    - paegan.cdm.dsg
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/asascience-open/paegan
+  license: GNU General Public License v3 (GPLv3)
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
