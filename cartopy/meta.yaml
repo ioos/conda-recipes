@@ -1,0 +1,35 @@
+package:
+  name: cartopy
+  version: 0.10.0
+source:
+  git_url: git@github.com:SciTools/cartopy.git
+  git_tag: v0.10.0
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - cython 
+    - proj4 
+    - shapely 
+    - scipy   
+    - pyshp  
+    - matplotlib
+  run:
+    - python
+    - cython 
+    - proj4 
+    - shapely 
+    - scipy   
+    - pyshp  
+    - matplotlib
+
+test:
+  imports:
+    - cartopy
+
+about:
+  home: http://scitools.org.uk/cartopy
+  license: GNU LGPL
