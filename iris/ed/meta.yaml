@@ -1,8 +1,9 @@
 package:
   name: iris
-  version: !!str 1.6.2_DEV
+  version: 1.6.0
 source:
-  git_url: https://github.com/SciTools/iris.git
+  url: git@github.com:/esc24/iris/archive/udunits_xml_path.tar.gz
+  md5: ad25bc09e4f86c69f596da69845e0c36ad25bc09e4f86c69f596da69845e0c36 
 
 build:
   number: 0
@@ -10,24 +11,20 @@ build:
 requirements:
   build:
     - python
-    - biggus
     - numpy
-    - scipy 
+    - scipy   
     - udunits2
-    - netcdf4 
+    - netcdf4
     - pyke
     - cartopy   
-    - geos
     - nose
     - setuptools
   run:
     - python
-    - biggus
     - numpy
-    - scipy 
+    - scipy   
     - udunits2
-    - netcdf4 
-    - geos
+    - netcdf4
     - pyke
     - cartopy   
     - shapely

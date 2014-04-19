@@ -1,10 +1,10 @@
 package:
   name: udunits2
-  version: 2.1.24
+  version: 2.2.6
 source:
-  fn:  udunits-2.1.24.tar.gz
-  url: ftp://ftp.unidata.ucar.edu/pub/udunits/udunits-2.1.24.tar.gz
-  md5: 6986545721747a51285c765644dcd9d8
+  fn:  udunits-2.2.6.tar.gz
+  url: ftp://ftp.unidata.ucar.edu/pub/udunits/udunits-2.2.6.tar.gz
+  md5: 157d26ce5dbc6c1e2000a2e9c614b10a
 
 build:
   number: 0
