@@ -11,15 +11,14 @@ build:
 requirements:
   build:
     - python
+    - numpy
     - cython 
     - proj4 
     - shapely 
-    - scipy   
-    - pyshp  
-    - matplotlib
   run:
     - python
-    - cython 
+    - pil
+    - numpy 
     - proj4 
     - shapely 
     - scipy   
