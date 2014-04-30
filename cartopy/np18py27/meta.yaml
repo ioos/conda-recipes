@@ -13,6 +13,7 @@ requirements:
     - python
     - numpy
     - cython 
+    - geos >=3.4.2
     - proj4 
     - shapely 
   run:
@@ -20,6 +21,7 @@ requirements:
     - pil
     - numpy 
     - proj4 
+    - geos >=3.4.2
     - shapely 
     - scipy   
     - pyshp  

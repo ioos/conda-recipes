@@ -1,3 +1,4 @@
+diff --git shapely/geos.py shapely/geos.py
 index 20945bb..371be63 100644
 --- shapely/geos.py
 +++ shapely/geos.py
