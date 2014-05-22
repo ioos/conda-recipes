@@ -1,11 +1,11 @@
 package:
   name: paegan
-  version: !!str 1.1
+  version: !!str 1.1.1
 
 source:
 
   git_url: https://github.com/asascience-open/paegan.git
-  git_tag: 1.1
+  git_tag: 1.1.1
 
 #  patches:
    # List any patch files here

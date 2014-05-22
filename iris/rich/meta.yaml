@@ -1,6 +1,6 @@
 package:
   name: iris
-  version: !!str 1.6.2_RPS
+  version: !!str v1.6.2_RPS
 source:
   git_url: https://github.com/rsignell-usgs/iris.git
 

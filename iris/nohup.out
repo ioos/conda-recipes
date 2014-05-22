@@ -1,0 +1,46 @@
+WARNING: 'inline' not available as pylab backend, using 'auto' instead.
+ : cannot connect to X server 
+[?1034hPython 2.7.6 |Continuum Analytics, Inc.| (default, Jan 17 2014, 10:13:17) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 2.0.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+Traceback (most recent call last):
+  File "/home/testbed/anaconda/envs/rps_np18py27/bin/ipython", line 6, in <module>
+    sys.exit(start_ipython())
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/__init__.py", line 118, in start_ipython
+    return launch_new_instance(argv=argv, **kwargs)
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/config/application.py", line 562, in launch_instance
+    app.initialize(argv)
+  File "<string>", line 2, in initialize
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/config/application.py", line 92, in catch_config_error
+    return method(app, *args, **kwargs)
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/terminal/ipapp.py", line 321, in initialize
+    super(TerminalIPythonApp, self).initialize(argv)
+  File "<string>", line 2, in initialize
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/config/application.py", line 92, in catch_config_error
+    return method(app, *args, **kwargs)
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/core/application.py", line 381, in initialize
+    self.parse_command_line(argv)
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/terminal/ipapp.py", line 316, in parse_command_line
+    return super(TerminalIPythonApp, self).parse_command_line(argv)
+  File "<string>", line 2, in parse_command_line
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/config/application.py", line 92, in catch_config_error
+    return method(app, *args, **kwargs)
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/config/application.py", line 474, in parse_command_line
+    return self.initialize_subcommand(subc, subargv)
+  File "<string>", line 2, in initialize_subcommand
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/config/application.py", line 92, in catch_config_error
+    return method(app, *args, **kwargs)
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/config/application.py", line 405, in initialize_subcommand
+    subapp = import_item(subapp)
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/utils/importstring.py", line 42, in import_item
+    module = __import__(package, fromlist=[obj])
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/html/notebookapp.py", line 39, in <module>
+    check_for_zmq('2.1.11', 'IPython.html')
+  File "/home/testbed/anaconda/envs/rps_np18py27/lib/python2.7/site-packages/IPython/utils/zmqrelated.py", line 37, in check_for_zmq
+    raise ImportError("%s requires pyzmq >= %s"%(required_by, minimum_version))
+ImportError: IPython.html requires pyzmq >= 2.1.11

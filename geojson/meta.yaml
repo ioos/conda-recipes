@@ -1,25 +1,24 @@
 package:
-  name: owslib
-  version: !!str 0.8.7
+  name: geojson
+  version: !!str 1.0.7
 
 source:
-
-  git_url: https://github.com/geopython/OWSLib.git
-  git_tag: 0.8.7
-
+  fn: geojson-1.0.7.tar.gz
+  url: https://pypi.python.org/packages/source/g/geojson/geojson-1.0.7.tar.gz
+  md5: eb1228f422cf8b3ae8f57c33e6be5c59
 #  patches:
    # List any patch files here
    # - fix.patch
 
-# build:
-  #preserve_egg_dir: True
+build:
+  preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - owslib = owslib:main
+    # - geojson = geojson:main
     #
-    # Would create an entry point called owslib that calls owslib.main()
+    # Would create an entry point called geojson that calls geojson.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -30,24 +29,15 @@ requirements:
   build:
     - python
     - setuptools
-    - python-dateutil
-    - pytz
 
   run:
     - python
-    - python-dateutil
-    - pytz
+    - setuptools
 
 test:
   # Python imports
   imports:
-    - owslib.coverage
-    - owslib.waterml
-    - owslib.swe.observation
-    - owslib.swe.sensor
-    - owslib
-    - owslib.feature
-    - owslib.swe
+    - geojson
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -62,9 +52,8 @@ test:
     # - nose
 
 about:
-  home: https://geopython.github.io/OWSLib
+  home: https://github.com/frewsxcv/python-geojson
   license: BSD License
-  summary: 'OGC Web Service utility library'
 
 # See
 # http://docs.continuum.io/conda/build.html for
