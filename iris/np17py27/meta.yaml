@@ -1,8 +1,9 @@
 package:
   name: iris
-  version: !!str 1.6.2_DEV
+  version: !!str 1.6.1
 source:
   git_url: https://github.com/SciTools/iris.git
+  git_tag: v1.6.1
 
 build:
   number: 0
@@ -11,21 +12,23 @@ requirements:
   build:
     - python
     - numpy
+    - biggus
     - scipy 0.13.2
     - udunits2
     - netcdf4 1.0.6
     - pyke
-    - cartopy   
+    - cartopy 
     - nose
     - setuptools
   run:
     - python
+    - biggus
     - numpy
     - scipy 0.13.2  
     - udunits2
     - netcdf4 1.0.6
     - pyke
-    - cartopy   
+    - cartopy 
     - shapely
     - matplotlib
 

@@ -1,6 +1,6 @@
 package:
   name: iris
-  version: !!str v1.6.1
+  version: !!str 1.6.1
 source:
   git_url: https://github.com/SciTools/iris.git
   git_tag: v1.6.1
