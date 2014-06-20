@@ -1,9 +1,9 @@
 package:
   name: cartopy
-  version: 0.10.0
+  version: 0.11.0
 source:
   git_url: https://github.com/SciTools/cartopy.git
-  git_tag: v0.10.0
+  git_tag: v0.11.0
 
 build:
   number: 0
@@ -11,18 +11,21 @@ build:
 requirements:
   build:
     - python
+    - six
     - numpy
     - cython 
-    - geos >=3.4.2
     - proj4 
-    - shapely 
+    - shapely
   run:
     - python
+    - six
+    - mock
+    - nose
     - pil
+    - owslib
     - numpy 
     - proj4 
-    - geos >=3.4.2
-    - shapely 
+    - shapely
     - scipy   
     - pyshp  
     - matplotlib
