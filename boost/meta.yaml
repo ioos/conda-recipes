@@ -1,0 +1,24 @@
+package:
+  name: boost
+  version: 1.55.0
+source:
+  fn:  boost_1_55_0.tar.bz2
+  url: http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2
+  md5: d6eef4b4cacb2183f2bf265a5a03a354
+
+build:
+  number: 0
+
+requirements:
+  build:
+
+  run:
+
+test:
+  imports:
+
+  commands:
+
+about:
+  home: http://www.unidata.ucar.edu
+  license: 

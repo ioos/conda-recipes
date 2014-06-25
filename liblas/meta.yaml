@@ -1,0 +1,62 @@
+package:
+  name: liblas
+  version: !!str 1.6.0
+
+source:
+  fn: libLAS-1.6.0.tar.gz
+  url: https://pypi.python.org/packages/source/l/libLAS/libLAS-1.6.0.tar.gz
+  md5: a808c72633e0e080b8e43d577f48651e
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - liblas = liblas:main
+    #
+    # Would create an entry point called liblas that calls liblas.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - boost
+    - setuptools
+
+  run:
+    - python
+    - setuptools
+
+test:
+  # Python imports
+  imports:
+    - liblas
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://liblas.org
+  license: BSD License
+  summary: 'LAS 1.0/1.1/1.2 LiDAR data format translation'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
