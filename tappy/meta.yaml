@@ -1,0 +1,61 @@
+package:
+  name: tappy
+  version: !!str 0.9.0
+
+source:
+  fn: tappy-0.9.0.tar.gz
+  url: http://downloads.sourceforge.net/tappy/tappy-0.9.0.tar.gz
+  md5: dadb5a083b2a77dadf3639d47ea6b9cc
+ 
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - biggus = biggus:main
+    #
+    # Would create an entry point called biggus that calls biggus.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - numpy
+    - scipy
+  run:
+    - python
+    - numpy
+    - scipy
+
+test:
+  # Python imports
+#  imports:
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://sourceforge.net/p/tappy/wiki/Main_Page/
+  license: MIT
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
