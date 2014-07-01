@@ -13,7 +13,7 @@ pushd $DIR
   setup_ver=$(grep "\s*version=" setup.py | cut -d "'" -f 2)
   hash=$(git rev-parse --short $(git rev-parse --abbrev-ref HEAD))
   setup_ver=${setup_ver/-/_}
-  VERSION=${setup_ver}_${hash}
+  VERSION=${setup_ver}_dev_${hash}
 popd
 
 echo $VERSION
