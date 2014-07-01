@@ -3,18 +3,21 @@ package:
   version: !!str ${VERSION}
 
 source:
-  git_url: https://github.com/wrobstory/folium.git
+  git_url: https://github.com/ocefpaf/folium.git
+  git_branch: MANIFEST
+
+build:
+  number: 0
 
 requirements:
   build:
     - python
   run:
     - jinja2
+    - numpy
     - pandas
 
 test:
-  requires:
-    - nose
   imports:
     - folium
 
