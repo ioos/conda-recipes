@@ -1,7 +1,5 @@
 #!/bin/bash
 
-conda config --set binstar_upload yes
-
 DIR=folium
 
 if [ ! -d "$DIR" ]; then
