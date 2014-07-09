@@ -1,9 +1,9 @@
 package:
   name: iris
-  version: !!str ${VERSION}
+  version: !!str 1.7.0
 source:
   git_url: https://github.com/SciTools/iris.git
-
+  git_tag: v1.7.0
 build:
   number: 0
 
@@ -11,7 +11,7 @@ requirements:
   build:
     - python
     - biggus
-    - numpy
+    - numpy 
     - scipy
     - udunits2
     - netcdf4

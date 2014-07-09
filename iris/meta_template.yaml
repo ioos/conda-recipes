@@ -1,8 +1,8 @@
 package:
   name: iris
-  version: !!str 1.7.0_dev_RPS
+  version: !!str ${VERSION}
 source:
-  git_url: https://github.com/rsignell-usgs/iris.git
+  git_url: https://github.com/SciTools/iris.git
 
 build:
   number: 0
@@ -12,11 +12,11 @@ requirements:
     - python
     - biggus
     - numpy
-    - scipy 
+    - scipy
     - udunits2
-    - netcdf4 
+    - netcdf4
     - pyke
-    - cartopy   
+    - cartopy
     - geos
     - nose
     - setuptools
@@ -24,12 +24,12 @@ requirements:
     - python
     - biggus
     - numpy
-    - scipy 
+    - scipy
     - udunits2
-    - netcdf4 
+    - netcdf4
     - geos
     - pyke
-    - cartopy   
+    - cartopy
     - shapely
     - matplotlib
 

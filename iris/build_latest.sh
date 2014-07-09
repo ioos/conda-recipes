@@ -18,8 +18,8 @@ popd
 
 echo $VERSION
 
-BUILDDIR=np18py27
+BUILDDIR=.
 
-sed -e "s/\${VERSION}/$VERSION/" meta.yaml > $BUILDDIR/meta.yaml
+sed -e "s/\${VERSION}/$VERSION/" meta_template.yaml > $BUILDDIR/meta.yaml
 
 conda build $BUILDDIR
