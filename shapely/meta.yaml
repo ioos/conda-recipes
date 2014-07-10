@@ -27,3 +27,4 @@ test:
 about:
   home: https://github.com/Toblerity/Shapely
   license: BSD
+  summary: 'Python package for manipulation and analysis of geometric objects in the Cartesian plane'

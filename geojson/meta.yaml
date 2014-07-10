@@ -54,6 +54,7 @@ test:
 about:
   home: https://github.com/frewsxcv/python-geojson
   license: BSD License
+  summary: 'Python bindings and utilities for GeoJSON'
 
 # See
 # http://docs.continuum.io/conda/build.html for

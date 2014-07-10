@@ -11,7 +11,7 @@ requirements:
   build:
     - python
     - biggus
-    - numpy 
+    - numpy
     - scipy
     - udunits2
     - netcdf4
@@ -39,3 +39,4 @@ test:
 about:
   home: http://scitools.org.uk/iris
   license: Open Government License (UK)
+  summary: 'A powerful, easy to use, and community-driven Python library for analysing and visualising meteorological and oceanographic data sets'

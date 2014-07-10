@@ -67,7 +67,7 @@ test:
 about:
   home: https://github.com/RDFLib/rdflib
   license: BSD License
-  summary: 'RDFLib is a Python library for working with RDF, a simple yet powerful language for representing information.'
+  summary: 'RDFLib is a Python library for working with RDF, a simple yet powerful language for representing information'
 
 # See
 # http://docs.continuum.io/conda/build.html for

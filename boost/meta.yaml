@@ -20,5 +20,7 @@ test:
   commands:
 
 about:
-  home: http://www.unidata.ucar.edu
-  license: 
+  home: http://www.boost.org
+  license: BSL-1.0
+  summary: 'Boost provides free portable peer-reviewed C++ libraries. The emphasis is on portable libraries which work well with the C++ Standard Library'
+
