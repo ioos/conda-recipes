@@ -20,3 +20,4 @@ test:
 about:
   home: http://github.com/jakevdp
   license: BSD
+  summary: 'Javascript Animation exporter for matplotlib and IPython'

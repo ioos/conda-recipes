@@ -54,6 +54,7 @@ test:
 about:
   home: http://www.crummy.com/software/BeautifulSoup/bs4/
   license: MIT License
+  summary: 'Beautiful Soup sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching, and modifying the parse tree'
 
 # See
 # http://docs.continuum.io/conda/build.html for

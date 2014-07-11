@@ -52,7 +52,8 @@ test:
 
 about:
   home: http://code.google.com/p/pyshp
-  license: 
+  license: MIT
+  summary: 'Reads and writes ESRI Shapefiles in pure Python'
 
 # See
 # http://docs.continuum.io/conda/build.html for

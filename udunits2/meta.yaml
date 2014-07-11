@@ -1,10 +1,9 @@
 package:
   name: udunits2
-  version: 2.2.6
+  version: 2.2.16
 source:
-  fn:  udunits-2.2.6.tar.gz
-  url: ftp://ftp.unidata.ucar.edu/pub/udunits/udunits-2.2.6.tar.gz
-  md5: 157d26ce5dbc6c1e2000a2e9c614b10a
+  fn:  udunits-2.2.16.tar.gz
+  url: ftp://ftp.unidata.ucar.edu/pub/udunits/udunits-2.2.16.tar.gz
 
 build:
   number: 0
@@ -21,4 +20,5 @@ test:
 
 about:
   home: http://www.unidata.ucar.edu
-  license: 
+  license: MIT
+  summary: 'A library for manipulating units of physical quantities.'

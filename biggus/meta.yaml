@@ -3,7 +3,7 @@ package:
   version: !!str 0.6.0
 
 source:
-  git_url: https://github.com/SciTools/biggus.git 
+  git_url: https://github.com/SciTools/biggus.git
   git_tag: v0.6.0
 #  patches:
    # List any patch files here
@@ -55,6 +55,7 @@ test:
 about:
   home: https://github.com/SciTools/biggus
   license: GNU Lesser General Public License v3 (LGPLv3)
+  summary: 'Virtual large arrays and lazy evaluation'
 
 # See
 # http://docs.continuum.io/conda/build.html for

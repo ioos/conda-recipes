@@ -5,7 +5,7 @@ package:
 source:
   fn: pyke-1.1.1.zip
   url: http://downloads.sourceforge.net/pyke/pyke-1.1.1.zip
-  #md5: 
+  #md5:
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -53,6 +53,7 @@ test:
 about:
   home: http://sourceforge.net/projects/pyke
   license: MIT License
+  summary: 'Knowledge-based inference engine'
 
 # See
 # http://docs.continuum.io/conda/build.html for
