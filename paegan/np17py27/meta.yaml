@@ -78,6 +78,7 @@ test:
 about:
   home: https://github.com/asascience-open/paegan
   license: GNU General Public License v3 (GPLv3)
+  summary: 'Paegan - The Python CDM for Met/Ocean data'
 
 # See
 # http://docs.continuum.io/conda/build.html for

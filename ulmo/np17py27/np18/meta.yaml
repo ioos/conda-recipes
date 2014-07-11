@@ -93,7 +93,7 @@ test:
 about:
   home: https://github.com/twdb/ulmo/
   license: BSD License
-  summary: 'clean, simple and fast access to public hydrology and climatology data'
+  summary: 'Clean, simple and fast access to public hydrology and climatology data'
 
 # See
 # http://docs.continuum.io/conda/build.html for

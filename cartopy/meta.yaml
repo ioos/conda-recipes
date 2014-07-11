@@ -13,8 +13,8 @@ requirements:
     - python
     - six
     - numpy
-    - cython 
-    - proj4 
+    - cython
+    - proj4
     - shapely
   run:
     - python
@@ -23,11 +23,11 @@ requirements:
     - nose
     - pil
     - owslib
-    - numpy 
-    - proj4 
+    - numpy
+    - proj4
     - shapely
-    - scipy   
-    - pyshp  
+    - scipy
+    - pyshp
     - matplotlib
 
 test:
@@ -37,3 +37,4 @@ test:
 about:
   home: http://scitools.org.uk/cartopy
   license: GNU LGPL
+  summary: 'A library providing cartographic tools for python'
