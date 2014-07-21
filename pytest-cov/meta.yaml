@@ -1,52 +1,45 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: pytest-cov
+  version: !!str 1.7.0
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+  fn: pytest-cov-1.7.0.tar.gz
+  url: https://pypi.python.org/packages/source/p/pytest-cov/pytest-cov-1.7.0.tar.gz
+  md5: c1432814f2e19ed86b563efa374b23a1
 #  patches:
    # List any patch files here
    # - fix.patch
 
 build:
-  number: 0
+ number: 2
   #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - pytest-cov = pytest-cov:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called pytest-cov that calls pytest-cov.main()
 
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
-  # number: 1
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
+    - python
     - setuptools
-    - affine >=1.0
+    - pytest >=2.5.2
+    - cov-core >=1.12
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
+    - pytest >=2.5.2
+    - cov-core >=1.12
 
 test:
   # Python imports
-  imports:
-    - rasterio
+  # imports:
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +54,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: https://github.com/schlamar/pytest-cov
+  license:  MIT License
+  summary: 'py.test plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing'
 
 # See
 # http://docs.continuum.io/conda/build.html for

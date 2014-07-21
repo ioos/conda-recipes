@@ -1,9 +1,11 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: pymc
+  version: !!str 2.3.3
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+  fn: pymc-2.3.3.tar.gz
+  url: https://pypi.python.org/packages/source/p/pymc/pymc-2.3.3.tar.gz
+  md5: 99645bf558a41376be0e687ccf90a39f
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -15,38 +17,29 @@ build:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - pymc = pymc:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called pymc that calls pymc.main()
 
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
-  # number: 1
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
+    - python
+    - numpy
     - setuptools
-    - affine >=1.0
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
+    - numpy
+    - scipy
 
 test:
   # Python imports
   imports:
-    - rasterio
+    - pymc
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +54,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: http://github.com/pymc-devs/pymc
+  license:  Academic Free License (AFL)
+  summary: 'Markov Chain Monte Carlo sampling toolkit.'
 
 # See
 # http://docs.continuum.io/conda/build.html for

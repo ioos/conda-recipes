@@ -9,7 +9,7 @@ source:
    # - fix.patch
 
 build:
-  number: 0
+  number: 1
   #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
@@ -53,9 +53,9 @@ test:
     # - nose
 
 about:
-  home: http://github.com/pymc-devs/pymc
-  license:  Academic Free License (AFL)
-  summary: 'Markov Chain Monte Carlo sampling toolkit.'
+  home: https://github.com/hetland/octant
+  license:  MIT
+  summary: 'Ocean C-grid model setup and analysis tools, for the numerical mariner.'
 
 # See
 # http://docs.continuum.io/conda/build.html for

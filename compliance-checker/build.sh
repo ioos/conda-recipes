@@ -1,10 +1,8 @@
 #!/bin/bash
 
-$PYTHON setup.py install
+$PYTHON setup.py install --single-version-externally-managed --record=record.txt
 
 # Add more build steps here, if they are necessary.
-
-# copy rasterio scripts to the conda bin directory
 
 # See
 # http://docs.continuum.io/conda/build.html

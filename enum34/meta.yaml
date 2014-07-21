@@ -1,23 +1,24 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: enum34
+  version: !!str 1.0
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+  fn: enum34-1.0.tar.gz
+  url: https://pypi.python.org/packages/source/e/enum34/enum34-1.0.tar.gz
+  md5: 9d57f5454c70c11707998ea26c1b0a7c
 #  patches:
    # List any patch files here
    # - fix.patch
 
-build:
-  number: 0
+# build:
   #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - enum34 = enum34:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called enum34 that calls enum34.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,27 +27,15 @@ build:
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
-    - setuptools
-    - affine >=1.0
+    - python
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
 
 test:
   # Python imports
   imports:
-    - rasterio
+    - enum
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +50,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: https://pypi.python.org/pypi/enum34
+  license:  BSD License
+  summary: 'Python 3.4 Enum backported to 3.3, 3.2, 3.1, 2.7, 2.6, 2.5, and 2.4'
 
 # See
 # http://docs.continuum.io/conda/build.html for

@@ -1,9 +1,9 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: airsea
+  version: !!str 0.0.1_DEV
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+  git_url: git@github.com:ocefpaf/python-airsea.git
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -15,9 +15,9 @@ build:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - seawater = seawater:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called seawater that calls seawater.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,27 +26,18 @@ build:
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
+    - python
     - setuptools
-    - affine >=1.0
+    - numpy
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
+    - numpy
 
 test:
   # Python imports
   imports:
-    - rasterio
+    - airsea
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +52,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: http://github.com/ocefpaf/python-airsea
+  license: MIT License
+  summary: 'Airsea Library for Python'
 
 # See
 # http://docs.continuum.io/conda/build.html for

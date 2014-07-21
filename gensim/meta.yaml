@@ -1,23 +1,24 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: gensim
+  version: !!str 0.10.0
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+  fn: gensim-0.10.0.tar.gz
+  url: https://pypi.python.org/packages/source/g/gensim/gensim-0.10.0.tar.gz
+  md5: 24ccbf607e4e2a705597627ab6cdba00
 #  patches:
    # List any patch files here
    # - fix.patch
 
-build:
-  number: 0
+# build:
   #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - gensim = gensim:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called gensim that calls gensim.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,27 +27,26 @@ build:
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
+    - python
     - setuptools
-    - affine >=1.0
+    - scipy >=0.7.0
+    - six >=1.2.0
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
+    - scipy >=0.7.0
+    - six >=1.2.0
 
 test:
   # Python imports
   imports:
-    - rasterio
+    - gensim
+    - gensim.corpora
+    - gensim.models
+    - gensim.parsing
+    - gensim.scripts
+    - gensim.similarities
+    - gensim.test
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +61,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: http://radimrehurek.com/gensim
+  license:  GNU Library or Lesser General Public License (LGPL)
+  summary: 'Python framework for fast Vector Space Modelling'
 
 # See
 # http://docs.continuum.io/conda/build.html for

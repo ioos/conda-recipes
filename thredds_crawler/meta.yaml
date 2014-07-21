@@ -1,9 +1,12 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: thredds_crawler
+  version: !!str 0.7_DEV
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+# fn: thredds_crawler-0.6.tar.gz
+# url: https://pypi.python.org/packages/source/t/thredds_crawler/thredds_crawler-0.6.tar.gz
+# md5: fd75a6446b6c0f0cab9e6eccc24a409f
+  git_url: git@github.com:asascience-open/thredds_crawler.git
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -15,9 +18,9 @@ build:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - thredds_crawler = thredds_crawler:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called thredds_crawler that calls thredds_crawler.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,27 +29,21 @@ build:
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
+    - python
     - setuptools
-    - affine >=1.0
+    - requests
+    - lxml
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
+    - requests
+    - lxml
 
 test:
   # Python imports
   imports:
-    - rasterio
+    - tests
+    - thredds_crawler
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +58,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: https://github.com/asascience-open/thredds_crawler
+  license:  GNU General Public License v3 (GPLv3)
+  summary: 'A Python library for crawling THREDDS servers'
 
 # See
 # http://docs.continuum.io/conda/build.html for

@@ -1,23 +1,24 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: click
+  version: !!str 2.4
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+  fn: click-2.4.tar.gz
+  url: https://pypi.python.org/packages/source/c/click/click-2.4.tar.gz
+  md5: 7affaac2973184810c018fab7cedca4f
 #  patches:
    # List any patch files here
    # - fix.patch
 
-build:
-  number: 0
+# build:
   #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - click = click:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called click that calls click.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,27 +27,16 @@ build:
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
+    - python
     - setuptools
-    - affine >=1.0
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
 
 test:
   # Python imports
   imports:
-    - rasterio
+    - click
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +51,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: http://github.com/mitsuhiko/click
+  license:  BSD License
+  summary: 'A simple wrapper around optparse for powerful command line utilities.'
 
 # See
 # http://docs.continuum.io/conda/build.html for

@@ -1,23 +1,24 @@
 package:
-  name: rasterio
-  version: !!str 0.8
+  name: cov-core
+  version: !!str 1.13.0
 
 source:
-  git_url: git@github.com:mapbox/rasterio.git
+  fn: cov-core-1.13.0.tar.gz
+  url: https://pypi.python.org/packages/source/c/cov-core/cov-core-1.13.0.tar.gz
+  md5: 8999e0bc50bca5a09d7731a3d42bfcd1
 #  patches:
    # List any patch files here
    # - fix.patch
 
-build:
-  number: 0
+# build:
   #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - cov-core = cov-core:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called cov-core that calls cov-core.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,27 +27,17 @@ build:
 
 requirements:
   build:
-    - numpy >=1.8
-    - python 
-    - click
-    - gdal
-    - enum34
-    - cython >=0.20
+    - python
     - setuptools
-    - affine >=1.0
+    - coverage >=3.6
 
   run:
     - python
-    - gdal
-    - click
-    - pytest
-    - affine >=1.0
-    - enum34
+    - coverage >=3.6
 
 test:
   # Python imports
-  imports:
-    - rasterio
+  # imports:
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,8 +52,9 @@ test:
     # - nose
 
 about:
-  home: http://code.google.com/p/pyshp
-  license: 
+  home: https://github.com/schlamar/cov-core
+  license:  MIT License
+  summary: 'plugin core for use by pytest-cov, nose-cov and nose2-cov'
 
 # See
 # http://docs.continuum.io/conda/build.html for
