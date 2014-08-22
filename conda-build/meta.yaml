@@ -1,11 +1,9 @@
 package:
-  name: petulant-bear
-  version: !!str 0.1.2
-
+  name: conda_build
+  version: !!str 1.7.2DEV
 source:
-  fn: petulant-bear-0.1.2.tar.gz
-  url: https://pypi.python.org/packages/source/p/petulant-bear/petulant-bear-0.1.2.tar.gz
-  md5: 2b71e5a00d9d7aff70284dffc3be2f13
+  git_url: https://github.com/conda/conda-build.git
+
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -16,9 +14,9 @@ source:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - petulant-bear = petulant-bear:main
+    # - pyshp = pyshp:main
     #
-    # Would create an entry point called petulant-bear that calls petulant-bear.main()
+    # Would create an entry point called pyshp that calls pyshp.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -28,23 +26,14 @@ source:
 requirements:
   build:
     - python
-    - setuptools
-    - netcdf4 >=1.0.0
-    - nose >=1.2.0
-    - numpy 
-    - lxml >=3.2.1
 
   run:
     - python
-    - netcdf4 >=1.0.0
-    - nose >=1.2.0
-    - numpy 
-    - lxml >=3.2.1
 
 test:
   # Python imports
-  imports:
-    - petulantbear
+#  imports:
+    - conda_build
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -59,9 +48,9 @@ test:
     # - nose
 
 about:
-  home: https://github.com/ioos/petulant-bear
-  license:  GNU General Public License v3 (GPLv3)
-  summary: 'Presents etree interface to netcdf4-python objects using NCML data model'
+  home: https://github.com/conda/conda-build
+  license: Continuum
+  summary: 'Commands and tools for building conda packages'
 
 # See
 # http://docs.continuum.io/conda/build.html for

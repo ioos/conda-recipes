@@ -1,0 +1,33 @@
+package:
+  name: ipython
+  version: 2.0.0
+
+source:
+  git_url: git@github.com:ipython/ipython.git
+
+build:
+  entry_points:
+    - ipython3 = IPython.terminal.ipapp:launch_new_instance  [py3k]
+    - ipython = IPython.terminal.ipapp:launch_new_instance
+  osx_is_app: True           [py2k]
+
+requirements:
+  build:
+    - python
+    - setuptools             [win or py3k]
+    - pyreadline             [win]
+  run:
+    - python
+    - pyreadline             [win]
+    - python.app             [osx and py2k]
+
+test:
+  commands:
+    - ipython -h
+    - ipython3 -h            [py3k]
+  imports:
+    - IPython
+
+about:
+  home: http://ipython.org/
+  license: BSD

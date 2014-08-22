@@ -4,8 +4,11 @@ package:
 
 source:
 
-  git_url: https://github.com/geopython/OWSLib.git
-  git_tag: 0.8.7
+  fn: OWSLib-0.8.7.tar.gz
+  url: https://pypi.python.org/packages/source/O/OWSLib/OWSLib-0.8.7.tar.gz
+  md5: a86f087e07529b58b918a05af883ef60
+#  git_url: https://github.com/geopython/OWSLib.git
+#  git_tag: 0.8.7
 
 #  patches:
    # List any patch files here
