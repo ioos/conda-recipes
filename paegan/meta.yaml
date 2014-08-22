@@ -1,11 +1,11 @@
 package:
   name: paegan
-  version: !!str 1.1
+  version: !!str 1.1.1
 
 source:
 
   git_url: https://github.com/asascience-open/paegan.git
-  git_tag: 1.1
+  git_tag: 1.1.1
 
 #  patches:
    # List any patch files here
@@ -31,21 +31,21 @@ requirements:
     - python
     - setuptools
     - numpy
-    - scipy 0.13.2
-    - netcdf4 1.0.6
-    - shapely 1.3.0
-    - pytz 2013b
-    - python-dateutil 2.2
+    - scipy
+    - netcdf4
+    - shapely
+    - pytz
+    - python-dateutil
 
   run:
     - python
     - setuptools
     - numpy
-    - scipy 0.13.2
-    - netcdf4 1.0.6
-    - shapely 1.3.0
-    - pytz 2013b
-    - python-dateutil 2.2
+    - scipy
+    - netcdf4
+    - shapely
+    - pytz
+    - python-dateutil
 
 test:
   # Python imports
