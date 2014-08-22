@@ -1,15 +1,16 @@
 package:
   name: pyoos
-  version: !!str 0.6.1
+  version: !!str 0.6.2
 
 source:
   git_url: https://github.com/ioos/pyoos.git
-  git_tag: 0.6.1
+  git_tag: 0.6.2
 #  patches:
    # List any patch files here
    # - fix.patch
 
 build:
+  number: 2
   preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
@@ -22,12 +23,12 @@ build:
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
-  # number: 1
 
 requirements:
   build:
     - python
     - setuptools
+    - numpy
     - paegan
     - owslib
     - requests
@@ -40,6 +41,7 @@ requirements:
     - python
     - paegan
     - owslib
+    - numpy
     - requests
     - fiona
     - beautifulsoup4
