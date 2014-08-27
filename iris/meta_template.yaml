@@ -2,7 +2,8 @@ package:
   name: iris
   version: !!str ${VERSION}
 source:
-  git_url: https://github.com/SciTools/iris.git
+  git_url: https://github.com/rhattersley/iris.git
+  git_tag: lazy-dtype
 
 build:
   number: 0

@@ -5,7 +5,8 @@ conda config --set binstar_upload yes
 DIR=iris
 
 if [ ! -d "$DIR" ]; then
-  git clone https://github.com/SciTools/iris.git
+#   git clone https://github.com/SciTools/iris.git
+  git clone https://github.com/rhattersley/iris.git --branch lazy-dtype --single-branch iris
 fi
 
 pushd $DIR

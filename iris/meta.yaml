@@ -1,11 +1,12 @@
 package:
   name: iris
-  version: !!str 1.7.0
+  version: !!str 1.7.2_DEV_9e1fd13
 source:
-  git_url: https://github.com/SciTools/iris.git
-  git_tag: v1.7.0
+  git_url: https://github.com/rhattersley/iris.git
+  git_tag: lazy-dtype
+
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -39,4 +40,3 @@ test:
 about:
   home: http://scitools.org.uk/iris
   license: Open Government License (UK)
-  summary: 'A powerful, easy to use, and community-driven Python library for analysing and visualising meteorological and oceanographic data sets'
