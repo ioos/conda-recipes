@@ -1,11 +1,11 @@
 package:
   name: owslib
-  version: !!str 0.8.9
+  version: !!str 0.8.10
 
 source:
 
   git_url: https://github.com/geopython/OWSlib.git
-  git_tag: 0.8.9
+  git_tag: 0.8.10
 #  git_url: https://github.com/geopython/OWSLib.git
 #  git_tag: 0.8.7
 
