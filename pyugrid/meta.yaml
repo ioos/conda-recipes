@@ -1,31 +1,16 @@
 package:
   name: pyugrid
-  version: !!str 0.1
+  version: !!str 0.1.1
 
 source:
-  git_url: git@github.com:pyugrid/pyugrid.git
-#  patches:
-   # List any patch files here
-   # - fix.patch
+  git_url: https://github.com/pyugrid/pyugrid.git
 
 build:
-  number: 1
-  #preserve_egg_dir: True
-  #entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - pyshp = pyshp:main
-    #
-    # Would create an entry point called pyshp that calls pyshp.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
+  number: 0
 
 requirements:
   build:
-    - python 
+    - python
     - netcdf4
     - numpy
     - setuptools
@@ -40,22 +25,7 @@ test:
   imports:
     - pyugrid
 
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
-
 about:
   home: http://github.com/pyugrid/pygrid.git
-  license: 
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
+  license: 'BSD'
+  summary: 'A Python API to utilize data written using the unstructured grid UGRID conventions.'
