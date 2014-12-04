@@ -1,10 +1,11 @@
 package:
   name: folium
-  version: !!str ${VERSION}
+  version: !!str 0.1.3
 
 source:
-  git_url: https://github.com/ocefpaf/folium.git
-  git_branch: MANIFEST
+  fn: folium-0.1.3.tar.gz
+  url: https://pypi.python.org/packages/source/f/folium/folium-0.1.3.tar.gz
+  md5: c8db7e684a69a7e9c714fcac93859a9f
 
 build:
   number: 0
@@ -12,15 +13,15 @@ build:
 requirements:
   build:
     - python
-    - setuptools
+    #- setuptools
+
   run:
-    - jinja2
-    - numpy
-    - openpyxl 1.8.5
-    - pandas
     - python
-    - setuptools
-    - nose
+    #- setuptools
+    - jinja2
+    # Optional.
+    #- openpyxl 1.8.5
+    #- pandas
 
 test:
   imports:
@@ -29,4 +30,4 @@ test:
 about:
   home: https://github.com/wrobstory/folium
   license: MIT License
-  summary: 'Make beautiful maps with Leaflet.js & Python'
+  summary: 'Make beautiful maps with Leaflet.js and Python'
