@@ -1,6 +1,6 @@
 package:
   name: rasterio
-  version: !!str 0.8
+  version: !!str 0.15
 
 source:
   git_url: git@github.com:mapbox/rasterio.git
@@ -29,10 +29,12 @@ requirements:
     - numpy >=1.8
     - python 
     - click
+    #- coveralls >=0.4  Listed as a test requirement but no conda build available
     - gdal
     - enum34
     - cython >=0.20
     - setuptools
+    - six
     - affine >=1.0
 
   run:
@@ -42,6 +44,7 @@ requirements:
     - pytest
     - affine >=1.0
     - enum34
+    - numpy >=1.8
 
 test:
   # Python imports
