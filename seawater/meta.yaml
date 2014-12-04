@@ -5,7 +5,7 @@ package:
 source:
   fn: seawater-3.3.2.tar.gz
   url: https://pypi.python.org/packages/source/s/seawater/seawater-3.3.2.tar.gz
-  md5: 2fd9fad1d42897a03caee8d226e743a9
+  md5: d2aa85c5b80f5dde84e0046468609be2
 #  patches:
    # List any patch files here
    # - fix.patch
