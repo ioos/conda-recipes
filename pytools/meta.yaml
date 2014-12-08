@@ -4,24 +4,9 @@ package:
 
 source:
   git_url: https://github.com/kwilcox/pytools.git
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
-# build:
-  #preserve_egg_dir: True
-  #entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - geolinks = geolinks:main
-    #
-    # Would create an entry point called geolinks that calls geolinks.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+build:
+  number: 0
 
 requirements:
   build:
@@ -29,36 +14,26 @@ requirements:
     - setuptools
     - lxml
     - pytz
+    - pytest
+    - cov-core
+    - pytest-cov
     - numpy
     - netcdf4
-    - pytest
     - udunitspy
 
   run:
     - python
+    - lxml
+    - pytz
+    - numpy
+    - netcdf4
+    - udunitspy
 
 test:
-  # Python imports
   imports:
     - pytools
-
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: http://github.com/kwilcox/pytools
   license: LGPLv3
-  summary: 'Kyle Wilcox Python Tools'
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
+  summary: 'Various python tools I use for manipulating ocean/met'
