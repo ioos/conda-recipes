@@ -6,7 +6,7 @@ source:
 # fn: thredds_crawler-0.6.tar.gz
 # url: https://pypi.python.org/packages/source/t/thredds_crawler/thredds_crawler-0.6.tar.gz
 # md5: fd75a6446b6c0f0cab9e6eccc24a409f
-  git_url: git@github.com:asascience-open/thredds_crawler.git
+  git_url: https://github.com/asascience-open/thredds_crawler.git
 #  patches:
    # List any patch files here
    # - fix.patch
