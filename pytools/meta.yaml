@@ -1,0 +1,39 @@
+package:
+  name: pytools
+  version: !!str 0.1
+
+source:
+  git_url: https://github.com/kwilcox/pytools.git
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - lxml
+    - pytz
+    - pytest
+    - cov-core
+    - pytest-cov
+    - numpy
+    - netcdf4
+    - udunitspy
+
+  run:
+    - python
+    - lxml
+    - pytz
+    - numpy
+    - netcdf4
+    - udunitspy
+
+test:
+  imports:
+    - pytools
+
+about:
+  home: http://github.com/kwilcox/pytools
+  license: LGPLv3
+  summary: 'Various python tools I use for manipulating ocean/met'
