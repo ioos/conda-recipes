@@ -1,8 +1,7 @@
 #!/bin/bash
 
-#$PYTHON setup.py install
-#python manage.py syncdb
-#python manage.py migrate
+$PYTHON setup.py install
+
 # Add more build steps here, if they are necessary.
 
 # See
