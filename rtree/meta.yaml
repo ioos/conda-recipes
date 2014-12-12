@@ -32,10 +32,12 @@ requirements:
   build:
     - python
     - setuptools
+    - libspatialindex
 
   run:
     - python
     - setuptools
+    - libspatialindex
 
 test:
   # Python imports
