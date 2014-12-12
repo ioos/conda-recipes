@@ -1,48 +1,58 @@
 package:
-  name: rtree
-  version: !!str 0.7.0
-#  version: !!str 0.8.2
-
+  name: sci-wms
+  version: !!str 0.1.0 
 source:
-# fn: Rtree-0.8.2.tar.gz
-# url: https://pypi.python.org/packages/source/R/Rtree/Rtree-0.8.2.tar.gz
-# md5: 4ba7276cbdb4c51b373068004ae864d3
-  git_url: https://github.com/Toblerity/rtree.git
-  git_tag: 0.7.0
+  git_url: https://github.com/kwilcox/sci-wms.git
+  git_tag: stable
+#  git_tag: 0.6.2
 #  patches:
    # List any patch files here
    # - fix.patch
 
 build:
+  number: 2
   preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - rtree = rtree:main
+    # - sci-wms = sci-wms:main
     #
-    # Would create an entry point called rtree that calls rtree.main()
+    # Would create an entry point called sci-wms that calls sci-wms.main()
 
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
-  # number: 1
 
 requirements:
   build:
-    - python
-    - setuptools
-    - libspatialindex
 
   run:
     - python
-    - setuptools
-    - libspatialindex
+    - django
+    - shapely
+    - numpy
+    - greenlet
+    - gevent
+    - gunicorn
+    - python-dateutil
+    - matplotlib
+    - netcdf4
+    - rtree 0.7*
+    - south
+    - jsonfield
+    - south
+    - basemap
+    - pyugrid
+    - pytz
+    - pyproj
 
 test:
   # Python imports
   imports:
-    - rtree
+#   - tests
+#   - sci-wms
+#   - tests.collectors
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -57,9 +67,9 @@ test:
     # - nose
 
 about:
-  home: http://toblerity.github.com/rtree/
-  license: GNU Library or Lesser General Public License (LGPL)
-  summary: 'R-Tree spatial index for Python GIS'
+  home: https://github.com/asa-science-open.github.io/sci-wms
+  license: GNU General Public License v3 (GPLv3)
+  summary: 'A Python WMS service for geospatial grid and mesh data'
 
 # See
 # http://docs.continuum.io/conda/build.html for

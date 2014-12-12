@@ -1,52 +1,43 @@
 package:
-  name: sci-wms
-  version: !!str 0.1.0 
+  name: jsonfield
+  version: !!str 1.0.0
+
 source:
-  git_url: https://github.com/kwilcox/sci-wms.git
-#  git_tag: 0.6.2
+  fn: jsonfield-1.0.0.tar.gz
+  url: https://pypi.python.org/packages/source/j/jsonfield/jsonfield-1.0.0.tar.gz
+  md5: 23820afb84518a8955030ab12c3fc7ef
 #  patches:
    # List any patch files here
    # - fix.patch
 
 build:
-  number: 0
-  preserve_egg_dir: True
+  #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - sci-wms = sci-wms:main
+    # - jsonfield = jsonfield:main
     #
-    # Would create an entry point called sci-wms that calls sci-wms.main()
+    # Would create an entry point called jsonfield that calls jsonfield.main()
 
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
+  number: 1
 
 requirements:
   build:
-    - django
-    - shapely
-    - numpy
-    - greenlet
-    - gevent
-    - gunicorn
-    - python-dateutil
-    - matplotlib
-    - netcdf4
-    - rtree 0.7*
-    - south
-    - basemap
+    - python
+    - django >=1.4.3
 
   run:
     - python
+    - django >=1.4.3
 
 test:
   # Python imports
   imports:
-    - tests
-    - sci-wms
-#   - tests.collectors
+    - jsonfield
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -61,9 +52,9 @@ test:
     # - nose
 
 about:
-  home: https://github.com/asa-science-open.github.io/sci-wms
-  license: GNU General Public License v3 (GPLv3)
-  summary: 'A Python WMS service for geospatial grid and mesh data'
+  home: https://github.com/bradjasper/django-jsonfield/
+  license: MIT
+  summary: 'A reusable Django field that allows you to store validated JSON in your model.'
 
 # See
 # http://docs.continuum.io/conda/build.html for
