@@ -1,9 +1,9 @@
 package:
-  name: conda_build
-  version: !!str 1.7.2DEV
-source:
-  git_url: https://github.com/conda/conda-build.git
+  name: flopy
+  version: !!str 2.0
 
+source:
+  svn_url: http://flopy.googlecode.com/svn/trunk/
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -14,9 +14,9 @@ source:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - pyshp = pyshp:main
+    # - suds = suds:main
     #
-    # Would create an entry point called pyshp that calls pyshp.main()
+    # Would create an entry point called suds that calls suds.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -26,16 +26,12 @@ source:
 requirements:
   build:
     - python
+    - setuptools
 
   run:
     - python
 
-test:
-  # Python imports
-#  imports:
-    - conda_build
-
-  #commands:
+#test:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
@@ -48,9 +44,9 @@ test:
     # - nose
 
 about:
-  home: https://github.com/conda/conda-build
-  license: Continuum
-  summary: 'Commands and tools for building conda packages'
+  home: https://code.google.com/p/flowpy/
+  license: BSD
+  summary: 'scripts to run MODFLOW, MT3D, SWI and SEAWAT'
 
 # See
 # http://docs.continuum.io/conda/build.html for

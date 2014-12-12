@@ -34,23 +34,23 @@ requirements:
     - lxml
     - mock
     - numpy
-    - pandas 
-    - requests 
-    - suds 
-    - pytables 
+    - pandas
+    - requests
+    - suds
+    - pytables
 
   run:
     - python
     - appdirs
-    - beautifulsoup4 
+    - beautifulsoup4
     - isodate
     - lxml
     - mock
     - numpy
-    - pandas 
+    - pandas
     - requests
     - suds
-    - pytables 
+    - pytables
 test:
   # Python imports
   imports:

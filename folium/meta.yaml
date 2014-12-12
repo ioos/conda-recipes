@@ -13,15 +13,10 @@ build:
 requirements:
   build:
     - python
-    #- setuptools
 
   run:
     - python
-    #- setuptools
     - jinja2
-    # Optional.
-    #- openpyxl 1.8.5
-    #- pandas
 
 test:
   imports:
