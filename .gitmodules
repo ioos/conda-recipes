@@ -1,0 +1,3 @@
+[submodule "conda-recipes-scitools"]
+	path = conda-recipes-scitools
+	url = https://github.com/SciTools/conda-recipes-scitools.git
