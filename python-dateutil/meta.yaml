@@ -1,0 +1,30 @@
+package:
+  name: python-dateutil
+  version: !!str 2.2
+
+source:
+  fn: python-dateutil-2.2.tar.gz
+  url: https://pypi.python.org/packages/source/p/python-dateutil/python-dateutil-2.2.tar.gz
+  md5: c1f654d0ff7e33999380a8ba9783fd5c
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - six
+
+  run:
+    - python
+    - six
+
+test:
+  # Python imports
+  imports:
+    - dateutil
+    - dateutil.zoneinfo
+
+about:
+  home: http://labix.org/python-dateutil
+  license: BSD License
+  summary: 'Extensions to the standard Python datetime module'
+
