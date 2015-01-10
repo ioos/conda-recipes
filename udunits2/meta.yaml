@@ -1,0 +1,25 @@
+package:
+    name: udunits2
+    version: 2.2.17
+
+source:
+    fn: v2.2.17.tar.gz
+    url: https://github.com/Unidata/UDUNITS-2/archive/v2.2.17.tar.gz
+    sha1: 3dfb7b1f18e21ac5366127778bbfd50ab5b7cf0a
+
+build:
+    number: 1
+    detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+    - autoconf
+    - libtool
+
+test:
+    commands:
+        - udunits2 -h
+
+about:
+  home: http://www.unidata.ucar.edu/software/udunits/
+  summary: The UDUNITS package supports units of physical quantities.
