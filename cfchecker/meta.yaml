@@ -1,0 +1,40 @@
+package:
+    name: cfchecker
+    version: 2.0.5
+
+source:
+    fn: cfchecker-2.0.5ceda.p1.tar.gz
+    url: https://pypi.python.org/packages/source/c/cfchecker/cfchecker-2.0.5ceda.p1.tar.gz
+    sha1: 8709708c8c9417e91403a0e0aa539d3bae55f346
+    patches:
+        - patch.diff  # [osx]
+
+build:
+    number: 1
+
+    entry_points:
+        - cfchecks = cfchecker:cfchecks_main
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - cdat-lite
+        - udunits 2.*
+    run:
+        - python
+        - numpy
+        - setuptools
+        - cdat-lite
+        - udunits 2.*
+
+test:
+    commands:
+        - cfchecks -h
+    imports:
+        - cfchecker
+
+about:
+  home: https://pypi.python.org/pypi/cfchecker
+  license: BSD
+  summary: The NetCDF Climate Forcast Conventions compliance checker.
