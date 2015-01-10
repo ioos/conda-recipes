@@ -9,7 +9,6 @@ source:
 
 build:
     number: 1
-    detect_binary_files_with_prefix: true
 
 requirements:
   build:
@@ -22,4 +21,4 @@ test:
 
 about:
   home: http://www.unidata.ucar.edu/software/udunits/
-  summary: The UDUNITS package supports units of physical quantities.
+  summary: 'A library for manipulating units of physical quantities.'
