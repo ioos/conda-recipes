@@ -20,13 +20,13 @@ requirements:
         - python
         - setuptools
         - cdat-lite
-        - udunits 2.*
+        - udunits2
     run:
         - python
         - numpy
         - setuptools
         - cdat-lite
-        - udunits 2.*
+        - udunits2
 
 test:
     commands:
