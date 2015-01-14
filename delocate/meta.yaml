@@ -1,24 +1,24 @@
 package:
-  name: click
-  version: !!str 3.3
+  name: delocate
+  version: !!str 0.6.2
 
 source:
-  git_url: https://github.com/mitsuhiko/click.git
-  git_tag: 3.3
-
+  fn: delocate-0.6.2.zip
+  url: https://pypi.python.org/packages/source/d/delocate/delocate-0.6.2.zip
+  md5: 521d40dd552bf4ad05c11eef58f7ab26
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
-  #preserve_egg_dir: True
-  #entry_points:
+  # preserve_egg_dir: True
+  # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - click = click:main
+    # - delocate = delocate:main
     #
-    # Would create an entry point called click that calls click.main()
+    # Would create an entry point called delocate that calls delocate.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -28,17 +28,20 @@ source:
 requirements:
   build:
     - python
+    - wheel
     - setuptools
 
   run:
     - python
+    - wheel 
 
 test:
   # Python imports
   imports:
-    - click
+    - delocate
+    - delocate.tests
 
-  #commands:
+  # commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
@@ -51,9 +54,9 @@ test:
     # - nose
 
 about:
-  home: http://github.com/mitsuhiko/click
-  license:  BSD License
-  summary: 'A simple wrapper around optparse for powerful command line utilities.'
+  home: http://github.com/matthew-brett/delocate
+  license: BSD License
+  summary: 'Move OSX dynamic libraries into package'
 
 # See
 # http://docs.continuum.io/conda/build.html for

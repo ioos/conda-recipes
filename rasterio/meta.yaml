@@ -1,9 +1,10 @@
 package:
   name: rasterio
-  version: !!str 0.15
+  version: !!str 0.16
 
 source:
   git_url: https://github.com/mapbox/rasterio.git
+  git_tag: 0.16
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -27,23 +28,28 @@ build:
 requirements:
   build:
     - numpy >=1.8
+    - delocate
     - python 
-    - click
-    #- coveralls >=0.4  Listed as a test requirement but no conda build available
+    - cligj
     - gdal
     - enum34
     - cython >=0.20
     - setuptools
+    - wheel
     - six
     - affine >=1.0
+    - coveralls >=0.4  
 
   run:
     - python
+    - delocate
+    - pytest
     - gdal
-    - click
+    - cligj
     - pytest
     - affine >=1.0
     - enum34
+    - wheel
     - numpy >=1.8
 
 test:
