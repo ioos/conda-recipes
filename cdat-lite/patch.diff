@@ -1,0 +1,10 @@
+--- libcdms/src/cdunif/gamach_orig.c	2014-08-13 07:52:16.000000000 +0100
++++ libcdms/src/cdunif/gamach.c	2014-08-13 07:52:26.000000000 +0100
+@@ -424,7 +424,7 @@
+
+ ---------------------------------------- mf*/
+
+-int gapby (int ival, char *ch, int ioff, int ilen) {
++void gapby (int ival, char *ch, int ioff, int ilen) {
+
+ char *ch1;

@@ -30,14 +30,14 @@ requirements:
   build:
     - python
     - setuptools
-    - udunits
+    - udunits2
     - numexpr >=2.1
     - pytest >=2.3.2
     - pytest-cov >=1.6
 
   run:
     - python
-    - udunits
+    - udunits2
     - numexpr >=2.1
     - pytest >=2.3.2
     - pytest-cov >=1.6

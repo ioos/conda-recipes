@@ -1,0 +1,22 @@
+package:
+    name: pyshp
+    version: "1.2.1"
+
+source:
+    fn: pyshp-1.2.1.tar.gz
+    url: https://pypi.python.org/packages/source/p/pyshp/pyshp-1.2.1.tar.gz
+    sha1: b6d7d526b530029af6fc7986ac0562231f7a63c7
+
+requirements:
+    build:
+        - python
+        - setuptools
+
+    run:
+        - python
+        - setuptools
+
+about:
+    home: https://pypi.python.org/pypi/pyshp
+    license: MIT
+    summary: Pure Python read/write support for ESRI Shapefile format.

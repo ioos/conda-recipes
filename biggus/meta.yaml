@@ -1,0 +1,21 @@
+package:
+    name: biggus
+    version: "0.7.0"
+
+source:
+    git_url: https://github.com/SciTools/biggus.git
+    git_tag: v0.7.0
+
+requirements:
+    build:
+        - python
+        - setuptools
+
+    run:
+        - python
+        - numpy
+
+about:
+    home: https://pypi.python.org/pypi/Biggus
+    license: LGPL
+    summary: Virtual large arrays and lazy evaluation.

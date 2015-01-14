@@ -1,0 +1,25 @@
+package:
+    name: pyugrid
+    version: "0.1.1"
+
+source:
+    git_url: https://github.com/pyugrid/pyugrid.git
+    git_tag: 0c1387ee561683bc4e1122cd21a06683f556aa06
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - netcdf4
+    run:
+        - python
+        - numpy
+        - netcdf4
+
+test:
+    imports:
+        - pyugrid
+
+about:
+    home: https://github.com/pyugrid/pyugrid
+    summary: A Python API to utilize data written using the unstructured grid UGRID conventions.

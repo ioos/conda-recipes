@@ -1,0 +1,24 @@
+package:
+    name: pyke
+    version: "1.1.1"
+
+source:
+    fn: pyke-1.1.1.zip
+    url: http://downloads.sourceforge.net/project/pyke/pyke/1.1.1/pyke-1.1.1.zip?r=&ts=1403707359&use_mirror=garr
+    sha1: 2d657257fa2181d85fbfb69701b91226deb8b4e0
+
+requirements:
+    build:
+        - python
+
+    run:
+        - python
+
+test:
+    imports:
+        - pyke
+
+about:
+    home: http://sourceforge.net/projects/pyke
+    license: MIT
+    summary: Python Knowledge Engine and Automatic Python Program Generator.

@@ -1,0 +1,11 @@
+package:
+    name: libmo_unpack
+    version: !!str 2.0.3
+
+source:
+    fn: unpack-160114.tgz
+    url: https://puma.nerc.ac.uk/trac/UM_TOOLS/raw-attachment/wiki/unpack/unpack-160114.tgz
+
+about:
+    home: https://puma.nerc.ac.uk/trac/UM_TOOLS/wiki/unpack
+    summary: Met Office PP-Unpacking Code
