@@ -1,0 +1,72 @@
+package:
+  name: pyhum
+  version: !!str 1.0.7
+
+source:
+  fn: PyHum-1.0.7.tar.gz
+  url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.0.7.tar.gz
+  md5: d803a0e5d41a5c3b634ae1aa91fc51f7
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - pyhum = pyhum:main
+    #
+    # Would create an entry point called pyhum that calls pyhum.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - numpy
+    - scipy
+    - pillow
+    - matplotlib
+    - scikit-learn
+    - cython
+    - pyproj
+
+  run:
+    - python
+    - numpy
+    - scipy
+    - pillow
+    - matplotlib
+    - scikit-learn
+    - cython
+    - pyproj
+
+test:
+  # Python imports
+  imports:
+    - PyHum
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/dbuscombe-usgs/PyHum
+  license: GNU Library or Lesser General Public License (LGPL)
+  summary: 'Python/Cython scripts to read Humminbird DAT and associated SON files, export data, carry out rudimentary radiometric corrections to data, and classify bed texture using the algorithm detailed in Buscombe, Grams, Smith, "Automated riverbed sediment classification using low-cost sidescan sonar", submitted to Journal of Hydraulic Engineering, September 2014.'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
