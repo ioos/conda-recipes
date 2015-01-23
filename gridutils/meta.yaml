@@ -1,0 +1,20 @@
+package:
+  name: gridutils
+  version: 0.51
+
+source:
+  git_url: https://github.com/phobson/gridutils.git
+
+about:
+  home: https://code.google.com/p/gridutils-c
+  license: MIT License
+  summary: Pavel Sakov's curvilinear orthogonal grid utilities
+
+build:
+  number: 1
+
+requirements:
+  build:
+   - nn
+   - csa
+#  run:  # assume those are static libraries

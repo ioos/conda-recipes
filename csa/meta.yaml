@@ -1,0 +1,13 @@
+package:
+  name: csa
+  version: 1.22
+
+source:
+  git_url: https://github.com/phobson/csa.git
+
+about:
+  home: https://code.google.com/p/csa-c
+  license: MIT License
+  summary: Pavel Sakov's cubic spline approximation library
+build:
+  number: 2
