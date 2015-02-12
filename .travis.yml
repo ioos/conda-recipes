@@ -25,12 +25,10 @@ install:
     - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
     # TODO: Change rsignell to ioos.
     - conda config --set show_channel_urls True && conda config --add channels http://conda.binstar.org/rsignell/channel/main
-    # I am going yo keep this for now.  We probably need something from his latest obvious-ci version.
+    # I am going to keep this for now.  We probably need something from his latest obvious-ci version.
     - conda install -c http://conda.binstar.org/pelson/channel/development --yes --quiet obvious-ci
     - conda config --add channels http://conda.binstar.org/rsignell
     - obvci_install_conda_build_tools.py
 
 script:
     - obvci_conda_build_dir.py ./ rsignell --channel main
-
-
