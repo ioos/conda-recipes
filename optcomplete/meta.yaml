@@ -1,6 +1,6 @@
 package:
   name: optcomplete
-  version: !!str 1.2-devel
+  version: !!str 1.2.devel
 
 source:
   fn: optcomplete-1.2-devel.tar.gz
