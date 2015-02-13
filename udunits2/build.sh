@@ -9,3 +9,8 @@ fi
 ./configure --prefix=$PREFIX
 make
 make install
+
+if [[ $(uname) == Darwin ]]; then
+    cp ${RECIPE_DIR}/patchbinary.py ${PREFIX}/
+    echo ${PREFIX} > ${PREFIX}/build_prefix.a
+fi
