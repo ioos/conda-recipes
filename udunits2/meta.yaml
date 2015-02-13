@@ -7,18 +7,22 @@ source:
     url: https://github.com/Unidata/UDUNITS-2/archive/v2.2.17.tar.gz
     sha1: 3dfb7b1f18e21ac5366127778bbfd50ab5b7cf0a
 
-build:
-    number: 1
-
 requirements:
   build:
-    - autoconf
-    - libtool
+    - expat  # [win]
+  run:
+    - expat  # [win]
+
+build:
+    number: 0 # [win]
+    number: 0 # [not win]
+    detect_binary_files_with_prefix: true
 
 test:
     commands:
         - udunits2 -h
+        - udunits2 -H meter -W miles
 
 about:
   home: http://www.unidata.ucar.edu/software/udunits/
-  summary: 'A library for manipulating units of physical quantities.'
+  summary: The UDUNITS package supports units of physical quantities.
