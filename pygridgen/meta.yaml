@@ -4,7 +4,7 @@ package:
 
 source:
   git_url: https://github.com/phobson/pygridgen.git
-  git_tag: master
+  git_tag: develop
 
 build:
   number: 1
