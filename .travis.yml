@@ -1,3 +1,8 @@
+# This .travis.yml is a copy of @pelson's .travis.yml from:
+# https://github.com/SciTools/conda-recipes-scitools
+
+# The language in this case has no bearing - we are going to be making use of "conda" for a
+# python distribution for the scientific python stack.
 language: c
 
 os:
@@ -6,7 +11,8 @@ os:
 
 env:
     global:
-        secure: "fVnEwIDKsEr20f6iVe63Gg/v0ewQf/VAFKnMneSDU7dH9T0V95Eylp6LbpVRahpvjFzcYFPrPGsjtqCrYaeDhCxzkU7gsw//l11hq12IY76lmDZuIryr3Z8CIyqYIEnvqrXdRtM/1RAkvldY6Tj72e3+K+WCnBOfCZ8Cv76pbJc="
+        # This has been generated with "" then "travis encrypt BINSTAR_TOKEN=<token_id> --repo ioos/conda-recipes".
+        secure: ""
 
     matrix:
         - CONDA_PY=27  CONDA_NPY=18
@@ -17,11 +23,12 @@ install:
 
     - wget https://raw.githubusercontent.com/pelson/Obvious-CI/v0.1.0/bootstrap-obvious-ci-and-miniconda.py
     - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
-    - conda config --set show_channel_urls True && conda config --add channels http://conda.binstar.org/ioos/channel/main
-    # NOTE: I am going to keep this for now.  We probably need something from his latest obvious-ci version.
+    # TODO: Change rsignell to ioos.
+    - conda config --set show_channel_urls True && conda config --add channels http://conda.binstar.org/rsignell/channel/main
+    # I am going to keep this for now.  We probably need something from his latest obvious-ci version.
     - conda install -c http://conda.binstar.org/pelson/channel/development --yes --quiet obvious-ci
-    - conda config --add channels http://conda.binstar.org/ioos
+    - conda config --add channels http://conda.binstar.org/rsignell
     - obvci_install_conda_build_tools.py
 
 script:
-    - obvci_conda_build_dir.py ./ ioos --channel main
+    - obvci_conda_build_dir.py ./ rsignell --channel main
