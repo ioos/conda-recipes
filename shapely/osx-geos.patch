@@ -1,10 +1,10 @@
 diff --git shapely/geos.py shapely/geos.py
-index 20945bb..371be63 100644
+index 6061ed3..f993530 100644
 --- shapely/geos.py
 +++ shapely/geos.py
-@@ -60,17 +60,7 @@ if sys.platform.startswith('linux'):
+@@ -60,18 +60,7 @@ if sys.platform.startswith('linux'):
      free.restype = None
- 
+
  elif sys.platform == 'darwin':
 -    if hasattr(sys, 'frozen'):
 -        # .app file from py2app
@@ -17,7 +17,8 @@ index 20945bb..371be63 100644
 -            # macports
 -            '/opt/local/lib/libgeos_c.dylib',
 -        ]
-+    alt_paths = [os.path.join(sys.prefix, 'lib', 'libgeos_c.dylib')]
-     _lgeos = load_dll('geos_c', fallbacks=alt_paths)
+-    _lgeos = load_dll('geos_c', fallbacks=alt_paths)
++    _lgeos = CDLL(os.path.join(sys.prefix, 'lib', 'libgeos_c.dylib'))
      free = load_dll('c').free
      free.argtypes = [c_void_p]
+     free.restype = None
