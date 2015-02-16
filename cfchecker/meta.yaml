@@ -18,13 +18,13 @@ build:
 requirements:
     build:
         - python
-        - numpy  # must be <1.9 due to use of oldnumeric
+        - numpy  <1.9  # must be <1.9 due to use of oldnumeric
         - setuptools
         - cdat-lite
         - udunits2
     run:
         - python
-        - numpy  # must be <1.9 due to use of oldnumeric
+        - numpy  <1.9 # must be <1.9 due to use of oldnumeric
         - cdat-lite
         - udunits2
 
