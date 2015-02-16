@@ -1,8 +1,7 @@
-"%PYTHON%" setup.py install
-if errorlevel 1 exit 1
+set LIB=%LIBRARY_LIB%;%LIB%
+set LIBPATH=%LIBRARY_LIB%;%LIBPATH%
+set INCLUDE=%LIBRARY_INC%;%INCLUDE%
 
-:: Add more build steps here, if they are necessary.
+set GEOS_DIR=%LIBRARY_PREFIX%
 
-:: See
-:: http://docs.continuum.io/conda/build.html
-:: for a list of environment variables that are set during the build process.
+%PYTHON% setup.py install

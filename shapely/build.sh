@@ -2,4 +2,4 @@
 
 export GEOS_DIR=$PREFIX
 
-$PYTHON setup.py install || exit 1
+$PYTHON setup.py install

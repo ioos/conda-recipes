@@ -1,0 +1,30 @@
+--- setup.orig.py	Wed Dec 10 18:01:57 2014
++++ setup.py	Wed Dec 10 18:02:23 2014
+@@ -150,7 +150,7 @@
+     ext_modules = []
+     libraries = []
+ elif sys.platform == 'win32':
+-    libraries = ['geos']
++    libraries = ['geos_c']
+ else:
+     libraries = ['geos_c']
+
+@@ -181,7 +181,7 @@
+         "shapely.speedups._speedups",
+         ["shapely/speedups/_speedups.c"],
+         libraries=libraries,
+-        include_dirs=[get_config_var('INCLUDEDIR')],),
++        include_dirs=[],),
+ ]
+
+ try:
+@@ -198,8 +198,7 @@
+     ext_modules.append(DistutilsExtension("shapely.vectorized._vectorized",
+                                  sources=["shapely/vectorized/_vectorized.pyx"],
+                                  libraries=libraries + [np.get_include()],
+-                                 include_dirs=[get_config_var('INCLUDEDIR'),
+-                                               np.get_include()],
++                                 include_dirs=[np.get_include()],
+                                  ))
+ except ImportError:
+     print("Numpy or Cython not available, shapely.vectorized submodule not "
