@@ -1,0 +1,11 @@
+--- setup.py.orig	Wed Dec 10 18:20:23 2014
++++ setup.py	Wed Dec 10 18:19:39 2014
+@@ -35,7 +35,7 @@
+ if sys.platform.startswith('win'):
+     def get_config_var(name):
+         return '.'
+-    geos = 'geos'
++    geos = 'geos_c'
+     extra_extension_args = {}
+ else:
+     geos = 'geos_c'

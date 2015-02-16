@@ -1,6 +1,6 @@
 package:
     name: cfchecker
-    version: 2.0.5
+    version: "2.0.5"
 
 source:
     fn: cfchecker-2.0.5ceda.p1.tar.gz
@@ -10,7 +10,7 @@ source:
         - patch.diff  # [osx]
 
 build:
-    number: 1
+    number: 0
 
     entry_points:
         - cfchecks = cfchecker:cfchecks_main
@@ -18,13 +18,13 @@ build:
 requirements:
     build:
         - python
+        - numpy  # must be <1.9 due to use of oldnumeric
         - setuptools
         - cdat-lite
         - udunits2
     run:
         - python
-        - numpy
-        - setuptools
+        - numpy  # must be <1.9 due to use of oldnumeric
         - cdat-lite
         - udunits2
 
@@ -37,4 +37,4 @@ test:
 about:
   home: https://pypi.python.org/pypi/cfchecker
   license: BSD
-  summary: The NetCDF Climate Forcast Conventions compliance checker.
+  summary: "The NetCDF Climate Forcast Conventions compliance checker."

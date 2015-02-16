@@ -1,6 +1,6 @@
 package:
     name: cdat-lite
-    version: 5.2.1
+    version: "5.2.1"
 
 source:
     fn: cdat_lite-5.2-1.tar.gz
@@ -10,7 +10,7 @@ source:
         - patch.diff  # [osx]
 
 build:
-    number: 2
+    number: 0
 
 requirements:
     build:
@@ -32,4 +32,4 @@ test:
 
 about:
   home: http://proj.badc.rl.ac.uk/cedaservices/wiki/CdatLite
-  summary: A Python package for managing and analysing climate science data.
+  summary: "A Python package for managing and analysing climate science data."
