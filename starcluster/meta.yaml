@@ -6,25 +6,11 @@ source:
   fn: StarCluster-0.95.6.tar.gz
   url: https://pypi.python.org/packages/source/S/StarCluster/StarCluster-0.95.6.tar.gz
   md5: efec9d81232f933af4609e81aa11152e
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
 build:
-  #preserve_egg_dir: True
   entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - starcluster = starcluster:main
-    #
-    # Would create an entry point called starcluster that calls starcluster.main()
-
     - starcluster = starcluster.cli:main
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+  number: 0
 
 requirements:
   build:
@@ -55,7 +41,6 @@ requirements:
     - iso8601 >=0.1.8
 
 test:
-  # Python imports
   imports:
     - starcluster
     - starcluster.balancers
@@ -67,23 +52,9 @@ test:
     - starcluster.tests.templates
 
   commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
     - starcluster --help
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: http://star.mit.edu/cluster
   license: GNU Library or Lesser General Public License (LGPL)
   summary: "StarCluster is a utility for creating and managing computing clusters hosted on Amazon's Elastic Compute Cloud (EC2)."
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml

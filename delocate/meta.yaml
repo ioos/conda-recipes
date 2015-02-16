@@ -6,58 +6,25 @@ source:
   fn: delocate-0.6.2.zip
   url: https://pypi.python.org/packages/source/d/delocate/delocate-0.6.2.zip
   md5: 521d40dd552bf4ad05c11eef58f7ab26
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
-# build:
-  # preserve_egg_dir: True
-  # entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - delocate = delocate:main
-    #
-    # Would create an entry point called delocate that calls delocate.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+build:
+  number: 0
 
 requirements:
   build:
     - python
     - wheel
     - setuptools
-
   run:
     - python
-    - wheel 
+    - wheel
 
 test:
-  # Python imports
   imports:
     - delocate
     - delocate.tests
-
-  # commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: http://github.com/matthew-brett/delocate
   license: BSD License
   summary: 'Move OSX dynamic libraries into package'
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml

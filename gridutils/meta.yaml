@@ -4,17 +4,17 @@ package:
 
 source:
   git_url: https://github.com/phobson/gridutils.git
-
-about:
-  home: https://code.google.com/p/gridutils-c
-  license: MIT License
-  summary: Pavel Sakov's curvilinear orthogonal grid utilities
+  git_tag: master
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
    - nn
    - csa
-#  run:  # assume those are static libraries
+
+about:
+  home: https://code.google.com/p/gridutils-c
+  license: MIT License
+  summary: "Pavel Sakov's curvilinear orthogonal grid utilities"

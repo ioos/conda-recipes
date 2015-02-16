@@ -1,6 +1,7 @@
 package:
   name: boost
   version: 1.55.0
+
 source:
   fn:  boost_1_55_0.tar.bz2
   url: http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2
@@ -9,18 +10,7 @@ source:
 build:
   number: 0
 
-requirements:
-  build:
-
-  run:
-
-test:
-  imports:
-
-  commands:
-
 about:
   home: http://www.boost.org
   license: BSL-1.0
   summary: 'Boost provides free portable peer-reviewed C++ libraries. The emphasis is on portable libraries which work well with the C++ Standard Library'
-

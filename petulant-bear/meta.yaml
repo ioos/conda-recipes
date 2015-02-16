@@ -6,24 +6,9 @@ source:
   fn: petulant-bear-0.1.2.tar.gz
   url: https://pypi.python.org/packages/source/p/petulant-bear/petulant-bear-0.1.2.tar.gz
   md5: 2b71e5a00d9d7aff70284dffc3be2f13
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
-# build:
-  #preserve_egg_dir: True
-  #entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - petulant-bear = petulant-bear:main
-    #
-    # Would create an entry point called petulant-bear that calls petulant-bear.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+build:
+  number: 0
 
 requirements:
   build:
@@ -31,38 +16,21 @@ requirements:
     - setuptools
     - netcdf4 >=1.0.0
     - nose >=1.2.0
-    - numpy 
+    - numpy
     - lxml >=3.2.1
 
   run:
     - python
     - netcdf4 >=1.0.0
     - nose >=1.2.0
-    - numpy 
+    - numpy
     - lxml >=3.2.1
 
 test:
-  # Python imports
   imports:
     - petulantbear
-
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: https://github.com/ioos/petulant-bear
   license:  GNU General Public License v3 (GPLv3)
   summary: 'Presents etree interface to netcdf4-python objects using NCML data model'
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml

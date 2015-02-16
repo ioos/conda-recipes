@@ -4,6 +4,7 @@ package:
 
 source:
     git_url: https://github.com/ocefpaf/python-airsea.git
+    git_tag: master
 
 build:
   number: 0
@@ -13,13 +14,11 @@ requirements:
     - python
     - setuptools
     - numpy
-
   run:
     - python
     - numpy
 
 test:
-  # Python imports
   imports:
     - airsea
 

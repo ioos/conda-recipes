@@ -5,24 +5,10 @@ package:
 source:
   git_url: https://github.com/ioos/pyoos.git
   git_tag: 0.6.2
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
 build:
-  number: 2
+  number: 0
   preserve_egg_dir: True
-  #entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - pyoos = pyoos:main
-    #
-    # Would create an entry point called pyoos that calls pyoos.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
 
 requirements:
   build:
@@ -49,7 +35,6 @@ requirements:
     - pytest
 
 test:
-  # Python imports
   imports:
     - tests
     - pyoos.parsers
@@ -69,23 +54,7 @@ test:
     - pyoos.collectors.wqp
 #   - tests.collectors
 
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
-
 about:
   home: https://github.com/asascience-open/pyoos
   license: GNU General Public License v3 (GPLv3)
   summary: 'A Python library for collecting Met/Ocean observations'
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml

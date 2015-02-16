@@ -7,8 +7,8 @@ source:
    url: https://pypi.python.org/packages/source/r/rdflib/rdflib-4.1.2.tar.gz
    md5: a356cf3bdfe1a72d240d151ce5662b84
 
-
 build:
+   number: 0
    entry_points:
    - rdfpipe = rdflib.tools.rdfpipe:main
    - csv2rdf = rdflib.tools.csv2rdf:main
@@ -42,17 +42,9 @@ test:
    # - rdflib.namespace
 
    commands:
-   # You can put test commands to be run here. Use this to test that the
-   # entry points work.
    - rdfpipe --help
-   # You can also put a file called run_test.py in the recipe that will be run
-   # at test time.
-   # requires:
-   # Put any additional test requirements here. For example
-   # - nose
 
 about:
   home: https://github.com/RDFLib/rdflib
   license: BSD License
   summary: 'RDFLib is a Python library for working with RDF, a simple yet powerful language for representing information'
-

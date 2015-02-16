@@ -7,6 +7,9 @@ source:
   url: https://pypi.python.org/packages/source/S/SPARQLWrapper/SPARQLWrapper-1.6.4.tar.gz
   md5: e30a18bd53e16c93e5fc0a2cc736ad34
 
+build:
+  number: 0
+
 requirements:
   build:
     - python

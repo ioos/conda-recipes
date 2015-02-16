@@ -3,29 +3,10 @@ package:
   version: !!str 0.7_DEV
 
 source:
-# fn: thredds_crawler-0.6.tar.gz
-# url: https://pypi.python.org/packages/source/t/thredds_crawler/thredds_crawler-0.6.tar.gz
-# md5: fd75a6446b6c0f0cab9e6eccc24a409f
   git_url: https://github.com/asascience-open/thredds_crawler.git
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
 build:
   number: 0
-  #preserve_egg_dir: True
-  #entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - thredds_crawler = thredds_crawler:main
-    #
-    # Would create an entry point called thredds_crawler that calls thredds_crawler.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
 
 requirements:
   build:
@@ -40,28 +21,11 @@ requirements:
     - lxml
 
 test:
-  # Python imports
   imports:
     - tests
     - thredds_crawler
-
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: https://github.com/asascience-open/thredds_crawler
   license:  GNU General Public License v3 (GPLv3)
   summary: 'A Python library for crawling THREDDS servers'
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
