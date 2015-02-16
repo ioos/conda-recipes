@@ -1,0 +1,42 @@
+environment:
+
+  CONDA_INSTALL_LOCN: "C:\\conda"
+
+  # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
+  # /E:ON and /V:ON options are not enabled in the batch script interpreter
+  # See: http://stackoverflow.com/a/13751649/163740
+  CMD_IN_ENV: "cmd /E:ON /V:ON /C obvci_appveyor_python_build_env.cmd"
+
+  BINSTAR_TOKEN:
+    secure: Yz49TWLWFQw2nEqbFIOh4dkWqsfeSIodT5GIMXA6zJ4QltHdTLiiB3NTI3n3hlig
+
+  matrix:
+    - TARGET_ARCH: "x86"
+      CONDA_PY: "27"
+      CONDA_NPY: "18"
+    - TARGET_ARCH: "x64"
+      CONDA_PY: "27"
+      CONDA_NPY: "18"
+
+# We always use a 64-bit machine, but can build x86 distributions
+# with the TARGET_ARCH variable.
+platform:
+    - x64
+
+install:
+    - cmd: cinst wget -x86
+    - cmd: wget https://raw.githubusercontent.com/pelson/Obvious-CI/v0.1.0/bootstrap-obvious-ci-and-miniconda.py --no-check-certificate
+    - cmd: python bootstrap-obvious-ci-and-miniconda.py %CONDA_INSTALL_LOCN% %TARGET_ARCH% %CONDA_PY:~0,1% --without-obvci
+    - cmd: set PATH=%PATH%;%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\scripts
+    - cmd: set PYTHONUNBUFFERED=1
+
+    - cmd: conda install -c http://conda.binstar.org/pelson/channel/development --yes --quiet obvious-ci
+    - cmd: conda config --add channels http://conda.binstar.org/ioos -f
+    - cmd: conda info
+    - cmd: obvci_install_conda_build_tools.py
+
+# Skip .NET project specific build phase.
+build: off
+
+test_script:
+    - "%CMD_IN_ENV% obvci_conda_build_dir.py .\ ioos --channel main"
