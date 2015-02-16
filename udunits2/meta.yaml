@@ -1,6 +1,6 @@
 package:
     name: udunits2
-    version: 2.2.17
+    version: "2.2.17"
 
 source:
     fn: v2.2.17.tar.gz
@@ -25,4 +25,4 @@ test:
 
 about:
   home: http://www.unidata.ucar.edu/software/udunits/
-  summary: The UDUNITS package supports units of physical quantities.
+  summary: "The UDUNITS package supports units of physical quantities."
