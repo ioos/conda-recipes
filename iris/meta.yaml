@@ -1,0 +1,42 @@
+package:
+  name: iris
+  version: !!str 1.7.2_DEV_9e1fd13
+source:
+  git_url: https://github.com/rhattersley/iris.git
+  git_tag: lazy-dtype
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - biggus
+    - numpy
+    - scipy
+    - udunits2
+    - netcdf4
+    - pyke
+    - cartopy
+    - geos
+    - nose
+    - setuptools
+  run:
+    - python
+    - biggus
+    - numpy
+    - scipy
+    - udunits2
+    - netcdf4
+    - geos
+    - pyke
+    - cartopy
+    - shapely
+    - matplotlib
+
+test:
+  imports:
+
+about:
+  home: http://scitools.org.uk/iris
+  license: Open Government License (UK)
