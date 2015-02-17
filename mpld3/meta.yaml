@@ -8,17 +8,19 @@ source:
   md5: 266f4e51a094f8ff1aaf7e2018f763b4
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
     - python
     - setuptools
+    - mplexporter
 
   run:
     - python
     - jinja2
     - matplotlib
+    - mplexporter
 
 test:
   imports:

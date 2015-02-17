@@ -5,9 +5,10 @@ package:
 source:
   git_url: https://github.com/phobson/nn.git
 
+build:
+  number: 0
+
 about:
   home: https://code.google.com/p/nn-c
   license: MIT License
-  summary: Pavel Sakov's natural neighbors library
-build:
-  number: 2
+  summary: "Pavel Sakov's natural neighbors library"

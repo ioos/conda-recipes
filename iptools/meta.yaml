@@ -6,55 +6,22 @@ source:
   fn: iptools-0.6.1.tar.gz
   url: https://pypi.python.org/packages/source/i/iptools/iptools-0.6.1.tar.gz
   md5: aed4045638fd40c16f8d9bb04606f700
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
-# build:
-  #preserve_egg_dir: True
-  #entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - iptools = iptools:main
-    #
-    # Would create an entry point called iptools that calls iptools.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+build:
+  number: 0
 
 requirements:
   build:
     - python
     - setuptools
-
   run:
     - python
 
 test:
-  # Python imports
   imports:
     - iptools
-
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: https://github.com/bd808/python-iptools
   license: BSD License
   summary: 'Python utilites for manipulating IPv4 and IPv6 addresses'
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml

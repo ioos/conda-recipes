@@ -7,6 +7,9 @@ source:
   url: https://pypi.python.org/packages/source/p/pyproj/pyproj-1.9.3.tar.gz
   md5: ad0ac0602b6373c4203b4d0774445694
 
+build:
+  number: 0
+
 requirements:
   build:
     - python
@@ -17,26 +20,9 @@ requirements:
     - proj4
     - numpy
 test:
-  # Python imports
   imports:
     - pyproj
-
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: http://code.google.com/p/pyproj/
   license: OSI
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml

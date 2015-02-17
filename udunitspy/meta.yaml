@@ -4,27 +4,10 @@ package:
 
 source:
   git_url: https://github.com/blazetopher/udunitspy.git
-# fn: udunitspy-0.0.6.tar.gz
-# url: https://pypi.python.org/packages/source/u/udunitspy/udunitspy-0.0.6.tar.gz
-# md5: 49a7520202e7e36fcbc6767b36e07ac2
-#  patches:
-   # List any patch files here
-   # - fix.patch
+  git_tag: master
 
 build:
  number: 0
-  #preserve_egg_dir: True
-  #entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - udunitspy = udunitspy:main
-    #
-    # Would create an entry point called udunitspy that calls udunitspy.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
 
 requirements:
   build:
@@ -34,7 +17,7 @@ requirements:
     - numexpr >=2.1
     - pytest >=2.3.2
     - pytest-cov >=1.6
-
+    - swig
   run:
     - python
     - udunits2
@@ -43,28 +26,11 @@ requirements:
     - pytest-cov >=1.6
 
 test:
-  # Python imports
   imports:
     - udunitspy
 #   - udunitspy.test
-
-  #commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: https://github.com/blazetopher/udunitspy/
   license: LICENSE.txt
   summary: 'Python wrapper for UDUNITS2'
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
