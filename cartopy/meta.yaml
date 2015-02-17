@@ -4,7 +4,7 @@ package:
 
 source:
   git_url: https://github.com/SciTools/cartopy.git
-  git_tag: v0.11.x
+  git_tag: v0.11.2
 
   patches:
     - cartopy.win.patch  # [win]
