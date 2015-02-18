@@ -20,9 +20,11 @@ requirements:
   build:
    - python
    - setuptools
+   - pip
    - isodate
    - pyparsing
-   # - sparqlwrapper # Added via build.sh to avoid circular dependency.
+   # Using pip in build.sh/bld.bat to avoid circular dependency.
+   # - sparqlwrapper
    - html5lib
    - six
 
@@ -36,10 +38,9 @@ requirements:
    - six
 
 test:
-   # Python imports NOTE: Cannot test installation without sparqlwrapper!
-   # imports:
-   # - rdflib
-   # - rdflib.namespace
+   imports:
+   - rdflib
+   - rdflib.namespace
 
    commands:
    - rdfpipe --help
