@@ -1,0 +1,15 @@
+package:
+  name: psycopg2
+  version: "2.5.4"
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+
+about:
+  home: http://initd.org/psycopg/
+  license: GNU Library or Lesser General Public License (LGPL) or  Zope Public License
+  summary: "Python-PostgreSQL Database Adapter"
