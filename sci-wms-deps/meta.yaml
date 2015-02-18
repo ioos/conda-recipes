@@ -1,5 +1,5 @@
 package:
-  name: sci-wms
+  name: sci-wms-deps
   version: !!str 0.1.0
 source:
   git_url: https://github.com/kwilcox/sci-wms.git
