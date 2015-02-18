@@ -23,7 +23,7 @@ requirements:
    - pip
    - isodate
    - pyparsing
-   # Added using pip in the build.sh/bld.bat to avoid circular dependency.
+   # Using pip in build.sh/bld.bat to avoid circular dependency.
    # - sparqlwrapper
    - html5lib
    - six
