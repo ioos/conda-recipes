@@ -25,6 +25,6 @@ The recipes here are automatically built using
 [Obvious-CI](https://github.com/pelson/Obvious-CI/https://github.com/ioos/conda-recipes/blob/master/.travis.yml#L14-L31).
 
 **CAVEAT:**  Windows users must be aware that the packages here are not fully
-tested in a Windows environment.  Some bugs related to path and/or others might
-surface when trying to use them.  In that case open a issue here and
+tested in a Windows environment.  Some bugs (for example hard-coded paths)
+might surface when trying to use them.  In that case open a issue here and
 [upstream](http://en.wikipedia.org/wiki/Upstream_%28software_development%29).
