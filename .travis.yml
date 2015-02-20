@@ -9,7 +9,6 @@ env:
         secure: "fVnEwIDKsEr20f6iVe63Gg/v0ewQf/VAFKnMneSDU7dH9T0V95Eylp6LbpVRahpvjFzcYFPrPGsjtqCrYaeDhCxzkU7gsw//l11hq12IY76lmDZuIryr3Z8CIyqYIEnvqrXdRtM/1RAkvldY6Tj72e3+K+WCnBOfCZ8Cv76pbJc="
 
     matrix:
-        - CONDA_PY=27  CONDA_NPY=18
         - CONDA_PY=27  CONDA_NPY=19
 
 before_install:
