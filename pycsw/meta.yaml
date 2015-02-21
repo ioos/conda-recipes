@@ -13,7 +13,6 @@ requirements:
   build:
     - python
     - setuptools
-    - psycopg2
     - sqlalchemy
     - geolinks
     - lxml
@@ -23,7 +22,6 @@ requirements:
 
   run:
     - python
-    - psycopg2
     - sqlalchemy
     - geolinks
     - lxml
