@@ -2,8 +2,7 @@
 
 [![build status](http://img.shields.io/travis/ioos/conda-recipes/master.svg?style=flat)](https://travis-ci.org/ioos/conda-recipes)
 <span>&nbsp;</span>
-[![Build status](https://ci.appveyor.com/api/projects/status/github/ioos/conda-recipes?branch=master&svg=true)](https://ci.appveyor.com/project/ocefpaf/conda-recipes)
-
+[![Build status](https://ci.appveyor.com/api/projects/status/behpiwxfraxcruv3?svg=true)](https://ci.appveyor.com/project/comtbot/conda-recipes)
 
 conda-recipes for IOOS packages
 
