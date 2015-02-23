@@ -1,13 +1,14 @@
 package:
-  name: iris
-  version: !!str 1.7.2_DEV_9e1fd13
+    name: iris
+    version: 1.7.4.dev
 
 source:
-  git_url: https://github.com/rhattersley/iris.git
-  git_tag: lazy-dtype
+    git_url: https://github.com/SciTools/iris.git
+    git_tag: v1.7.x
 
 build:
-  number: 1
+    number: 0  # [win]
+    number: 0  # [not win]
 
 requirements:
   build:
@@ -20,7 +21,6 @@ requirements:
     - pyke
     - setuptools
     - libmo_unpack  # [not win]
-
   run:
     - python
     - scipy
@@ -37,7 +37,7 @@ requirements:
 test:
   imports:
         - iris
-        # FIXME: This is not working yet!
+        # pp is not working yet.
         #- iris.fileformats.pp_packing  # [not win]
 
 about:
