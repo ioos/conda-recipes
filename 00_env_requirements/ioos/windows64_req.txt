@@ -6,6 +6,5 @@ folium
 rdflib
 geojson
 requests
-prettyplotlib
 ipython-notebook
 xlrd
