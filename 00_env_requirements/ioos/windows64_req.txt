@@ -1,0 +1,11 @@
+iris
+mpld3
+pyoos
+pandas
+folium
+rdflib
+geojson
+requests
+prettyplotlib
+ipython-notebook
+xlrd

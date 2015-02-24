@@ -1,0 +1,12 @@
+iris=1.7.2_DEV_9e1fd13
+mpld3
+pyoos
+pandas
+folium
+rdflib
+geojson
+requests
+prettyplotlib
+ipython-notebook
+libnetcdf=4.2.1.1=1
+xlrd
