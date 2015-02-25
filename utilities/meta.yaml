@@ -1,0 +1,39 @@
+package:
+  name: utilities
+  version: "0.0.1"
+
+source:
+  git_url: https://github.com/ocefpaf/utilities.git
+  git_tag: master
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - iris
+    - lxml
+    - pandas
+    - beautifulsoup4
+
+  run:
+    - python
+    - iris
+    - lxml
+    - pandas
+    - beautifulsoup4
+    - folium
+    - ipython-notebook
+    - oceans
+    - pyugrid  # [not win]
+
+test:
+  imports:
+    - utilities
+
+about:
+  home: https://github.com/ocefpaf/utilities.git
+  license: MIT License
+  summary: "SECOORA/IOOS `utilities.py` module."

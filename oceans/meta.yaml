@@ -1,0 +1,45 @@
+package:
+  name: oceans
+  version: !!str 0.2.3
+
+source:
+  git_url: https://github.com/ocefpaf/python-oceans.git
+  git_branch: master
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy >=1.8
+    - scipy >=0.13
+    - matplotlib >=1.2
+    - pandas >=0.13
+    - gsw >=3.0.2
+    - seawater
+    - shapely  # [not win]
+    - netcdf4
+    - ctd
+
+  run:
+    - python
+    - numpy >=1.8
+    - scipy >=0.13
+    - matplotlib >=1.2
+    - pandas >=0.13
+    - gsw >=3.0.2
+    - seawater
+    - shapely  # [not win]
+    - netcdf4
+    - ctd
+
+test:
+  imports:
+    - oceans
+
+about:
+  home: http://pypi.python.org/pypi/oceans/
+  license: MIT License
+  summary: 'Misc functions for oceanographic data analysis'
