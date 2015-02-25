@@ -1,0 +1,37 @@
+package:
+  name: qrcode
+  version: !!str 5.1
+
+source:
+  fn: qrcode-5.1.tar.gz
+  url: https://pypi.python.org/packages/source/q/qrcode/qrcode-5.1.tar.gz
+  md5: 1f20223419bbf992208ada0c12ed4577
+
+build:
+  entry_points:
+    - qr = qrcode.console_scripts:main
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - six
+
+  run:
+    - python
+    - six
+
+test:
+  imports:
+    - qrcode
+    - qrcode.image
+    - qrcode.tests
+
+  commands:
+    - qr --help
+
+about:
+  home: https://github.com/lincolnloop/python-qrcode
+  license: BSD License
+  summary: 'QR Code image generator'
