@@ -1,25 +1,25 @@
 package:
-  name: cov-core
-  version: !!str 1.13.0
+    name: cov-core
+    version: !!str 1.15.0
 
 source:
-  fn: cov-core-1.13.0.tar.gz
-  url: https://pypi.python.org/packages/source/c/cov-core/cov-core-1.13.0.tar.gz
-  md5: 8999e0bc50bca5a09d7731a3d42bfcd1
+    fn: cov-core-1.15.0.tar.gz
+    url: https://pypi.python.org/packages/source/c/cov-core/cov-core-1.15.0.tar.gz
+    md5: f519d4cb4c4e52856afb14af52919fe6
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - coverage >=3.6
-  run:
-    - python
-    - coverage >=3.6
+    build:
+        - python
+        - setuptools
+        - coverage >=3.6
+    run:
+        - python
+        - coverage >=3.6
 
 about:
-  home: https://github.com/schlamar/cov-core
-  license:  MIT License
-  summary: 'plugin core for use by pytest-cov, nose-cov and nose2-cov'
+    home: https://github.com/schlamar/cov-core
+    license:  MIT License
+    summary: 'plugin core for use by pytest-cov, nose-cov and nose2-cov'
