@@ -7,7 +7,7 @@ source:
   git_branch: master
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -19,7 +19,7 @@ requirements:
     - pandas >=0.13
     - gsw >=3.0.2
     - seawater
-    - shapely  # [not win]
+    - shapely
     - netcdf4
     - ctd
 
@@ -31,7 +31,7 @@ requirements:
     - pandas >=0.13
     - gsw >=3.0.2
     - seawater
-    - shapely  # [not win]
+    - shapely
     - netcdf4
     - ctd
 
