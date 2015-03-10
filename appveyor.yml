@@ -8,7 +8,7 @@ environment:
   CMD_IN_ENV: "cmd /E:ON /V:ON /C obvci_appveyor_python_build_env.cmd"
 
   BINSTAR_TOKEN:
-    secure: Yz49TWLWFQw2nEqbFIOh4dkWqsfeSIodT5GIMXA6zJ4QltHdTLiiB3NTI3n3hlig
+    secure: a0u2Qr8yHKQQHhFB+oWUg2tWeQYyUxHtFVk1ofwIPDaW9L5FrIC8fSns+Zbq0Kno
 
   matrix:
     - TARGET_ARCH: "x86"
