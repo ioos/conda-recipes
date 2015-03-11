@@ -13,13 +13,11 @@ source:
     - geom.py.patch  # [win]
 
 build:
-  number: 0     # [not win]
-  number: 0     # [win]
+  number: 1
 
 requirements:
   build:
     - python
-    - distribute
     - geos >=3.4
     - cython
     - numpy
