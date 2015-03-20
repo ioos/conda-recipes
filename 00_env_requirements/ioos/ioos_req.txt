@@ -1,4 +1,4 @@
-iris=1.7.2_DEV_9e1fd13
+iris
 mpld3
 pyoos
 pandas

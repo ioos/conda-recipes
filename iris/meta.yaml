@@ -1,10 +1,10 @@
 package:
     name: iris
-    version: 1.7.4.dev
+    version: 1.8.0.dev
 
 source:
-    git_url: https://github.com/SciTools/iris.git
-    git_tag: v1.7.x
+    git_url: https://github.com/rhattersley/iris.git
+    git_tag: lazy-dtype_update2
 
 build:
     number: 0  # [win]
