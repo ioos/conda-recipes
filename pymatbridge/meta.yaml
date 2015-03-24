@@ -1,0 +1,28 @@
+package:
+  name: pymatbridge
+  version: "0.5.0"
+
+source:
+  git_url: https://github.com/arokem/python-matlab-bridge.git
+  git_tag: master
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+
+  run:
+    - python
+    - pyzmq
+    - numpy
+
+test:
+  imports:
+    - pymatbridge
+
+about:
+  home: https://github.com/arokem/python-matlab-bridge
+  license: BSD License
+  summary: 'Python-MATLAB(R) Bridge and IPython'
