@@ -1,0 +1,29 @@
+package:
+  name: pymatbridge
+  version: "0.4.3"
+
+source:
+  fn: pymatbridge-0.4.3.tar.gz
+  url: https://pypi.python.org/packages/source/p/pymatbridge/pymatbridge-0.4.3.tar.gz
+  md5: 8663038dc953fa00e9ba812c47dc5582
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+
+  run:
+    - python
+    - pyzmq
+    - numpy
+
+test:
+  imports:
+    - pymatbridge
+
+about:
+  home: https://github.com/arokem/python-matlab-bridge
+  license: BSD License
+  summary: 'Python-MATLAB(R) Bridge and IPython'
