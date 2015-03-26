@@ -1,0 +1,43 @@
+package:
+    name: pyaxiom
+    version: "0.0.8"
+
+source:
+    git_url: https://github.com/axiom-data-science/pyaxiom
+    git_tag: 0.0.8
+
+build:
+    number: 0
+    entry_points:
+        - binner=pyaxiom.netcdf.grids.binner:run
+
+requirements:
+    build:
+        - python
+        - setuptools
+
+    run:
+        - python
+        - numpy
+        - pytz
+        - python-dateutil
+        - netcdf4
+        - pandas
+        - pyncml
+        - nco-bindings  # [not win]
+
+test:
+    imports:
+        - pyaxiom
+        - pyaxiom.netcdf
+        - pyaxiom.netcdf.grids
+        - pyaxiom.netcdf.sensors
+        - pyaxiom.tests
+
+    commands:
+        - binner --help
+
+about:
+    home: https://github.com/axiom-data-science/pyaxiom
+    license: MIT License
+    summary: 'An ocean data toolkit developed and used by Axiom Data Science'
