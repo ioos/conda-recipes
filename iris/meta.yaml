@@ -3,44 +3,43 @@ package:
     version: 1.8.0.dev
 
 source:
-    git_url: https://github.com/rhattersley/iris.git
-    git_tag: lazy-dtype_update2
+    git_url: https://github.com/SciTools/iris.git
+    git_tag: master
 
 build:
-    number: 0  # [win]
-    number: 0  # [not win]
+    number: 1  # [win]
+    number: 1  # [not win]
 
 requirements:
-  build:
-    - python
-    - scipy
-    - biggus
-    - cartopy >=0.11
-    - netcdf4
-    - udunits2
-    - pyke
-    - setuptools
-    - libmo_unpack  # [not win]
-  run:
-    - python
-    - scipy
-    - biggus
-    - cartopy >=0.11
-    - matplotlib
-    - netcdf4
-    - ecmwf_grib >=1.12.1  # [not win]
-    - numpy
-    - pyke
-    - udunits2
-    - libmo_unpack  # [not win]
+    build:
+        - python
+        - scipy
+        - biggus
+        - cartopy >=0.11
+        - netcdf4
+        - udunits2
+        - pyke
+        - setuptools
+        - libmo_unpack  # [not win]
+    run:
+        - python
+        - scipy
+        - biggus
+        - cartopy >=0.11
+        - matplotlib
+        - netcdf4
+        - ecmwf_grib >=1.12.1  # [not win]
+        - numpy
+        - pyke
+        - udunits2
+        - libmo_unpack  # [not win]
 
 test:
   imports:
         - iris
-        # pp is not working yet.
-        #- iris.fileformats.pp_packing  # [not win]
+        - iris.fileformats.pp_packing  # [not win]
 
 about:
     home: http://www.scitools.org.uk/iris
     license: GNU Lesser General Public License
-    summary: "Analyse and visualise meteorological and oceanographic data sets."
+    summary: Analyse and visualise meteorological and oceanographic data sets.
