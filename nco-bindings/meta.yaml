@@ -1,0 +1,33 @@
+package:
+    name: nco-bindings
+    version: "0.0.2"
+
+source:
+    fn: nco-0.0.2.tar.gz
+    url: https://pypi.python.org/packages/source/n/nco/nco-0.0.2.tar.gz
+    md5: bf7f543f7ffb5739eaf6466ca7e60c38
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - dateutil
+        - h5py
+        - netcdf4
+        - numpy
+        - scipy
+        - nco
+
+test:
+    imports:
+        - nco
+
+about:
+    home: https://raw2.github.com/jhamman/nco-bindings/
+    license: GPLv2
+    summary: 'python bindings to NCO'

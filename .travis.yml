@@ -13,10 +13,8 @@ env:
 
 before_install:
     - sudo apt-get update -qq
-    # Install fortran compiler for octant.
-    - if [[ "$OSTYPE" == "linux-gnu" ]]; then sudo apt-get install gfortran; fi
-    # Install makeinfo - needed for constructing configuration files via autoreconf (in particular for udunits).
-    - if [[ "$OSTYPE" == "linux-gnu" ]]; then sudo apt-get install texinfo; fi
+    # Install makeinfo (autoreconf::udunits), gfortran (octant), antlr (nco).
+    - if [[ "$OSTYPE" == "linux-gnu" ]]; then sudo apt-get install texinfo gfortran antlr libantlr-dev; fi
 
 install:
     - wget https://raw.githubusercontent.com/pelson/Obvious-CI/v0.1.0/bootstrap-obvious-ci-and-miniconda.py

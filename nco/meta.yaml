@@ -1,0 +1,36 @@
+package:
+  name: nco
+  version: 4.4.8
+
+source:
+  fn: nco-4.4.8.tar.gz
+  url: http://nco.sourceforge.net/src/nco-4.4.8.tar.gz
+  md5: 842a118251da3875e7e2ab2cb0ec77fe
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - curl
+    - zlib
+    - libnetcdf
+    - hdf5
+    - udunits2
+    #- gsl
+    #- antlr
+
+  run:
+    - libnetcdf
+    - udunits2
+
+test:
+  commands:
+    - ncks --help
+    - ncks -M http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz
+    - ncks http://thredds-test.ucar.edu/thredds/dodsC/testdods/in.nc in.nc
+    - ncap2 -v -s 'a=3' -s 'b=4' -s 'c=sqrt(a^2+b^2)' in.nc out.nc
+
+about:
+  home: http://www.hdfgroup.org/HDF5/
+  license: BSD-style (http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING)
