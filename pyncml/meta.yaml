@@ -1,0 +1,34 @@
+package:
+    name: pyncml
+    version: "0.0.7"
+
+source:
+    git_url: https://github.com/axiom-data-science/pyncml
+    git_tag: 0.0.7
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - pytz
+        - numpy
+        - setuptools
+        - netcdf4
+
+    run:
+        - python
+        - pytz
+        - numpy
+        - setuptools
+        - netcdf4
+
+test:
+    imports:
+        - pyncml
+
+about:
+    home: https://github.com/axiom-data-science/pyncml
+    license: MIT License
+    summary: 'A simple python library to apply NcML logic to NetCDF files'
