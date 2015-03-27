@@ -1,0 +1,38 @@
+package:
+  name: xray
+  version: "0.4.1"
+
+source:
+  fn: xray-0.4.1.tar.gz
+  url: https://pypi.python.org/packages/source/x/xray/xray-0.4.1.tar.gz
+  md5: 38d230c3284520f370b3821bb0b87863
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy >=1.7
+    - pandas >=0.15.0
+
+  run:
+    - python
+    - numpy >=1.7
+    - pandas >=0.15.0
+
+test:
+  imports:
+    - xray
+    - xray.backends
+    - xray.core
+    - xray.test
+
+  commands:
+    #- nosetests xray
+
+about:
+  home: https://github.com/xray/xray
+  license: Apache Software License
+  summary: 'N-D labeled arrays and datasets in Python'
