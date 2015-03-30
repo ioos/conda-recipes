@@ -1,9 +1,10 @@
 #!/bin/bash
 
+if [ `uname` == Darwin ]; then
+    export CFLAGS="-arch x86_64"
+    export FFLAGS="-static -ff2c -arch x86_64"
+    export LDFLAGS="-Wall -undefined dynamic_lookup -bundle -arch x86_64"
+    export LDFLAGS="-Wl,-search_paths_first -L$(pwd) $LDFLAGS"
+fi
+
 $PYTHON setup.py install
-
-# Add more build steps here, if they are necessary.
-
-# See
-# http://docs.continuum.io/conda/build.html
-# for a list of environment variables that are set during the build process.
