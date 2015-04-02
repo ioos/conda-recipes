@@ -1,11 +1,11 @@
 package:
     name: udunits2
-    version: "2.2.17"
+    version: "2.2.19"
 
 source:
-    fn: v2.2.17.tar.gz
-    url: https://github.com/Unidata/UDUNITS-2/archive/v2.2.17.tar.gz
-    sha1: 3dfb7b1f18e21ac5366127778bbfd50ab5b7cf0a
+    fn: v2.2.19.tar.gz
+    url: https://github.com/Unidata/UDUNITS-2/archive/v2.2.19.tar.gz
+    sha1: 39ff26ae5186573897254b91e97690c67b96cf89
 
 requirements:
   build:
