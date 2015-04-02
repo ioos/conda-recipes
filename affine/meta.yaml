@@ -1,11 +1,11 @@
 package:
   name: affine
-  version: !!str 1.0
+  version: "1.1.0"
 
 source:
-  fn: affine-1.0.tar.gz
-  url: https://pypi.python.org/packages/source/a/affine/affine-1.0.tar.gz
-  md5: 6076a7f052e08d191865c00af0fdad30
+  fn: affine-1.1.0.tar.gz
+  url: https://pypi.python.org/packages/source/a/affine/affine-1.1.0.tar.gz
+  md5: a3d020a8f0ebb762294caf0cc5d28d18
 
 build:
   number: 0
