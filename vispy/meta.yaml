@@ -1,11 +1,8 @@
 package:
   name: vispy
-  version: "0.3.0"
+  version: "0.4.0.dev"
 
 source:
-  #fn: vispy-0.3.0.tar.gz
-  #url: https://pypi.python.org/packages/source/v/vispy/vispy-0.3.0.tar.gz
-  #md5: 77e6a198c3edac005aaec1153460489c
   git_url: https://github.com/vispy/vispy.git
   git_tag: master
 
