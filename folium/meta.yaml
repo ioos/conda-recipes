@@ -1,10 +1,11 @@
 package:
-  name: folium
-  version: "0.1.4.dev"
+    name: folium
+    version: "0.1.4"
 
 source:
-  git_url: https://github.com/python-visualization/folium.git
-  git_tag: master
+    fn: folium-0.1.4.tar.gz
+    url: https://pypi.python.org/packages/source/f/folium/folium-0.1.4.tar.gz
+    md5: b5e0c8eac6f92e9806b91eced8586047
 
 build:
   number: 0
