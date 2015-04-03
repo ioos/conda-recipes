@@ -1,10 +1,13 @@
 package:
     name: obvious-ci
-    version: '0.3.dev'
+    version: '0.3.x.dev'
 
 source:
     git_url: https://github.com/pelson/Obvious-CI.git
     git_tag: master
+
+build:
+    number: 1
 
 requirements:
     build:
