@@ -1,0 +1,30 @@
+package:
+    name: palettable
+    version: "2.0.0"
+
+source:
+    fn: palettable-2.0.0.tar.gz
+    url: https://pypi.python.org/packages/source/p/palettable/palettable-2.0.0.tar.gz
+    md5: 7396faedfa48994cfa53ba433d957e33
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+
+test:
+    imports:
+        - palettable
+        - palettable.colorbrewer
+        - palettable.tableau
+        - palettable.wesanderson
+
+about:
+    home: https://jiffyclub.github.io/palettable/
+    license: MIT License
+    summary: 'Color palettes for Python'
