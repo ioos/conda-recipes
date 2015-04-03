@@ -1,29 +1,28 @@
 package:
-  name: jsonfield
-  version: !!str 1.0.0
+    name: jsonfield
+    version: "1.0.3"
 
 source:
-  fn: jsonfield-1.0.0.tar.gz
-  url: https://pypi.python.org/packages/source/j/jsonfield/jsonfield-1.0.0.tar.gz
-  md5: 23820afb84518a8955030ab12c3fc7ef
+    fn: jsonfield-1.0.3.tar.gz
+    url: https://pypi.python.org/packages/source/j/jsonfield/jsonfield-1.0.3.tar.gz
+    md5: a7c7df31627069a97c9ba91b599c0845
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - django >=1.4.3
-
-  run:
-    - python
-    - django >=1.4.3
+    build:
+        - python
+        - django >=1.4.3
+    run:
+        - python
+        - django >=1.4.3
 
 test:
-  imports:
-    - jsonfield
+    imports:
+        - jsonfield
 
 about:
-  home: https://github.com/bradjasper/django-jsonfield/
-  license: MIT
-  summary: 'A reusable Django field that allows you to store validated JSON in your model.'
+    home: https://github.com/bradjasper/django-jsonfield/
+    license: MIT
+    summary: 'A reusable Django field that allows you to store validated JSON in your model.'
