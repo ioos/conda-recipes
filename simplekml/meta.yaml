@@ -1,0 +1,26 @@
+package:
+    name: simplekml
+    version: "1.2.7"
+
+source:
+    fn: simplekml-1.2.7.zip
+    url: https://pypi.python.org/packages/source/s/simplekml/simplekml-1.2.7.zip
+    md5: f89cda9e7f72f27e3e3de3799672249f
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+    run:
+        - python
+
+test:
+    imports:
+        - simplekml
+
+about:
+    home: http://code.google.com/p/simplekml/
+    license: GNU General Public License (GPL)
+    summary: 'A Simple KML creator'

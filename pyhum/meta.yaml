@@ -1,41 +1,37 @@
 package:
-  name: pyhum
-  version: !!str 1.0.7
+    name: pyhum
+    version: "1.2.2"
 
 source:
-  fn: PyHum-1.0.7.tar.gz
-  url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.0.7.tar.gz
-  md5: d803a0e5d41a5c3b634ae1aa91fc51f7
+    fn: PyHum-1.2.2.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.2.2.tar.gz
+    md5: 27e63b35ba6eec2a639d6cf4ade6f686
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - numpy
-    - scipy
-    - pillow
-    - matplotlib
-    - scikit-learn
-    - cython
-    - pyproj
-
-  run:
-    - python
-    - numpy
-    - scipy
-    - pillow
-    - matplotlib
-    - scikit-learn
-    - cython
-    - pyproj
+    build:
+        - python
+        - cython
+        - numpy
+    run:
+        - python
+        - numpy
+        - scipy
+        - pillow
+        - matplotlib
+        - scikit-learn
+        - pyproj
+        - joblib
+        - simplekml
+        - basemap
 
 test:
-  imports:
-    - PyHum
+    imports:
+        - PyHum
 
 about:
-  home: https://github.com/dbuscombe-usgs/PyHum
-  license: GNU Library or Lesser General Public License (LGPL)
-  summary: 'Python/Cython scripts to read Humminbird DAT.'
+    home: https://github.com/dbuscombe-usgs/PyHum
+    license: GNU Library or Lesser General Public License (LGPL)
+    summary: 'Python/Cython scripts to read Humminbird DAT.'
