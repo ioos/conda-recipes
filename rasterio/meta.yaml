@@ -1,43 +1,42 @@
 package:
-  name: rasterio
-  version: "0.18"
+    name: rasterio
+    version: "0.19.1"
 
 source:
-  fn: rasterio-0.18.tar.gz
-  url: https://pypi.python.org/packages/source/r/rasterio/rasterio-0.18.tar.gz
-  md5: 9e59c3868ac5e064cc564d409022d028
+    fn: rasterio-0.19.1.tar.gz
+    url: https://pypi.python.org/packages/source/r/rasterio/rasterio-0.19.1.tar.gz
+    md5: 0926985f2dd9551feddd1737085cae59
+    #git_url: https://github.com/mapbox/rasterio.git
+    #git_tag: 0.19.1
+    #sha1: 0bd4b53a7f036a4631eaae8c6cd92f8f0d8799df
 
 build:
-  number: 0
+    number: 0
 
-  entry_points:
-    - rio = rasterio.rio.main:cli
+    entry_points:
+        - rio = rasterio.rio.main:cli
 
 requirements:
-  build:
-    - affine >=1.0
-    - cython >=0.20
-    - click
-    - cligj
-    - enum34
-    - gdal
-    - numpy >=1.8
-    - python
-    - setuptools
-
-  run:
-    - affine >=1.0
-    - click
-    - cligj
-    - enum34
-    - gdal
-    - numpy >=1.8
-    - python
+    build:
+        - python
+        - numpy >=1.8
+        - cython >=0.20
+        - gdal
+        - setuptools
+    run:
+        - python
+        - affine >=1.0
+        - cligj
+        - enum34
+        - numpy >=1.8
+        - snuggs >=1.2
+        - cython >=0.20
+        - gdal
 
 test:
-  imports:
-    - rasterio
+    imports:
+        - rasterio
 
 about:
-  home: https://github.com/mapbox/rasterio
-  license: BSD
+    home: https://github.com/mapbox/rasterio
+    license: BSD
