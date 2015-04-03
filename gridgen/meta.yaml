@@ -4,10 +4,10 @@ package:
 
 source:
   git_url: https://github.com/phobson/gridgen.git
-  git_tag: master
+  git_tag: v1.48
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
