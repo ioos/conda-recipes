@@ -1,31 +1,31 @@
 package:
-  name: thredds_crawler
-  version: !!str 0.7_DEV
+    name: thredds_crawler
+    version: "1.0.0"
 
 source:
-  git_url: https://github.com/asascience-open/thredds_crawler.git
+    git_url: https://github.com/asascience-open/thredds_crawler.git
+    git_tag: 1.0.0
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - requests
-    - lxml
-
-  run:
-    - python
-    - requests
-    - lxml
+    build:
+        - python
+        - setuptools
+        - requests
+        - lxml
+    run:
+        - python
+        - requests
+        - lxml
 
 test:
-  imports:
-    - tests
-    - thredds_crawler
+    imports:
+        - tests
+        - thredds_crawler
 
 about:
-  home: https://github.com/asascience-open/thredds_crawler
-  license:  GNU General Public License v3 (GPLv3)
-  summary: 'A Python library for crawling THREDDS servers'
+    home: https://github.com/asascience-open/thredds_crawler
+    license:  GNU General Public License v3 (GPLv3)
+    summary: 'A Python library for crawling THREDDS servers'
