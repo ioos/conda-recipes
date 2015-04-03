@@ -1,11 +1,11 @@
 package:
   name: pyproj
-  version: !!str 1.9.3
+  version: "1.9.4"
 
 source:
-  fn: pyproj-1.9.3.tar.gz
-  url: https://pypi.python.org/packages/source/p/pyproj/pyproj-1.9.3.tar.gz
-  md5: ad0ac0602b6373c4203b4d0774445694
+  fn: pyproj-1.9.4.tar.gz
+  url: https://pypi.python.org/packages/source/p/pyproj/pyproj-1.9.4.tar.gz
+  md5: b0a060465b117dd6c1b37e14f22382aa
 
 build:
   number: 0
