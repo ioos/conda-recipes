@@ -1,27 +1,26 @@
 package:
-  name: south
-  version: "1.0.1"
+    name: south
+    version: "1.0.2"
 
 source:
-  fn: South-1.0.1.tar.gz
-  url: https://pypi.python.org/packages/source/S/South/South-1.0.1.tar.gz
-  md5: 9977423e4c4f7ca9345f1428a0a57505
+    fn: South-1.0.2.tar.gz
+    url: https://pypi.python.org/packages/source/S/South/South-1.0.2.tar.gz
+    md5: c76a9758b2011bc3b6c39f881bba2f66
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - distribute
-
-  run:
-    - python
+    build:
+        - python
+        - setuptools
+    run:
+        - python
 
 test:
-  imports:
-    - south
+    imports:
+        - south
 
 about:
-  home: http://south.aeracode.org/
-  license: Apache Software License
+    home: http://south.aeracode.org/
+    license: Apache Software License
