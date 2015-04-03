@@ -1,27 +1,28 @@
 package:
-  name: brewer2mpl
-  version: !!str 1.4
+    name: brewer2mpl
+    version: "1.4.1"
 
 source:
-  fn: brewer2mpl-1.4.tar.gz
-  url: https://pypi.python.org/packages/source/b/brewer2mpl/brewer2mpl-1.4.tar.gz
-  md5: 49b7f7de78a5a47021aee91bee543026
+    fn: brewer2mpl-1.4.1.tar.gz
+    url: https://pypi.python.org/packages/source/b/brewer2mpl/brewer2mpl-1.4.1.tar.gz
+    md5: f8cd1fbb9f5d836a3a095b1ca9d58fc2
 
 build:
   number: 0
 
 requirements:
-  build:
-    - python
-  run:
-    - python
+    build:
+        - python
+        - setuptools
+    run:
+        - python
 
 test:
-  imports:
-    - brewer2mpl
-    - brewer2mpl.wesanderson
+    imports:
+        - brewer2mpl
+        - brewer2mpl.wesanderson
 
 about:
-  home: https://github.com/jiffyclub/brewer2mpl/wiki
-  license: MIT License
-  summary: 'Connect colorbrewer2.org color maps to Python and matplotlib'
+    home: https://github.com/jiffyclub/brewer2mpl/wiki
+    license: MIT License
+    summary: 'Connect colorbrewer2.org color maps to Python and matplotlib'
