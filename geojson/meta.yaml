@@ -1,28 +1,28 @@
 package:
-  name: geojson
-  version: !!str 1.0.7
+    name: geojson
+    version: "1.0.9"
 
 source:
-  fn: geojson-1.0.7.tar.gz
-  url: https://pypi.python.org/packages/source/g/geojson/geojson-1.0.7.tar.gz
-  md5: eb1228f422cf8b3ae8f57c33e6be5c59
+    fn: geojson-1.0.9.tar.gz
+    url: https://pypi.python.org/packages/source/g/geojson/geojson-1.0.9.tar.gz
+    md5: 94880d993dba8b184de122c5a84fa329
 
 build:
-  preserve_egg_dir: True
-  number: 0
+    preserve_egg_dir: True
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-  run:
-    - python
+    build:
+        - python
+        - setuptools
+    run:
+        - python
 
 test:
-  imports:
-    - geojson
+    imports:
+        - geojson
 
 about:
-  home: https://github.com/frewsxcv/python-geojson
-  license: BSD License
-  summary: 'Python bindings and utilities for GeoJSON'
+    home: https://github.com/frewsxcv/python-geojson
+    license: BSD License
+    summary: 'Python bindings and utilities for GeoJSON'
