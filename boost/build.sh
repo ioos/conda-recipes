@@ -1,4 +1,7 @@
 #!/bin/bash
-cd ./tools/build/v2
+
+cd ./tools/build
+
 ./bootstrap.sh
+
 ./b2 install --prefix=$PREFIX
