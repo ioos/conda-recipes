@@ -1,28 +1,29 @@
 package:
-  name: pygdp
-  version: !!str 1.2.2
+    name: pygdp
+    version: "1.3.2"
 
 source:
-  git_url: https://github.com/USGS-CIDA/pyGDP.git
-  git_tag: v1.2.2
+    git_url: https://github.com/USGS-CIDA/pyGDP.git
+    git_tag: v1.3.2
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - owslib
-  run:
-    - python
-    - owslib
-
+    build:
+        - python
+        - setuptools
+        - owslib
+    run:
+        - python
+        - owslib
+        - python-dateutil
+        - lxml
 test:
-  imports:
-    - pyGDP
+    imports:
+        - pyGDP
 
 about:
-  home: https://github.com/USGS-CIDA/pyGDP
-  license: CC0
-  summary: 'python interface to facilitate working with USGS-CIDA Geo Data Portal web services'
+    home: https://github.com/USGS-CIDA/pyGDP
+    license: CC0
+    summary: 'python interface to facilitate working with USGS-CIDA Geo Data Portal web services'
