@@ -1,11 +1,11 @@
 package:
     name: geolinks
-    version: "0.0.1"
+    version: "0.1.0"
 
 source:
-    fn: geolinks-0.0.1.tar.gz
-    url: https://pypi.python.org/packages/source/g/geolinks/geolinks-0.0.1.tar.gz
-    md5: 51e43aa0afd611cebc986ec411f24d40
+    fn: geolinks-0.1.0.tar.gz
+    url: https://pypi.python.org/packages/source/g/geolinks/geolinks-0.1.0.tar.gz
+    md5: c868d699319e8dee7a10f6745441107c
 
 build:
     number: 0
