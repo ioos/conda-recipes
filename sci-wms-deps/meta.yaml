@@ -31,7 +31,7 @@ requirements:
         - pyugrid
         - basemap
         - gunicorn >=0.13.4
-        - setproctitle
+        - setproctitle  # [not win]
         - tornado
         - greenlet
         - gevent
