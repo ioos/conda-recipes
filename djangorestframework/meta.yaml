@@ -1,0 +1,32 @@
+package:
+    name: djangorestframework
+    version: "3.1.1"
+
+source:
+    fn: djangorestframework-3.1.1.tar.gz
+    url: https://pypi.python.org/packages/source/d/djangorestframework/djangorestframework-3.1.1.tar.gz
+    md5: d0f6aa82d49e63faebaadfc089e5e80b
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+
+test:
+    imports:
+        - rest_framework
+        - rest_framework.authtoken
+        - rest_framework.authtoken.migrations
+        - rest_framework.authtoken.south_migrations
+        - rest_framework.templatetags
+        - rest_framework.utils
+
+about:
+    home: http://www.django-rest-framework.org
+    license: BSD License
+    summary: 'Web APIs for Django, made easy.'

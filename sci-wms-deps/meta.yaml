@@ -1,38 +1,44 @@
 package:
-  name: sci-wms-deps
-  version: !!str 0.1.0
+    name: sci-wms-deps
+    version: "0.0.2"
 source:
-  git_url: https://github.com/kwilcox/sci-wms.git
-  git_tag: stable
+    git_url: https://github.com/sci-wms/sci-wms.git
+    git_tag: 0.0.2
 
 build:
-  number: 0
-  preserve_egg_dir: True
+    number: 0
+    preserve_egg_dir: True
+
+build:
+    number: 0
 
 requirements:
-  build:
-
-  run:
-    - python
-    - django
-    - shapely
-    - numpy
-    - greenlet
-    - gevent
-    - gunicorn
-    - python-dateutil
-    - matplotlib
-    - netcdf4
-    - rtree 0.7*
-    - south
-    - jsonfield
-    - south
-    - basemap
-    - pyugrid
-    - pytz
-    - pyproj
+    build:
+        - python
+    run:
+        - python
+        - numpy
+        - django >=1.7,<1.8
+        - shapely
+        - python-dateutil
+        - matplotlib
+        - netcdf4
+        - rtree ==0.7*
+        - south
+        - jsonfield
+        - pytz
+        - djangorestframework
+        - pyugrid
+        - basemap
+        - gunicorn >=0.13.4
+        - setproctitle  # [not win]
+        - tornado
+        - greenlet
+        - gevent
+        - south
+        - pyproj
 
 about:
-  home: https://github.com/asa-science-open.github.io/sci-wms
-  license: GNU General Public License v3 (GPLv3)
-  summary: 'A Python WMS service for geospatial grid and mesh data'
+    home: https://github.com/sci-wms/sci-wms
+    license: GNU General Public License v3 (GPLv3)
+    summary: 'A Python WMS service for geospatial gridded data'
