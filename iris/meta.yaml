@@ -1,14 +1,13 @@
 package:
     name: iris
-    version: 1.8.0.dev
+    version: 1.8.0
 
 source:
     git_url: https://github.com/SciTools/iris.git
-    git_tag: master
+    git_tag: v1.8.0
 
 build:
-    number: 1  # [win]
-    number: 1  # [not win]
+    number: 0
 
 requirements:
     build:
