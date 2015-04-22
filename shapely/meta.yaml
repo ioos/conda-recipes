@@ -1,19 +1,15 @@
 package:
   name: shapely
-  # NOTE: As this version increases, so should the dependency version in cartopy.
-  version: 1.4.3.issue177  # [osx]
-  version: 1.4.3  # [not osx]
+  version: 1.5.8dev0
 
 source:
   git_url: https://github.com/Toblerity/Shapely.git
-  git_tag: 1.4.3
+  git_tag: 2212deb2105d380345c9b558f8f4c3d3be903496
   patches:
-    - osx-geos.patch      # [osx]
     - geos_c.win.patch      # [win]
-    - geom.py.patch  # [win]
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -30,6 +26,7 @@ test:
   imports:
     - shapely
     - shapely.speedups._speedups
+    - shapely.vectorized._vectorized
 
 about:
   home: https://github.com/Toblerity/Shapely
