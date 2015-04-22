@@ -1,0 +1,30 @@
+package:
+    name: mo_pack
+    version: 0.1.0dev0
+
+source:
+    git_url: https://github.com/SciTools/mo_pack.git
+    git_tag: master
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - numpy
+        - setuptools
+        - cython
+        - libmo_unpack
+    run:
+        - python
+        - numpy
+        - libmo_unpack
+
+test:
+    imports:
+        - mo_pack
+
+about:
+    license: GNU LGPL
+    summary: 'Python wrapper to libmo_unpack'
