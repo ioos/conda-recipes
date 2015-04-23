@@ -24,8 +24,7 @@ requirements:
     # On OSX We need to effectively pin the geos version to the
     # one used by the specific shapely being targetted (we're letting
     # conda's package solver will deal with that).
-    - shapely ==1.4.3.issue177  # [osx]
-    - shapely # [not osx]
+    - shapely >=1.5.6
     - owslib
     - pyshp
     - pyepsg
@@ -39,8 +38,7 @@ requirements:
     - owslib
     - numpy
     - proj4
-    - shapely ==1.4.3.issue177  # [osx]
-    - shapely                   # [not osx]
+    - shapely >=1.5.6
     - scipy
     - pyshp
     - matplotlib
