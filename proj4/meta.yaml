@@ -1,11 +1,15 @@
 package:
-  name: proj4
-  version: !!str 4.8.0
+    name: proj4
+    version: "4.9.1"
+
+build:
+    number: 0
+
 source:
-  fn:  proj-4.8.0.tar.gz
-  url: http://download.osgeo.org/proj/proj-4.8.0.tar.gz
+    fn:  proj-4.9.1.tar.gz
+    url: http://download.osgeo.org/proj/proj-4.9.1.tar.gz
 
 about:
-  home: http://trac.osgeo.org/proj/
-  license: MIT
-  summary: 'Cartographic projection software'
+    home: http://trac.osgeo.org/proj/
+    license: MIT
+    summary: 'Cartographic projection software'
