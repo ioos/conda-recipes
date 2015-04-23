@@ -1,0 +1,169 @@
+--- libmo_unpack/wgdos_decode_field_parameters.c	(revision 9148)
++++ libmo_unpack/wgdos_decode_field_parameters.c	(working copy)
+@@ -138,10 +138,11 @@
+     printf("size inconsistent %d * %d != %d\n", *nrows, *ncols, unpacked_len);
+     status = -1;
+   }
+-    
++  #ifdef DEBUG  
+   snprintf(message, MAX_MESSAGE_SIZE, "WGDOS_decode_field_parameters returned total length %d, precision %d, row length %d and rows %d",
+       field_header.total_length, field_header.precision, field_header.pts_in_row, field_header.rows_in_field);
+   MO_syslog(VERBOSITY_MESSAGE, message, &subroutine);
++  #endif
+ 
+   return status;
+ }
+
+--- libmo_unpack/wgdos_decode_row_parameters.c	(revision 9148)
++++ libmo_unpack/wgdos_decode_row_parameters.c	(working copy)
+@@ -114,7 +114,9 @@
+     /* And change the IBM float to an IEEE float: uses the float version of basetemp */
+     status=convert_float_ibm_to_ieee32(&basetemp.i, (int*)base, &baselen);
+     if (status <0) {
++      #ifdef DEBUG
+       MO_syslog(VERBOSITY_ERROR, "IEEE/IBM float conversion failed", &subroutine);
++      #endif
+     }
+     
+     *data = *data + 4;        
+@@ -130,9 +132,11 @@
+     *bits_per_value        =   int2_pair[0] &  31; /* Lowest 5 bits: bits per value (<32) */
+ 
+     *data = *data + 4;
+-    
++
++    #ifdef DEBUG 
+     snprintf(message, MAX_MESSAGE_SIZE, "Decoded BitFlags Zero:%d, MDI: %d. %d bits per value base value %f, %d words taken",
+       *zeros_bitmap_present, *missing_data_present, *bits_per_value, *base, *nop);
+     MO_syslog(VERBOSITY_MESSAGE, message, &subroutine);
++    #endif
+     return status;
+ } /* end function PP_Wgdos_Start_Row */
+
+--- libmo_unpack/wgdos_expand_row_to_data.c	(revision 9148)
++++ libmo_unpack/wgdos_expand_row_to_data.c	(working copy)
+@@ -117,10 +117,14 @@
+       off=1;
+       if ( missing_data[col] ) {
+         unpacked_data[col] = mdi;
++        #ifdef DEBUG
+         snprintf (message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), " %012g / %-12s", unpacked_data[col],"MDI");
++        #endif
+       } else if ( zero[col] ) {
+         unpacked_data[col] = 0.0;
++        #ifdef DEBUG
+         snprintf (message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), " %012g / %-12s", unpacked_data[col],"Zero");
++        #endif
+       } else {
+         dval=dacc*data[non_special_so_far]+dbase;
+         unpacked_data[col] = dval;
+@@ -129,19 +133,25 @@
+         } 
+         non_special_so_far++;
+         off=1;
++        #ifdef DEBUG
+         snprintf (message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), " %012g / %-12d", unpacked_data[col],data[non_special_so_far-off]);
++        #endif
+       }
++      #ifdef DEBUG
+       if (log_messages &&(col%4 == 3)) {
+         snprintf(message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), "%3d", col);
+         MO_syslog (VERBOSITY_MESSAGE, message, &subroutine);
+         message[0]=0;
+       }
++      #endif
+     }
++    #ifdef DEBUG
+     if (message[0]!=0 && log_messages) {
+       snprintf(message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), "%3d", col);
+       MO_syslog (VERBOSITY_MESSAGE, message, &subroutine);
+       message[0]=0;
+     }
++    #endif
+     return 0;
+ } /* end function PP_Wgdos_Expand_Row */
+ 
+@@ -190,6 +200,7 @@
+           off=1;
+         }
+       }
++      #ifdef DEBUG
+       if (log_messages && (col%3 == 0)) {
+         snprintf(message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), "%3d", col);
+         MO_syslog (VERBOSITY_MESSAGE, message, &subroutine);
+@@ -198,11 +209,14 @@
+       if (log_messages) {
+         snprintf (message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), " %.16g/%05d", unpacked_data[col],data[non_special_so_far-off]);
+       }
++      #endif
+     }
++    #ifdef DEBUG
+     if (log_messages && message[0]!=0) {
+       snprintf(message+strlen(message), MAX_MESSAGE_SIZE-strlen(message), "%3d", col);
+       MO_syslog (VERBOSITY_MESSAGE, message, &subroutine);
+       message[0]=0;
+     }
++    #endif
+     return 0;
+ } /* end function PP_Wgdos_Expand_Broken_Row */
+
+--- libmo_unpack/wgdos_unpack.c	(revision 9148)
++++ libmo_unpack/wgdos_unpack.c	(working copy)
+@@ -137,8 +137,10 @@
+     
+     set_function_name(__func__, &subroutine, parent);
+ 
++    #ifdef DEBUG
+     snprintf(message, MAX_MESSAGE_SIZE, "MDI given as %f from %s", mdi, parent->name);
+     MO_syslog(VERBOSITY_MESSAGE, message, &subroutine);
++    #endif
+     /* Read field header information */
+     status=wgdos_decode_field_parameters(&packed_data, unpacked_len, &accuracy, &ncols, &nrows, &subroutine);
+     packed_data=packed_data+12;
+@@ -160,8 +162,10 @@
+     row = 0;
+     next_packed_row=0;
+     while ( row < nrows)  {
++      #ifdef DEBUG
+       snprintf(message, MAX_MESSAGE_SIZE, "On row %d", row);
+       MO_syslog(VERBOSITY_MESSAGE, message, &subroutine);
++      #endif
+       start_off=packed_data;
+  
+       /* Read row header information */
+@@ -169,8 +173,10 @@
+                            &zeros_bitmap_present, &bits_per_value, &nop, &subroutine );
+       next_packed_row=nop*4+8; /* bytes = nop*4 (32 bit words) + 8 bytes for the row header*/
+       if (status) {
++        #ifdef DEBUG
+         snprintf(message, MAX_MESSAGE_SIZE, "Failed to properly decode row %d parameters. Base %f. bpv %d", row, base, bits_per_value);
+         MO_syslog(VERBOSITY_ERROR, message, &subroutine);
++        #endif
+         set_logerrno(LOGERRNO_FORMAT_EXCEPTION);
+         status=-1;
+         break;
+@@ -190,9 +196,11 @@
+       /* Unpack the data in the data buffer */
+       status=wgdos_expand_row_to_data(ncols, mdi,  accuracy, base,
+                             missing_data, zero, data,
+-                            unpacked_row, &row_mdi_clashes, &subroutine); 
++                            unpacked_row, &row_mdi_clashes, &subroutine);
++      #ifdef DEBUG
+       snprintf (message, MAX_MESSAGE_SIZE, "Row %d: Base %g, %d bits per value, accuracy %g", row, base, bits_per_value, accuracy);
+       MO_syslog(VERBOSITY_MESSAGE, message, &subroutine);
++      #endif
+       mdi_clashes += row_mdi_clashes;
+       offset=row*ncols;
+       /* Copy row across from unpacked_row to the right offset in the unpacked_data*/
+@@ -200,9 +208,11 @@
+ 
+       /* Check that the number of data values read is correct wrt the WGDOS header */
+       if (packed_data-start_off != next_packed_row) {
++        #ifdef DEBUG
+         snprintf (message, MAX_MESSAGE_SIZE, "WGDOS row (%d) length (%d) doesn't agree with disk length (%d) for %d values", \
+                  row, next_packed_row, packed_data-start_off, ndata);
+         MO_syslog(VERBOSITY_ERROR, message, &subroutine);
++        #endif
+         set_logerrno(LOGERRNO_FORMAT_EXCEPTION);
+         status=-1;
+         break;
