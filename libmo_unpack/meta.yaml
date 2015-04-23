@@ -1,10 +1,15 @@
 package:
     name: libmo_unpack
-    version: !!str 2.0.3
+    version: "2.0.3"
 
 source:
     fn: unpack-160114.tgz
     url: https://puma.nerc.ac.uk/trac/UM_TOOLS/raw-attachment/wiki/unpack/unpack-160114.tgz
+    patches:
+        - speedup.patch
+
+build:
+    number: 1
 
 about:
     home: https://puma.nerc.ac.uk/trac/UM_TOOLS/wiki/unpack
