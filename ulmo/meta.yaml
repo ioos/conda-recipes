@@ -1,68 +1,67 @@
 package:
-  name: ulmo
-  version: !!str 0.7.5
+    name: ulmo
+    version: "0.7.6"
 
 source:
-  git_url: https://github.com/ulmo-dev/ulmo.git
-  git_tag: v0.7.5
+    git_url: https://github.com/ulmo-dev/ulmo.git
+    git_tag: v0.7.6
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - appdirs
-    - beautifulsoup4
-    - isodate
-    - lxml
-    - mock
-    - numpy
-    - pandas
-    - requests
-    - suds
-    - pytables
-
-  run:
-    - python
-    - appdirs
-    - beautifulsoup4
-    - isodate
-    - lxml
-    - mock
-    - numpy
-    - pandas
-    - requests
-    - suds
-    - pytables
+    build:
+        - python
+        - setuptools
+        - appdirs
+        - beautifulsoup4
+        - isodate
+        - lxml
+        - mock
+        - numpy
+        - pandas
+        - requests
+        - suds
+        - pytables
+    run:
+        - python
+        - appdirs
+        - beautifulsoup4
+        - isodate
+        - lxml
+        - mock
+        - numpy
+        - pandas
+        - requests
+        - suds
+        - pytables
+        - geojson
 test:
-  # Python imports
-  imports:
-    - ulmo.usgs.nwis
-    - ulmo.cdec.historical
-    - ulmo.util
-    - ulmo.waterml
-    - ulmo.ncdc
-    - ulmo.cpc
-    - ulmo.cuahsi
-    - ulmo.cpc.drought
-    - ulmo.ncdc.gsod
-    - ulmo.usgs.eddn
-    - ulmo.ncdc.cirs
-    - ulmo.twc
-    - ulmo.cuahsi.his_central
-    - ulmo.usgs
-    - ulmo.usace.rivergages
-    - ulmo
-    - ulmo.ncdc.ghcn_daily
-    - ulmo.usace.swtwc
-    - ulmo.twc.kbdi
-    - ulmo.cuahsi.wof
-    - ulmo.usace
-    - ulmo.cdec
+    imports:
+        - ulmo.usgs.nwis
+        - ulmo.cdec.historical
+        - ulmo.util
+        - ulmo.waterml
+        - ulmo.ncdc
+        - ulmo.cpc
+        - ulmo.cuahsi
+        - ulmo.cpc.drought
+        - ulmo.ncdc.gsod
+        - ulmo.usgs.eddn
+        - ulmo.ncdc.cirs
+        - ulmo.twc
+        - ulmo.cuahsi.his_central
+        - ulmo.usgs
+        - ulmo.usace.rivergages
+        - ulmo
+        - ulmo.ncdc.ghcn_daily
+        - ulmo.usace.swtwc
+        - ulmo.twc.kbdi
+        - ulmo.cuahsi.wof
+        - ulmo.usace
+        - ulmo.cdec
 
 about:
-  home: https://github.com/ulmo-dev/ulmo/
-  license: BSD License
-  summary: 'Clean, simple and fast access to public hydrology and climatology data'
+    home: https://github.com/ulmo-dev/ulmo/
+    license: BSD License
+    summary: 'Clean, simple and fast access to public hydrology and climatology data'
