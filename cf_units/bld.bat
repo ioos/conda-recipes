@@ -1,8 +1,6 @@
-"%PYTHON%" setup.py install
-if errorlevel 1 exit 1
+set SITECFG=cf_units/etc/site.cfg
+echo [System] > %SITECFG%
+echo udunits2_path = %SCRIPTS%\udunits2.dll >> %SITECFG%
 
-:: Add more build steps here, if they are necessary.
 
-:: See
-:: http://docs.continuum.io/conda/build.html
-:: for a list of environment variables that are set during the build process.
+"%PYTHON%" setup.py install --single-version-externally-managed  --record record.txt

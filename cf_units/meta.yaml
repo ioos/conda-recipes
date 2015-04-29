@@ -1,26 +1,26 @@
 package:
-  name: cf_units
-  version: "v0.0.1"
+    name: cf_units
+    version: "0.0.1"
 
 source:
-  git_url: https://github.com/SciTools/cf_units.git
-  git_tag: v0.0.1
+    git_url: https://github.com/ocefpaf/cf_units.git
+    git_tag: fix_config_etc
 
 build:
- number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-  run:
-    - python
-    - udunits2
-    - netcdf4
-    - numpy
+    build:
+        - python
+    run:
+        - python
+        - udunits2
+        - netcdf4
+        - numpy
 
 test:
-  imports:
-    - units
+    imports:
+        - cf_units
 
 about:
     home: http://www.scitools.org.uk/iris
