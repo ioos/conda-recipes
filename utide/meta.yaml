@@ -1,0 +1,28 @@
+package:
+    name: utide
+    version: "0.1.0.dev"
+
+source:
+    git_url: https://github.com/wesleybowman/UTide.git
+    git_tag: master
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - numpy
+        - scipy
+
+test:
+    imports:
+        - utide
+
+about:
+    home: https://github.com/wesleybowman/UTide.git
+    license: MIT License
+    summary: 'Python distribution of the MatLab package UTide'
