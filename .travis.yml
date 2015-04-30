@@ -1,8 +1,5 @@
-language: c
-
-os:
- - linux
- - osx
+# MacOS builds.
+language: objective-c
 
 env:
     global:
@@ -12,18 +9,18 @@ env:
         - CONDA_PY=27  CONDA_NPY=19
 
 before_install:
-    - sudo apt-get update -qq
-    # Install makeinfo (autoreconf::udunits), gfortran (octant), antlr (nco).
-    - if [[ "$OSTYPE" == "linux-gnu" ]]; then sudo apt-get install texinfo gfortran antlr libantlr-dev; fi
+    - rm -rf nco nco-bindings pyaxiom
+    - brew update
 
 install:
-    - wget https://raw.githubusercontent.com/pelson/Obvious-CI/v0.1.0/bootstrap-obvious-ci-and-miniconda.py
+    # Download and run bootstrap.
+    - wget https://raw.githubusercontent.com/pelson/Obvious-CI/v0.3.0/bootstrap-obvious-ci-and-miniconda.py
     - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
-    - conda config --set show_channel_urls True && conda config --add channels http://conda.binstar.org/ioos/channel/main
-    # NOTE: I am going to keep this for now.  We probably need something from his latest obvious-ci version.
-    - conda install -c http://conda.binstar.org/pelson/channel/development --yes --quiet obvious-ci
-    - conda config --add channels http://conda.binstar.org/ioos
-    - conda info --all
+    # Config conda channels.
+    - conda config --set show_channel_urls True
+    - conda config --add channels http://conda.binstar.org/ocefpaf
+    # Install Obvious-CI.
+    - conda install -c http://conda.binstar.org/ioos/channel/main --yes --quiet obvious-ci
     - obvci_install_conda_build_tools.py
 
 script:

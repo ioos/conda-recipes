@@ -1,9 +1,15 @@
 #!/bin/bash
 
-$PYTHON setup.py install
+# Make sure cf_units can find the udunits library.
+if [[ $(uname) == Darwin ]]; then
+    EXT=dylib
+else
+    EXT=so
+fi
 
-# Add more build steps here, if they are necessary.
+SITECFG=cf_units/etc/site.cfg
+echo "[System]" > $SITECFG
+echo "udunits2_path = $PREFIX/lib/libudunits2.${EXT}" >> $SITECFG
 
-# See
-# http://docs.continuum.io/conda/build.html
-# for a list of environment variables that are set during the build process.
+
+$PYTHON setup.py install --single-version-externally-managed  --record record.txt
