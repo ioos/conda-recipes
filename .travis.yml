@@ -18,7 +18,7 @@ install:
     - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
     # Config conda channels.
     - conda config --set show_channel_urls True
-    - conda config --add channels http://conda.binstar.org/ocefpaf
+    - conda config --add channels http://conda.binstar.org/ioos
     # Install Obvious-CI.
     - conda install -c http://conda.binstar.org/ioos/channel/main --yes --quiet obvious-ci
     - obvci_install_conda_build_tools.py
