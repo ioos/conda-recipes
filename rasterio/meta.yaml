@@ -1,14 +1,11 @@
 package:
     name: rasterio
-    version: "0.19.1"
+    version: "0.22"
 
 source:
-    fn: rasterio-0.19.1.tar.gz
-    url: https://pypi.python.org/packages/source/r/rasterio/rasterio-0.19.1.tar.gz
-    md5: 0926985f2dd9551feddd1737085cae59
-    #git_url: https://github.com/mapbox/rasterio.git
-    #git_tag: 0.19.1
-    #sha1: 0bd4b53a7f036a4631eaae8c6cd92f8f0d8799df
+    fn: rasterio-0.22.0.tar.gz
+    url: https://pypi.python.org/packages/source/r/rasterio/rasterio-0.22.0.tar.gz
+    md5: a67e9af49e5c15089c285d617c7351c4
 
 build:
     number: 0
@@ -40,3 +37,4 @@ test:
 about:
     home: https://github.com/mapbox/rasterio
     license: BSD
+    summary: 'Rasterio reads and writes geospatial raster datasets'
