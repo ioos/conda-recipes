@@ -1,21 +1,21 @@
 package:
-  name: geos
-  version: "3.4.2"
+    name: geos
+    version: "3.4.2"
+
 source:
-  fn:  geos-3.4.2.tar.bz2
-  url: http://download.osgeo.org/geos/geos-3.4.2.tar.bz2
-  patches:
-    - cmake.win.patch  # [win]
+    fn:  geos-3.4.2.tar.bz2
+    url: http://download.osgeo.org/geos/geos-3.4.2.tar.bz2
+    patches:
+        - cmake.win.patch  # [win]
 
 build:
-  number: 0  # [win]
-  number: 0  # [not win]
+    number: 0
 
 requirements:
-  build:
-
-  run:
+    build:
+    run:
 
 about:
-  home: http://trac.osgeo.org/geos/
-  summary: 'Geometry Engine - Open Source'
+    home: http://trac.osgeo.org/geos/
+    license: LGPL
+    summary: 'Geometry Engine - Open Source'
