@@ -1,31 +1,40 @@
-diff --git setup.py setup.py
-index 9cad9b6..0b7791d 100755
---- setup.py
-+++ setup.py
-@@ -140,7 +140,7 @@ if sys.platform == 'win32':
-     )
- 
- # Build cython extensions, which require development parameters
--include_dirs = [get_config_var('INCLUDEDIR')]
-+include_dirs = []
- library_dirs = []
- libraries = []
- extra_link_args = []
-diff --git shapely/libgeos.py shapely/libgeos.py
-index 424c5ee..ac3dec5 100644
---- shapely/libgeos.py
-+++ shapely/libgeos.py
-@@ -182,9 +182,10 @@ elif sys.platform == 'win32':
-                 os.path.join(os.path.dirname(__file__), "DLLs"))
-             wininst_dlls = os.path.abspath(os.__file__ + "../../../DLLs")
-             original_path = os.environ['PATH']
--            os.environ['PATH'] = "%s;%s;%s" % \
--                (egg_dlls, wininst_dlls, original_path)
--            lgeos = CDLL("geos.dll")
-+            os.environ['PATH'] = "%s;%s;%s;%s" % \
-+                (egg_dlls, wininst_dlls, original_path, os.path.join(sys.prefix, "Library", "bin")
-+)
-+            lgeos = CDLL("geos_c.dll")
-         except (ImportError, WindowsError, OSError):
-             raise
- 
+diff -Naur ../Shapely-1.5.8.orig/setup.py ./setup.py
+--- ../Shapely-1.5.8.orig/setup.py	2015-04-29 17:27:19.000000000 -0300
++++ ./setup.py	2015-05-05 11:48:46.836524002 -0300
+@@ -181,7 +181,7 @@
+         "shapely.speedups._speedups",
+         ["shapely/speedups/_speedups.c"],
+         libraries=libraries,
+-        include_dirs=[get_config_var('INCLUDEDIR')],),
++        include_dirs=[],),
+ ]
+
+ cmd_classes = setup_args.setdefault('cmdclass', {})
+@@ -199,8 +199,7 @@
+     ext_modules.append(DistutilsExtension("shapely.vectorized._vectorized",
+                                  sources=["shapely/vectorized/_vectorized.pyx"],
+                                  libraries=libraries + [np.get_include()],
+-                                 include_dirs=[get_config_var('INCLUDEDIR'),
+-                                               np.get_include()],
++                                 include_dirs=[np.get_include()],
+                                  ))
+ except ImportError:
+     print("Numpy or Cython not available, shapely.vectorized submodule not "
+diff -Naur ../Shapely-1.5.8.orig/shapely/geos.py ./shapely/geos.py
+--- ../Shapely-1.5.8.orig/shapely/geos.py	2015-04-29 17:27:19.000000000 -0300
++++ ./shapely/geos.py	2015-05-05 11:50:32.119207787 -0300
+@@ -94,9 +94,11 @@
+                                    "DLLs"))
+         wininst_dlls = os.path.abspath(os.__file__ + "../../../DLLs")
+         original_path = os.environ['PATH']
+-        os.environ['PATH'] = "%s;%s;%s" % \
+-            (egg_dlls, wininst_dlls, original_path)
+-        _lgeos = CDLL("geos.dll")
++        os.environ['PATH'] = "%s;%s;%s;%s" % \
++                (egg_dlls, wininst_dlls, original_path,
++                 os.path.join(sys.prefix, "Library", "bin")
++                )
++        _lgeos = CDLL("geos_c.dll")
+     except (ImportError, WindowsError, OSError):
+         raise
+
