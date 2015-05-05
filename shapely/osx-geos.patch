@@ -1,23 +1,32 @@
-diff --git shapely/geos.py shapely/geos.py
-index 6061ed3..f993530 100644
---- shapely/geos.py
-+++ shapely/geos.py
-@@ -60,18 +60,7 @@ if sys.platform.startswith('linux'):
+--- shapely/geos.py.orig	2015-04-29 17:27:19.000000000 -0300
++++ shapely/geos.py	2015-05-05 11:15:53.977188138 -0300
+@@ -61,29 +61,7 @@
      free.restype = None
 
  elif sys.platform == 'darwin':
--    if hasattr(sys, 'frozen'):
--        # .app file from py2app
--        alt_paths = [os.path.join(os.environ['RESOURCEPATH'],
--                     '..', 'Frameworks', 'libgeos_c.dylib')]
+-    # First test to see if this is a delocated wheel with a GEOS dylib.
+-    geos_whl_dylib = os.path.abspath(
+-            os.path.join(os.path.dirname(__file__), '.dylibs/libgeos_c.1.dylib'))
+-    if os.path.exists(geos_whl_dylib):
+-        _lgeos = CDLL(geos_whl_dylib)
 -    else:
--        alt_paths = [
--            # The Framework build from Kyng Chaos:
--            "/Library/Frameworks/GEOS.framework/Versions/Current/GEOS",
--            # macports
--            '/opt/local/lib/libgeos_c.dylib',
--        ]
--    _lgeos = load_dll('geos_c', fallbacks=alt_paths)
+-        if hasattr(sys, 'frozen'):
+-            try:
+-                # .app file from py2app
+-                alt_paths = [os.path.join(os.environ['RESOURCEPATH'],
+-                            '..', 'Frameworks', 'libgeos_c.dylib')]
+-            except KeyError:
+-                # binary from pyinstaller
+-                alt_paths = [os.path.join(sys.executable, 'libgeos_c.dylib')]
+-        else:
+-            alt_paths = [
+-                # The Framework build from Kyng Chaos
+-                "/Library/Frameworks/GEOS.framework/Versions/Current/GEOS",
+-                # macports
+-                '/opt/local/lib/libgeos_c.dylib',
+-            ]
+-        _lgeos = load_dll('geos_c', fallbacks=alt_paths)
+-
 +    _lgeos = CDLL(os.path.join(sys.prefix, 'lib', 'libgeos_c.dylib'))
      free = load_dll('c').free
      free.argtypes = [c_void_p]
