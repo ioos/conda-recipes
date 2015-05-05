@@ -8,8 +8,8 @@ source:
     md5: 94880d993dba8b184de122c5a84fa329
 
 build:
+    number: 1
     preserve_egg_dir: True
-    number: 0
 
 requirements:
     build:

@@ -1,27 +1,27 @@
 package:
-  name: iso8601
-  version: !!str 0.1.10
+    name: iso8601
+    version: "0.1.10"
 
 source:
-  fn: iso8601-0.1.10.tar.gz
-  url: https://pypi.python.org/packages/source/i/iso8601/iso8601-0.1.10.tar.gz
-  md5: 23acb1029acfef9c32069c6c851c3a41
+    fn: iso8601-0.1.10.tar.gz
+    url: https://pypi.python.org/packages/source/i/iso8601/iso8601-0.1.10.tar.gz
+    md5: 23acb1029acfef9c32069c6c851c3a41
 
 build:
-  number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-    - setuptools
-  run:
-    - python
+    build:
+        - python
+        - setuptools
+    run:
+        - python
 
 test:
-  imports:
-    - iso8601
+    imports:
+        - iso8601
 
 about:
-  home: https://bitbucket.org/micktwomey/pyiso8601
-  license: MIT License
-  summary: 'Simple module to parse ISO 8601 dates'
+    home: https://bitbucket.org/micktwomey/pyiso8601
+    license: MIT License
+    summary: 'Simple module to parse ISO 8601 dates'

@@ -9,7 +9,7 @@ source:
         - speedup.patch
 
 build:
-    number: 1
+    number: 2
 
 about:
     home: https://puma.nerc.ac.uk/trac/UM_TOOLS/wiki/unpack

@@ -7,7 +7,7 @@ source:
     git_tag: 0.0.8
 
 build:
-    number: 0
+    number: 1
     entry_points:
         - binner=pyaxiom.netcdf.grids.binner:run
 
@@ -15,7 +15,6 @@ requirements:
     build:
         - python
         - setuptools
-
     run:
         - python
         - numpy
@@ -33,7 +32,6 @@ test:
         - pyaxiom.netcdf.grids
         - pyaxiom.netcdf.sensors
         - pyaxiom.tests
-
     commands:
         - binner --help
 

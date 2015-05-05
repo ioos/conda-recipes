@@ -8,9 +8,9 @@ source:
     md5: 1be49befbdd9a5ce9def2983ba3e7b76
 
 build:
-    number: 0
+    number: 1
 
 about:
     home: http://www.boost.org
     license: BSL-1.0
-    summary: 'Boost provides free portable peer-reviewed C++ libraries. The emphasis is on portable libraries which work well with the C++ Standard Library'
+    summary: 'Boost provides free portable peer-reviewed C++ libraries'

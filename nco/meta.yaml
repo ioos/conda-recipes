@@ -8,7 +8,7 @@ source:
     md5: 842a118251da3875e7e2ab2cb0ec77fe
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -27,10 +27,10 @@ test:
     commands:
         - ncks --help
         - ncks -M http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz
-        - ncks http://thredds-test.ucar.edu/thredds/dodsC/testdods/in.nc in.nc
-        - ncap2 -v -s 'a=3' -s 'b=4' -s 'c=sqrt(a^2+b^2)' in.nc out.nc
+        #- ncks http://thredds-test.ucar.edu/thredds/dodsC/testdods/in.nc in.nc
+        #- ncap2 -v -s 'a=3' -s 'b=4' -s 'c=sqrt(a^2+b^2)' in.nc out.nc
 
 about:
-    home: http://www.hdfgroup.org/HDF5/
-    license: BSD-style (http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING)
+    home: http://nco.sourceforge.net/
+    license: GPL-3.0
     summary: 'Suite of programs for manipulating NetCDF/HDF4 files'

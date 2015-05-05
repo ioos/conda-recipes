@@ -1,0 +1,30 @@
+package:
+  name: basemap
+  version: "1.0.7"
+source:
+  fn:  basemap-1.0.7.tar.gz
+  url: https://downloads.sourceforge.net/project/matplotlib/matplotlib-toolkits/basemap-1.0.7/basemap-1.0.7.tar.gz
+  md5: 48c0557ced9e2c6e440b28b3caff2de8
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - numpy
+    - geos >=3.4
+  run:
+    - python
+    - numpy
+    - matplotlib
+    - geos >=3.4
+
+test:
+  imports:
+    - mpl_toolkits.basemap
+
+about:
+  home: http://matplotlib.org/basemap
+  license: GNU GPL
+  summary: 'The matplotlib basemap toolkit is a library for plotting 2D data on maps in Python. '

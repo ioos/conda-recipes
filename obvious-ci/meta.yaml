@@ -7,13 +7,12 @@ source:
     git_tag: master
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
         - python
         - setuptools
-
     run:
         - python
         - setuptools
@@ -24,4 +23,4 @@ requirements:
 about:
     home: https://github.com/pelson/Obvious-CI
     license: GPL
-    summary: Simplify the implementation of continuous integration such as Travis CI and appveyor.
+    summary: 'Simplify the implementation of continuous integration such as Travis CI and appveyor'

@@ -8,7 +8,7 @@ source:
     sha1: 9c5735f773922e580bf98c7c7dfda9bbed4c5191
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -23,4 +23,4 @@ test:
 about:
   home: http://www.ece.uvic.ca/~frodo/jasper/
   license: http://www.ece.uvic.ca/~frodo/jasper/LICENSE
-  summary: "A reference implementation of the codec specified in the JPEG-2000 Part-1 standard."
+  summary: "A reference implementation of the codec specified in the JPEG-2000 Part-1 standard"

@@ -8,7 +8,7 @@ source:
     md5: c76a9758b2011bc3b6c39f881bba2f66
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -24,3 +24,4 @@ test:
 about:
     home: http://south.aeracode.org/
     license: Apache Software License
+    summary: 'South: Migrations for Django'

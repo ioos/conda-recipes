@@ -41,6 +41,6 @@ test:
         - oceans
 
 about:
-  home: http://pypi.python.org/pypi/oceans/
-  license: MIT License
-  summary: 'Misc functions for oceanographic data analysis'
+    home: http://pypi.python.org/pypi/oceans/
+    license: MIT License
+    summary: 'Misc functions for oceanographic data analysis'

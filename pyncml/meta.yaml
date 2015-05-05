@@ -7,7 +7,7 @@ source:
     git_tag: 0.0.7
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -16,7 +16,6 @@ requirements:
         - numpy
         - setuptools
         - netcdf4
-
     run:
         - python
         - pytz

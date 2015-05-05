@@ -8,7 +8,7 @@ source:
     md5: ac6f02229bfb1882d743de496268f8d8
 
 build:
-    number: 0
+    number: 1
     entry_points:
         - rdfpipe = rdflib.tools.rdfpipe:main
         - csv2rdf = rdflib.tools.csv2rdf:main

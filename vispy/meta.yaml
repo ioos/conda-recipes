@@ -1,25 +1,28 @@
 package:
-  name: vispy
-  version: "0.4.0.dev"
+    name: vispy
+    version: "0.4.0.dev"
 
 source:
-  git_url: https://github.com/vispy/vispy.git
-  git_tag: master
+    git_url: https://github.com/vispy/vispy.git
+    git_tag: master
+
+build:
+    number: 0
 
 requirements:
-  build:
-    - python
-    - numpy
-  run:
-    - python
-    - numpy
+    build:
+        - python
+        - numpy
+    run:
+        - python
+        - numpy
 
 test:
-  imports:
-    - vispy.app
-    - vispy.scene
+    imports:
+        - vispy.app
+        - vispy.scene
 
 about:
-  home: http://www.vispy.org
-  license: BSD
-  summary: Vispy is a high-performance, interactive 2D/3D data visualization library (currently in early development).
+    home: http://www.vispy.org
+    license: BSD
+    summary: 'Vispy is a high-performance, interactive 2D/3D data visualization library (currently in early development)'

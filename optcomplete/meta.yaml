@@ -1,26 +1,26 @@
 package:
-  name: optcomplete
-  version: !!str 1.2.devel
+    name: optcomplete
+    version: "1.2.devel"
 
 source:
-  fn: optcomplete-1.2-devel.tar.gz
-  url: https://pypi.python.org/packages/source/o/optcomplete/optcomplete-1.2-devel.tar.gz
-  md5: 6392cd0a7154b3394004d5ad9d913d59
+    fn: optcomplete-1.2-devel.tar.gz
+    url: https://pypi.python.org/packages/source/o/optcomplete/optcomplete-1.2-devel.tar.gz
+    md5: 6392cd0a7154b3394004d5ad9d913d59
 
 build:
-  number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-  run:
-    - python
+    build:
+        - python
+    run:
+        - python
 
 test:
-  imports:
-    - optcomplete
+    imports:
+        - optcomplete
 
 about:
-  home: http://furius.ca/optcomplete
-  license: BSD
-  summary: 'Automatic shell completion support for scripts that use optparse.'
+    home: http://furius.ca/optcomplete
+    license: BSD
+    summary: 'Automatic shell completion support for scripts that use optparse'

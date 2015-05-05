@@ -8,19 +8,18 @@ source:
     md5: b5e0c8eac6f92e9806b91eced8586047
 
 build:
-  number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-
-  run:
-    - python
-    - jinja2
+    build:
+        - python
+    run:
+        - python
+        - jinja2
 
 test:
-  imports:
-    - folium
+    imports:
+        - folium
 
 about:
   home: https://github.com/wrobstory/folium

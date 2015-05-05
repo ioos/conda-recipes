@@ -8,7 +8,7 @@ source:
     md5: 678eb7fdd3d477a4d9d0cacbffe88ee2
 
 build:
-    number: 0
+    number: 1
     entry_points:
         - coveralls = coveralls.cli:main
 

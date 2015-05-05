@@ -1,28 +1,28 @@
 package:
-  name: airsea
-  version: !!str 0.0.1_DEV
+    name: airsea
+    version: "0.0.1.dev"
 
 source:
     git_url: https://github.com/ocefpaf/python-airsea.git
     git_tag: master
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - numpy
-  run:
-    - python
-    - numpy
+    build:
+        - python
+        - setuptools
+        - numpy
+    run:
+        - python
+        - numpy
 
 test:
-  imports:
-    - airsea
+    imports:
+        - airsea
 
 about:
-  home: http://github.com/ocefpaf/python-airsea
-  license: MIT License
-  summary: 'Airsea Library for Python'
+    home: http://github.com/ocefpaf/python-airsea
+    license: MIT License
+    summary: 'Airsea Library for Python'

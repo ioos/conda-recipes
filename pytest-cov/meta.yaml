@@ -1,6 +1,6 @@
 package:
     name: pytest-cov
-    version: !!str 1.8.1
+    version: "1.8.1"
 
 source:
     fn: pytest-cov-1.8.1.tar.gz
@@ -8,7 +8,7 @@ source:
     md5: 76c778afa2494088270348be42d759fc
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:

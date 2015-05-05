@@ -1,30 +1,29 @@
 package:
-  name: sparqlwrapper
-  version: "1.6.4"
+    name: sparqlwrapper
+    version: "1.6.4"
 
 source:
-  fn: SPARQLWrapper-1.6.4.tar.gz
-  url: https://pypi.python.org/packages/source/S/SPARQLWrapper/SPARQLWrapper-1.6.4.tar.gz
-  md5: e30a18bd53e16c93e5fc0a2cc736ad34
+    fn: SPARQLWrapper-1.6.4.tar.gz
+    url: https://pypi.python.org/packages/source/S/SPARQLWrapper/SPARQLWrapper-1.6.4.tar.gz
+    md5: e30a18bd53e16c93e5fc0a2cc736ad34
 
 build:
-  number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - rdflib >=2.4.2
-
-  run:
-    - python
-    - rdflib >=2.4.2
+    build:
+        - python
+        - setuptools
+        - rdflib >=2.4.2
+    run:
+        - python
+        - rdflib >=2.4.2
 
 test:
-  imports:
-    - SPARQLWrapper
+    imports:
+        - SPARQLWrapper
 
 about:
-  home: http://sparql-wrapper.sourceforge.net/
-  license: W3C License
-  summary: 'SPARQL Endpoint interface to Python'
+    home: http://sparql-wrapper.sourceforge.net/
+    license: W3C License
+    summary: 'SPARQL Endpoint interface to Python'
