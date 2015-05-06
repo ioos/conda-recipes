@@ -1,36 +1,36 @@
 package:
-  name: owslib
-  version: !!str 0.8.13
+    name: owslib
+    version: "0.8.13"
 
 source:
+    git_url: https://github.com/geopython/OWSLib.git
+    git_tag: 0.8.13
 
-  git_url: https://github.com/geopython/OWSLib.git
-  git_tag: 0.8.13
+build:
+    number: 1
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - python-dateutil
-    - pytz
-
-  run:
-    - python
-    - python-dateutil
-    - pytz
+    build:
+        - python
+        - setuptools
+        - python-dateutil
+        - pytz
+    run:
+        - python
+        - python-dateutil
+        - pytz
 
 test:
-  # Python imports
-  imports:
-    - owslib.coverage
-    - owslib.waterml
-    - owslib.swe.observation
-    - owslib.swe.sensor
-    - owslib
-    - owslib.feature
-    - owslib.swe
+    imports:
+        - owslib.coverage
+        - owslib.waterml
+        - owslib.swe.observation
+        - owslib.swe.sensor
+        - owslib
+        - owslib.feature
+        - owslib.swe
 
 about:
-  home: https://geopython.github.io/OWSLib
-  license: BSD License
-  summary: 'OGC Web Service utility library'
+    home: https://geopython.github.io/OWSLib
+    license: BSD License
+    summary: 'OGC Web Service utility library'

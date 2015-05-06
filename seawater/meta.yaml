@@ -1,31 +1,30 @@
 package:
-  name: seawater
-  version: !!str 3.3.2
+    name: seawater
+    version: "3.3.2"
 
 source:
-  fn: seawater-3.3.2.tar.gz
-  url: https://pypi.python.org/packages/source/s/seawater/seawater-3.3.2.tar.gz
-  md5: d2aa85c5b80f5dde84e0046468609be2
+    fn: seawater-3.3.2.tar.gz
+    url: https://pypi.python.org/packages/source/s/seawater/seawater-3.3.2.tar.gz
+    md5: d2aa85c5b80f5dde84e0046468609be2
 
 build:
-  number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - numpy
-
-  run:
-    - python
-    - numpy
+    build:
+        - python
+        - setuptools
+        - numpy
+    run:
+        - python
+        - numpy
 
 test:
-  imports:
-    - seawater
-    - seawater.test
+    imports:
+        - seawater
+        - seawater.test
 
 about:
-  home: http://pypi.python.org/pypi/seawater/
-  license: MIT License
-  summary: 'Seawater Library for Python'
+    home: http://pypi.python.org/pypi/seawater/
+    license: MIT License
+    summary: 'Seawater Library for Python'

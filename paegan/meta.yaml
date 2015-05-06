@@ -1,51 +1,50 @@
 package:
-  name: paegan
-  version: !!str 1.1.1
+    name: paegan
+    version: "1.1.1"
 
 source:
-
-  git_url: https://github.com/asascience-open/paegan.git
-  git_tag: 1.1.1
+    git_url: https://github.com/asascience-open/paegan.git
+    git_tag: 1.1.1
 
 build:
-  number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - numpy
-    - scipy
-    - netcdf4
-    - shapely
-    - pytz
-    - python-dateutil
-  run:
-    - python
-    - numpy
-    - scipy
-    - netcdf4
-    - shapely
-    - pytz
-    - python-dateutil
-    - setuptools
+    build:
+        - python
+        - setuptools
+        - numpy
+        - scipy
+        - netcdf4
+        - shapely
+        - pytz
+        - python-dateutil
+    run:
+        - python
+        - numpy
+        - scipy
+        - netcdf4
+        - shapely
+        - pytz
+        - python-dateutil
+        - setuptools
 
 test:
-  imports:
-    - paegan
-    - paegan.logger
-    - paegan.roms
-    - paegan.cdm.grids
-    - paegan.cdm
-    - paegan.external
-    - paegan.cdm.dsg.collections.base
-    - paegan.utils
-    - paegan.cdm.dsg.features.base
-    - paegan.cdm.dsg.features
-    - paegan.cdm.dsg.collections
-    - paegan.cdm.dsg
+    imports:
+        - paegan
+        - paegan.logger
+        - paegan.roms
+        - paegan.cdm.grids
+        - paegan.cdm
+        - paegan.external
+        - paegan.cdm.dsg.collections.base
+        - paegan.utils
+        - paegan.cdm.dsg.features.base
+        - paegan.cdm.dsg.features
+        - paegan.cdm.dsg.collections
+        - paegan.cdm.dsg
 
 about:
-  home: https://github.com/asascience-open/paegan
-  license: GNU General Public License v3 (GPLv3)
-  summary: 'Paegan - The Python CDM for Met/Ocean data'
+    home: https://github.com/asascience-open/paegan
+    license: GNU General Public License v3 (GPLv3)
+    summary: 'Paegan - The Python CDM for Met/Ocean data'

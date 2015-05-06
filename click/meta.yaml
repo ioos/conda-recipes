@@ -7,7 +7,7 @@ source:
     git_tag: 4.0
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -23,4 +23,4 @@ test:
 about:
     home: http://github.com/mitsuhiko/click
     license:  BSD License
-    summary: 'A simple wrapper around optparse for powerful command line utilities.'
+    summary: 'A simple wrapper around optparse for powerful command line utilities'

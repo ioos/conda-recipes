@@ -1,56 +1,56 @@
 package:
-  name: cartopy
-  version: 0.12.0
+    name: cartopy
+    version: 0.12.0
 
 source:
-  git_url: https://github.com/SciTools/cartopy.git
-  git_tag: v0.12.0
+    git_url: https://github.com/SciTools/cartopy.git
+    git_tag: v0.12.0
 
-  patches:
-    - cartopy.win.patch  # [win]
+    patches:
+        - cartopy.win.patch  # [win]
 
 build:
-  number: 0
+    number: 2
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - six
-    - numpy
-    - cython
-    - proj4
-    - geos
-    # On OSX We need to effectively pin the geos version to the
-    # one used by the specific shapely being targetted (we're letting
-    # conda's package solver will deal with that).
-    - shapely >=1.5.6
-    - owslib
-    - pyshp
-    - pyepsg
-  run:
-    - python
-    - six
-    - mock
-    - nose
-    - pillow
-    - owslib
-    - numpy
-    - proj4
-    - shapely >=1.5.6
-    - scipy
-    - pyshp
-    - matplotlib
-    - pyepsg
+    build:
+        - python
+        - setuptools
+        - six
+        - numpy
+        - cython
+        - proj4
+        - geos
+        # On OSX We need to effectively pin the geos version to the
+        # one used by the specific shapely being targetted (we're letting
+        # conda's package solver will deal with that).
+        - shapely >=1.5.6
+        - owslib
+        - pyshp
+        - pyepsg
+    run:
+        - python
+        - six
+        - mock
+        - nose
+        - pillow
+        - owslib
+        - numpy
+        - proj4
+        - geos
+        - shapely >=1.5.6
+        - scipy
+        - pyshp
+        - matplotlib
+        - pyepsg
 
 test:
-  imports:
-    - cartopy
-    - cartopy.mpl.geoaxes
-    - cartopy.crs
+    imports:
+        - cartopy
+        - cartopy.mpl.geoaxes
+        - cartopy.crs
 
 about:
-  home: http://scitools.org.uk/cartopy
-  license: GNU LGPL
-  summary: 'A library providing cartographic tools for python'
-
+    home: http://scitools.org.uk/cartopy
+    license: GNU LGPL
+    summary: 'A library providing cartographic tools for python'

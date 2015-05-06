@@ -1,19 +1,19 @@
 package:
-  name: gridgen
-  version: 1.48
+    name: gridgen
+    version: "1.48"
 
 source:
-  git_url: https://github.com/phobson/gridgen.git
-  git_tag: v1.48
+    git_url: https://github.com/phobson/gridgen.git
+    git_tag: v1.48
 
 build:
-  number: 1
+    number: 2
 
 requirements:
-  build:
-   - gridutils
+    build:
+        - gridutils
 
 about:
-  home: https://code.google.com/p/gridgen-c
-  license: MIT License
-  summary: "Pavel Sakov's curvilinear orthogonal grid generation library."
+    home: https://code.google.com/p/gridgen-c
+    license: MIT License
+    summary: "Pavel Sakov's curvilinear orthogonal grid generation library"

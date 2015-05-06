@@ -8,7 +8,7 @@ source:
     sha1: b769ac5db70703f0d944d93aafbbeee7513958f1
 
 build:
-    number: 0
+    number: 1
     detect_binary_files_with_prefix: true
 
 requirements:
@@ -30,4 +30,4 @@ test:
 about:
     home: https://software.ecmwf.int/wiki/display/GRIB/Home
     license: Apache License, Version 2.0
-    summary: "The ECMWF API for encoding and decoding WMO FM-92 GRIB edition 1 and edition 2 messages."
+    summary: "The ECMWF API for encoding and decoding WMO FM-92 GRIB edition 1 and edition 2 messages"

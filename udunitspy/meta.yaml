@@ -1,36 +1,35 @@
 package:
-  name: udunitspy
-  version: !!str 0.0.6
+    name: udunitspy
+    version: "0.0.6"
 
 source:
-  git_url: https://github.com/blazetopher/udunitspy.git
-  git_tag: master
+    git_url: https://github.com/blazetopher/udunitspy.git
+    git_tag: master
 
 build:
- number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - udunits2
-    - numexpr >=2.1
-    - pytest >=2.3.2
-    - pytest-cov >=1.6
-    - swig
-  run:
-    - python
-    - udunits2
-    - numexpr >=2.1
-    - pytest >=2.3.2
-    - pytest-cov >=1.6
+    build:
+        - python
+        - setuptools
+        - udunits2
+        - numexpr >=2.1
+        - pytest >=2.3.2
+        - pytest-cov >=1.6
+        - swig
+    run:
+        - python
+        - udunits2
+        - numexpr >=2.1
+        - pytest >=2.3.2
+        - pytest-cov >=1.6
 
 test:
-  imports:
-    - udunitspy
-#   - udunitspy.test
+    imports:
+        - udunitspy
 
 about:
-  home: https://github.com/blazetopher/udunitspy/
-  license: LICENSE.txt
-  summary: 'Python wrapper for UDUNITS2'
+    home: https://github.com/blazetopher/udunitspy/
+    license: LICENSE.txt
+    summary: 'Python wrapper for UDUNITS2'

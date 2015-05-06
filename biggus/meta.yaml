@@ -7,13 +7,12 @@ source:
     git_tag: v0.10.0
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python
         - setuptools
-
     run:
         - python
         - numpy
@@ -21,4 +20,4 @@ requirements:
 about:
     home: https://pypi.python.org/pypi/Biggus
     license: LGPL
-    summary: Virtual large arrays and lazy evaluation.
+    summary: 'Virtual large arrays and lazy evaluation'

@@ -1,27 +1,27 @@
 package:
-  name: mplexporter
-  version: !!str 0.0.1
+    name: mplexporter
+    version: "0.0.1"
 
 source:
-  git_url: https://github.com/mpld3/mplexporter.git
-  git_tag: master
+    git_url: https://github.com/mpld3/mplexporter.git
+    git_tag: master
 
 build:
-  number: 0
+    number: 1
 
 requirements:
-  build:
-    - python
-    - setuptools
-  run:
-    - python
-    - matplotlib
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - matplotlib
 
 test:
-  imports:
-    - mplexporter
+    imports:
+        - mplexporter
 
 about:
-  home: https://github.com/mpld3/mplexporter
-  license: BSD 3-clause
-  summary: 'General Matplotlib Exporter'
+    home: https://github.com/mpld3/mplexporter
+    license: BSD 3-clause
+    summary: 'General Matplotlib Exporter'

@@ -8,7 +8,7 @@ source:
     md5: d0f6aa82d49e63faebaadfc089e5e80b
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -29,4 +29,4 @@ test:
 about:
     home: http://www.django-rest-framework.org
     license: BSD License
-    summary: 'Web APIs for Django, made easy.'
+    summary: 'Web APIs for Django, made easy'

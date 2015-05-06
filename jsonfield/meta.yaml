@@ -8,7 +8,7 @@ source:
     md5: a7c7df31627069a97c9ba91b599c0845
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -25,4 +25,4 @@ test:
 about:
     home: https://github.com/bradjasper/django-jsonfield/
     license: MIT
-    summary: 'A reusable Django field that allows you to store validated JSON in your model.'
+    summary: 'A reusable Django field that allows you to store validated JSON in your model'
