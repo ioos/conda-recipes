@@ -9,7 +9,7 @@ env:
         - CONDA_PY=27  CONDA_NPY=19
 
 before_install:
-    - rm -rf nco nco-bindings pyaxiom
+    - rm -rf nco nco-bindings
     - brew update
 
 install:
