@@ -1,11 +1,11 @@
 package:
     name: rasterio
-    version: "0.22"
+    version: "0.23"
 
 source:
-    fn: rasterio-0.22.0.tar.gz
-    url: https://pypi.python.org/packages/source/r/rasterio/rasterio-0.22.0.tar.gz
-    md5: a67e9af49e5c15089c285d617c7351c4
+    fn: rasterio-0.23.0.tar.gz
+    url: https://pypi.python.org/packages/source/r/rasterio/rasterio-0.23.0.tar.gz
+    md5: efe0a3eae165775bc1aef2749f4f5abd
 
 build:
     number: 0
