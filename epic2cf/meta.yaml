@@ -1,10 +1,10 @@
 package:
     name: epic2cf
-    version: "0.0.2"
+    version: "0.0.3"
 
 source:
     git_url: https://github.com/axiom-data-science/epic2cf
-    git_tag: 0.0.2
+    git_tag: 0.0.3
 
 build:
     number: 1
