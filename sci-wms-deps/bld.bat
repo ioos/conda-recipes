@@ -1,3 +1,2 @@
-rem  sci-wms-deps doesn't build anything.
-rem  "%PYTHON%" setup.py install
-rem  if errorlevel 1 exit 1
+echo 0.0.2 > __conda_version__.txt
+rem  echo "/opt/anaconda1anaconda2anaconda3" > "%PREFIX%\test-has-prefix"
