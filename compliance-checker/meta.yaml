@@ -1,13 +1,13 @@
 package:
     name: compliance-checker
-    version: "1.0.2"
+    version: "1.1.0"
 
 source:
     git_url: https://github.com/ioos/compliance-checker.git
-    git_tag: 1.0.2
+    git_tag: 1.1.0
 
 build:
-    number: 1
+    number: 0
     entry_points:
         - compliance-checker = cchecker:main
 
@@ -15,20 +15,20 @@ requirements:
     build:
         - python
         - setuptools
-        - owslib >=0.8.3
-        - wicken >=0.1.2
-        - lxml >=3.2.1
-        - udunitspy ==0.0.6
-        - requests >=2.2.1
-        - python-dateutil >=2.2
+        - owslib
+        - wicken
+        - lxml
+        - cf_units 
+        - requests
+        - python-dateutil
     run:
         - python
-        - owslib >=0.8.3
-        - wicken >=0.1.2
-        - lxml >=3.2.1
-        - udunitspy ==0.0.6
-        - requests >=2.2.1
-        - python-dateutil >=2.2
+        - owslib
+        - wicken
+        - lxml
+        - cf_units
+        - requests
+        - python-dateutil
 
 test:
     imports:
