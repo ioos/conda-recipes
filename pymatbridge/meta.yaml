@@ -1,17 +1,19 @@
 package:
     name: pymatbridge
-    version: "0.5.0"
+    version: "0.5.2"
 
 source:
     git_url: https://github.com/arokem/python-matlab-bridge.git
-    git_tag: master
+    git_tag: 0.5.2
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
+        - pyzmq
+        - numpy
     run:
         - python
         - pyzmq
