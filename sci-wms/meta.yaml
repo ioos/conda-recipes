@@ -1,42 +1,38 @@
 package:
-    name: sci-wms-deps
+    name: sci-wms
     version: "0.0.2"
-source:
-    git_url: https://github.com/sci-wms/sci-wms.git
-    git_tag: 0.0.2
 
 build:
     number: 0
-    preserve_egg_dir: True
 
 build:
-    number: 1
+    number: 2
 
 requirements:
-    build:
-        - python
     run:
         - python
+        # requirements.txt
         - numpy
         - django >=1.7,<1.8
         - shapely
         - python-dateutil
-        - matplotlib
-        - netcdf4
-        - rtree ==0.7*
+        - matplotlib >=1.2.0
+        - netcdf4 >=1.0.2
+        - rtree 0.7.0
         - south
         - jsonfield
         - pytz
         - djangorestframework
         - pyugrid
         - basemap
+        # requirements-prod.txt
         - gunicorn >=0.13.4
         - setproctitle  # [not win]
         - tornado
-        - greenlet
-        - gevent
-        - south
-        - pyproj
+        # requirements-dev.txt
+        - django-extensions
+        - werkzeug
+
 
 about:
     home: https://github.com/sci-wms/sci-wms
