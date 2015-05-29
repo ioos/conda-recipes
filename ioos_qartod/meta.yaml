@@ -1,0 +1,30 @@
+package:
+    name: ioos_qartod
+    version: "0.0.1"
+
+source:
+    git_url: https://github.com/ocefpaf/QARTOD.git
+    git_tag: MANIFEST
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - numpy
+        - pandas
+        - quantities
+        - pyproj
+
+test:
+    imports:
+        - ioos_qartod
+
+about:
+    home: https://pypi.python.org/pypi/ioos_qartod
+    license: Apache 2.0
+    summary: 'Collection of utilities, scripts and tests to assist in automated quality assurance.'
