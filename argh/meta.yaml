@@ -1,0 +1,27 @@
+package:
+    name: argh
+    version: "0.26.1"
+
+source:
+    fn: argh-0.26.1.tar.gz
+    url: https://pypi.python.org/packages/source/a/argh/argh-0.26.1.tar.gz
+    md5: 5a97ce2ae74bbe3b63194906213f1184
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+
+test:
+    imports:
+        - argh
+
+about:
+    home: http://github.com/neithere/argh/
+    license: GNU Library or Lesser General Public License (LGPL)
+    summary: 'An unobtrusive argparse wrapper with natural syntax'
