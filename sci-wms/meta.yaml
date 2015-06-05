@@ -32,7 +32,12 @@ requirements:
         # requirements-dev.txt
         - django-extensions
         - werkzeug
-
+        # Not in the req file.
+        - django-grappelli
+        - django-typed-models
+        - dj-static
+        - watchdog
+        - django-debug-toolbar
 
 about:
     home: https://github.com/sci-wms/sci-wms
