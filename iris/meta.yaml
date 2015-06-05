@@ -1,20 +1,20 @@
 package:
     name: iris
-    version: "1.8.0"
+    version: "1.8.1"
 
 source:
     git_url: https://github.com/SciTools/iris.git
-    git_tag: v1.8.0
+    git_tag: v1.8.1
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
         - scipy
         - biggus
-        - cartopy >=0.11
+        - cartopy
         - netcdf4
         - udunits2
         - pyke
@@ -24,7 +24,7 @@ requirements:
         - python
         - scipy
         - biggus
-        - cartopy >=0.11
+        - cartopy
         - matplotlib
         - netcdf4
         - ecmwf_grib >=1.12.1  # [not win]

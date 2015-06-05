@@ -23,7 +23,7 @@ MINICONDA_URL_TEMPLATE = ('http://repo.continuum.io/miniconda/Miniconda{major_py
                           '{miniconda_version}-{OS}-{arch}.{ext}')
 
 
-def miniconda_url(target_system, target_arch, major_py_version, miniconda_version='3.7.0'):
+def miniconda_url(target_system, target_arch, major_py_version, miniconda_version='latest'):
     template_values = {'miniconda_version': miniconda_version}
 
     if target_arch == 'x86':
@@ -32,7 +32,7 @@ def miniconda_url(target_system, target_arch, major_py_version, miniconda_versio
         template_values['arch'] = "x86_64"
     else:
         raise ValueError('Unexpected target arch.')
-    
+
     system_to_miniconda_os = {'Linux': 'Linux',
                               'Darwin': 'MacOSX',
                               'Windows': 'Windows'}
@@ -47,11 +47,11 @@ def miniconda_url(target_system, target_arch, major_py_version, miniconda_versio
     if major_py_version not in ['2', '3']:
         raise ValueError('Unexpected major Python version {!r}.'.format(major_py_version))
     template_values['major_py_version'] = major_py_version if major_py_version == '3' else ''
-    
+
     return MINICONDA_URL_TEMPLATE.format(**template_values)
 
 
-def main(target_dir, target_arch, major_py_version, miniconda_version='3.7.0', install_obvci=True):
+def main(target_dir, target_arch, major_py_version, miniconda_version='latest', install_obvci=True):
     system = platform.system()
     URL = miniconda_url(system, target_arch, major_py_version, miniconda_version)
     basename = URL.rsplit('/', 1)[1]
@@ -65,7 +65,7 @@ def main(target_dir, target_arch, major_py_version, miniconda_version='3.7.0', i
         bin_dir = 'scripts'
     else:
         raise ValueError('Unsupported operating system.')
-    
+
     if not os.path.exists(basename):
         print('Downloading from {}'.format(URL))
         urlretrieve(URL, basename)
@@ -76,7 +76,7 @@ def main(target_dir, target_arch, major_py_version, miniconda_version='3.7.0', i
     if os.path.exists(target_dir):
         raise IOError('Installation directory already exists')
     subprocess.check_call(cmd)
-    
+
     if not os.path.isdir(target_dir):
         raise RuntimeError('Failed to install miniconda :(')
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
                         choices=['2', '3'])
     parser.add_argument('--without-obvci', help="Disable the installation of Obvious-ci.",
                         action='store_true')
-    parser.add_argument('--miniconda-version', default='3.7.0')
+    parser.add_argument('--miniconda-version', default='latest')
 
     args = parser.parse_args()
     main(args.installation_directory, args.arch, args.major_py_version,
