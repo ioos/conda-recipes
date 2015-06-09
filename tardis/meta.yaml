@@ -1,0 +1,32 @@
+package:
+    name: tardis
+    version: "0.0.1"
+
+source:
+    git_url: https://github.com/pyoceans/tardis.git
+    git_tag: v0.0.1
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - iris
+        - pytz
+        - numpy
+        - scipy
+        - oceans
+        - pyugrid
+
+test:
+    imports:
+        - tardis
+
+about:
+    home: https://github.com/pyoceans/tardis.git
+    license: MIT License
+    summary: "TARDIS is a collection of functions for Scitools Iris"

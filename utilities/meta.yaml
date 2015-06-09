@@ -1,10 +1,10 @@
 package:
     name: utilities
-    version: "0.2.3"
+    version: "0.2.4"
 
 source:
     git_url: https://github.com/pyoceans/utilities.git
-    git_tag: v0.2.3
+    git_tag: v0.2.4
 
 build:
     number: 0
@@ -17,20 +17,21 @@ requirements:
         - python
         - iris
         - lxml
-        - pandas
-        - beautifulsoup4
-        - folium
-        - ipython-notebook
+        - tardis
         - oceans
-        - pyugrid
+        - pandas
+        - folium
         - owslib
+        - pyugrid
         - requests
+        - beautifulsoup4
+        - ipython-notebook
 
 test:
     imports:
         - utilities
 
 about:
-    home: https://github.com/ocefpaf/utilities.git
+    home: https://github.com/pyoceans/utilities.git
     license: MIT License
-    summary: "IOOS/SECOORA `utilities.py` module"
+    summary: "IOOS/SECOORA 'utilities.py' module"
