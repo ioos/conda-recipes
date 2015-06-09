@@ -1,0 +1,31 @@
+package:
+    name: cdo
+    version: 1.6.9
+
+source:
+    fn: cdo-1.6.9.tar.gz
+    url: https://code.zmaw.de/attachments/download/10198/cdo-1.6.9.tar.gz
+    md5: bf0997bf20e812f35e10188a930e24e2
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - jasper  # [not win]
+        - ecmwf_grib  # [not win]
+        - libnetcdf
+        - proj4
+    run:
+        - jasper  # [not win]
+        - ecmwf_grib  # [not win]
+        - libnetcdf
+        - proj4
+
+test:
+    commands:
+        - cdo -h
+
+about:
+    home: https://code.zmaw.de/projects/cdo
+    license: GNU General Public License v2
