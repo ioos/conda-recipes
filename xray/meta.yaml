@@ -1,25 +1,29 @@
 package:
     name: xray
-    version: "0.4.1"
+    version: "0.5.0"
 
 source:
-    fn: xray-0.4.1.tar.gz
-    url: https://pypi.python.org/packages/source/x/xray/xray-0.4.1.tar.gz
-    md5: 38d230c3284520f370b3821bb0b87863
+    fn: xray-0.5.0.tar.gz
+    url: https://pypi.python.org/packages/source/x/xray/xray-0.5.0.tar.gz
+    md5: 647c748f813b96361e34f40de4ce759a
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
         - setuptools
-        - numpy >=1.7
-        - pandas >=0.15.0
     run:
         - python
-        - numpy >=1.7
-        - pandas >=0.15.0
+        - numpy
+        - pandas
+        - netcdf4
+        - scipy
+        - bottleneck
+        - dask
+        - h5netcdf
+        - cyordereddict
 
 test:
     imports:

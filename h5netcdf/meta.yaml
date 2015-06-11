@@ -1,0 +1,29 @@
+package:
+    name: h5netcdf
+    version: "0.2.1"
+
+source:
+    fn: h5netcdf-0.2.1.tar.gz
+    url: https://pypi.python.org/packages/source/h/h5netcdf/h5netcdf-0.2.1.tar.gz
+    md5: 4b218fa2043e2aa69b12cdb98456b314
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - h5py
+    run:
+        - python
+        - h5py
+
+test:
+    imports:
+        - h5netcdf
+
+about:
+    home: https://github.com/shoyer/h5netcdf
+    license: BSD License
+    summary: 'netCDF4 via h5py'
