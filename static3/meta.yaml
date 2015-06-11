@@ -1,0 +1,33 @@
+package:
+    name: static3
+    version: "0.6.1"
+
+source:
+    fn: static3-0.6.1.tar.gz
+    url: https://pypi.python.org/packages/source/s/static3/static3-0.6.1.tar.gz
+    md5: b6a6c1c8af01c5682a8acae1a28334da
+
+build:
+    number: 0
+    preserve_egg_dir: True
+    entry_points:
+        - static=static:command
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - setuptools
+
+test:
+    imports:
+        - static
+    commands:
+        - static --help
+
+about:
+    home: https://github.com/rmohr/static3
+    license: GNU Library or Lesser General Public License (LGPL)
+    summary: 'A really simple WSGI way to serve static (or mixed) content.'

@@ -1,0 +1,40 @@
+package:
+    name: watchdog
+    version: "0.8.3"
+
+source:
+    fn: watchdog-0.8.3.tar.gz
+    url: https://pypi.python.org/packages/source/w/watchdog/watchdog-0.8.3.tar.gz
+    md5: bb16926bccc98eae2a04535e4512ddf1
+
+build:
+    number: 0
+    entry_points:
+        - watchmedo = watchdog.watchmedo:main
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - pyyaml >=3.10
+        - argh >=0.24.1
+        - pathtools >=0.1.1
+    run:
+        - python
+        - pyyaml >=3.10
+        - argh >=0.24.1
+        - pathtools >=0.1.1
+
+test:
+    imports:
+        - watchdog
+        - watchdog.observers
+        - watchdog.tricks
+        - watchdog.utils
+    commands:
+        - watchmedo --help
+
+about:
+    home: http://github.com/gorakhargosh/watchdog
+    license: Apache Software License
+    summary: 'Filesystem events monitoring'

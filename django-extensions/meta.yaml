@@ -1,0 +1,30 @@
+package:
+    name: django-extensions
+    version: "1.5.0"
+
+source:
+    fn: django-extensions-1.5.0.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-extensions/django-extensions-1.5.0.tar.gz
+    md5: dfe2a31af035f486d3823f767c8e6336
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - six >=1.2
+    run:
+        - python
+        - six >=1.2
+        - django
+
+test:
+    imports:
+        - django_extensions
+
+about:
+    home: http://github.com/django-extensions/django-extensions
+    license: MIT License
+    summary: 'Extensions for Django'

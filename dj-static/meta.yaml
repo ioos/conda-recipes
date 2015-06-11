@@ -1,0 +1,28 @@
+package:
+    name: dj-static
+    version: "0.0.6"
+
+source:
+    fn: dj-static-0.0.6.tar.gz
+    url: https://pypi.python.org/packages/source/d/dj-static/dj-static-0.0.6.tar.gz
+    md5: 078c4d5a455b7811173ffdb0cb33ed0f
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - static3
+    run:
+        - python
+        - static3
+
+# test:
+  # imports:
+
+about:
+    home: https://github.com/kennethreitz/dj-static
+    license: BSD License
+    summary: 'Serve production static files with Django.'

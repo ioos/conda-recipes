@@ -1,0 +1,35 @@
+package:
+    name: django-grappelli
+    version: "2.6.5"
+
+source:
+    fn: django-grappelli-2.6.5.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-grappelli/django-grappelli-2.6.5.tar.gz
+    md5: f98c54d448744945997a31e63d605d2c
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - django
+
+test:
+    imports:
+        - grappelli
+        #- grappelli.dashboard
+        #- grappelli.dashboard.management
+        #- grappelli.dashboard.management.commands
+        #- grappelli.dashboard.templatetags
+        #- grappelli.templatetags
+        #- grappelli.tests
+        #- grappelli.views
+
+about:
+    home: http://django-grappelli.readthedocs.org
+    license: BSD License
+    summary: 'A jazzy skin for the Django Admin-Interface.'
