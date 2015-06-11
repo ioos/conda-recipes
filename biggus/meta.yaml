@@ -1,13 +1,13 @@
 package:
     name: biggus
-    version: "0.10.0"
+    version: "0.11.0"
 
 source:
     git_url: https://github.com/SciTools/biggus
-    git_tag: v0.10.0
+    git_tag: v0.11.0
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
