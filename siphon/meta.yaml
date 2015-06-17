@@ -1,0 +1,32 @@
+package:
+    name: siphon
+    version: "0.3.0"
+
+source:
+    fn: siphon-0.3.0.tar.gz
+    url: https://pypi.python.org/packages/source/s/siphon/siphon-0.3.0.tar.gz
+    md5: 082d1deae4ee72bc8a1a5c4eae22d8aa
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - numpy
+        - protobuf >=3.0.0a3
+        - requests
+        - netcdf4
+
+test:
+    imports:
+        - siphon
+        - siphon.cdmr
+
+about:
+    home: https://github.com/Unidata/siphon
+    license: MIT License
+    summary: 'A collection of Python utilities for interacting with the Unidata technology stack.'
