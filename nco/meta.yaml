@@ -1,14 +1,14 @@
 package:
     name: nco
-    version: 4.4.8
+    version: 4.5.0
 
 source:
-    fn: nco-4.4.8.tar.gz
-    url: http://nco.sourceforge.net/src/nco-4.4.8.tar.gz
-    md5: 842a118251da3875e7e2ab2cb0ec77fe
+    fn: nco-4.5.0.tar.gz
+    url: http://nco.sourceforge.net/src/nco-4.5.0.tar.gz
+    md5: cc387b92e796a778bddefab79cda0a34
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
