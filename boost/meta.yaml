@@ -1,14 +1,14 @@
 package:
     name: boost
-    version: "1.57.0"
+    version: "1.58.0"
 
 source:
-    fn:  boost_1_57_0.tar.bz2
-    url: http://sourceforge.net/projects/boost/files/boost/1.57.0/boost_1_57_0.tar.bz2
-    md5: 1be49befbdd9a5ce9def2983ba3e7b76
+    fn:  boost_1_58_0.tar.bz2
+    url: http://sourceforge.net/projects/boost/files/boost/1.58.0/boost_1_58_0.tar.bz2
+    md5: b8839650e61e9c1c0a89f371dd475546
 
 build:
-    number: 1
+    number: 0
 
 about:
     home: http://www.boost.org
