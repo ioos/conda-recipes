@@ -1,11 +1,11 @@
 package:
     name: django-extensions
-    version: "1.5.0"
+    version: "1.5.5"
 
 source:
-    fn: django-extensions-1.5.0.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-extensions/django-extensions-1.5.0.tar.gz
-    md5: dfe2a31af035f486d3823f767c8e6336
+    fn: django-extensions-1.5.5.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-extensions/django-extensions-1.5.5.tar.gz
+    md5: 2c0b90a474ddb75764573f97a1481b82
 
 build:
     number: 0
@@ -14,7 +14,6 @@ requirements:
     build:
         - python
         - setuptools
-        - six >=1.2
     run:
         - python
         - six >=1.2
