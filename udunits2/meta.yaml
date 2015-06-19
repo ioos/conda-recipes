@@ -1,11 +1,11 @@
 package:
     name: udunits2
-    version: "2.2.19"
+    version: "2.2.20"
 
 source:
-    fn: v2.2.19.tar.gz
-    url: https://github.com/Unidata/UDUNITS-2/archive/v2.2.19.tar.gz
-    sha1: 39ff26ae5186573897254b91e97690c67b96cf89
+    fn: v2.2.20.tar.gz
+    url: https://github.com/Unidata/UDUNITS-2/archive/v2.2.20.tar.gz
+    sha1: a0d30024af16749a4a5ca60133b32735ae52f9e2
 
 requirements:
   build:
@@ -14,8 +14,7 @@ requirements:
     - expat  # [win]
 
 build:
-    number: 0 # [win]
-    number: 1 # [not win]
+    number: 0
     detect_binary_files_with_prefix: true
 
 test:

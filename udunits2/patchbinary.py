@@ -5,12 +5,16 @@ null-terminators.
 :author: Dan Blanchard (dblan...@ets.org)
 :date: March 2014
 '''
+
 from __future__ import print_function, unicode_literals
+
 import argparse
 import re
 import sys
 from io import open
 from locale import getpreferredencoding
+
+
 def replace_with_null(pattern, replacement, search_bytes, exact=False,
                       regex=False):
     '''
@@ -56,6 +60,8 @@ def replace_with_null(pattern, replacement, search_bytes, exact=False,
         #       file=sys.stderr)
         patched_bytes[match.start():match.end()] = expanded_replacement
     return bytes(patched_bytes)
+
+
 def main(argv=None):
     '''
     Process the command line arguments and print out a copy of input with
@@ -72,9 +78,9 @@ def main(argv=None):
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         conflict_handler='resolve')
     parser.add_argument('pattern',
-                        help='The string we are trying to find to replace.')
+                        help='String we are trying to find to replace.')
     parser.add_argument('replacement',
-                        help='The string we are going to replace pattern with.')
+                        help='String we are going to replace pattern with.')
     parser.add_argument('input_file',
                         help='The file to perform in-place replacements on. If \
                               unspecified, will use STDIN.',
@@ -82,8 +88,8 @@ def main(argv=None):
                         nargs='?')
     parser.add_argument('-e', '--encoding',
                         help='Encoding to use for strings that are being \
-                              inserted into file. Use locale-preferred encoding\
-                              by default.',
+                              inserted into file. Use locale-preferred \
+                              encoding by default.',
                         default=encoding)
     parser.add_argument('-E', '--exact',
                         help='Pattern must be immediately followed by \
@@ -101,8 +107,8 @@ def main(argv=None):
     args.pattern = args.pattern.encode(encoding)
     args.replacement = args.replacement.encode(encoding)
     if args.input_file.isatty():
-        print("You are running patchbinary interactively. Press CTRL-D at the" +
-              " start of a blank line to signal the end of your input. If you" +
+        print("You are running patchbinary interactively. Press CTRL-D at the"
+              " start of a blank line to signal the end of your input. If you"
               " want help, run ./patchbinary.py --help\n\n", file=sys.stderr)
     elif args.input_file == sys.stdin:
         output_file_name = '-'
@@ -119,4 +125,3 @@ def main(argv=None):
 
 if __name__ == '__main__':
     main()
-
