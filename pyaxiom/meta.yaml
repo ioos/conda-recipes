@@ -23,7 +23,7 @@ requirements:
         - netcdf4
         - pandas
         - pyncml
-        - nco-bindings  # [linux]
+        - nco-bindings  # [not win]
 
 test:
     imports:

@@ -6,6 +6,8 @@ source:
     fn: nco-4.5.0.tar.gz
     url: http://nco.sourceforge.net/src/nco-4.5.0.tar.gz
     md5: cc387b92e796a778bddefab79cda0a34
+    patches:
+        - nodocs.patch  # [osx]
 
 build:
     number: 0
@@ -14,12 +16,11 @@ requirements:
     build:
         - curl
         - zlib
-        - libnetcdf
         - hdf5
+        - libnetcdf
         - udunits2
-        #- gsl
-        #- antlr
     run:
+        - hdf5
         - libnetcdf
         - udunits2
 
@@ -27,8 +28,8 @@ test:
     commands:
         - ncks --help
         - ncks -M http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz
-        #- ncks http://thredds-test.ucar.edu/thredds/dodsC/testdods/in.nc in.nc
-        #- ncap2 -v -s 'a=3' -s 'b=4' -s 'c=sqrt(a^2+b^2)' in.nc out.nc
+        - ncks -F --dimension time,1 http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz in.nc
+        - ncap2 -v -s 'a=3' -s 'b=4' -s 'c=sqrt(a^2+b^2)' in.nc out.nc  # [not osx]
 
 about:
     home: http://nco.sourceforge.net/

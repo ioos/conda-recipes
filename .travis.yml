@@ -1,5 +1,4 @@
-# MacOS builds.
-language: objective-c
+language: objective-c  # MacOS builds.
 
 env:
     global:
@@ -9,8 +8,12 @@ env:
         - CONDA_PY=27  CONDA_NPY=19
 
 before_install:
-    - rm -rf nco nco-bindings
     - brew update
+    # NCO.
+    - brew outdated gcc || brew upgrade gcc
+    - brew install gsl
+    # https://travis-ci.org/ioos/conda-recipes/builds/67641190
+    #- brew install antlr2
 
 install:
     # Download and run bootstrap.
