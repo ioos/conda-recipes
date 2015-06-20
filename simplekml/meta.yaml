@@ -1,14 +1,14 @@
 package:
     name: simplekml
-    version: "1.2.7"
+    version: "1.2.8"
 
 source:
-    fn: simplekml-1.2.7.zip
-    url: https://pypi.python.org/packages/source/s/simplekml/simplekml-1.2.7.zip
-    md5: f89cda9e7f72f27e3e3de3799672249f
+    fn: simplekml-1.2.8.zip
+    url: https://pypi.python.org/packages/source/s/simplekml/simplekml-1.2.8.zip
+    md5: 16ac3ad2639c7e50ec769baf33a0278e
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
