@@ -1,14 +1,14 @@
 package:
     name: scp
-    version: "0.9.0"
+    version: "0.10.2"
 
 source:
-    fn: scp-0.9.0.tar.gz
-    url: https://pypi.python.org/packages/source/s/scp/scp-0.9.0.tar.gz
-    md5: 47f5837425c05dae9f79123c105ee2dd
+    fn: scp-0.10.2.tar.gz
+    url: https://pypi.python.org/packages/source/s/scp/scp-0.10.2.tar.gz
+    md5: 4c581a7fc08b3597b542aab22c36dba3
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
