@@ -1,0 +1,24 @@
+diff -Naur nco-4.5.0.orig/Makefile.am nco-4.5.0/Makefile.am
+--- nco-4.5.0.orig/Makefile.am	2015-06-11 18:15:46.000000000 -0300
++++ Makefile.am	2015-06-20 09:10:46.239764676 -0300
+@@ -1,7 +1,7 @@
+ # $Header$ -*-makefile-*-
+ 
+ #SUBDIRS = data src man doc
+-SUBDIRS = data src man @DOC_FOLDER@
++SUBDIRS = data src man
+ 
+ # Separately add desired files from nco/bld/ to distribution
+ # Autoconf does not know about the bld directory 
+diff -Naur nco-4.5.0.orig/Makefile.in nco-4.5.0/Makefile.in
+--- nco-4.5.0.orig/Makefile.in	2015-06-11 18:15:46.000000000 -0300
++++ Makefile.in	2015-06-20 09:10:39.620764347 -0300
+@@ -352,7 +352,7 @@
+ top_srcdir = @top_srcdir@
+ 
+ #SUBDIRS = data src man doc
+-SUBDIRS = data src man @DOC_FOLDER@
++SUBDIRS = data src man
+ 
+ # Separately add desired files from nco/bld/ to distribution
+ # Autoconf does not know about the bld directory 
