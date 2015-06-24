@@ -13,12 +13,14 @@ build:
 requirements:
   build:
     - python
-    - requests
     - setuptools
+    - docopt
+    - requests
     - simplejson
 
   run:
     - python
+    - docopt
     - requests
     - simplejson
 
