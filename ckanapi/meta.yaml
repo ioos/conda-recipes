@@ -1,39 +1,32 @@
 package:
-  name: ckanapi
-  version: "3.5"
+    name: ckanapi
+    version: "3.5"
 
 source:
-  fn: ckanapi-3.5.tar.gz
-  url: https://pypi.python.org/packages/source/c/ckanapi/ckanapi-3.5.tar.gz
-  md5: 2ab2508df730b0e7d84e13be74adc314
+    fn: ckanapi-3.5.tar.gz
+    url: https://pypi.python.org/packages/source/c/ckanapi/ckanapi-3.5.tar.gz
+    md5: 2ab2508df730b0e7d84e13be74adc314
 
 build:
     number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - docopt
-    - requests
-    - simplejson
-
-  run:
-    - python
-    - docopt
-    - requests
-    - simplejson
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - docopt
+        - requests
+        - simplejson
 
 test:
-  # Python imports
   imports:
     - ckanapi
     - ckanapi.cli
     - ckanapi.tests
 
-
 about:
   home: https://github.com/ckan/ckanapi
   license: MIT
   summary: 'A command line interface and Python module for accessing the CKAN Action API'
-
