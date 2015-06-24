@@ -29,6 +29,3 @@ about:
   license: MIT License or Academic Free License (AFL)
   summary: 'Simple, fast, extensible JSON encoder/decoder for Python'
 
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml

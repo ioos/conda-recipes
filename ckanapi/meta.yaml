@@ -14,8 +14,6 @@ requirements:
   build:
     - python
     - setuptools
-    - docopt
-    - requests
     - simplejson
 
   run:
