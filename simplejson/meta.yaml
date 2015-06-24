@@ -1,0 +1,31 @@
+package:
+  name: simplejson
+  version: "3.7.3"
+
+source:
+  fn: simplejson-3.7.3.tar.gz
+  url: https://pypi.python.org/packages/source/s/simplejson/simplejson-3.7.3.tar.gz
+  md5: 117346e5ee4ed4434ffe485f8e58f5ed
+
+build:
+    number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  # Python imports
+  imports:
+    - simplejson
+    - simplejson.tests
+
+about:
+  home: http://github.com/simplejson/simplejson
+  license: MIT License or Academic Free License (AFL)
+  summary: 'Simple, fast, extensible JSON encoder/decoder for Python'
+
