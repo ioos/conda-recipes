@@ -13,11 +13,13 @@ build:
 requirements:
   build:
     - python
+    - requests
     - setuptools
     - simplejson
 
   run:
     - python
+    - requests
     - simplejson
 
 test:
