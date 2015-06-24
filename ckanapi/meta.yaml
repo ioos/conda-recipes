@@ -6,30 +6,13 @@ source:
   fn: ckanapi-3.5.tar.gz
   url: https://pypi.python.org/packages/source/c/ckanapi/ckanapi-3.5.tar.gz
   md5: 2ab2508df730b0e7d84e13be74adc314
-#  patches:
-   # List any patch files here
-   # - fix.patch
 
 build:
-  preserve_egg_dir: True
-  entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - ckanapi = ckanapi:main
-    #
-    # Would create an entry point called ckanapi that calls ckanapi.main()
-
-    - ckanapi=ckanapi.cli.main:main
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+    number: 0
 
 requirements:
   build:
     - python
-    - setuptools
     - setuptools
     - docopt
     - requests
@@ -37,10 +20,6 @@ requirements:
 
   run:
     - python
-    - setuptools
-    - setuptools
-    - docopt
-    - requests
     - simplejson
 
 test:
@@ -49,26 +28,10 @@ test:
     - ckanapi
     - ckanapi.cli
     - ckanapi.tests
-    - ckanapi.tests.mock
 
-  commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-    - ckanapi --help
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
 
 about:
   home: https://github.com/ckan/ckanapi
   license: MIT
   summary: 'A command line interface and Python module for accessing the CKAN Action API'
 
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
