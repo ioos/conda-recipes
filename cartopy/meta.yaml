@@ -1,16 +1,16 @@
 package:
     name: cartopy
-    version: 0.12.0
+    version: 0.13.0
 
 source:
     git_url: https://github.com/SciTools/cartopy.git
-    git_tag: v0.12.0
+    git_tag: v0.13.0
 
     patches:
         - cartopy.win.patch  # [win]
 
 build:
-    number: 2
+    number: 0
 
 requirements:
     build:
