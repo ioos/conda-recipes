@@ -14,16 +14,25 @@ requirements:
         # requirements.txt
         - numpy
         - django >=1.7,<1.8
-        - shapely
         - python-dateutil
         - matplotlib >=1.2.0
         - netcdf4 >=1.0.2
         - rtree 0.7.0
-        - south
         - jsonfield
         - pytz
         - djangorestframework
         - pyugrid
+        #- pysgrid  # We need a release!
+        - pyaxiom
+        - django-grappelli
+        - django-typed-models
+        - pyproj
+        - dj-static
+        - pandas
+        - django-autoslug
+        # No longer in the requirements.txt! Are these still used?
+        - shapely
+        - south
         - basemap
         # requirements-prod.txt
         - gunicorn >=0.13.4
@@ -32,10 +41,6 @@ requirements:
         # requirements-dev.txt
         - django-extensions
         - werkzeug
-        # Not in the req file.
-        - django-grappelli
-        - django-typed-models
-        - dj-static
         - watchdog
         - django-debug-toolbar
 

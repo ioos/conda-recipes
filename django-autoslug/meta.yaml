@@ -1,0 +1,28 @@
+package:
+    name: django-autoslug
+    version: "1.8.0"
+
+source:
+    fn: django-autoslug-1.8.0.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-autoslug/django-autoslug-1.8.0.tar.gz
+    md5: 3d36c286f881481e07a32b2d5bf0f6f7
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - django
+
+#test:
+    #imports:
+        #- autoslug
+
+about:
+    home: http://bitbucket.org/neithere/django-autoslug/
+    license: GNU Library or Lesser General Public License (LGPL)
+    summary: 'An automated slug field for Django.'
