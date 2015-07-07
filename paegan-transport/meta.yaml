@@ -1,11 +1,10 @@
 package:
     name: paegan-transport
-    version: "1.0.2"
+    version: "1.0.3dev"
 
 source:
-    fn: paegan-transport-1.0.2.tar.gz
-    url: https://pypi.python.org/packages/source/p/paegan-transport/paegan-transport-1.0.2.tar.gz
-    md5: 5f9c7a42bbaa7ccc52766ed2e13744d0
+  git_url: https://github.com/axiom-data-science/paegan-transport.git
+  git_tag: db8f957f5f379def417f93c1941d3f20dbbf16bb
 
 build:
     number: 0
@@ -19,7 +18,7 @@ requirements:
         - paegan
         - fiona
         - requests
-        - redis-py
+        - redis-py  # [not win]
         - geojson
         - pytables
 
@@ -27,9 +26,13 @@ test:
     imports:
         - paegan.transport
         - paegan.transport.bathymetry
+        - paegan.transport.controllers # [not win]
         - paegan.transport.export
         - paegan.transport.forcers
+        - paegan.transport.models
+        - paegan.transport.models.behaviors
         - paegan.transport.parallel_manager
+        - paegan.transport.particles
         - paegan.transport.shoreline
 
 about:
