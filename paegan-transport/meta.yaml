@@ -19,7 +19,7 @@ requirements:
         - paegan
         - fiona
         - requests
-        - redis
+        - redis-py
         - geojson
         - pytables
 
