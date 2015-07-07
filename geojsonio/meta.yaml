@@ -1,0 +1,34 @@
+package:
+    name: geojsonio
+    version: "0.0.2"
+
+source:
+    fn: geojsonio-0.0.2.tar.gz
+    url: https://pypi.python.org/packages/source/g/geojsonio/geojsonio-0.0.2.tar.gz
+    md5: e75b0ec0786d456dc630f93874106bfd
+
+build:
+    number: 0
+    entry_points:
+        - geojsonio = geojsonio:main
+
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - github3.py
+        - six
+
+test:
+    imports:
+        - geojsonio
+    commands:
+        - geojsonio --help
+
+about:
+    home: https://github.com/jwass/geojsonio.py
+    license: BSD License
+    summary: 'geojsonio CLI - Python.'

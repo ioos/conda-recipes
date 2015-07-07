@@ -1,0 +1,41 @@
+package:
+    name: github3.py
+    version: "1.0.0a1"
+
+source:
+    fn: github3.py-1.0.0a1.tar.gz
+    url: https://pypi.python.org/packages/source/g/github3.py/github3.py-1.0.0a1.tar.gz
+    md5: 30da0305d4e8bcc78794f158824fa0b0
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - pyopenssl
+        - ndg-httpsclient
+        - pyasn1
+        - requests >=2.0
+        - uritemplate.py >=0.2.0
+
+test:
+    imports:
+        - github3
+        - github3.gists
+        - github3.issues
+        - github3.repos
+        - github3.search
+    requires:
+        - betamax >=0.2.0
+        - betamax-matchers >=0.1.0
+        - mock ==1.0.1
+        - pytest
+
+about:
+    home: https://github3py.readthedocs.org
+    license: BSD
+    summary: 'Python wrapper for the GitHub API(http://developer.github.com/v3)'

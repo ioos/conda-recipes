@@ -1,0 +1,29 @@
+package:
+    name: betamax-matchers
+    version: "0.2.0"
+
+source:
+    fn: betamax-matchers-0.2.0.tar.gz
+    url: https://pypi.python.org/packages/source/b/betamax-matchers/betamax-matchers-0.2.0.tar.gz
+    md5: b82264fc3628e261353261a654370535
+
+build:
+    number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - betamax >=0.3.2
+    - requests-toolbelt >=0.4.0
+
+test:
+    imports:
+        - betamax_matchers
+
+about:
+    home: https://github.com/sigmavirus24/betamax_matchers
+    license: Apache
+    summary: 'A VCR imitation for python-requests'
