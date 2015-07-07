@@ -1,0 +1,26 @@
+package:
+    name: uritemplate.py
+    version: "0.3.0"
+
+source:
+    fn: uritemplate.py-0.3.0.tar.gz
+    url: https://pypi.python.org/packages/source/u/uritemplate.py/uritemplate.py-0.3.0.tar.gz
+    md5: 4dd14904ba502c6ff8d6276e004404de
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+    run:
+        - python
+
+test:
+    imports:
+        - uritemplate
+
+about:
+    home: https://uritemplate.readthedocs.org
+    license: BSD
+    summary: 'URI templates'
