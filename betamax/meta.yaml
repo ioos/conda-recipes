@@ -1,0 +1,31 @@
+package:
+    name: betamax
+    version: "0.4.2"
+
+source:
+    fn: betamax-0.4.2.tar.gz
+    url: https://pypi.python.org/packages/source/b/betamax/betamax-0.4.2.tar.gz
+    md5: d6cc7f06d1842f6a77aff4816f46e8eb
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - requests >=2.0
+
+test:
+    imports:
+        - betamax
+        - betamax.cassette
+        - betamax.matchers
+        - betamax.serializers
+
+about:
+    home: https://github.com/sigmavirus24/betamax
+    license: Apache
+    summary: 'A VCR imitation for python-requests'
