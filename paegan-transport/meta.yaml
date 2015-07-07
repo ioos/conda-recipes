@@ -1,0 +1,38 @@
+package:
+    name: paegan-transport
+    version: "1.0.2"
+
+source:
+    fn: paegan-transport-1.0.2.tar.gz
+    url: https://pypi.python.org/packages/source/p/paegan-transport/paegan-transport-1.0.2.tar.gz
+    md5: 5f9c7a42bbaa7ccc52766ed2e13744d0
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - paegan
+        - fiona
+        - requests
+        - redis
+        - geojson
+        - pytables
+
+test:
+    imports:
+        - paegan.transport
+        - paegan.transport.bathymetry
+        - paegan.transport.export
+        - paegan.transport.forcers
+        - paegan.transport.parallel_manager
+        - paegan.transport.shoreline
+
+about:
+    home: https://github.com/axiom-data-science/paegan-transport
+    license: GNU General Public License v3 (GPLv3)
+    summary: 'Paegan-Transport - The parallellized Langragian transport model for NetCDF/OPeNDAP data, written on top of Paegan'
