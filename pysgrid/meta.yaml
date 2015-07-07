@@ -1,0 +1,28 @@
+package:
+    name: pysgrid
+    version: "0.0.4b"
+
+source:
+    git_url: https://github.com/sgrid/pysgrid.git
+    git_tag: "0.0.4-beta"
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - netcdf4
+    run:
+        - python
+        - numpy
+        - netcdf4
+
+test:
+    imports:
+        - pysgrid
+
+about:
+    home: https://github.com/sgrid/pysgrid
+    license: BSD
+    summary: 'Python package for working with staggered gridded data'
