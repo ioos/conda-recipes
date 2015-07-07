@@ -1,0 +1,28 @@
+package:
+    name: descartes
+    version: "1.0.1"
+
+source:
+    fn: descartes-1.0.1.tar.gz
+    url: https://pypi.python.org/packages/source/d/descartes/descartes-1.0.1.tar.gz
+    md5: fcacfa88674032891666d833bdab9b6d
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - matplotlib
+
+test:
+    imports:
+        - descartes
+
+about:
+    home: http://bitbucket.org/sgillies/descartes/
+    license: BSD License
+    summary: 'Use geometric objects as matplotlib paths and patches'
