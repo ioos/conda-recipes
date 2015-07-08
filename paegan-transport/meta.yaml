@@ -1,0 +1,41 @@
+package:
+    name: paegan-transport
+    version: "1.0.3dev"
+
+source:
+  git_url: https://github.com/axiom-data-science/paegan-transport.git
+  git_tag: db8f957f5f379def417f93c1941d3f20dbbf16bb
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - paegan
+        - fiona
+        - requests
+        - redis-py  # [not win]
+        - geojson
+        - pytables
+
+test:
+    imports:
+        - paegan.transport
+        - paegan.transport.bathymetry
+        - paegan.transport.controllers # [not win]
+        - paegan.transport.export
+        - paegan.transport.forcers
+        - paegan.transport.models
+        - paegan.transport.models.behaviors
+        - paegan.transport.parallel_manager
+        - paegan.transport.particles
+        - paegan.transport.shoreline
+
+about:
+    home: https://github.com/axiom-data-science/paegan-transport
+    license: GNU General Public License v3 (GPLv3)
+    summary: 'Paegan-Transport - The parallellized Langragian transport model for NetCDF/OPeNDAP data, written on top of Paegan'
