@@ -1,11 +1,11 @@
 package:
     name: nco
-    version: 4.5.0
+    version: 4.5.1
 
 source:
-    fn: nco-4.5.0.tar.gz
-    url: http://nco.sourceforge.net/src/nco-4.5.0.tar.gz
-    md5: cc387b92e796a778bddefab79cda0a34
+    fn: nco-4.5.1.tar.gz
+    url: http://nco.sourceforge.net/src/nco-4.5.1.tar.gz
+    md5: 2a301167943c6ce80a964a11fe2abd96
     patches:
         - nodocs.patch  # [osx]
 
