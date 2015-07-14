@@ -5,7 +5,7 @@ package:
 source:
     fn: nco-4.5.1.tar.gz
     url: http://nco.sourceforge.net/src/nco-4.5.1.tar.gz
-    md5: 2a301167943c6ce80a964a11fe2abd96
+    md5: b830dd0a825335731a7c9ecd45c0a00f
     patches:
         - nodocs.patch  # [osx]
 
