@@ -7,10 +7,13 @@ source:
     git_tag: 0.51
 
 build:
-    number: 2
+    number: 3
 
 requirements:
     build:
+        - nn
+        - csa
+    run:
         - nn
         - csa
 

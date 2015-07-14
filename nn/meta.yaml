@@ -3,11 +3,13 @@ package:
     version: 1.85
 
 source:
-    git_url: https://github.com/phobson/nn.git
-    git_tag: v1.85
+    #git_url: https://github.com/phobson/nn.git
+    #git_tag: v1.85
+    git_url: https://github.com/ocefpaf/nn.git
+    git_tag: points_generate2
 
 build:
-    number: 2
+    number: 3
 
 about:
     home: https://code.google.com/p/nn-c
