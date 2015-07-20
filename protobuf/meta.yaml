@@ -1,0 +1,33 @@
+package:
+    name: protobuf
+    version: "3.0.0a3"
+
+source:
+    fn: protobuf-3.0.0a3.tar.gz
+    url: https://pypi.python.org/packages/source/p/protobuf/protobuf-3.0.0a3.tar.gz
+    md5: 6674fa7452ebf066b767075db96a7ee0
+
+build:
+    preserve_egg_dir: True
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - setuptools
+
+test:
+    imports:
+        - google
+        - google.protobuf
+        - google.protobuf.compiler
+        - google.protobuf.internal
+        - google.protobuf.pyext
+
+about:
+    home: https://developers.google.com/protocol-buffers/
+    license: New BSD License
+    summary: 'Protocol Buffers'
