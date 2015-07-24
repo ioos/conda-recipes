@@ -31,6 +31,7 @@ install:
 
     - cmd: conda install -c http://conda.binstar.org/pelson/channel/development --yes --quiet obvious-ci
     - cmd: conda config --add channels http://conda.binstar.org/ioos -f
+    - cmd: conda install --yes conda-server
     - cmd: conda info
     - cmd: obvci_install_conda_build_tools.py
 
