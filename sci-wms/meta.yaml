@@ -22,7 +22,7 @@ requirements:
         - pytz
         - djangorestframework
         - pyugrid
-        #- pysgrid  # We need a release!
+        - pysgrid == 0.1.0
         - pyaxiom
         - django-grappelli
         - django-typed-models
@@ -30,10 +30,6 @@ requirements:
         - dj-static
         - pandas
         - django-autoslug
-        # No longer in the requirements.txt! Are these still used?
-        - shapely
-        - south
-        - basemap
         # requirements-prod.txt
         - gunicorn >=0.13.4
         - setproctitle  # [not win]
