@@ -22,7 +22,7 @@ requirements:
         - pytz
         - djangorestframework
         - pyugrid
-        - pysgrid == 0.1.0
+        - pysgrid
         - pyaxiom
         - django-grappelli
         - django-typed-models
