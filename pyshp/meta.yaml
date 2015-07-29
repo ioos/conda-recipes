@@ -1,14 +1,14 @@
 package:
     name: pyshp
-    version: "1.2.1"
+    version: "1.2.3"
 
 source:
-    fn: pyshp-1.2.1.tar.gz
-    url: https://pypi.python.org/packages/source/p/pyshp/pyshp-1.2.1.tar.gz
-    sha1: b6d7d526b530029af6fc7986ac0562231f7a63c7
+    fn: pyshp-1.2.3.tar.gz
+    url: https://pypi.python.org/packages/source/p/pyshp/pyshp-1.2.3.tar.gz
+    md5: f857099a57f93830e0c72a31e9c506a8
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
@@ -16,7 +16,6 @@ requirements:
         - setuptools
     run:
         - python
-        - setuptools
 
 about:
     home: https://pypi.python.org/pypi/pyshp
