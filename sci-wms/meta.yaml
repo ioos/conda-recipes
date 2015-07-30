@@ -3,10 +3,7 @@ package:
     version: "0.0.2"
 
 build:
-    number: 0
-
-build:
-    number: 2
+    number: 3
 
 requirements:
     run:
