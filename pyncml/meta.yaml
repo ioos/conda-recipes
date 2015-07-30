@@ -1,27 +1,26 @@
 package:
     name: pyncml
-    version: "0.0.7"
+    version: "0.0.8"
 
 source:
-    git_url: https://github.com/axiom-data-science/pyncml
-    git_tag: 0.0.7
+    fn: pyncml-0.0.8.tar.gz
+    url: https://pypi.python.org/packages/source/p/pyncml/pyncml-0.0.8.tar.gz
+    md5: 4a77f97a687561fde285f7fad1c297e2
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
-        - pytz
-        - numpy
         - setuptools
         - netcdf4
+        - pytz
     run:
         - python
-        - pytz
         - numpy
-        - setuptools
         - netcdf4
+        - pytz
 
 test:
     imports:
