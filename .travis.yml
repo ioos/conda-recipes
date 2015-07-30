@@ -22,7 +22,7 @@ install:
     # Config conda channels.
     - conda config --set show_channel_urls True
     - conda config --add channels http://conda.binstar.org/ioos
-    - conda install --yes conda-server
+    - conda install --yes anaconda-client
     # Install Obvious-CI.
     - conda install -c http://conda.binstar.org/ioos/channel/main --yes --quiet obvious-ci
     - obvci_install_conda_build_tools.py
