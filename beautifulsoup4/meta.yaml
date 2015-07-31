@@ -1,20 +1,23 @@
 package:
     name: beautifulsoup4
-    version: "4.3.2"
+    version: "4.4.0"
 
 source:
-    fn: beautifulsoup4-4.3.2.tar.gz
-    url: https://pypi.python.org/packages/source/b/beautifulsoup4/beautifulsoup4-4.3.2.tar.gz
-    md5: b8d157a204d56512a4cc196e53e7d8ee
+    fn: beautifulsoup4-4.4.0.tar.gz
+    url: https://pypi.python.org/packages/source/b/beautifulsoup4/beautifulsoup4-4.4.0.tar.gz
+    md5: 63d1f33e6524f408cb6efbc5da1ae8a5
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
+        - setuptools
     run:
         - python
+        - lxml
+        - html5lib
 
 test:
     imports:
