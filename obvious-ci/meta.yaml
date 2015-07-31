@@ -7,7 +7,7 @@ source:
     git_tag: master
 
 build:
-    number: 3
+    number: 4
 
 requirements:
     build:
@@ -15,10 +15,9 @@ requirements:
         - setuptools
     run:
         - python
-        - setuptools
-        - conda-server
         - conda
         - conda-build
+        - anaconda-client
 
 about:
     home: https://github.com/pelson/Obvious-CI
