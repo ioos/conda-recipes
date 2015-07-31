@@ -1,12 +1,12 @@
 package:
     name: pyhum
-    version: "1.3.0"
+    version: "1.3.2"
 
 source:
-    fn: PyHum-1.3.0.tar.gz
-    url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.3.0.tar.gz
-    md5: a6192050e6a7f74da038fd3c7123c5dd
-    
+    fn: PyHum-1.3.2.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.3.2.tar.gz
+    md5: 8eb816f99e86bdc11eede7491628ea71
+
 build:
     number: 0
 
@@ -22,10 +22,12 @@ requirements:
         - pillow
         - matplotlib
         - scikit-learn
+        - scikit-image
         - pyproj
         - joblib
         - simplekml
         - basemap
+        - pyresample
 
 test:
     imports:
