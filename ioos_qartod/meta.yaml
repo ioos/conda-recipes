@@ -1,6 +1,6 @@
 package:
     name: ioos_qartod
-    version: "0.0.1"
+    version: "0.0.2"
 
 source:
     fn: ioos_qartod-0.0.2.tar.gz
