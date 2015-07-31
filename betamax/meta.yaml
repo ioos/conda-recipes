@@ -1,11 +1,11 @@
 package:
     name: betamax
-    version: "0.4.2"
+    version: "0.5.0"
 
 source:
-    fn: betamax-0.4.2.tar.gz
-    url: https://pypi.python.org/packages/source/b/betamax/betamax-0.4.2.tar.gz
-    md5: d6cc7f06d1842f6a77aff4816f46e8eb
+    fn: betamax-0.5.0.tar.gz
+    url: https://pypi.python.org/packages/source/b/betamax/betamax-0.5.0.tar.gz
+    md5: 477727620e225fd19910878d29ad29c1
 
 build:
     number: 0
