@@ -1,28 +1,19 @@
 package:
     name: ulmo
-    version: "0.7.6"
+    version: "0.7.8"
 
 source:
-    git_url: https://github.com/ulmo-dev/ulmo.git
-    git_tag: v0.7.6
+    fn: ulmo-0.7.8.tar.gz
+    url: https://pypi.python.org/packages/source/u/ulmo/ulmo-0.7.8.tar.gz
+    md5: 77399fec522ed3db9a4a22d9e62b9513
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
         - setuptools
-        - appdirs
-        - beautifulsoup4
-        - isodate
-        - lxml
-        - mock
-        - numpy
-        - pandas
-        - requests
-        - suds
-        - pytables
     run:
         - python
         - appdirs
