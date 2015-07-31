@@ -14,11 +14,6 @@ requirements:
     build:
         - python
         - setuptools
-        - numpy
-        - scipy
-        - matplotlib
-        - pandas
-        - gsw
     run:
         - python
         - numpy
