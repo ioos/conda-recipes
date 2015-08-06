@@ -1,16 +1,16 @@
 package:
     name: libmo_unpack
-    version: "2.0.3"
+    version: !!str 3.0
 
 source:
-    fn: unpack-160114.tgz
-    url: https://puma.nerc.ac.uk/trac/UM_TOOLS/raw-attachment/wiki/unpack/unpack-160114.tgz
+    git_url: https://github.com/SciTools/libmo_unpack.git
+    git_rev: v3.0
     patches:
-        - speedup.patch
+        - fix-storage-class.patch
 
 build:
-    number: 2
+    number: 0
 
 about:
-    home: https://puma.nerc.ac.uk/trac/UM_TOOLS/wiki/unpack
-    summary: Met Office PP-Unpacking Code
+    home: https://github.com/SciTools/libmo_unpack
+    summary: Met Office PP/FieldsFile compression schemes

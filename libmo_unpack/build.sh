@@ -1,21 +1,13 @@
 #!/bin/bash
+mkdir m4
+autoreconf --install
 
-cd libmo_unpack
+CFLAGS="-O3 -mfpmath=sse -msse"
 
 if [[ $(uname) == Darwin ]]
 then
-   # Just build for this version for now.
-   unset MACOSX_DEPLOYMENT_TARGET
-   gcc -c -fPIC -O3 -mfpmath=sse -msse -I include -D_LARGEFILE_SOURCE -D_DARWIN_SOURCE *.c
-
-   ld -dylib -undefined dynamic_lookup -arch x86_64 -o lib/libmo_unpack.dylib *.o
-else
-   gcc -c -fPIC -O4 -mfpmath=sse -msse -I include -D_LARGEFILE_SOURCE *.c
-
-   gcc -shared -Wl,-soname,libmo_unpack.so -o lib/libmo_unpack.so *.o
+    CFLAGS="$CFLAGS -D_DARWIN_SOURCE"
 fi
-
-# Actually install the built product.
-mkdir $PREFIX/lib $PREFIX/include
-cp lib/* $PREFIX/lib
-cp include/* $PREFIX/include
+./configure --prefix=$PREFIX CFLAGS="$CFLAGS"
+make
+make install
