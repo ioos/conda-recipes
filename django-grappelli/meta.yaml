@@ -1,11 +1,11 @@
 package:
     name: django-grappelli
-    version: "2.6.5"
+    version: "2.7.1"
 
 source:
-    fn: django-grappelli-2.6.5.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-grappelli/django-grappelli-2.6.5.tar.gz
-    md5: f98c54d448744945997a31e63d605d2c
+    fn: django-grappelli-2.7.1.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-grappelli/django-grappelli-2.7.1.tar.gz
+    md5: 97a2d3380475ca792dea2c0edcb6a0ba
 
 build:
     number: 0
@@ -25,9 +25,9 @@ test:
         #- grappelli.dashboard.management
         #- grappelli.dashboard.management.commands
         #- grappelli.dashboard.templatetags
-        #- grappelli.templatetags
-        #- grappelli.tests
-        #- grappelli.views
+        - grappelli.templatetags
+        - grappelli.tests
+        - grappelli.views
 
 about:
     home: http://django-grappelli.readthedocs.org
