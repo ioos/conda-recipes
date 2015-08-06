@@ -1,11 +1,11 @@
 package:
     name: django-debug-toolbar
-    version: "1.3.0"
+    version: "1.3.2"
 
 source:
-    fn: django-debug-toolbar-1.3.0.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-debug-toolbar/django-debug-toolbar-1.3.0.tar.gz
-    md5: a43c3232545e596fc5947b6454109874
+    fn: django-debug-toolbar-1.3.2.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-debug-toolbar/django-debug-toolbar-1.3.2.tar.gz
+    md5: af197364e92b99733020890ede5fe5af
 
 build:
     number: 0
@@ -14,18 +14,16 @@ requirements:
     build:
         - python
         - setuptools
-        - django >=1.4.2
-        - sqlparse
     run:
         - python
         - django >=1.4.2
         - sqlparse
 
-#test:
-    #imports:
-        #- debug_toolbar
-        #- debug_toolbar.management
-        #- debug_toolbar.management.commands
+test:
+    imports:
+        - debug_toolbar
+        - debug_toolbar.management
+        - debug_toolbar.management.commands
         #- debug_toolbar.panels
         #- debug_toolbar.panels.sql
         #- debug_toolbar.panels.templates
