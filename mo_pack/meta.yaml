@@ -1,13 +1,13 @@
 package:
     name: mo_pack
-    version: 0.1.0
+    version: 0.2.0
 
 source:
     git_url: https://github.com/SciTools/mo_pack.git
-    git_tag: v0.1.0
+    git_tag: v0.2.0
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
