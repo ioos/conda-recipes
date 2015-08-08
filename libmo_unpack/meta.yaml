@@ -1,12 +1,10 @@
 package:
     name: libmo_unpack
-    version: !!str 3.0
+    version: 3.0
 
 source:
     git_url: https://github.com/SciTools/libmo_unpack.git
     git_rev: v3.0
-    patches:
-        - fix-storage-class.patch
 
 build:
     number: 0
