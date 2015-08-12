@@ -1,18 +1,18 @@
 package:
     name: folium
-    version: "0.1.4"
+    version: "0.1.5"
 
 source:
-    fn: folium-0.1.4.tar.gz
-    url: https://pypi.python.org/packages/source/f/folium/folium-0.1.4.tar.gz
-    md5: b5e0c8eac6f92e9806b91eced8586047
+    git_url: https://github.com/python-visualization/folium.git
+    git_branch: 65c6a3db9f84fee66b834bd8cbfe92ca0ef9f9dd
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
+        - setuptools
     run:
         - python
         - jinja2
