@@ -1,10 +1,10 @@
 package:
     name: utilities
-    version: "0.2.6"
+    version: "0.3.0"
 
 source:
     git_url: https://github.com/pyoceans/utilities.git
-    git_tag: v0.2.6
+    git_tag: v0.3.0
 
 build:
     number: 0
@@ -24,6 +24,7 @@ requirements:
         - owslib
         - pyugrid
         - requests
+        - scikit-learn
         - beautifulsoup4
         - ipython-notebook
 
