@@ -1,20 +1,22 @@
 package:
     name: colander
-    version: !!str 1.0
+    version: "1.0"
 
 source:
     fn: colander-1.0.tar.gz
     url: https://pypi.python.org/packages/source/c/colander/colander-1.0.tar.gz
     md5: 058576123da7216288c079c9f47693f8
 
+build:
+    number: 0
+
 requirements:
     build:
         - python
         - setuptools
-        - translationstring
-
     run:
         - python
+        - iso8601
         - translationstring
 
 test:
