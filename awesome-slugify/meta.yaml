@@ -7,14 +7,15 @@ source:
     url: https://pypi.python.org/packages/source/a/awesome-slugify/awesome-slugify-1.6.5.tar.gz
     md5: 58b9b751b4670e3c221f008dd61348a8
 
+
+build:
+    number: 0
+
 requirements:
     build:
         - python
         - setuptools
-        - regex
-        - unidecode >=0.04.14,<0.05
-
-      run:
+    run:
         - python
         - regex
         - unidecode >=0.04.14,<0.05

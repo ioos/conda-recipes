@@ -1,16 +1,18 @@
 package:
     name: regex
-    version: 2013.12.31
+    version: "2013.12.31"
 
 source:
     fn: regex-2013-12-31.tar.gz
     url: https://pypi.python.org/packages/source/r/regex/regex-2013-12-31.tar.gz
     md5: 1d8311d0df721174bec826cf7d6596d8
 
+build:
+    number: 0
+
 requirements:
     build:
         - python
-
     run:
         - python
 
@@ -21,3 +23,4 @@ test:
 about:
     home: https://code.google.com/p/mrab-regex-hg/
     license: Python Software Foundation License
+    summary: 'Alternative regular expression module, to replace re.'
