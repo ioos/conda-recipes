@@ -8,7 +8,7 @@ source:
     md5: 2c0b90a474ddb75764573f97a1481b82
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -17,7 +17,7 @@ requirements:
     run:
         - python
         - six >=1.2
-        - django
+        - django >=1.7,<1.8
 
 test:
     imports:
