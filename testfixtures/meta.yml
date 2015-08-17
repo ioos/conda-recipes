@@ -1,0 +1,24 @@
+package:
+  name: testfixtures
+  version: !!str 4.2.0
+
+source:
+  fn: testfixtures-4.2.0.tar.gz
+  url: https://pypi.python.org/packages/source/t/testfixtures/testfixtures-4.2.0.tar.gz
+  md5: 49f449d4ebe666180b5fd8ad89933187
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  imports:
+    - testfixtures
+
+about:
+  home: http://www.simplistix.co.uk/software/python/testfixtures
+  license: MIT
