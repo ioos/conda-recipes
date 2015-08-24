@@ -1,15 +1,14 @@
 package:
     name: shapely
-    version: 1.5.9
+    version: 1.5.11
 
 source:
-    fn: Shapely-1.5.9.tar.gz
-    url: https://pypi.python.org/packages/source/S/Shapely/Shapely-1.5.9.tar.gz
-    md5: b502824b154a49fbb8f33703d71557dd
+    fn: Shapely-1.5.11.tar.gz
+    url: https://pypi.python.org/packages/source/S/Shapely/Shapely-1.5.11.tar.gz
+    md5: 37530a4f9418917c9afd38fcd15bc891
     patches:
         - geos_c.win.patch  # [win]
         - osx-geos.patch # [osx]
-
 build:
     number: 0
 
