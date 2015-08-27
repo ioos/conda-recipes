@@ -12,7 +12,7 @@ build:
 
 requirements:
     build:
-        - python
+        - python <3
         - setuptools
         - nose >=1.2.0
         - lxml >=3.2.1
@@ -29,5 +29,5 @@ test:
 
 about:
     home: https://github.com/ioos/wicken
-    license:  GNU General Public License v3 (GPLv3)
-    summary: 'Maps metadata concepts to concrete specifations and file formats'
+    license:  Apache 2.0
+    summary: 'Maps metadata concepts to concrete specifications and file formats'
