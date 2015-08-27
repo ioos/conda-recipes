@@ -11,7 +11,7 @@ build:
 
 requirements:
     build:
-        - python
+        - python <3
         - setuptools
         - owslib
     run:

@@ -11,7 +11,7 @@ build:
 
 requirements:
     build:
-        - python
+        - python <3
         - setuptools
     run:
         - python
@@ -29,4 +29,4 @@ test:
 about:
     home: https://github.com/pyoceans/tardis.git
     license: MIT License
-    summary: "TARDIS is a collection of functions for Scitools Iris"
+    summary: "TARDIS is a collection of functions for SciTools Iris"

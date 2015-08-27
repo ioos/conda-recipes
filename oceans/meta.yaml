@@ -25,7 +25,7 @@ requirements:
         - shapely
         - netcdf4
         - ctd
-        - iris
+        - iris  # [not py3k]
 
 test:
     imports:

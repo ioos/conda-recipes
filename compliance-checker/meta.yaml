@@ -13,12 +13,12 @@ build:
 
 requirements:
     build:
-        - python
+        - python <3
         - setuptools
         - owslib
         - wicken
         - lxml
-        - cf_units 
+        - cf_units
         - requests
         - python-dateutil
     run:

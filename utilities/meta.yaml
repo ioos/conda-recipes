@@ -11,13 +11,13 @@ build:
 
 requirements:
     build:
-        - python
+        - python <3
         - setuptools
     run:
         - python
-        - iris
+        - iris  # [not py3k]
         - lxml
-        - tardis
+        - tardis  # [not py3k]
         - oceans
         - pandas
         - folium
