@@ -8,14 +8,14 @@ source:
     md5: 77399fec522ed3db9a4a22d9e62b9513
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python <3
         - setuptools
     run:
-        - python
+        - python <3
         - appdirs
         - beautifulsoup4
         - isodate

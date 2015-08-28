@@ -7,7 +7,7 @@ source:
     git_tag: master
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
@@ -16,7 +16,7 @@ requirements:
         - setuptools
         - mingwpy  # [win]
     run:
-        - python
+        - python <3
         - numpy
         - netcdf4
         - matplotlib

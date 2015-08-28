@@ -7,14 +7,14 @@ source:
     git_tag: v2.2
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python <3
         - setuptools
     run:
-        - python
+        - python <3
 
 test:
     imports:

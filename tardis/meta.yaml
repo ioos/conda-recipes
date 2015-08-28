@@ -7,14 +7,14 @@ source:
     git_tag: v0.1.1
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python <3
         - setuptools
     run:
-        - python
+        - python <3
         - iris
         - pytz
         - numpy

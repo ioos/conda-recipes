@@ -7,14 +7,14 @@ source:
     git_tag: v0.3.0
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python <3
         - setuptools
     run:
-        - python
+        - python <3
         - iris  # [not py3k]
         - lxml
         - tardis  # [not py3k]
