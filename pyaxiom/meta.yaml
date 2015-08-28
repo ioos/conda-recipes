@@ -24,7 +24,7 @@ requirements:
         - netcdf4
         - pandas
         - pyncml
-        - nco-bindings  # [not win]
+        - pynco  # [not win]
 
 test:
     imports:
