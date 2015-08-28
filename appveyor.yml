@@ -13,11 +13,9 @@ environment:
 
   matrix:
     - TARGET_ARCH: "x86"
-      VS_VERSION: "2008"
       CONDA_PY: "27"
       PY_CONDITION: "\"python >=2.7,<3\""
     - TARGET_ARCH: "x64"
-      VS_VERSION: "2008"
       CONDA_PY: "3"
       PY_CONDITION: "\"python >=3.4\""
 
