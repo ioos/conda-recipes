@@ -6,7 +6,8 @@ source:
     fn: awesome-slugify-1.6.5.tar.gz
     url: https://pypi.python.org/packages/source/a/awesome-slugify/awesome-slugify-1.6.5.tar.gz
     md5: 58b9b751b4670e3c221f008dd61348a8
-
+    patches:
+        - utf8.patch # [win]
 
 build:
     number: 0
