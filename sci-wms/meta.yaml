@@ -1,6 +1,6 @@
 package:
     name: sci-wms
-    version: "1.1.0"
+    version: "1.1.1"
 
 build:
     number: 0
@@ -12,9 +12,9 @@ requirements:
         - numpy
         - django >=1.7,<1.8
         - python-dateutil
-        - matplotlib >=1.2.0
-        - netcdf4 >=1.0.2
-        - rtree 0.7.0
+        - matplotlib
+        - netcdf4
+        - rtree
         - jsonfield
         - pytz
         - djangorestframework
@@ -27,6 +27,7 @@ requirements:
         - dj-static
         - pandas
         - django-autoslug
+        - isodate
         # requirements-prod.txt
         - gunicorn >=0.13.4
         - setproctitle  # [not win]
