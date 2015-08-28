@@ -2,12 +2,17 @@ package:
     name: proj4
     version: "4.9.1"
 
-build:
-    number: 2
-
 source:
     fn:  proj-4.9.1.tar.gz
     url: http://download.osgeo.org/proj/proj-4.9.1.tar.gz
+
+build:
+    number: 3  # [win]
+
+requirements:
+    run:
+        # The VS version is important. See # https://github.com/SciTools/conda-recipes-scitools/issues/94.
+        - python  # [win]
 
 about:
     home: http://trac.osgeo.org/proj/

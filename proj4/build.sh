@@ -1,11 +1,5 @@
 #!/bin/bash
 
-if [ `uname` == Darwin ]; then
-    export CC=clang
-    export CXX=clang++
-fi
-
-./configure --prefix=$PREFIX
-
+./configure --prefix=$PREFIX --without-jni
 make
 make install
