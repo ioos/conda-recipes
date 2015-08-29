@@ -7,7 +7,7 @@ source:
     git_tag: v1.3.2
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
@@ -15,7 +15,7 @@ requirements:
         - setuptools
         - owslib
     run:
-        - python
+        - python <3
         - owslib
         - python-dateutil
         - lxml

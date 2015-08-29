@@ -7,7 +7,7 @@ source:
     git_tag: 1.1.1
 
 build:
-    number: 0
+    number: 1
     entry_points:
         - compliance-checker = cchecker:main
 
@@ -22,7 +22,7 @@ requirements:
         - requests
         - python-dateutil
     run:
-        - python
+        - python <3
         - owslib
         - wicken
         - lxml

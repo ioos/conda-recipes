@@ -7,7 +7,7 @@ source:
     git_tag: v1.8.1
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -21,7 +21,7 @@ requirements:
         - setuptools
         - libmo_unpack  # [not win]
     run:
-        - python
+        - python <3
         - scipy
         - biggus
         - cartopy
