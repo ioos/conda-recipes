@@ -18,13 +18,13 @@ environment:
       CONDA_PY: "27"
       PY_CONDITION: "python >=2.7,<3"
     - TARGET_ARCH: "x86"
-      CONDA_PY: "3"
+      CONDA_PY: "34"
       PY_CONDITION: "python >=3.4"
     - TARGET_ARCH: "x64"
       CONDA_PY: "27"
       PY_CONDITION: "python >=2.7,<3"
     - TARGET_ARCH: "x64"
-      CONDA_PY: "3"
+      CONDA_PY: "34"
       PY_CONDITION: "python >=3.4"
 
 # We always use a 64-bit machine, but can build x86 distributions
@@ -34,7 +34,8 @@ platform:
 
 install:
     - cmd: python -c "from urllib2 import urlopen; open('bootstrap-obvious-ci-and-miniconda.py', 'w').write(urlopen('https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py').read())"
-    - cmd: python bootstrap-obvious-ci-and-miniconda.py %CONDA_INSTALL_LOCN% %TARGET_ARCH% %CONDA_PY:~0,1% --without-obvci
+    - cmd: python bootstrap-obvious-ci-and-miniconda.py %CONDA_INSTALL_LOCN% %TARGET_ARCH% 2 --without-obvci
+    - cmd: set CONDA_PY=%CONDA_PY%
     - cmd: set PATH=%PATH%;%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\scripts
     - cmd: set PYTHONUNBUFFERED=1
 

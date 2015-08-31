@@ -3,12 +3,15 @@ package:
     version: "1.1.1"
 
 source:
-    fn: pyke-1.1.1.zip
-    url: http://downloads.sourceforge.net/project/pyke/pyke/1.1.1/pyke-1.1.1.zip?r=&ts=1403707359&use_mirror=garr
-    sha1: 2d657257fa2181d85fbfb69701b91226deb8b4e0
+    fn: pyke-1.1.1.zip                                         # [py2k]
+    url: http://download.sourceforge.net/pyke/pyke-1.1.1.zip   # [py2k]
+    sha1: 2d657257fa2181d85fbfb69701b91226deb8b4e0             # [py2k]
+    fn: pyke3-1.1.1.zip                                        # [py3k]
+    url: http://download.sourceforge.net/pyke/pyke3-1.1.1.zip  # [py3k]
+    sha1: 6f6bfab243564c17218d81fa40bc3bf24e0d5847             # [py3k]
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
