@@ -7,13 +7,17 @@ source:
     url: http://download.osgeo.org/proj/proj-4.9.1.tar.gz
 
 build:
-    number: 4  # [win]
-    number: 2
+    number: 4
 
 requirements:
     run:
         # The VS version is important. See # https://github.com/SciTools/conda-recipes-scitools/issues/94.
         - python  # [win]
+
+test:
+    commands:
+        - echo -117 30 | cs2cs +proj=latlong +datum=NAD27 +to +proj=latlong +datum=NAD83
+        - echo -105 40 | proj +proj=utm +zone=13 +ellps=WGS84
 
 about:
     home: http://trac.osgeo.org/proj/
