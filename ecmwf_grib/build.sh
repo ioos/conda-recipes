@@ -1,17 +1,11 @@
 #!/bin/bash
 
-$SYS_PYTHON -c "import conda_build; print conda_build.__file__;"
+$SYS_PYTHON -c "import conda_build; print(conda_build.__file__);"
 
 mkdir -p $PREFIX/bin
 cp $SYS_PYTHON-config $PREFIX/bin/
 
-export LDFLAGS="-L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
-export PYTHON="$PYTHON" PYTHON_LDFLAGS="$PREFIX/lib"
-export CFLAGS="-fPIC -I$PREFIX/include"
-
-./configure --with-jasper=$PREFIX/lib \
-            --disable-fortran \
-            --prefix=$PREFIX --enable-python
+LDFLAGS="-L$PREFIX/lib -Wl,-rpath,$PREFIX/lib" PYTHON="$PYTHON" PYTHON_LDFLAGS="$PREFIX/lib" CFLAGS="-fPIC -I$PREFIX/include" ./configure --with-jasper=$PREFIX/lib --disable-fortran --prefix=$PREFIX --enable-python
 
 make
 make install
@@ -25,3 +19,6 @@ make install
 mv $SP_DIR/grib_api $SP_DIR/gribapi
 mv $SP_DIR/gribapi/gribapi.py $SP_DIR/gribapi/__init__.py
 
+# Delete useless files
+find $PREFIX/lib -name '*.a' -delete
+find $PREFIX/lib -name '*.la' -delete
