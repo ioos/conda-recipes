@@ -8,17 +8,17 @@ source:
     md5: b522b3e713a8dd90d11c2dbc1cdd44c9
 
 build:
-    number: 2
+    number: 3
 
 requirements:
     build:
-        - python <3
+        - python >=2.7,<3
         - setuptools
         - nose >=1.2.0
         - lxml >=3.2.1
         - petulant-bear >=0.1.2
     run:
-        - python <3
+        - python
         - nose >=1.2.0
         - lxml >=3.2.1
         - petulant-bear >=0.1.2
