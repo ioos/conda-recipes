@@ -6,12 +6,12 @@ source:
     git_url: https://github.com/geopython/pycsw.git
     git_tag: 1.10.2
 build:
-    number: 1
+    number: 2
     preserve_egg_dir: True
 
 requirements:
     build:
-        - python <3
+        - python >=2.7,<3
         - setuptools
         - sqlalchemy
         - geolinks
@@ -20,7 +20,7 @@ requirements:
         - pyproj
         - shapely
     run:
-        - python <3
+        - python
         - sqlalchemy
         - geolinks
         - lxml

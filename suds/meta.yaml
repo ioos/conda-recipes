@@ -8,14 +8,14 @@ source:
     md5: b7502de662341ed7275b673e6bd73191
 
 build:
-    number: 2
+    number: 3
 
 requirements:
     build:
-        - python <3
+        - python >=2.7,<3
         - setuptools
     run:
-        - python <3
+        - python
 
 test:
     imports:

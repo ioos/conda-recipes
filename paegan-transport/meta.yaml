@@ -7,14 +7,14 @@ source:
   git_tag: db8f957f5f379def417f93c1941d3f20dbbf16bb
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
-        - python <3
+        - python >=2.7,<3
         - setuptools
     run:
-        - python <3
+        - python
         - paegan
         - fiona
         - requests

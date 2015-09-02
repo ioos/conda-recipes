@@ -8,14 +8,14 @@ source:
     md5: 71788a47d6a9c7b0081ab81348c4f4a9
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
-        - python <3
+        - python >=2.7,<3
         - setuptools
     run:
-        - python <3
+        - python
         - netcdf4
         - numpy
         - lxml

@@ -8,13 +8,13 @@ source:
     md5: 6392cd0a7154b3394004d5ad9d913d59
 
 build:
-    number: 2
+    number: 3
 
 requirements:
     build:
-        - python <3
+        - python >=2.7,<3
     run:
-        - python <3
+        - python
 
 test:
     imports:
