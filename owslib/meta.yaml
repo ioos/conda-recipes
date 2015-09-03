@@ -7,7 +7,7 @@ source:
     git_tag: 0.9.0
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -18,6 +18,8 @@ requirements:
         - python-dateutil
         - pytz
         - requests
+        - lxml
+        - pyproj
 
 test:
     imports:
