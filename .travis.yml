@@ -1,10 +1,30 @@
-language: objective-c  # MacOS builds.
+language: c
+
+os:
+    - osx
 
 sudo: false
 
 env:
     global:
         secure: "fVnEwIDKsEr20f6iVe63Gg/v0ewQf/VAFKnMneSDU7dH9T0V95Eylp6LbpVRahpvjFzcYFPrPGsjtqCrYaeDhCxzkU7gsw//l11hq12IY76lmDZuIryr3Z8CIyqYIEnvqrXdRtM/1RAkvldY6Tj72e3+K+WCnBOfCZ8Cv76pbJc="
+
+addons:
+    apt:
+        packages:
+            # UDUNITS2
+            - texinfo
+            # libmo_unpack
+            - check
+            # NCO
+            - gfortran
+            - antlr
+            - g++
+            - bison
+            - flex
+            - libantlr-dev
+            - gsl-bin
+            - libgsl0-dev
 
 before_install:
     - brew update
