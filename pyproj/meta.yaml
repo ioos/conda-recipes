@@ -8,15 +8,13 @@ source:
     md5: b0a060465b117dd6c1b37e14f22382aa
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
-        - python
-        - cython
+        - python >=2.7,<3
     run:
         - python
-        - proj4
         - numpy
 
 test:
@@ -24,6 +22,6 @@ test:
         - pyproj
 
 about:
-    home: http://code.google.com/p/pyproj/
+    home: https://github.com/jswhit/pyproj
     license: OSI
     summary: 'Python interface to PROJ.4 library'
