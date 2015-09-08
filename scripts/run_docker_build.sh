@@ -29,11 +29,12 @@ fi
 export PYTHONUNBUFFERED=1
 echo "$config" > ~/.condarc
 
-# A lock sometimes occurs with incomplete builds. The lock file is stored in build_artefacts.
+# A lock sometimes occurs with incomplete builds.
+# The lock file is stored in build_artefacts.
 conda clean --lock
 conda info
 unset LANG
 
-obvci_conda_build_dir.py /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3"
+obvci_conda_build_dir.py /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|>=3.4"
 
 EOF
