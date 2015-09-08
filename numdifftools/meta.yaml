@@ -1,0 +1,40 @@
+package:
+    name: numdifftools
+    version: "0.9.12"
+
+source:
+    fn: numdifftools-0.9.12.zip
+    url: https://pypi.python.org/packages/source/N/Numdifftools/numdifftools-0.9.12.zip
+    md5: f1c3a80a08ca6ca21d7a8966ca5a97b0
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python >=2.7,<3
+        - setuptools
+        - setuptools_scm
+        - six
+    run:
+        - python
+        - numpy
+        - matplotlib
+        - scipy
+        - algopy
+        - numpydoc
+        - sphinx_rtd_theme
+        - six
+
+test:
+    imports:
+        - numdifftools
+        - numdifftools.tests
+    requires:
+        - pytest
+        - pytest-cov
+
+about:
+    home: https://github.com/pbrod/numdifftools/
+    license: BSD
+    summary: "Solves automatic numerical differentiation problems in one or more variables."
