@@ -1,11 +1,11 @@
 package:
     name: mplleaflet
-    version: "0.0.2"
+    version: "0.0.4"
 
 source:
-    fn: mplleaflet-0.0.2.tar.gz
-    url: https://pypi.python.org/packages/source/m/mplleaflet/mplleaflet-0.0.2.tar.gz
-    md5: 09222165aa81325e1561120709f12e4f
+    fn: mplleaflet-0.0.4.tar.gz
+    url: https://pypi.python.org/packages/source/m/mplleaflet/mplleaflet-0.0.4.tar.gz
+    md5: 473b344b97ffa55b1724e53a148062b5
 
 build:
     number: 0
