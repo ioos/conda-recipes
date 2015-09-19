@@ -20,7 +20,7 @@ requirements:
         - pandas
         - netcdf4
         - scipy
-        - bottleneck
+        - bottleneck  # [not py35]
         - dask
         - h5netcdf
         - cyordereddict

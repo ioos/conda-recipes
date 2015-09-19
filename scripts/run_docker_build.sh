@@ -36,6 +36,6 @@ conda info
 
 export LANG=en_US.UTF-8
 
-obvci_conda_build_dir.py /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|==3.4"
+obvci_conda_build_dir.py /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|>=3.4"
 
 EOF
