@@ -3,14 +3,18 @@ package:
     version: "1.48"
 
 source:
-    git_url: https://github.com/phobson/gridgen.git
-    git_tag: v1.48
+    #git_url: https://github.com/phobson/gridgen.git
+    #git_tag: v1.48
+    git_url: https://github.com/ocefpaf/gridgen.git
+    git_tag: make_file
 
 build:
-    number: 2
+    number: 3
 
 requirements:
     build:
+        - gridutils
+    run:
         - gridutils
 
 about:

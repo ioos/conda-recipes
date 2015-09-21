@@ -1,0 +1,39 @@
+package:
+    name: pygridtools
+    version: "0.1dev"
+
+source:
+    git_url: https://github.com/phobson/pygridtools.git
+    git_tag: master
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - gridgen
+        - fiona
+        - seaborn
+        - python
+        - pandas
+        - numpy
+        - matplotlib
+        - pyproj
+        - bokeh
+        - pygridgen
+
+test:
+    imports:
+        - pygridtools
+    commands:
+        - nosetests
+    requires:
+        - nose
+
+about:
+    home: https://github.com/phobson/pygridtools.git
+    license:  BSD License
+    summary: 'Python interface to gridgen by Pavel Sakov'

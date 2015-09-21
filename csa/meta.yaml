@@ -7,7 +7,7 @@ source:
     git_tag: v1.22
 
 build:
-    number: 2
+    number: 3
 
 about:
     home: https://code.google.com/p/csa-c
