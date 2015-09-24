@@ -1,13 +1,13 @@
 package:
     name: gridutils
-    version: "0.51"
+    version: "v1.0"
 
 source:
-    git_url: https://github.com/phobson/gridutils.git
-    git_tag: 0.51
+    git_url: https://github.com/sakov/gridutils-c.git
+    git_tag: v1.0
 
 build:
-    number: 3
+    number: 0
 
 requirements:
     build:
@@ -18,6 +18,6 @@ requirements:
         - csa
 
 about:
-    home: https://code.google.com/p/gridutils-c
-    license: MIT License
-    summary: "Pavel Sakov's curvilinear orthogonal grid utilities"
+    home: https://github.com/sakov/gridutils-c.git
+    license: Simplified BSD
+    summary: "C library functions and command line utilities for working with curvilinear grids."
