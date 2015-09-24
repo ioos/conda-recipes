@@ -1,6 +1,6 @@
---- shapely/libgeos.py	2015-08-23 11:23:35.000000000 -0300
-+++ shapely/libgeos.py	2015-08-29 18:11:53.458018649 -0300
-@@ -183,9 +183,10 @@
+--- shapely/libgeos.py	2015-08-27 10:50:33.000000000 -0300
++++ shapely/libgeos.py	2015-09-22 09:04:40.507509936 -0300
+@@ -182,9 +182,10 @@
                  os.path.join(os.path.dirname(__file__), "DLLs"))
              wininst_dlls = os.path.abspath(os.__file__ + "../../../DLLs")
              original_path = os.environ['PATH']
