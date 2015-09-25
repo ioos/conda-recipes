@@ -1,10 +1,10 @@
 package:
     name: pygridtools
-    version: "0.1dev"
+    version: "0.1"
 
 source:
     git_url: https://github.com/phobson/pygridtools.git
-    git_tag: master
+    git_tag: 0.1
 
 build:
     number: 0
