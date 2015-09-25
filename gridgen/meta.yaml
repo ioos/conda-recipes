@@ -1,15 +1,13 @@
 package:
     name: gridgen
-    version: "1.48"
+    version: "1.50.0"
 
 source:
-    #git_url: https://github.com/phobson/gridgen.git
-    #git_tag: v1.48
-    git_url: https://github.com/ocefpaf/gridgen.git
-    git_tag: make_file
+    git_url: https://github.com/sakov/gridgen-c.git
+    git_tag: v1.50.0
 
 build:
-    number: 3
+    number: 0
 
 requirements:
     build:
@@ -18,6 +16,6 @@ requirements:
         - gridutils
 
 about:
-    home: https://code.google.com/p/gridgen-c
-    license: MIT License
-    summary: "Pavel Sakov's curvilinear orthogonal grid generation library"
+    home: https://github.com/sakov/gridgen-c
+    license: Simplified BSD License and triangle.[c,h] license, which is non-free for commercial use
+    summary: "Non-interactive generation of multi-corner quasi-orthogonal grids inside simply connected polygonal regions"
