@@ -1,17 +1,17 @@
 package:
     name: unit_conversion
-    version: "2.2"
+    version: "2.3.0"
 
 source:
     git_url: https://github.com/NOAA-ORR-ERD/PyNUCOS.git
-    git_tag: v2.2
+    git_tag: v2.3.0
 
 build:
-    number: 2
+    number: 0
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
     run:
         - python
