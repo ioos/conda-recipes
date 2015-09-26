@@ -1,11 +1,11 @@
 package:
     name: seawater
-    version: "3.3.3"
+    version: "3.3.4"
 
 source:
-    fn: seawater-3.3.3.tar.gz
-    url: https://pypi.python.org/packages/source/s/seawater/seawater-3.3.3.tar.gz
-    md5: ae3f13a9c406bafd225fba1acd73d56c
+    fn: seawater-3.3.4.tar.gz
+    url: https://pypi.python.org/packages/source/s/seawater/seawater-3.3.4.tar.gz
+    md5: 5e8fe3706cac5e69f9a13f0fcc411302
 
 build:
     number: 0
