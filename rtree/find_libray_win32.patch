@@ -1,6 +1,7 @@
---- rtree/core.py.orig	2014-11-03 00:20:21.000000000 -0300
-+++ rtree/core.py	2015-04-25 15:15:45.594333729 -0300
-@@ -65,45 +65,14 @@
+diff -Naur Rtree-0.8.2.orig/rtree/core.py Rtree-0.8.2/rtree/core.py
+--- rtree/core.py	2014-11-01 00:57:35.000000000 -0300
++++ rtree/core.py	2015-09-24 14:44:59.628343915 -0300
+@@ -65,41 +65,8 @@
      
  
  if os.name == 'nt':
@@ -39,16 +40,35 @@
 -    if not rt:
 -        raise OSError("could not find or load spatialindex_c.dll")
 -
-+    rt = os.path.join(sys.prefix, "Library", "bin", "spatialindex_c.dll")
++    os.environ['PATH'] = "{};{}".format(os.environ['PATH'], os.path.join(sys.prefix, "Library", "bin"))
++    rt = ctypes.CDLL("spatialindex_c-32.dll")
  elif os.name == 'posix':
      platform = os.uname()[0]
--    lib_name = find_library('spatialindex_c')
--    rt = ctypes.CDLL(lib_name)
-+    if platform == 'Linux':
-+        lib_name = 'libspatialindex_c.so'
-+    else:
-+        lib_name = 'libspatialindex_c.dylib'
-+    rt = ctypes.CDLL(os.path.join(sys.prefix, 'lib', lib_name))
- else:
-     raise RTreeError('Unsupported OS "%s"' % os.name)
+     lib_name = find_library('spatialindex_c')
+diff -Naur Rtree-0.8.2.orig/setup.py Rtree-0.8.2/setup.py
+--- setup.py	2014-07-13 02:19:37.000000000 -0300
++++ setup.py	2015-09-24 14:50:25.352360137 -0300
+@@ -7,14 +7,7 @@
+ readme_text = open('docs/source/README.txt', 'r').read()
  
+ import os
+-
+-if os.name == 'nt':
+-    data_files=[('Lib/site-packages/rtree',
+-                 [r'D:\libspatialindex\bin\spatialindex.dll',
+-                  r'D:\libspatialindex\bin\spatialindex_c.dll',]),]
+-else:
+-    data_files = None
+-    
++  
+ setup(name          = 'Rtree',
+       version       = rtree.__version__,
+       description   = 'R-Tree spatial index for Python GIS',
+@@ -29,7 +22,6 @@
+       packages      = ['rtree'],
+       install_requires = ['setuptools'],
+       test_suite = 'tests.test_suite',
+-      data_files = data_files,
+       zip_safe = False,
+       classifiers   = [
+         'Development Status :: 5 - Production/Stable',
