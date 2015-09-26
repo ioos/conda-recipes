@@ -1,14 +1,14 @@
 package:
     name: pyhum
-    version: "1.3.2"
+    version: "1.3.3"
 
 source:
-    fn: PyHum-1.3.2.tar.gz
-    url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.3.2.tar.gz
-    md5: 8eb816f99e86bdc11eede7491628ea71
+    fn: PyHum-1.3.3.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.3.3.tar.gz
+    md5: 2f82d04eef58a6fbe8d2ec1a4be0fcc9
 
 build:
-    number: 2
+    number: 0
 
 requirements:
     build:
