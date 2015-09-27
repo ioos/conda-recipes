@@ -1,14 +1,13 @@
 package:
     name: folium
-    version: "0.1.5"
+    version: "0.1.6"
 
 source:
-    fn: folium-0.1.5.tar.gz
-    url: https://pypi.python.org/packages/source/f/folium/folium-0.1.5.tar.gz
-    md5: 64bfb417ce53638a3f57245bcaf38215
+    git_url: https://github.com/python-visualization/folium.git
+    git_tag: v0.1.6
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
@@ -23,6 +22,6 @@ test:
         - folium
 
 about:
-  home: https://github.com/wrobstory/folium
+  home: https://github.com/python-visualization/folium
   license: MIT License
   summary: 'Make beautiful maps with Leaflet.js and Python'
