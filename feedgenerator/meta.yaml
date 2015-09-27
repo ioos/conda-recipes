@@ -1,0 +1,31 @@
+package:
+    name: feedgenerator
+    version: "1.7"
+
+source:
+    fn: feedgenerator-1.7.tar.gz
+    url: https://pypi.python.org/packages/source/f/feedgenerator/feedgenerator-1.7.tar.gz
+    md5: 92978492871342ad64e8ae0ccfcf200c
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - pytz >=0a
+        - six
+
+test:
+    imports:
+        - feedgenerator
+        - feedgenerator.django
+        - feedgenerator.django.utils
+
+about:
+    home: https://github.com/dmdm/feedgenerator-py3k.git
+    license: BSD License
+    summary: 'Standalone version of django.utils.feedgenerator, compatible with Py3k'
