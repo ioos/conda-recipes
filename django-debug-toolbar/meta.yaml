@@ -8,7 +8,7 @@ source:
     md5: af197364e92b99733020890ede5fe5af
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
@@ -16,7 +16,7 @@ requirements:
         - setuptools
     run:
         - python
-        - django >=1.7,<1.8
+        - django >=1.7
         - sqlparse
 
 test:
