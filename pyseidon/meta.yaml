@@ -1,0 +1,39 @@
+package:
+    name: pyseidon
+    version: "2.0"
+
+source:
+    git_url: https://github.com/GrumpyNounours/PySeidon.git
+    git_tag: v2.0
+    patches:
+        - setup.patch
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python >=2.7,<3
+        - setuptools
+    run:
+        - python
+        - h5py
+        - utide
+        - numpy
+        - pydap
+        - scipy
+        - pandas
+        - seaborn
+        - numexpr
+        - netcdf4
+        - networkx
+        - matplotlib
+
+test:
+    imports:
+        - pyseidon
+
+about:
+    home: https://github.com/GrumpyNounours/PySeidon
+    license: GPL-3.0
+    summary: 'Suite of tools for the tidal energy community and FVCOM users'
