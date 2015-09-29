@@ -1,0 +1,32 @@
+package:
+    name: pyfvcom
+    version: "1.0"
+
+source:
+    git_url: https://github.com/pwcazenave/PyFVCOM.git
+    git_tag: 20150122
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python >=2.7,<3
+        - setuptools
+    run:
+        - python
+        - pyshp
+        - numpy
+        - matplotlib
+        - basemap
+        - netcdf4
+        - scipy
+
+test:
+    imports:
+        - PyFVCOM
+
+about:
+    home: https://github.com/pwcazenave/PyFVCOM
+    license: GPL
+    summary: 'Collection of tools to analyze FVCOM output'

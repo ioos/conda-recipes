@@ -1,0 +1,33 @@
+package:
+    name: pydap
+    version: "3.1.1"
+
+source:
+    fn: Pydap-3.1.1.tar.gz
+    url: https://pypi.python.org/packages/source/P/Pydap/Pydap-3.1.1.tar.gz
+    md5: d13630328c121eeeb0e0f015eb9e7124
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python >=2.7,<3
+        - setuptools
+    run:
+        - python
+        - numpy
+        - httplib2 >=0.4.0
+        - genshi
+        - paste
+        - pastescript
+        - pastedeploy
+
+test:
+    imports:
+        - pydap
+
+about:
+    home:  http://pydap.org/
+    license: MIT License
+    summary: 'Pure Python Opendap/DODS client and server'
