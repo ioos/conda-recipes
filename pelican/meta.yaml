@@ -1,0 +1,48 @@
+package:
+    name: pelican
+    version: "3.3"
+
+source:
+    fn: pelican-3.3.tar.gz
+    url: https://pypi.python.org/packages/source/p/pelican/pelican-3.3.tar.gz
+    md5: 8aff3ca01631082372ab2305a874bb74
+
+build:
+    number: 0
+    entry_points:
+        - pelican = pelican:main
+        - pelican-import = pelican.tools.pelican_import:main
+        - pelican-quickstart = pelican.tools.pelican_quickstart:main
+        - pelican-themes = pelican.tools.pelican_themes:main
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - feedgenerator >=1.6
+        - jinja2 >=2.7
+        - pygments
+        - docutils
+        - pytz >=0a
+        - blinker
+        - unidecode
+        - six >=1.4
+        - python-dateutil
+        - ghp-import
+
+test:
+    imports:
+        - pelican
+        - pelican.tools
+    commands:
+        - pelican --help
+        - pelican-import --help
+        - pelican-quickstart --help
+        - pelican-themes --help
+
+about:
+    home: http://getpelican.com/
+    license: GNU Affero General Public License v3
+    summary: 'A tool to generate a static blog from reStructuredText or Markdown input files.'

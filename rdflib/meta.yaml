@@ -1,11 +1,11 @@
 package:
     name: rdflib
-    version: "4.2.0"
+    version: "4.2.1"
 
 source:
-    fn: rdflib-4.2.0.tar.gz
-    url: https://pypi.python.org/packages/source/r/rdflib/rdflib-4.2.0.tar.gz
-    md5: ac6f02229bfb1882d743de496268f8d8
+    fn: rdflib-4.2.1.tar.gz
+    url: https://pypi.python.org/packages/source/r/rdflib/rdflib-4.2.1.tar.gz
+    md5: 528adaa10536d14a608507d7831711f5
 
 build:
     number: 1

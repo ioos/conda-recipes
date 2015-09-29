@@ -1,12 +1,15 @@
 package:
     name: rtree
-    version: "0.8.1"
+    version: "0.8.2"
 
 source:
-    git_url: https://github.com/Toblerity/rtree.git
-    git_tag: 0.8.1
+    fn: Rtree-0.8.2.tar.gz
+    url: https://pypi.python.org/packages/source/R/Rtree/Rtree-0.8.2.tar.gz
+    md5: 4ba7276cbdb4c51b373068004ae864d3
     patches:
-        - find_libray.patch
+        - find_libray_nix.patch  # [not win]
+        - find_libray_win32.patch  # [win32]
+        - find_libray_win64.patch  # [win64]
 
 build:
     preserve_egg_dir: True

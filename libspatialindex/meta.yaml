@@ -13,4 +13,4 @@ build:
 about:
     home: http://libspatialindex.github.io
     license: MIT
-    summary: 'extensible framework for robust spatial indexing'
+    summary: 'Extensible framework for robust spatial indexing'

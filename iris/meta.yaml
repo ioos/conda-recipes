@@ -7,11 +7,11 @@ source:
     git_tag: v1.8.1
 
 build:
-    number: 0
+    number: 2
 
 requirements:
     build:
-        - python
+        - python >=2.7,<3
         - scipy
         - biggus
         - cartopy

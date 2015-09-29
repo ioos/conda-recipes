@@ -1,10 +1,11 @@
 package:
     name: pyaxiom
-    version: "0.0.13"
+    version: "1.0.7"
 
 source:
-    git_url: https://github.com/axiom-data-science/pyaxiom
-    git_tag: 0.0.13
+    fn: pyaxiom-1.0.7.tar.gz
+    url: https://pypi.python.org/packages/source/p/pyaxiom/pyaxiom-1.0.7.tar.gz
+    md5: 3865034951bd663c8a16370a222b78a9
 
 build:
     number: 0
@@ -23,7 +24,7 @@ requirements:
         - netcdf4
         - pandas
         - pyncml
-        - nco-bindings  # [not win]
+        - pynco  # [not win]
 
 test:
     imports:

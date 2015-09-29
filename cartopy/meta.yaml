@@ -10,7 +10,7 @@ source:
         - cartopy.win.patch  # [win]
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -21,10 +21,10 @@ requirements:
         - cython
         - proj4
         - geos
-        # On OSX We need to effectively pin the geos version to the
-        # one used by the specific shapely being targetted (we're letting
+        # On OSX we need to effectively pin the geos version to the
+        # one used by the specific shapely being targeted (we're letting
         # conda's package solver will deal with that).
-        - shapely >=1.5.6
+        - shapely >=1.5.9
         - owslib
         - pyshp
         - pyepsg
@@ -38,7 +38,7 @@ requirements:
         - numpy
         - proj4
         - geos
-        - shapely >=1.5.6
+        - shapely >=1.5.9
         - scipy
         - pyshp
         - matplotlib

@@ -1,41 +1,35 @@
 package:
     name: ulmo
-    version: "0.7.6"
+    version: "0.8.1"
 
 source:
-    git_url: https://github.com/ulmo-dev/ulmo.git
-    git_tag: v0.7.6
+    fn: ulmo-0.8.1.tar.gz
+    url: https://pypi.python.org/packages/source/u/ulmo/ulmo-0.8.1.tar.gz
+    md5: a628f6e031748e152c4a98194b96fec3
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
         - python
         - setuptools
-        - appdirs
-        - beautifulsoup4
-        - isodate
-        - lxml
-        - mock
-        - numpy
-        - pandas
-        - requests
-        - suds
-        - pytables
     run:
         - python
         - appdirs
         - beautifulsoup4
+        - future
+        - geojson
         - isodate
-        - lxml
-        - mock
         - numpy
         - pandas
+        - pytables # [not win and not py3k]
+        - pytables <=3.1.1 # [win and py3k]
         - requests
-        - suds
-        - pytables
-        - geojson
+        - suds-jurko
+        - lxml
+        - mock
+
 test:
     imports:
         - ulmo.usgs.nwis
@@ -60,6 +54,10 @@ test:
         - ulmo.cuahsi.wof
         - ulmo.usace
         - ulmo.cdec
+    requires:
+        - pytest
+        - freezegun
+        - httpretty
 
 about:
     home: https://github.com/ulmo-dev/ulmo/

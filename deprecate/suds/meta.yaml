@@ -1,0 +1,33 @@
+package:
+    name: suds
+    version: "0.4"
+
+source:
+    fn: suds-0.4.tar.gz
+    url: https://pypi.python.org/packages/source/s/suds/suds-0.4.tar.gz
+    md5: b7502de662341ed7275b673e6bd73191
+
+build:
+    number: 3
+
+requirements:
+    build:
+        - python >=2.7,<3
+        - setuptools
+    run:
+        - python
+
+test:
+    imports:
+        - suds.xsd
+        - suds.mx
+        - suds.transport
+        - suds.umx
+        - suds.bindings
+        - suds
+        - suds.sax
+
+about:
+    home: https://fedorahosted.org/suds
+    license: BSD
+    summary: 'Lightweight SOAP client'

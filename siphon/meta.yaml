@@ -1,11 +1,11 @@
 package:
     name: siphon
-    version: "0.3.0"
+    version: "0.3.1"
 
 source:
-    fn: siphon-0.3.0.tar.gz
-    url: https://pypi.python.org/packages/source/s/siphon/siphon-0.3.0.tar.gz
-    md5: 082d1deae4ee72bc8a1a5c4eae22d8aa
+    fn: siphon-0.3.1.tar.gz
+    url: https://pypi.python.org/packages/source/s/siphon/siphon-0.3.1.tar.gz
+    md5: 91c11e898107b87f44e5e3c6f1676dd2
 
 build:
     number: 0

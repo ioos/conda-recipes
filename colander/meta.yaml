@@ -1,0 +1,30 @@
+package:
+    name: colander
+    version: "1.0"
+
+source:
+    fn: colander-1.0.tar.gz
+    url: https://pypi.python.org/packages/source/c/colander/colander-1.0.tar.gz
+    md5: 058576123da7216288c079c9f47693f8
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - iso8601
+        - translationstring
+
+test:
+    imports:
+        - colander
+        - colander.tests
+
+about:
+    home: http://docs.pylonsproject.org/projects/colander/en/latest/
+    license: BSD-derived (http://www.repoze.org/LICENSE.txt)
+    summary: 'A simple schema-based serialization and deserialization library'

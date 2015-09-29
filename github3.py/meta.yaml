@@ -1,11 +1,11 @@
 package:
     name: github3.py
-    version: "1.0.0a1"
+    version: "1.0.0a2"
 
 source:
-    fn: github3.py-1.0.0a1.tar.gz
-    url: https://pypi.python.org/packages/source/g/github3.py/github3.py-1.0.0a1.tar.gz
-    md5: 30da0305d4e8bcc78794f158824fa0b0
+    fn: github3.py-1.0.0a2.tar.gz
+    url: https://pypi.python.org/packages/source/g/github3.py/github3.py-1.0.0a2.tar.gz
+    md5: f8f13b5a4c18d86609ab26115c0be05c
 
 build:
     number: 0
@@ -17,7 +17,7 @@ requirements:
     run:
         - python
         - pyopenssl
-        - ndg-httpsclient
+        - ndg-httpsclient  # [not py3k]
         - pyasn1
         - requests >=2.0
         - uritemplate.py >=0.2.0

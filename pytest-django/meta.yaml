@@ -1,0 +1,30 @@
+package:
+    name: pytest-django
+    version: "2.8.0"
+
+source:
+    fn: pytest-django-2.8.0.tar.gz
+    url: https://pypi.python.org/packages/source/p/pytest-django/pytest-django-2.8.0.tar.gz
+    md5: ad08caca77086f4f2692d1284c07eff3
+
+build:
+    # noarch_python: True
+    preserve_egg_dir: True
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - pytest >=2.5
+
+test:
+    imports:
+        - pytest_django
+
+about:
+    home: http://pytest-django.readthedocs.org/
+    license: BSD License
+    summary: 'A Django plugin for py.test.'

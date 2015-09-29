@@ -1,0 +1,140 @@
+diff --git a/pywafo/src/wafo/stats/_binned_statistic.py b/pywafo/src/wafo/stats/_binned_statistic.py
+index a022ace..ff5d353 100644
+--- src/wafo/stats/_binned_statistic.py
++++ src/wafo/stats/_binned_statistic.py
+@@ -3,7 +3,7 @@ from __future__ import division, print_function, absolute_import
+ import warnings
+ 
+ import numpy as np
+-from scipy.lib.six import callable
++from scipy._lib.six import callable
+ 
+ 
+ def binned_statistic(x, values, statistic='mean',
+diff --git a/pywafo/src/wafo/stats/_distn_infrastructure.py b/pywafo/src/wafo/stats/_distn_infrastructure.py
+index 05901a5..6a9a001 100644
+--- src/wafo/stats/_distn_infrastructure.py
++++ src/wafo/stats/_distn_infrastructure.py
+@@ -4,7 +4,7 @@
+ #
+ from __future__ import division, print_function, absolute_import
+ 
+-from scipy.lib.six import string_types, exec_
++from scipy._lib.six import string_types, exec_
+ 
+ import sys
+ import keyword
+diff --git a/pywafo/src/wafo/stats/_numpy_compat.py b/pywafo/src/wafo/stats/_numpy_compat.py
+index 071d2eb..5bebf50 100644
+--- src/wafo/stats/_numpy_compat.py
++++ src/wafo/stats/_numpy_compat.py
+@@ -7,7 +7,7 @@ import warnings
+ 
+ import numpy as np
+ 
+-from scipy.lib._version import NumpyVersion
++from scipy._lib._version import NumpyVersion
+ 
+ if NumpyVersion(np.__version__) > '1.7.0.dev':
+     _assert_warns = np.testing.assert_warns
+diff --git a/pywafo/src/wafo/stats/kde.py b/pywafo/src/wafo/stats/kde.py
+index c6cf197..85ddbf1 100644
+--- src/wafo/stats/kde.py
++++ src/wafo/stats/kde.py
+@@ -23,7 +23,7 @@ from __future__ import division, print_function, absolute_import
+ import warnings
+ 
+ # Scipy imports.
+-from scipy.lib.six import callable, string_types
++from scipy._lib.six import callable, string_types
+ from scipy import linalg, special
+ 
+ from numpy import atleast_2d, reshape, zeros, newaxis, dot, exp, pi, sqrt, \
+diff --git a/pywafo/src/wafo/stats/morestats.py b/pywafo/src/wafo/stats/morestats.py
+index 0724a05..c1bde66 100644
+--- src/wafo/stats/morestats.py
++++ src/wafo/stats/morestats.py
+@@ -13,7 +13,7 @@ from numpy import (isscalar, r_, log, sum, around, unique, asarray,
+      floor, array, poly1d, compress, not_equal, pi, exp, ravel, angle)
+ from numpy.testing.decorators import setastest
+ 
+-from scipy.lib.six import string_types
++from scipy._lib.six import string_types
+ from ._numpy_compat import count_nonzero
+ from scipy import optimize
+ from scipy import special
+diff --git a/pywafo/src/wafo/stats/mstats_basic.py b/pywafo/src/wafo/stats/mstats_basic.py
+index 3700064..35de9e1 100644
+--- src/wafo/stats/mstats_basic.py
++++ src/wafo/stats/mstats_basic.py
+@@ -40,7 +40,7 @@ from numpy import ndarray
+ import numpy.ma as ma
+ from numpy.ma import masked, nomask
+ 
+-from scipy.lib.six import iteritems
++from scipy._lib.six import iteritems
+ 
+ import itertools
+ import warnings
+diff --git a/pywafo/src/wafo/stats/stats.py b/pywafo/src/wafo/stats/stats.py
+index 8120a37..ddf779b 100644
+--- src/wafo/stats/stats.py
++++ src/wafo/stats/stats.py
+@@ -171,13 +171,13 @@ from __future__ import division, print_function, absolute_import
+ import warnings
+ import math
+ 
+-from scipy.lib.six import xrange
++from scipy._lib.six import xrange
+ 
+ # friedmanchisquare patch uses python sum
+ pysum = sum  # save it before it gets overwritten
+ 
+ # Scipy imports.
+-from scipy.lib.six import callable, string_types
++from scipy._lib.six import callable, string_types
+ from numpy import array, asarray, ma, zeros, sum
+ import scipy.special as special
+ import scipy.linalg as linalg
+diff --git a/pywafo/src/wafo/stats/tests/common_tests.py b/pywafo/src/wafo/stats/tests/common_tests.py
+index 3f390c4..3ddf534 100644
+--- src/wafo/stats/tests/common_tests.py
++++ src/wafo/stats/tests/common_tests.py
+@@ -6,7 +6,7 @@ import warnings
+ import numpy as np
+ import numpy.testing as npt
+ 
+-from scipy.lib._version import NumpyVersion
++from scipy._lib._version import NumpyVersion
+ from wafo import stats
+ 
+ 
+diff --git a/pywafo/src/wafo/stats/tests/test_discrete_basic.py b/pywafo/src/wafo/stats/tests/test_discrete_basic.py
+index 53e6216..942a76f 100644
+--- src/wafo/stats/tests/test_discrete_basic.py
++++ src/wafo/stats/tests/test_discrete_basic.py
+@@ -2,7 +2,7 @@ from __future__ import division, print_function, absolute_import
+ 
+ import numpy.testing as npt
+ import numpy as np
+-from scipy.lib.six import xrange
++from scipy._lib.six import xrange
+ 
+ from wafo import stats
+ from wafo.stats.tests.common_tests import (check_normalization, check_moment,
+diff --git a/pywafo/src/wafo/stats/tests/test_distributions.py b/pywafo/src/wafo/stats/tests/test_distributions.py
+index acb85b0..bfcc627 100644
+--- src/wafo/stats/tests/test_distributions.py
++++ src/wafo/stats/tests/test_distributions.py
+@@ -15,7 +15,7 @@ from nose import SkipTest
+ import numpy
+ import numpy as np
+ from numpy import typecodes, array
+-from scipy.lib._version import NumpyVersion
++from scipy._lib._version import NumpyVersion
+ from scipy import special
+ import wafo.stats as stats
+ from wafo.stats._distn_infrastructure import argsreduce
+-- 
+2.1.4
+

@@ -1,13 +1,24 @@
 package:
     name: proj4
-    version: "4.9.1"
-
-build:
-    number: 2
+    version: "4.9.2"
 
 source:
-    fn:  proj-4.9.1.tar.gz
-    url: http://download.osgeo.org/proj/proj-4.9.1.tar.gz
+    fn:  proj-4.9.2.tar.gz
+    url: http://download.osgeo.org/proj/proj-4.9.2.tar.gz
+    md5: 9843131676e31bbd903d60ae7dc76cf9
+
+build:
+    number: 0
+
+requirements:
+    run:
+        # The VS version is important. See # https://github.com/SciTools/conda-recipes-scitools/issues/94.
+        - python  # [win]
+
+test:
+    commands:
+        - echo -117 30 | cs2cs +proj=latlong +datum=NAD27 +to +proj=latlong +datum=NAD83
+        - echo -105 40 | proj +proj=utm +zone=13 +ellps=WGS84
 
 about:
     home: http://trac.osgeo.org/proj/
