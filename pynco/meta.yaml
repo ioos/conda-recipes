@@ -15,7 +15,7 @@ requirements:
         - setuptools
     run:
         - python
-        - dateutil
+        - python-dateutil
         - h5py
         - netcdf4
         - numpy

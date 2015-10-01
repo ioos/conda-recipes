@@ -32,7 +32,7 @@ test:
     requires:
         - betamax >=0.2.0
         - betamax-matchers >=0.1.0
-        - mock ==1.0.1
+        - mock ==1.0.1  # [not py35]
         - pytest
 
 about:

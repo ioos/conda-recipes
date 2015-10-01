@@ -46,4 +46,4 @@ install:
     - obvci_install_conda_build_tools.py
 
 script:
-    - obvci_conda_build_dir.py ./ ioos --channel main --build-condition "python >=2.7,<3|==3.4"
+    - obvci_conda_build_dir.py ./ ioos --channel main --build-condition "python >=2.7,<3|>=3.4"
