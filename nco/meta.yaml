@@ -9,16 +9,18 @@ source:
         - nodocs.patch  # [osx]
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
+        - gsl
         - curl
         - zlib
         - hdf5
         - libnetcdf
         - udunits2
     run:
+        - gsl
         - hdf5
         - libnetcdf
         - udunits2
@@ -26,9 +28,9 @@ requirements:
 test:
     commands:
         - ncks --help
-        - ncks -M http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz
-        - ncks -F --dimension time,1 http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz in.nc
-        - ncap2 -v -s 'a=3' -s 'b=4' -s 'c=sqrt(a^2+b^2)' in.nc out.nc  # [not osx]
+        - ncks -M http://test.opendap.org:80/opendap/data/ncml/sample_virtual_dataset.ncml
+        - ncks -F --dimension samples,1 http://test.opendap.org:80/opendap/data/ncml/sample_virtual_dataset.ncml
+        - ncap2 --help  # [not osx]
 
 about:
     home: http://nco.sourceforge.net/
