@@ -32,10 +32,11 @@ echo "$config" > ~/.condarc
 # A lock sometimes occurs with incomplete builds.
 # The lock file is stored in build_artefacts.
 conda clean --lock
+
+conda install anaconda-client
 conda info
+unset LANG
 
-export LANG=en_US.UTF-8
-
-obvci_conda_build_dir.py /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|>=3.4"
+obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|>=3.4"
 
 EOF
