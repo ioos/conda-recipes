@@ -5,7 +5,19 @@ MAINTAINER Filipe Fernandes <ocefpaf@gmail.com>
 RUN yum -y update && yum clean all
 
 # Some build tools.
-RUN yum install -y tar bzip2 patch file make gcc-c++ wget git libtool texinfo which
+RUN yum install -y bzip2 \
+                   check-devel \
+                   file \
+                   gcc-c++ \
+                   git \
+                   libtool \
+                   make \
+                   patch \
+                   tar \
+                   texinfo \
+                   wget \
+                   which
+
 RUN yum groupinstall -y 'Development Tools'
 
 RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
@@ -28,4 +40,4 @@ RUN yum install -y expat-devel
 RUN yum install -y bison byacc flex antlr
 
 ENV PATH /opt/conda/bin:$PATH
-ENV LANG C.UTF-8
+ENV LANG en_US.UTF-8
