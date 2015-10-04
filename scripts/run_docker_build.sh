@@ -2,7 +2,7 @@
 
 REPO_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
 UPLOAD_OWNER="ioos"
-IMAGE_NAME="ocefpaf/centos64-conda-obvious-ci:latest_x64"
+IMAGE_NAME="ocefpaf/conda-recipes:latest_x64"
 
 config=$(cat <<CONDARC
 
@@ -35,7 +35,6 @@ conda clean --lock
 
 conda install anaconda-client
 conda info
-unset LANG
 
 obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|>=3.4"
 

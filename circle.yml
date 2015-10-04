@@ -6,7 +6,7 @@ dependencies:
     # Note, we used to use the naive caching of docker images, but found that
     # it was quicker just to pull each time. #rollondockercaching
   override:
-      - docker pull ocefpaf/centos64-conda-obvious-ci:latest_x64
+      - docker pull ocefpaf/conda-recipes:latest_x64
 
 test:
     override:

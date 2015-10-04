@@ -6,8 +6,6 @@ source:
     fn: grib_api-1.12.1.tar.gz
     url: https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-1.12.1.tar.gz
     sha1: b769ac5db70703f0d944d93aafbbeee7513958f1
-    patches:
-        - py3k.patch
 
 build:
     number: 4
@@ -15,8 +13,7 @@ build:
 
 requirements:
     build:
-        - python  # [not osx]
-        - python <3  # [osx]
+        - python <3
         - numpy
         - jasper
 
