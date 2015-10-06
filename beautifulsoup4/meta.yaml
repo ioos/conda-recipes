@@ -1,11 +1,11 @@
 package:
     name: beautifulsoup4
-    version: "4.4.0"
+    version: "4.4.1"
 
 source:
-    fn: beautifulsoup4-4.4.0.tar.gz
-    url: https://pypi.python.org/packages/source/b/beautifulsoup4/beautifulsoup4-4.4.0.tar.gz
-    md5: 63d1f33e6524f408cb6efbc5da1ae8a5
+    fn: beautifulsoup4-4.4.1.tar.gz
+    url: https://pypi.python.org/packages/source/b/beautifulsoup4/beautifulsoup4-4.4.1.tar.gz
+    md5: 8fbd9a7cac0704645fa20d1419036815
 
 build:
     number: 0
