@@ -33,8 +33,11 @@ echo "$config" > ~/.condarc
 # The lock file is stored in build_artefacts.
 conda clean --lock
 
-conda install anaconda-client
+conda install --yes anaconda-client
+
 conda info
+
+export LANG=en_US.UTF-8
 
 obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|>=3.4"
 
