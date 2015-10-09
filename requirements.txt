@@ -1,6 +1,7 @@
 basemap
 cartopy
 ctd
+cython
 descartes
 fiona
 folium
