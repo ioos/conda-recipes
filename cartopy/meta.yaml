@@ -20,6 +20,7 @@ requirements:
         - numpy >=1.8,<1.10
         - cython
         - proj4 ==4.9.1  # [win]
+        - proj4  # [not win]
         - geos
         # On OSX we need to effectively pin the geos version to the
         # one used by the specific shapely being targeted (we're letting
@@ -37,6 +38,7 @@ requirements:
         - owslib
         - numpy >=1.8,<1.10
         - proj4 ==4.9.1  # [win]
+        - proj4  # [not win]
         - geos
         - shapely >=1.5.9
         - scipy
