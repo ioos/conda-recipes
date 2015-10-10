@@ -10,17 +10,16 @@ source:
         - cartopy.win.patch  # [win]
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
         - python
         - setuptools
         - six
-        - numpy >=1.8,<1.10
+        - numpy
         - cython
-        - proj4 ==4.9.1  # [win]
-        - proj4  # [not win]
+        - proj.4
         - geos
         # On OSX we need to effectively pin the geos version to the
         # one used by the specific shapely being targeted (we're letting
@@ -36,9 +35,8 @@ requirements:
         - nose
         - pillow
         - owslib
-        - numpy >=1.8,<1.10
-        - proj4 ==4.9.1  # [win]
-        - proj4  # [not win]
+        - numpy
+        - proj.4
         - geos
         - shapely >=1.5.9
         - scipy

@@ -8,19 +8,19 @@ source:
     md5: bf0997bf20e812f35e10188a930e24e2
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - jasper  # [not win]
         - ecmwf_grib  # [not win]
         - libnetcdf
-        - proj4
+        - proj.4
     run:
         - jasper  # [not win]
         - ecmwf_grib  # [not win]
         - libnetcdf
-        - proj4
+        - proj.4
 
 test:
     commands:
