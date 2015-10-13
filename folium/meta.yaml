@@ -7,7 +7,7 @@ source:
     git_tag: v0.1.6
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -16,6 +16,9 @@ requirements:
     run:
         - python
         - jinja2
+        - numpy
+        - pandas
+        - vincent
 
 test:
     imports:
