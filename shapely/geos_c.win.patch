@@ -1,16 +1,16 @@
---- shapely/libgeos.py	2015-08-27 10:50:33.000000000 -0300
-+++ shapely/libgeos.py	2015-09-22 09:04:40.507509936 -0300
-@@ -182,9 +182,10 @@
-                 os.path.join(os.path.dirname(__file__), "DLLs"))
-             wininst_dlls = os.path.abspath(os.__file__ + "../../../DLLs")
-             original_path = os.environ['PATH']
--            os.environ['PATH'] = "%s;%s;%s" % \
--                (egg_dlls, wininst_dlls, original_path)
--            lgeos = CDLL("geos.dll")
-+            os.environ['PATH'] = "%s;%s;%s;%s" % \
-+                    (egg_dlls, wininst_dlls, original_path,
-+                     os.path.join(sys.prefix, "Library", "bin"))
-+            lgeos = CDLL("geos_c.dll")
-         except (ImportError, WindowsError, OSError):
-             raise
+--- shapely/geos.py	2015-10-10 00:49:23.000000000 -0300
++++ shapely/geos.py	2015-10-13 13:48:29.687225436 -0300
+@@ -133,9 +133,10 @@
+                                    "DLLs"))
+         wininst_dlls = os.path.abspath(os.__file__ + "../../../DLLs")
+         original_path = os.environ['PATH']
+-        os.environ['PATH'] = "%s;%s;%s" % \
+-            (egg_dlls, wininst_dlls, original_path)
+-        _lgeos = CDLL("geos.dll")
++        os.environ['PATH'] = "%s;%s;%s;%s" % \
++	  (egg_dlls, wininst_dlls, original_path,
++           os.path.join(sys.prefix, "Library", "bin"))
++        _lgeos = CDLL("geos_c.dll")
+     except (ImportError, WindowsError, OSError):
+         raise
  
