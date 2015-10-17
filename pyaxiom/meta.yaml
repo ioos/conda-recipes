@@ -1,11 +1,11 @@
 package:
     name: pyaxiom
-    version: "1.0.7"
+    version: "1.0.8"
 
 source:
-    fn: pyaxiom-1.0.7.tar.gz
-    url: https://pypi.python.org/packages/source/p/pyaxiom/pyaxiom-1.0.7.tar.gz
-    md5: 3865034951bd663c8a16370a222b78a9
+    fn: pyaxiom-1.0.8.tar.gz
+    url: https://pypi.python.org/packages/source/p/pyaxiom/pyaxiom-1.0.8.tar.gz
+    md5: 362bfa1d54d1062bd73e777915e7aaf8
 
 build:
     number: 0
