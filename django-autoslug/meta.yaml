@@ -1,11 +1,11 @@
 package:
     name: django-autoslug
-    version: "1.8.0"
+    version: "1.9.3"
 
 source:
-    fn: django-autoslug-1.8.0.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-autoslug/django-autoslug-1.8.0.tar.gz
-    md5: 3d36c286f881481e07a32b2d5bf0f6f7
+    fn: django-autoslug-1.9.3.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-autoslug/django-autoslug-1.9.3.tar.gz
+    md5: d91e4f04869a282398ca6efc623f2b34
 
 build:
     number: 0
