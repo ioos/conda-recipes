@@ -1,14 +1,14 @@
 package:
     name: django-debug-toolbar
-    version: "1.3.2"
+    version: "1.4"
 
 source:
-    fn: django-debug-toolbar-1.3.2.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-debug-toolbar/django-debug-toolbar-1.3.2.tar.gz
-    md5: af197364e92b99733020890ede5fe5af
+    fn: django-debug-toolbar-1.4.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-debug-toolbar/django-debug-toolbar-1.4.tar.gz
+    md5: 8c9402e11032a76e316fb8e6efe01196
 
 build:
-    number: 2
+    number: 0
 
 requirements:
     build:
