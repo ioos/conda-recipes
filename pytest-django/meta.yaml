@@ -1,11 +1,11 @@
 package:
     name: pytest-django
-    version: "2.8.0"
+    version: "2.9.1"
 
 source:
-    fn: pytest-django-2.8.0.tar.gz
-    url: https://pypi.python.org/packages/source/p/pytest-django/pytest-django-2.8.0.tar.gz
-    md5: ad08caca77086f4f2692d1284c07eff3
+    fn: pytest-django-2.9.1.tar.gz
+    url: https://pypi.python.org/packages/source/p/pytest-django/pytest-django-2.9.1.tar.gz
+    md5: 3c9dde85e99ec409df209a62b4715e1a
 
 build:
     preserve_egg_dir: True
@@ -15,6 +15,7 @@ requirements:
     build:
         - python
         - setuptools
+        - setuptools_scm
     run:
         - python
         - pytest >=2.5
