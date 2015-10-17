@@ -6,6 +6,8 @@ source:
     fn:  proj-4.9.1.tar.gz
     url: http://download.osgeo.org/proj/proj-4.9.1.tar.gz
     md5: 3cbb2a964fd19a496f5f4265a717d31c
+    patches:
+        - make_check.patch  # [osx]
 
 build:
     number: 1
