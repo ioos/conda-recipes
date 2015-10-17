@@ -8,7 +8,6 @@ source:
     md5: ad08caca77086f4f2692d1284c07eff3
 
 build:
-    # noarch_python: True
     preserve_egg_dir: True
     number: 0
 
