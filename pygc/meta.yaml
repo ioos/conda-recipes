@@ -1,50 +1,29 @@
 package:
-  name: pygc
-  version: "0.2"
+    name: pygc
+    version: "0.2"
 
 source:
-  fn: pygc-0.2.tar.gz
-  url: https://pypi.python.org/packages/source/p/pygc/pygc-0.2.tar.gz
-  md5: 76d35e92a60086ef76d37178ae92fda1
-#  patches:
-   # List any patch files here
-   # - fix.patch
+    fn: pygc-0.2.tar.gz
+    url: https://pypi.python.org/packages/source/p/pygc/pygc-0.2.tar.gz
+    md5: 76d35e92a60086ef76d37178ae92fda1
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - numpy
-
-  run:
-    - python
-    - numpy
+    build:
+        - python
+        - setuptools
+        - numpy
+    run:
+        - python
+        - numpy
 
 test:
-  # Python imports
-  imports:
-    - pygc
-
-  # commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
+    imports:
+        - pygc
 
 about:
-  home: https://github.com/kwilcox/pygc
-  license: GNU General Public License v3 (GPLv3)
-  summary: "Great Circle calculations in Python using Vincenty's formulae"
-
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
+    home: https://github.com/kwilcox/pygc
+    license: GNU General Public License v3 (GPLv3)
+    summary: "Great Circle calculations in Python using Vincenty's formulae"
