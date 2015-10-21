@@ -9,19 +9,17 @@ export LDFLAGS="-headerpad_max_install_names"
         HAVE_ANTLR=yes \
         --prefix=$PREFIX \
         --disable-regex \
-        --disable-shared
+        --disable-shared \
+        --disable-doc
 else
     ./configure \
         HAVE_ANTLR=yes \
         --prefix=$PREFIX \
-        --with-zlib=$PREFIX \
         --disable-dependency-tracking \
         --enable-netcdf4 \
         --disable-static \
         --disable-udunits \
-        --enable-udunits2 \
-        --disable-dap-opendap \
-        --enable-dap-netcdf
+        --enable-udunits2
 fi
 
 make
