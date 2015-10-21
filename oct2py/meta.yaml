@@ -1,11 +1,11 @@
 package:
     name: oct2py
-    version: "3.3.1"
+    version: "3.3.3"
 
 source:
-    fn: oct2py-3.3.1.tar.gz
-    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.3.1.tar.gz
-    md5: f4a413ca5541f11454c1839e017f251f
+    fn: oct2py-3.3.3.zip
+    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.3.3.zip
+    md5: 3490c75455f2968b0da90a6e07d1b9a0
 
 build:
     number: 0
