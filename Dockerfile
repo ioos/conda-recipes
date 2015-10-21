@@ -16,7 +16,8 @@ RUN yum install -y bzip2 \
                    tar \
                    texinfo \
                    wget \
-                   which
+                   which \
+                   cmake
 
 RUN yum groupinstall -y 'Development Tools'
 
