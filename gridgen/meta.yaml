@@ -1,10 +1,10 @@
 package:
     name: gridgen
-    version: "1.50.0"
+    version: "1.51.2"
 
 source:
     git_url: https://github.com/sakov/gridgen-c.git
-    git_tag: v1.50.0
+    git_tag: master
 
 build:
     number: 0
