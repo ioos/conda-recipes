@@ -1,11 +1,11 @@
 package:
     name: django-typed-models
-    version: "0.4.0"
+    version: "0.5.0"
 
 source:
-    fn: django-typed-models-0.4.0.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-typed-models/django-typed-models-0.4.0.tar.gz
-    md5: 47ad7f8eaf39f4551d2a35864bb7b445
+    fn: django-typed-models-0.5.0.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-typed-models/django-typed-models-0.5.0.tar.gz
+    md5: d58e0eb6e699deeecb729e61a2d957f2
 
 build:
     number: 0
@@ -17,9 +17,9 @@ requirements:
         - python
         - django
 
-#test:
-    #imports:
-        #- typedmodels
+test:
+    imports:
+        - typedmodels
 
 about:
     home: http://github.com/craigds/django-typed-models
