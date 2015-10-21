@@ -1,11 +1,11 @@
 package:
     name: h5netcdf
-    version: "0.2.1"
+    version: "0.2.2"
 
 source:
-    fn: h5netcdf-0.2.1.tar.gz
-    url: https://pypi.python.org/packages/source/h/h5netcdf/h5netcdf-0.2.1.tar.gz
-    md5: 4b218fa2043e2aa69b12cdb98456b314
+    fn: h5netcdf-0.2.2.tar.gz
+    url: https://pypi.python.org/packages/source/h/h5netcdf/h5netcdf-0.2.2.tar.gz
+    md5: 5de72a6b8e4cc071ca2154fadf3681e3
 
 build:
     number: 0
