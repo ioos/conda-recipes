@@ -1,0 +1,30 @@
+package:
+    name: matlab_kernel
+    version: "0.6.8"
+
+source:
+    fn: matlab_kernel-0.6.8.tar.gz
+    url: https://pypi.python.org/packages/source/m/matlab_kernel/matlab_kernel-0.6.8.tar.gz
+    md5: 8d8571dfa662211de674201054756eee
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - metakernel >=0.10.5
+        - pymatbridge
+        - ipython >=3.0
+        - ipykernel
+    run:
+        - python
+        - metakernel >=0.10.5
+        - pymatbridge
+        - ipython >=3.0
+        - ipykernel
+
+about:
+    home: https://github.com/calysto/matlab_kernel
+    license: BSD License
+    summary: 'A Matlab kernel for Jupyter/IPython'
