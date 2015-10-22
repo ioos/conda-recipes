@@ -45,6 +45,7 @@ install:
     - cmd: conda config --add channels ioos
     - cmd: conda config --set show_channel_urls yes
     - cmd: conda info
+    - cmd: conda install --yes conda-build==1.18.0
 
 # Skip .NET project specific build phase.
 build: off
