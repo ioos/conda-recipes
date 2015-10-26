@@ -1,0 +1,22 @@
+package:
+    name: libbsb
+    version: "0.0.7"
+
+source:
+    fn: libbsb-0.0.7.tar.gz
+    url: http://downloads.sourceforge.net/project/libbsb/libbsb/libbsb-0.0.7/libbsb-0.0.7.tar.gz
+    md5: 58480a145c1cd79651fa958bb3ab7a6d
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - libtiff
+        - libpng
+    run:
+
+about:
+    home: http://libbsb.sourceforge.net/
+    license: LGPL-2.0
+    summary: 'C library for reading and writing BSB format image files'
