@@ -3,16 +3,15 @@ package:
     version: "1.9.4"
 
 source:
-    fn: pyproj-1.9.4.tar.gz
-    url: https://pypi.python.org/packages/source/p/pyproj/pyproj-1.9.4.tar.gz
-    md5: b0a060465b117dd6c1b37e14f22382aa
+    git_url: https://github.com/jswhit/pyproj.git
+    git_tag: master
 
 build:
     number: 2
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
     run:
         - python
         - numpy
