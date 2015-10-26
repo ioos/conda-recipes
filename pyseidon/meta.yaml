@@ -1,22 +1,26 @@
+{%set build = 0 %}
+{%set version = "2.0" %}
+
 package:
     name: pyseidon
-    version: "2.0"
+    version: {{version}}
 
 source:
     git_url: https://github.com/GrumpyNounours/PySeidon.git
-    git_tag: v2.0
+    git_tag: v{{version}}
     patches:
         - setup.patch
 
 build:
-    number: 0
+    number: {{build}}
+    string: py{{py}}_{{build}}
 
 requirements:
     build:
         - python >=2.7,<3
         - setuptools
     run:
-        - python
+        - python >=2.7,<3
         - h5py
         - utide
         - numpy

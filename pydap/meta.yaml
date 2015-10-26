@@ -1,6 +1,9 @@
+{%set build = 0 %}
+{%set version = "3.1.1" %}
+
 package:
     name: pydap
-    version: "3.1.1"
+    version: {{version}}
 
 source:
     fn: Pydap-3.1.1.tar.gz
@@ -8,14 +11,15 @@ source:
     md5: d13630328c121eeeb0e0f015eb9e7124
 
 build:
-    number: 0
+    number: {{build}}
+    string: py{{py}}_{{build}}
 
 requirements:
     build:
         - python >=2.7,<3
         - setuptools
     run:
-        - python
+        - python >=2.7,<3
         - numpy
         - httplib2 >=0.4.0
         - genshi
