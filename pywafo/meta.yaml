@@ -1,13 +1,17 @@
+{%set build = 0 %}
+{%set version = "0.1.2" %}
+
 package:
     name: pywafo
-    version: "0.1.2"
+    version: {{version}}
 
 source:
-    git_url: https://github.com/ocefpaf/pywafo.git
-    git_tag: scipy
+    git_url: https://github.com/wafo-project/pywafo.git
+    git_tag: master
 
 build:
-    number: 0
+    number: {{build}}
+    string: py{{py}}_{{build}}
 
 requirements:
     build:
@@ -16,7 +20,7 @@ requirements:
         - numpy
         - cython
     run:
-        - python
+        - python >=2.7,<3
         - six
         - numpy
         - scipy
