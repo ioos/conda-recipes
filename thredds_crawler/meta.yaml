@@ -1,13 +1,14 @@
 package:
     name: thredds_crawler
-    version: "1.0.0"
+    version: "1.1.0"
 
 source:
-    git_url: https://github.com/asascience-open/thredds_crawler.git
-    git_tag: 1.0.0
+    fn: thredds_crawler-1.1.0.tar.gz
+    url: https://pypi.python.org/packages/source/t/thredds_crawler/thredds_crawler-1.1.0.tar.gz
+    md5: 81e499f791c7bcc8a01f95f94db01fef
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
@@ -19,6 +20,7 @@ requirements:
         - python
         - requests
         - lxml
+        - netcdf4
 
 test:
     imports:
