@@ -1,17 +1,13 @@
-{%set build = 2 %}
-{%set version = "1.8.1" %}
-
 package:
     name: iris
-    version: {{version}}
+    version: "1.8.1"
 
 source:
     git_url: https://github.com/SciTools/iris.git
-    git_tag: v{{version}}
+    git_tag: v1.8.1
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 3
 
 requirements:
     build:
@@ -20,18 +16,22 @@ requirements:
         - biggus
         - cartopy
         - netcdf4
+        - numpy x.x
         - udunits2
         - pyke
         - setuptools
         - libmo_unpack  # [not win]
     run:
-        - python >=2.7,<3
+        - python
         - scipy
         - biggus
         - cartopy
         - matplotlib
         - netcdf4
         - ecmwf_grib >=1.12.1  # [not win]
+        # There is a numpy C ABI dependency for as long as we have a C extension
+        # (pp_packing).
+        - numpy x.x
         - numpy
         - pyke
         - udunits2

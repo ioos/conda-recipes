@@ -8,6 +8,7 @@ source:
     md5: 9d9a7015ee98ec6766adc811d95b82c3
 
 build:
+    skip: True  # [win]
     number: 0
     entry_points:
         - ncinfo = netCDF4.utils:ncinfo

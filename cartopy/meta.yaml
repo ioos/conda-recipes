@@ -10,14 +10,14 @@ source:
         - cartopy.win.patch  # [win]
 
 build:
-    number: 2
+    number: 3
 
 requirements:
     build:
         - python
         - setuptools
         - six
-        - numpy
+        - numpy x.x
         - cython
         - proj.4
         - geos
@@ -35,7 +35,7 @@ requirements:
         - nose
         - pillow
         - owslib
-        - numpy
+        - numpy x.x
         - proj.4
         - geos
         - shapely >=1.5.9

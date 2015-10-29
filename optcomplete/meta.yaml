@@ -1,9 +1,6 @@
-{%set build = 3 %}
-{%set version = "1.2.devel" %}
-
 package:
     name: optcomplete
-    version: {{version}}
+    version: "1.2.devel"
 
 source:
     fn: optcomplete-1.2-devel.tar.gz
@@ -11,14 +8,13 @@ source:
     md5: 6392cd0a7154b3394004d5ad9d913d59
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 3
 
 requirements:
     build:
         - python >=2.7,<3
     run:
-        - python >=2.7,<3
+        - python
 
 test:
     imports:

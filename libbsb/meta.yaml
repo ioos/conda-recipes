@@ -9,12 +9,12 @@ source:
 
 build:
     number: 0
+    skip: True  # [win]
 
 requirements:
     build:
         - libtiff
         - libpng
-    run:
 
 about:
     home: http://libbsb.sourceforge.net/

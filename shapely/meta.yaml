@@ -10,19 +10,19 @@ source:
         - geos_c.win.patch  # [win]
         - osx-geos.patch # [osx]
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python
         - geos >=3.4
         - cython
-        - numpy
+        - numpy x.x
         - msinttypes  # [win]
     run:
         - python
         - geos >=3.4
-        - numpy
+        - numpy x.x
 
 test:
     imports:

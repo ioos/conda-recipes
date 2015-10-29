@@ -1,17 +1,14 @@
-{%set build = 2 %}
-{%set version = "0.8.dev" %}
-
 package:
     name: octant
-    version: {{version}}
+    version: "0.8.dev"
 
 source:
     git_url: https://github.com/hetland/octant.git
     git_tag: master
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    skip: True  # [win]
+    number: 2
 
 requirements:
     build:
@@ -20,7 +17,7 @@ requirements:
         - setuptools
         - mingwpy  # [win]
     run:
-        - python >=2.7,<3
+        - python
         - numpy
         - netcdf4
         - matplotlib

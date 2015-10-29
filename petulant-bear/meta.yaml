@@ -1,9 +1,6 @@
-{%set build = 2 %}
-{%set version = "0.1.3" %}
-
 package:
     name: petulant-bear
-    version: {{version}}
+    version: "0.1.3"
 
 source:
     fn: petulant-bear-0.1.3.tar.gz
@@ -11,8 +8,7 @@ source:
     md5: 71788a47d6a9c7b0081ab81348c4f4a9
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 2
 
 
 requirements:
@@ -20,7 +16,7 @@ requirements:
         - python >=2.7,<3
         - setuptools
     run:
-        - python >=2.7,<3
+        - python
         - netcdf4
         - numpy
         - lxml
