@@ -19,13 +19,13 @@ environment:
       PY_CONDITION: "python >=2.7,<3"
     - TARGET_ARCH: "x86"
       CONDA_PY: "34"
-      PY_CONDITION: "python ==3.4"
+      PY_CONDITION: "python >=3.4,<3.5"
     - TARGET_ARCH: "x64"
       CONDA_PY: "27"
       PY_CONDITION: "python >=2.7,<3"
     - TARGET_ARCH: "x64"
       CONDA_PY: "34"
-      PY_CONDITION: "python ==3.4"
+      PY_CONDITION: "python >=3.4,<3.5"
 
 # We always use a 64-bit machine, but can build x86 distributions
 # with the TARGET_ARCH variable.
@@ -33,22 +33,24 @@ platform:
     - x64
 
 install:
+    # Set the CONDA_NPY, although it has no impact on the actual build. We need this because of a test within conda-build.
+    - cmd: set CONDA_NPY=19
     - appveyor DownloadFile "https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py"
     - cmd: python bootstrap-obvious-ci-and-miniconda.py %CONDA_INSTALL_LOCN% %TARGET_ARCH% 3 --without-obvci
     - cmd: set CONDA_PY=%CONDA_PY%
     - cmd: set PATH=%PATH%;%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\scripts
     - cmd: set PYTHONUNBUFFERED=1
 
-    - cmd: conda install -c http://conda.binstar.org/pelson/channel/development --yes --quiet obvious-ci
+    - cmd: conda install -c pelson/channel/development --yes obvious-ci --force
     - cmd: obvci_install_conda_build_tools.py
+    - cmd: conda update conda-build --yes
 
     - cmd: conda config --add channels ioos
     - cmd: conda config --set show_channel_urls yes
     - cmd: conda info
-    - cmd: conda install --yes conda-build==1.18.0
 
 # Skip .NET project specific build phase.
 build: off
 
 test_script:
-    - '%CMD_IN_ENV% obvci_conda_build_dir.py .\ ioos --channel main  --build-condition "%PY_CONDITION%"'
+    - '%CMD_IN_ENV% obvci_conda_build_dir .\ ioos --channel main  --build-condition "numpy >=1.9" "%PY_CONDITION%"'

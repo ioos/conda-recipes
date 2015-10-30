@@ -1,9 +1,6 @@
-{%set build = 0 %}
-{%set version = "0.9.12" %}
-
 package:
     name: numdifftools
-    version: {{version}}
+    version: "0.9.12"
 
 source:
     fn: numdifftools-0.9.12.zip
@@ -11,8 +8,7 @@ source:
     md5: f1c3a80a08ca6ca21d7a8966ca5a97b0
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 0
 
 requirements:
     build:
@@ -21,7 +17,7 @@ requirements:
         - setuptools_scm
         - six
     run:
-        - python >=2.7,<3
+        - python
         - numpy
         - matplotlib
         - scipy

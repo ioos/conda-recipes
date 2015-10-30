@@ -8,18 +8,19 @@ source:
     sha1: b769ac5db70703f0d944d93aafbbeee7513958f1
 
 build:
-    number: 4
+    number: 5
+    skip: True  # [win]
     detect_binary_files_with_prefix: true
 
 requirements:
     build:
         - python <3
-        - numpy
+        - numpy x.x
         - jasper
 
     run:
         - python
-        - numpy
+        - numpy x.x
         - jasper
         - six
 

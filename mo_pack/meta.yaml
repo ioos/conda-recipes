@@ -7,18 +7,19 @@ source:
     git_tag: v0.2.0
 
 build:
-    number: 0
+    number: 1
+    skip: True  # [win]
 
 requirements:
     build:
         - python
-        - numpy
+        - numpy x.x
         - setuptools
         - cython
         - libmo_unpack
     run:
         - python
-        - numpy
+        - numpy x.x
         - libmo_unpack
 
 test:

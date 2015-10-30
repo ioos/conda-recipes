@@ -1,17 +1,13 @@
-{%set build = 3 %}
-{%set version = "2.0.1" %}
-
 package:
     name: pygdp
-    version: {{version}}
+    version: "2.0.1"
 
 source:
     git_url: https://github.com/USGS-CIDA/pyGDP.git
-    git_tag: v{{version}}
+    git_tag: v"2.0.1"
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 3
 
 requirements:
     build:
@@ -19,7 +15,7 @@ requirements:
         - setuptools
         - owslib
     run:
-        - python >=2.7,<3
+        - python
         - owslib
         - python-dateutil
         - lxml

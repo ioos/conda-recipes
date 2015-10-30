@@ -8,6 +8,7 @@ source:
 
 build:
     number: 0
+    skip: True  # [win]
 
 about:
     home: https://github.com/sakov/csa-c.git

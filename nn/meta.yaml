@@ -4,11 +4,11 @@ package:
 
 source:
     git_url: https://github.com/sakov/nn-c.git
-    #git_tag: v1.85.1
     git_tag: master
 
 build:
     number: 0
+    skip: True  # [win]
 
 about:
     home: https://github.com/sakov/nn-c.git

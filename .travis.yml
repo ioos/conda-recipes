@@ -31,20 +31,19 @@ before_install:
     # Unit testing framework for C (used by libmo_unpack).
     - brew install check
     # NCO.
-    - brew outdated gcc || brew upgrade gcc
     - brew install gsl
     # https://travis-ci.org/ioos/conda-recipes/builds/67641190
     #- brew install antlr2
 
 install:
-    # Download and run bootstrap.
+    # Set the numpy variable. This isn't used, but conda-build complains if we haven't set it already.
+    - export CONDA_NPY=19
     - wget https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py
-    - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 3 --without-obvci && source ~/miniconda/bin/activate root
+    - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
     - conda config --set show_channel_urls True
-    - conda install -c http://conda.binstar.org/pelson/channel/development --yes --quiet obvious-ci
+    - conda install -c pelson/channel/development --yes obvious-ci --force
     - conda config --add channels ioos
     - obvci_install_conda_build_tools.py
-    - conda install --yes conda-build==1.18.0
 
 script:
-    - obvci_conda_build_dir.py ./ ioos --channel main --build-condition "python >=2.7,<3|==3.4"
+    - obvci_conda_build_dir ./ ioos --channel main --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4,<3.5"

@@ -1,17 +1,13 @@
-{%set build = 2 %}
-{%set version = "1.1.1" %}
-
 package:
     name: compliance-checker
-    version: {{version}}
+    version: "1.1.1"
 
 source:
     git_url: https://github.com/ioos/compliance-checker.git
-    git_tag: {{version}}
+    git_tag: "1.1.1"
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 2
     entry_points:
         - compliance-checker = cchecker:main
 
@@ -26,7 +22,7 @@ requirements:
         - requests
         - python-dateutil
     run:
-        - python >=2.7,<3
+        - python
         - owslib
         - wicken
         - lxml

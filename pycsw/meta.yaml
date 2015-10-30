@@ -1,24 +1,20 @@
-{%set build = 0 %}
-{%set version = "1.10.3" %}
-
 package:
     name: pycsw
-    version: {{version}}
+    version: "1.10.3"
 
 source:
     git_url: https://github.com/geopython/pycsw.git
-    git_tag: {{version}}
+    git_tag: "1.10.3"
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 0
     preserve_egg_dir: True
 
 requirements:
     build:
         - python >=2.7,<3
     run:
-        - python >=2.7,<3
+        - python
         - sqlalchemy
         - geolinks
         - lxml

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+
 REPO_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
 UPLOAD_OWNER="ioos"
 IMAGE_NAME="ocefpaf/conda-recipes:latest_x64"
@@ -26,21 +28,22 @@ if [ "${BINSTAR_TOKEN}" ];then
     export BINSTAR_TOKEN=${BINSTAR_TOKEN}
 fi
 
+export CONDA_NPY='19'
 export PYTHONUNBUFFERED=1
 echo "$config" > ~/.condarc
+
+# Update both obvious-ci and conda-build to get latest "numpy x.x" specification support.
+conda install -c http://conda.anaconda.org/pelson/channel/development --yes obvious-ci --force
+conda update conda conda-build --yes --force
 
 # A lock sometimes occurs with incomplete builds.
 # The lock file is stored in build_artefacts.
 conda clean --lock
 
 conda install --yes anaconda-client
-
 conda info
+unset LANG
 
-export LANG=en_US.UTF-8
-
-conda install --yes conda-build==1.18.0
-
-obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "python >=2.7,<3|>=3.4"
+obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4,<3.5"
 
 EOF

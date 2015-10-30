@@ -1,24 +1,20 @@
-{%set build = 0 %}
-{%set version = "1.0" %}
-
 package:
     name: pyfvcom
-    version: {{version}}
+    version: "1.0"
 
 source:
     git_url: https://github.com/pwcazenave/PyFVCOM.git
     git_tag: 20150122
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 0
 
 requirements:
     build:
         - python >=2.7,<3
         - setuptools
     run:
-        - python >=2.7,<3
+        - python
         - pyshp
         - numpy
         - matplotlib

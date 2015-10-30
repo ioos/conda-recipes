@@ -1,9 +1,6 @@
-{%set build = 2 %}
-{%set version = "1.9.4" %}
-
 package:
     name: pyproj
-    version: {{version}}
+    version: "1.9.4"
 
 source:
     fn: pyproj-1.9.4.tar.gz
@@ -11,14 +8,13 @@ source:
     md5: b0a060465b117dd6c1b37e14f22382aa
 
 build:
-    number: {{build}}
-    string: py{{py}}_{{build}}
+    number: 2
 
 requirements:
     build:
         - python >=2.7,<3
     run:
-        - python >=2.7,<3
+        - python
         - numpy
 
 test:
