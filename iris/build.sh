@@ -11,6 +11,8 @@ fi
 
 SITECFG=lib/iris/etc/site.cfg
 echo "[System]" > $SITECFG
-echo "udunits2_path = $PREFIX/lib/libudunits2.${EXT}" >> $SITECFG 
+echo "udunits2_path = $PREFIX/lib/libudunits2.${EXT}" >> $SITECFG
+
+rm -rf lib/iris/tests/results lib/iris/tests/*.npz
 
 $PYTHON -sE setup.py --with-unpack build_ext "-I${PREFIX}/include" "-L${PREFIX}/lib" "-R${PREFIX}/lib" install --single-version-externally-managed --record record.txt
