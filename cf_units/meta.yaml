@@ -8,17 +8,18 @@ source:
     md5: 6dcaa762fbbb790684a2a918b5f34f5d
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python
+        - numpy x.x
     run:
         - python
         - six
         - udunits2
         - netcdf4
-        - numpy
+        - numpy x.x
 
 test:
     imports:
