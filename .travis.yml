@@ -43,6 +43,7 @@ install:
     - conda config --set show_channel_urls True
     - conda install -c pelson/channel/development --yes obvious-ci --force
     - conda config --add channels ioos
+    - python scripts/expand_source.py
     - obvci_install_conda_build_tools.py
 
 script:
