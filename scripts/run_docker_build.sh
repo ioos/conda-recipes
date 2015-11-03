@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 
-
 REPO_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
 UPLOAD_OWNER="ioos"
 IMAGE_NAME="ocefpaf/conda-recipes:latest_x64"
@@ -39,6 +38,8 @@ conda update conda conda-build --yes --force
 # A lock sometimes occurs with incomplete builds.
 # The lock file is stored in build_artefacts.
 conda clean --lock
+
+python /conda-recipes/scripts/expand_source.py
 
 conda install --yes anaconda-client
 conda info
