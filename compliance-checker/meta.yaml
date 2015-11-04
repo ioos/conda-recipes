@@ -1,13 +1,15 @@
 package:
     name: compliance-checker
-    version: "1.1.1"
+    version: "2.0.0"
 
 source:
-    git_url: https://github.com/ioos/compliance-checker.git
-    git_tag: "1.1.1"
+    fn: compliance-checker-2.0.0.tar.gz
+    url: https://pypi.python.org/packages/source/c/compliance-checker/compliance-checker-2.0.0.tar.gz
+    md5: 783cfa85acc6870dc3adf75b60418b72
+
 
 build:
-    number: 2
+    number: 0
     entry_points:
         - compliance-checker = cchecker:main
 
