@@ -33,22 +33,23 @@ platform:
     - x64
 
 install:
+    - cmd: rmdir C:\cygwin /s /q
     # Set the CONDA_NPY, although it has no impact on the actual build. We need this because of a test within conda-build.
     - cmd: set CONDA_NPY=19
     - appveyor DownloadFile "https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py"
-    - cmd: python bootstrap-obvious-ci-and-miniconda.py %CONDA_INSTALL_LOCN% %TARGET_ARCH% 3 --without-obvci
+    - cmd: python bootstrap-obvious-ci-and-miniconda.py %CONDA_INSTALL_LOCN% %TARGET_ARCH% 2 --without-obvci
     - cmd: set CONDA_PY=%CONDA_PY%
     - cmd: set PATH=%PATH%;%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\scripts
     - cmd: set PYTHONUNBUFFERED=1
 
-    - cmd: conda install -c pelson/channel/development --yes obvious-ci --force
+    - cmd: conda config --set show_channel_urls yes
+    - cmd: conda install obvious-ci conda-execute --yes -c conda-forge
     - cmd: obvci_install_conda_build_tools.py
-    - cmd: conda update conda-build --yes
 
-    - cmd: python scripts/expand_source.py
+    - cmd: conda install --yes pyyaml
+    - cmd: conda execute -v  scripts/expand_source.py
 
     - cmd: conda config --add channels ioos
-    - cmd: conda config --set show_channel_urls yes
     - cmd: conda info
 
 # Skip .NET project specific build phase.
