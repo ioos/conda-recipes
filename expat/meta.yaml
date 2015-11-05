@@ -1,15 +1,7 @@
-package:
-    name: expat
-    version: 2.1.0
+# This is a placeholder meta, the canonical one comes from source.txt
 
-source:
-    fn: expat-2.1.0.tar.gz
-    url: http://sourceforge.net/projects/expat/files/expat/2.1.0/expat-2.1.0.tar.gz/download
+package:
+   name: expat
 
 build:
-    number: 1
-
-about:
-    home: http://expat.sourceforge.net/
-    license: MIT
-    summary: 'XML Parser Toolkit'
+   script: exit 1
