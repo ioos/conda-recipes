@@ -41,7 +41,8 @@ install:
     - wget https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py
     - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
     - conda config --set show_channel_urls True
-    - conda install -c pelson/channel/development --yes obvious-ci --force
+    - conda install obvious-ci --yes -c conda-forge
+
     - conda config --add channels ioos
     - python scripts/expand_source.py
     - obvci_install_conda_build_tools.py
