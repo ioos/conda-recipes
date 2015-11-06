@@ -31,7 +31,7 @@ export CONDA_NPY='19'
 export PYTHONUNBUFFERED=1
 echo "$config" > ~/.condarc
 
-conda install obvious-ci -c conda-forge
+conda install --yes obvious-ci -c conda-forge
 
 # A lock sometimes occurs with incomplete builds.
 # The lock file is stored in build_artefacts.
@@ -41,7 +41,6 @@ python /conda-recipes/scripts/expand_source.py
 
 conda install --yes anaconda-client
 conda info
-unset LANG
 
 obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4,<3.5"
 
