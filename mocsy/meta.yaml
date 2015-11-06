@@ -1,0 +1,30 @@
+package:
+    name: mocsy
+    version: "2.0.1"
+
+source:
+    git_url: https://github.com/ocefpaf/mocsy.git
+    git_tag: python_package
+
+build:
+    number: 0
+    #skip: True  # [win]
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - mingwpy  # [win]
+        - numpy
+    run:
+        - python
+        - numpy
+
+test:
+    imports:
+        - mocsy
+
+about:
+    home: https://github.com/jamesorr/mocsy.git
+    license: MIT License
+    summary: 'Routines to model ocean carbonate system thermodynamics'
