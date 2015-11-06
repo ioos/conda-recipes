@@ -5,20 +5,22 @@ package:
 source:
     git_url: https://github.com/hetland/octant.git
     git_tag: master
+    patches:
+        - setuptools.patch
 
 build:
-    skip: True  # [win]
-    number: 2
+    number: 3
 
 requirements:
     build:
         - python >=2.7,<3
-        - numpy
+        - numpy x.x
         - setuptools
+        - matplotlib
         - mingwpy  # [win]
     run:
         - python
-        - numpy
+        - numpy x.x
         - netcdf4
         - matplotlib
         - basemap
