@@ -23,6 +23,7 @@ requirements:
         - cf_units
         - requests
         - python-dateutil
+        - jinja2>=2.7.3
     run:
         - python
         - owslib
@@ -31,6 +32,7 @@ requirements:
         - cf_units
         - requests
         - python-dateutil
+        - jinja2>=2.7.3
 
 test:
     imports:
