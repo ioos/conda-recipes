@@ -1,0 +1,3 @@
+gh-repo: SciTools/conda-recipes-scitools
+git-tag: master
+contents: proj.4/*

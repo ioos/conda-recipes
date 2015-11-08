@@ -1,23 +1,7 @@
-package:
-    name: pyshp
-    version: "1.2.3"
+# This is a placeholder meta, the canonical one comes from source.txt
 
-source:
-    fn: pyshp-1.2.3.tar.gz
-    url: https://pypi.python.org/packages/source/p/pyshp/pyshp-1.2.3.tar.gz
-    md5: f857099a57f93830e0c72a31e9c506a8
+package:
+   name: pyshp
 
 build:
-    number: 0
-
-requirements:
-    build:
-        - python
-        - setuptools
-    run:
-        - python
-
-about:
-    home: https://pypi.python.org/pypi/pyshp
-    license: MIT
-    summary: 'Pure Python read/write support for ESRI Shapefile format'
+   script: exit 1

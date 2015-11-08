@@ -1,30 +1,7 @@
-package:
-    name: cf_units
-    version: "0.1.1"
+# This is a placeholder meta, the canonical one comes from source.txt
 
-source:
-    fn: cf_units-0.1.1.tar.gz
-    url: https://pypi.python.org/packages/source/c/cf_units/cf_units-0.1.1.tar.gz
-    md5: 6dcaa762fbbb790684a2a918b5f34f5d
+package:
+   name: cf_units
 
 build:
-    number: 0
-
-requirements:
-    build:
-        - python
-    run:
-        - python
-        - six
-        - udunits2
-        - netcdf4
-        - numpy
-
-test:
-    imports:
-        - cf_units
-
-about:
-    home: http://www.scitools.org.uk/iris
-    license: GNU Lesser General Public License
-    summary: 'Units of measure as required by the Climate and Forecast (CF) metadata conventions.'
+   script: exit 1
