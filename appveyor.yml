@@ -46,7 +46,6 @@ install:
     - cmd: conda install obvious-ci conda-execute --yes -c conda-forge
     - cmd: obvci_install_conda_build_tools.py
 
-    - cmd: conda install --yes pyyaml
     - cmd: conda execute -v  scripts/expand_source.py
 
     - cmd: conda config --add channels ioos

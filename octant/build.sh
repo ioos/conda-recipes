@@ -7,4 +7,4 @@ if [ `uname` == Darwin ]; then
     export LDFLAGS="-Wl,-search_paths_first -L$(pwd) $LDFLAGS"
 fi
 
-$PYTHON setup.py install
+$PYTHON setup.py install --single-version-externally-managed --record record.txt
