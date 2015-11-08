@@ -7,7 +7,7 @@ sudo: false
 
 env:
     global:
-        secure: "fVnEwIDKsEr20f6iVe63Gg/v0ewQf/VAFKnMneSDU7dH9T0V95Eylp6LbpVRahpvjFzcYFPrPGsjtqCrYaeDhCxzkU7gsw//l11hq12IY76lmDZuIryr3Z8CIyqYIEnvqrXdRtM/1RAkvldY6Tj72e3+K+WCnBOfCZ8Cv76pbJc="
+        secure: "Ot7aKmwqgrfttGbliX2uR2QVhwxdXKIgGmZlsr/hfIkMZoaei1JzHsbfmrKuxocoQ/38Z8UZvDh6fSXCZKVGuDpEhb/PHeNuk7YPFXITyJWA9NyIrOh+xjrfLBSp7S/V33idReGVznuI4v/tB3PfZChmqgEns5z7BGZZaz5sIws="
 
 addons:
     apt:
