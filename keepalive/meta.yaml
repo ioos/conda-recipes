@@ -1,0 +1,27 @@
+package:
+    name: keepalive
+    version: "0.4.1"
+
+source:
+    fn: keepalive-0.4.1.tar.gz
+    url: https://pypi.python.org/packages/source/k/keepalive/keepalive-0.4.1.tar.gz
+    md5: 58f36c79f5ed1ae75c7bab35a54839d4
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+
+test:
+    imports:
+        - keepalive
+
+about:
+    home: https://github.com/wikier/keepalive
+    license: Apache Software License
+    summary: 'urllib keepalive support for python'
