@@ -6,13 +6,16 @@ source:
     git_url: https://github.com/pelson/conda-execute.git
     git_tag: v0.4.0
 
+build:
+    number: 0
+
 requirements:
     build:
         - python
         - setuptools
     run:
         - python
-        - yaml
+        - pyyaml
         - conda
         - psutil
 
