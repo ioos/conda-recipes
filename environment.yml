@@ -5,12 +5,14 @@ dependencies:
     - basemap
     - beautifulsoup4
     - cartopy
+    - cc-plugin-glider
+    - compliance-checker
     - ctd
     - cython
     - descartes
     - fiona
     - folium
-    - gdal
+    - gdal <2
     - geojson
     - geojsonio
     - geopandas
@@ -47,4 +49,5 @@ dependencies:
     - sympy
     - utilities
     - xlrd
+    - xray
     - yaml
