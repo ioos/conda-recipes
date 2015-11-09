@@ -47,7 +47,6 @@ install:
     - cmd: obvci_install_conda_build_tools.py
 
     - cmd: conda config --add channels ioos
-    - cmd: conda config --add channels conda-forge
     - cmd: conda install conda-execute --yes
     - cmd: conda execute -v scripts/expand_source.py
 
