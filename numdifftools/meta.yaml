@@ -1,29 +1,27 @@
 package:
     name: numdifftools
-    version: "0.9.12"
+    version: "0.9.13"
 
 source:
-    fn: numdifftools-0.9.12.zip
-    url: https://pypi.python.org/packages/source/N/Numdifftools/numdifftools-0.9.12.zip
-    md5: f1c3a80a08ca6ca21d7a8966ca5a97b0
+    fn: numdifftools-0.9.13.zip
+    url: https://pypi.python.org/packages/source/N/Numdifftools/numdifftools-0.9.13.zip
+    md5: 86295fdf387780028ffc97eecdc9dce9
 
 build:
     number: 0
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
         - setuptools_scm
+        - pyscaffold >=2.4rc1,<2.5a0
         - six
     run:
         - python
         - numpy
-        - matplotlib
         - scipy
         - algopy
-        - numpydoc
-        - sphinx_rtd_theme
         - six
 
 test:
@@ -32,7 +30,7 @@ test:
         - numdifftools.tests
     requires:
         - pytest
-        - pytest-cov
+        - pytest-cov  # [not py3k]
 
 about:
     home: https://github.com/pbrod/numdifftools/
