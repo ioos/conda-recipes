@@ -42,13 +42,15 @@ install:
     - cmd: set PATH=%PATH%;%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\scripts
     - cmd: set PYTHONUNBUFFERED=1
 
+    - cmd: conda config --add channels ioos
     - cmd: conda config --set show_channel_urls yes
-    - cmd: conda install obvious-ci conda-execute --yes -c conda-forge
+    - cmd: conda install obvious-ci --yes -c conda-forge
+    #- cmd: conda install conda-execute --yes -c ioos
     - cmd: obvci_install_conda_build_tools.py
 
-    - cmd: conda execute -v  scripts/expand_source.py
+    #- cmd: conda install --yes pyyaml
+    #- cmd: conda execute -v  scripts/expand_source.py
 
-    - cmd: conda config --add channels ioos
     - cmd: conda info
 
 # Skip .NET project specific build phase.
