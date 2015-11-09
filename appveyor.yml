@@ -45,11 +45,11 @@ install:
     - cmd: conda config --add channels ioos
     - cmd: conda config --set show_channel_urls yes
     - cmd: conda install obvious-ci --yes -c conda-forge
-    #- cmd: conda install conda-execute --yes -c ioos
     - cmd: obvci_install_conda_build_tools.py
 
-    #- cmd: conda install --yes pyyaml
-    #- cmd: conda execute -v  scripts/expand_source.py
+    - cmd: conda install --yes pyyaml
+    - cmd: conda install conda-execute --yes -c ocefpaf
+    - cmd: conda execute -v  scripts/expand_source.py
 
     - cmd: conda info
 
