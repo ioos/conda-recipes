@@ -1,0 +1,24 @@
+package:
+    name: iphreeqc
+    version: 2.18.4
+
+source:
+    fn: iphreeqc-2.18.4-6386.tar.gz
+    url: ftp://brrftp.cr.usgs.gov/pub/charlton/iphreeqc/iphreeqc-2.18.4-6386.tar.gz
+    md5: cfa673561cc8851da2ef3de9414e3318
+
+build:
+    number: 0
+    skip: True  # [win]
+
+requirements:
+    build:
+    run:
+
+#test:
+    #commands:
+
+about:
+    home: http://www.phreeqpy.com/
+    license: GNU General Public License v2
+    summary: "A Computer Program for Speciation, Batch-Reaction, One-Dimensional Transport, and Inverse Geochemical Calculations"

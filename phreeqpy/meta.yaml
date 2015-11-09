@@ -1,0 +1,29 @@
+package:
+    name: phreeqpy
+    version: "0.2.0"
+
+source:
+    fn: phreeqpy-0.2.0.tar.gz
+    url: https://pypi.python.org/packages/source/p/phreeqpy/phreeqpy-0.2.0.tar.gz
+    md5: 1da153e854fafb6d5fee03d854a059f5
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        #- iphreeqc  # FIXME: the tarball ships the libs :scream: !!!
+
+test:
+    imports:
+        - phreeqpy
+        - phreeqpy.iphreeqc
+
+about:
+    home: http://www.phreeqpy.com/
+    license: BSD License
+    summary: 'Python tools for PHREEQC.'
