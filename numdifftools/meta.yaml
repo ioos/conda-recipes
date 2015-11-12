@@ -8,6 +8,7 @@ source:
     md5: 86295fdf387780028ffc97eecdc9dce9
 
 build:
+    skip: True  # [py35]
     number: 0
 
 requirements:
