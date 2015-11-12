@@ -1,5 +1,8 @@
 import os
-import cPickle as pickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 from rtree import index
 from rtree.index import Rtree
 
@@ -120,7 +123,7 @@ def boxes15_stream(interleaved=True):
             yield (i, (minx, maxx, miny, maxy), 42)
 
 def check_c_api():
-    assert index.__c_api_version__.split('.')[1] >= 7
+    assert int(str(index.__c_api_version__).split('.')[1]) >= 7
 
 def test_non_stream_input():
     p = index.Property()
