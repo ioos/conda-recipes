@@ -42,6 +42,6 @@ python /conda-recipes/scripts/expand_source.py
 conda install --yes anaconda-client
 conda info
 
-obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4,<3.5"
+obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4"
 
 EOF

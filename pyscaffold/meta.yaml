@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    skip: True  # [py35]
     preserve_egg_dir: True
     entry_points:
         - putup=pyscaffold.cli:run
