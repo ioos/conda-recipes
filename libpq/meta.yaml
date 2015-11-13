@@ -1,0 +1,17 @@
+package:
+  name: libpq
+  version: 9.4.5
+
+build:
+  number: 1
+
+source:
+  fn: postgresql-9.4.5.tar.bz2
+  url: https://ftp.postgresql.org/pub/source/v9.4.5/postgresql-9.4.5.tar.bz2
+  md5: 8b2e3472a8dc786649b4d02d02e039a0
+
+about:
+  home: http://www.postgresql.org/
+  license: PostgreSQL License
+  license_url: http://www.postgresql.org/about/licence/
+  summary: PostgreSQL is a powerful, open source object-relational database system.
