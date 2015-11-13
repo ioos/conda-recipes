@@ -7,7 +7,8 @@ source:
   git_tag: 1.0.2
 
 build:
-  number: 1
+  number: 0
+  skip: True # [win]
 
 requirements:
   build:

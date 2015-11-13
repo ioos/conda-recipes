@@ -1,19 +1,18 @@
 package:
   name: fiona
-  version: {{environ['CBUILD_FIONA_VERSION']}}
+  version: 1.6.2.dev1
 
 source:
-  git_tag: {{environ['CBUILD_FIONA_TAG']}}
+  git_tag: master
   git_url: https://github.com/Toblerity/Fiona
 
 build:
-  number: 1
+  number: 0
+  skip: True # [win]
 
 requirements:
   build:
     - python
-    - setuptools
-    - click
     - six
     - numpy
     - gdal
@@ -21,18 +20,17 @@ requirements:
     - cython
     - munch
     - click-plugins
-    - libpq # [osx]
+    - postgresql # [osx]
 
   run:
     - python
-    - click
     - six
     - numpy
     - gdal
     - cligj
     - munch
     - click-plugins
-    - libpq # [osx]
+    - postgresql # [osx]
 
 test:
   imports:
