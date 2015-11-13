@@ -23,7 +23,7 @@ test:
         - geopy.geocoders
     requires:
         - mock
-        - pylint
+        - pylint  # [not win64 and not py35]
 
 about:
     home: https://github.com/geopy/geopy
