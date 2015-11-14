@@ -12,7 +12,7 @@ build:
 
 requirements:
     build:
-        - python
+        - python >=2.7,<3
         - numpy
         - netcdf4
         - shapely
@@ -20,7 +20,7 @@ requirements:
         - cfunits-python
         - rtree
     run:
-        - python
+        - python >=2.7,<3
         - numpy
         - netcdf4
         - shapely
