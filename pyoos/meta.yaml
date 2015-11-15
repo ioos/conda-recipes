@@ -12,16 +12,8 @@ build:
 
 requirements:
     build:
-        - python
+        - python  >=2.7,<3
         - setuptools
-        - numpy
-        - paegan
-        - owslib
-        - requests
-        - fiona
-        - beautifulsoup4
-        - lxml
-        - pytest
     run:
         - python
         - paegan
@@ -31,15 +23,14 @@ requirements:
         - fiona
         - beautifulsoup4
         - lxml
-        - pytest
 
 test:
     imports:
         - tests
+        - pyoos
         - pyoos.parsers
         - pyoos.collectors.nerrs
         - pyoos.collectors
-        - pyoos
         - pyoos.collectors.hads
         - pyoos.collectors.coops
         - pyoos.collectors.ndbc
@@ -51,6 +42,8 @@ test:
         - pyoos.utils
         - pyoos.collectors.awc
         - pyoos.collectors.wqp
+    requires:
+        - pytest
 
 about:
     home: https://github.com/asascience-open/pyoos
