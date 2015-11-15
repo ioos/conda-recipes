@@ -9,6 +9,7 @@ source:
 
 build:
     skip: True  # [py35 and osx]
+    skip: True  # [py35 and win64]
     number: 1
 
 requirements:
