@@ -3,8 +3,8 @@ package:
     version: "0.6.2"
 
 source:
-    git_url: https://github.com/ioos/pyoos.git
-    git_tag: 0.6.2
+    git_url: https://github.com/ocefpaf/pyoos.git
+    git_tag: fix_travis
 
 build:
     number: 1
@@ -12,7 +12,7 @@ build:
 
 requirements:
     build:
-        - python  >=2.7,<3
+        - python >=2.7,<3
         - setuptools
     run:
         - python
