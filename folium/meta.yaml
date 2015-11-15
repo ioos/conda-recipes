@@ -3,11 +3,12 @@ package:
     version: "0.1.6"
 
 source:
-    git_url: https://github.com/python-visualization/folium.git
-    git_tag: v0.1.6
+    fn: folium-0.1.6.tar.gz
+    url: https://pypi.python.org/packages/source/f/folium/folium-0.1.6.tar.gz
+    md5: 96e76012d2517a376f2805a4860f8d1e
 
 build:
-    number: 1
+    number: 2
 
 requirements:
     build:
