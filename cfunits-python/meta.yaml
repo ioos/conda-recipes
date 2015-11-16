@@ -8,7 +8,7 @@ source:
 
 build:
   number: 0
-  skip: True # [win and py3k]
+  skip: True # [win and py3k and osx]
 
 requirements:
   build:
@@ -16,7 +16,7 @@ requirements:
     - udunits2
     - netcdf4
   run:
-    - python >=2.7,<3
+    - python
     - udunits2
     - netcdf4
 

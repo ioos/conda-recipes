@@ -20,7 +20,6 @@ requirements:
     - cython
     - munch
     - click-plugins
-    - postgresql # [osx]
 
   run:
     - python
@@ -30,7 +29,6 @@ requirements:
     - cligj
     - munch
     - click-plugins
-    - postgresql # [osx]
 
 test:
   imports:

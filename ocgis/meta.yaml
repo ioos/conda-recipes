@@ -1,33 +1,33 @@
 package:
     name: ocgis
-    version: 1.2.0.dev1
+    version: 1.2.0
 
 source:
     git_url: https://github.com/NCPP/ocgis.git
-    git_tag: next
+    git_tag: v1.2.0
 
 build:
     number: 0
-    skip: True # [win and py3k]
+    skip: True # [win and py3k and osx]
 
 requirements:
     build:
         - python >=2.7,<3
-        - numpy
+        - fiona
+        - gdal <2
         - netcdf4
+        - numpy
         - shapely
-        - fiona ==1.6.2.dev1
-        - cfunits-python
-        - rtree
     run:
-        - python >=2.7,<3
-        - numpy
+        - python
+        - fiona
+        - gdal <2
         - netcdf4
+        - numpy
         - shapely
-        - fiona ==1.6.2.dev1
         - proj.4
-        - cfunits-python
         - rtree
+        - cfunits-python
 
 test:
   requires:
