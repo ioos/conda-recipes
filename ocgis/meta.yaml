@@ -14,21 +14,24 @@ build:
 requirements:
     build:
         - python >=2.7,<3
+        - cfunits-python
         - fiona
         - gdal <2
-        - netcdf4
+        - libgdal <2
+        - netcdf4 <=1.1.6
         - numpy
         - shapely
     run:
         - python
+        - cfunits-python
         - fiona
         - gdal <2
-        - netcdf4
+        - libgdal <2
+        - netcdf4 <=1.1.6
         - numpy
         - shapely
         - proj.4
         - rtree
-        - cfunits-python
 
 test:
   requires:
