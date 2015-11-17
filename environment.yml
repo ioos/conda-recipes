@@ -19,6 +19,7 @@ dependencies:
     - gsw
     - iris
     - jupyter
+    - launcher
     - matplotlib
     - mpld3
     - mplleaflet
