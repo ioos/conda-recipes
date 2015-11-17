@@ -3,11 +3,11 @@ package:
     version: "1.9.4"
 
 source:
-    git_url: https://github.com/jswhit/pyproj.git
-    git_tag: master
+    git_url: https://github.com/ocefpaf/pyproj.git
+    git_tag: travis
 
 build:
-    number: 2
+    number: 3
 
 requirements:
     build:
