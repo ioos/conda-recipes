@@ -14,7 +14,7 @@ source:
 
 requirements:
   build:
-    - python
+    - python >=2.7,<3
     - numpy
     - esmf ==6.3.0rp1
   run:
