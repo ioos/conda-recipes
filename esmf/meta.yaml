@@ -4,9 +4,6 @@ package:
 
 build: 
   number: 0
-  rpaths:
-    - lib/
-    - lib64/
   skip: True # [osx]
   skip: True # [win]
   skip: True # [py3k]
