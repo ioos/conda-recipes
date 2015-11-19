@@ -13,10 +13,12 @@ source:
 requirements:
   build:
     - netcdf-fortran
-    - mpich2
+    - mpich2 # [linux]
+    - openmpi # [osx]
   run:
     - netcdf-fortran
-    - mpich2
+    - mpich2 # [linux]
+    - openmpi # [osx]
 
 about:
   home: http://www.earthsystemmodeling.org/
