@@ -9,6 +9,5 @@ export ESMF_NETCDF_LIBPATH=${PREFIX}/lib
 export ESMF_COMM=mpich2
 
 make  -j ${CPU_COUNT}
-# TODO (bekozi): Enable ESMF tests?
-#make all_tests
+make check
 make install
