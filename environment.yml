@@ -2,6 +2,7 @@ name: IOOS
 channels:
     - ioos
 dependencies:
+    - python=2.7
     - basemap
     - beautifulsoup4
     - cartopy
