@@ -6,7 +6,6 @@ build:
   number: 0
   skip: True # [osx]
   skip: True # [win]
-  skip: True # [py3k]
 
 source:
   git_url: git://git.code.sf.net/p/esmf/esmf
