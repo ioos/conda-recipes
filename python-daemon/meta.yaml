@@ -17,11 +17,8 @@ requirements:
         - python
         - setuptools
         - docutils
-        - lockfile >=0.10
-
     run:
         - python
-        - setuptools
         - docutils
         - lockfile >=0.10
 

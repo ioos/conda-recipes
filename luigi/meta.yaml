@@ -20,10 +20,6 @@ requirements:
     build:
         - python
         - setuptools
-        - pyparsing
-        - tornado
-        - python-daemon
-
     run:
         - python
         - pyparsing
