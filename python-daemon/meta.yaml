@@ -10,6 +10,7 @@ source:
 build:
     number: 0
     preserve_egg_dir: True
+    skip: True  # [win]
 
 requirements:
     build:
