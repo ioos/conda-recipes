@@ -1,40 +1,31 @@
 package:
-  name: wera2netcdf
-  version: "0.0.1"
+    name: wera2netcdf
+    version: "0.0.1"
 
 source:
-  fn: wera2netcdf-0.0.1.tar.gz
-  url: https://pypi.python.org/packages/source/w/wera2netcdf/wera2netcdf-0.0.1.tar.gz
-  md5: beb3bd457aebe6fa3d3b64cd2d0c0cbf
+    fn: wera2netcdf-0.0.1.tar.gz
+    url: https://pypi.python.org/packages/source/w/wera2netcdf/wera2netcdf-0.0.1.tar.gz
+    md5: beb3bd457aebe6fa3d3b64cd2d0c0cbf
 
 build:
-  number: 0
+    number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
-    - pytest
-    - pandas
-    - netcdf4
-    - pygc
-    - pytz
-    - python-dateutil
-
-  run:
-    - python
-    - pytest
-    - pandas
-    - netcdf4
-    - pygc
-    - pytz
-    - python-dateutil
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - pandas
+        - netcdf4
+        - pygc
+        - pytz
+        - python-dateutil
 
 test:
   imports:
     - wera2netcdf
     - wera2netcdf.tests
-
   requires:
     - pytest
 
