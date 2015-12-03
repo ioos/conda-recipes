@@ -3,11 +3,11 @@ package:
     version: "0.2.0"
 
 source:
-    git_url: https://github.com/ocefpaf/folium.git
-    git_tag: simple_gjstyle
+    git_url: https://github.com/python-visualization/folium.git
+    git_tag: master
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
