@@ -8,7 +8,7 @@ source:
     md5: 9d9a7015ee98ec6766adc811d95b82c3
 
 build:
-    skip: True  # [win]
+    skip: True  # [win and py35]
     number: 1
     entry_points:
         - ncinfo = netCDF4.utils:ncinfo
@@ -23,6 +23,7 @@ requirements:
         - cython
         - hdf5
         - libnetcdf
+        - mingwpy  # [win]
     run:
         - python
         - numpy x.x
