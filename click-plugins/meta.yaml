@@ -1,0 +1,29 @@
+package:
+    name: click-plugins
+    version: "1.0.2"
+
+source:
+    fn: click-plugins-1.0.2.tar.gz
+    url: https://pypi.python.org/packages/source/c/click-plugins/click-plugins-1.0.2.tar.gz
+    md5: 3e45378f26dc08e0a4aaaf36b052284d
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - click >=3.0
+    run:
+        - python
+        - click >=3.0
+
+test:
+    imports:
+        - click_plugins
+
+about:
+    home: https://github.com/click-contrib/click-plugins
+    license: BSD License
+    summary: 'An extension module for click to enable registering CLI commands via setuptools entry-points.'

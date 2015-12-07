@@ -1,0 +1,51 @@
+package:
+    name: fiona
+    version: "1.6.2"
+
+source:
+    fn: Fiona-1.6.2.tar.gz
+    url: https://pypi.python.org/packages/source/F/Fiona/Fiona-1.6.2.tar.gz
+    md5: 871674792aa53004c5af5c8bb45e399f
+
+build:
+    number: 0
+    skip: True  # [win and py35 or osx]
+    preserve_egg_dir: True
+    entry_points:
+        - fio=fiona.fio.main:main_group
+
+requirements:
+    build:
+        - python
+        - cython
+        - setuptools
+        - gdal ==1.11.3
+        - numpy x.x
+    run:
+        - python
+        - setuptools
+        - cligj
+        - munch
+        - click-plugins
+        - six
+        - gdal ==1.11.3
+        - numpy x.x
+
+test:
+    imports:
+        - fiona
+        - fiona.fio
+    commands:
+        - fio --help
+    requires:
+        - nose
+    files:
+        - test.cpg
+        - test.dbf
+        - test.shp
+        - test.shx
+
+about:
+    home: http://github.com/Toblerity/Fiona
+    license: BSD License
+    summary: 'Fiona reads and writes spatial data files'
