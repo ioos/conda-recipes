@@ -18,7 +18,7 @@ CPPFLAGS="-I$PREFIX/include" LDFLAGS="-L$PREFIX/lib" \
             --with-openjpeg=$PREFIX \
             --with-python \
             --disable-rpath \
-            --without-pam\
+            --without-pam \
             $PGFLAG
 
 make

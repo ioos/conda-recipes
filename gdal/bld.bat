@@ -27,6 +27,9 @@ if errorlevel 1 exit 1
 nmake -f makefile.vc %BLD_OPTS% devinstall
 if errorlevel 1 exit 1
 
+copy *.lib %LIBRARY_LIB%\ || exit 1
+if errorlevel 1 exit 1
+
 cd swig\python
 %PYTHON% setup.py build
 if errorlevel 1 exit 1

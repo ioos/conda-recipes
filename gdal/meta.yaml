@@ -6,6 +6,9 @@ source:
     fn: gdal-1.11.3.tar.gz
     url: http://download.osgeo.org/gdal/1.11.3/gdal-1.11.3.tar.gz
     md5: 91e245fcc323ff4568aa819e82b4784b
+    patches:
+        - prepend-dll.patch  # [win]
+        - clang.patch  # [osx]
 
 
 build:
