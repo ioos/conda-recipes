@@ -1,10 +1,10 @@
 package:
     name: flopy
-    version: "3.2.2"
+    version: "3.2.3"
 
 source:
     git_url: https://github.com/modflowpy/flopy.git
-    git_tag: 3.2.2
+    git_tag: 3.2.3
 
 build:
     number: 0
