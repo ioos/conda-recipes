@@ -8,27 +8,27 @@ source:
     md5: a01b5d3eb6bc097665a0ba297c39029f
 
 build:
-    skip: True  # [py35 and osx]
-    skip: True  # [py35 and win]
-    number: 1
+    skip: True  # [py35 and win or osx]
+    number: 2
 
 requirements:
     build:
         - python
         - setuptools
-        - cython >=0.16
+        - cython
     run:
         - python
         - pandas
-        - pyproj >=1.9.3
-        - shapely >=1.2.18
-        - fiona >=1.0.1
-        - six >=1.3.0
-        - rtree >=0.8
-        - descartes >=1.0
-        - matplotlib >=1.2.1
-        - psycopg2 >=2.5.1  # [not py3k and not win]
-        - sqlalchemy >=0.8.3
+        - pyproj
+        - shapely
+        - fiona
+        - gdal ==1.11.3  # We need to pin gdal until fiona works with gdal >2.
+        - six
+        - rtree
+        - descartes
+        - matplotlib
+        - psycopg2  # [not py3k and not win]
+        - sqlalchemy
         - geopy ==1.10.0
         - pysal  # [not py3k]
 
@@ -41,7 +41,6 @@ test:
         - test.dbf
         - test.shp
         - test.shx
-
 about:
     home: http://geopandas.org
     license: BSD
