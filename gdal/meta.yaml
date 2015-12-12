@@ -13,7 +13,7 @@ source:
 
 build:
     number: 0
-    skip: True  # [py35 and win or osx]
+    skip: True  # [win and py35 or osx]
 
 requirements:
     build:

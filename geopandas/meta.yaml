@@ -36,6 +36,11 @@ test:
     imports:
         - geopandas
         - geopandas.io
+    files:
+        - test.cpg
+        - test.dbf
+        - test.shp
+        - test.shx
 
 about:
     home: http://geopandas.org
