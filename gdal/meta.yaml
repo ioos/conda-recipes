@@ -12,7 +12,7 @@ source:
 
 
 build:
-    number: 0
+    number: 1
     skip: True  # [win and py35 or osx]
 
 requirements:
@@ -22,7 +22,7 @@ requirements:
         - numpy x.x
         - xerces-c
         - geos
-        - proj4
+        - proj.4
         - postgresql  # [linux]
         - hdf5
         - openjpeg  # [not win]
@@ -35,7 +35,7 @@ requirements:
         - numpy x.x
         - xerces-c
         - geos
-        - proj4
+        - proj.4
         - postgresql  # [linux]
         - hdf5
         - openjpeg  # [not win]
