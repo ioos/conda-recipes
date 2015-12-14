@@ -1,11 +1,11 @@
 package:
     name: django-extensions
-    version: "1.5.9"
+    version: "1.6.0"
 
 source:
-    fn: django-extensions-1.5.9.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-extensions/django-extensions-1.5.9.tar.gz
-    md5: f36493496ca4b10a3de4959db07e2d8e
+    fn: django-extensions-1.6.0.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-extensions/django-extensions-1.6.0.tar.gz
+    md5: 081d8906aac8347e21b23ec5f8b4a315
 
 build:
     number: 0
