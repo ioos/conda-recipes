@@ -1,11 +1,11 @@
 package:
     name: testfixtures
-    version: "4.5.1"
+    version: "4.7.0"
 
 source:
-    fn: testfixtures-4.5.1.tar.gz
-    url: https://pypi.python.org/packages/source/t/testfixtures/testfixtures-4.5.1.tar.gz
-    md5: b47f0db985dbcbb3668442fd91024732
+    fn: testfixtures-4.7.0.tar.gz
+    url: https://pypi.python.org/packages/source/t/testfixtures/testfixtures-4.7.0.tar.gz
+    md5: e892c81a6e223ff4a0cb301fe49b4ac0
 
 build:
     number: 0
