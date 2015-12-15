@@ -9,7 +9,7 @@ source:
 
 
 build:
-    number: 2
+    number: 3
     entry_points:
         - compliance-checker = cchecker:main
 
@@ -22,10 +22,10 @@ requirements:
         - owslib
         - wicken
         - lxml
-        - cf_units ==0.1.1
+        - cf_units
         - requests
         - python-dateutil
-        - jinja2 >=2.7.3
+        - jinja2
 
 test:
     imports:
