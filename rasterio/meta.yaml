@@ -1,0 +1,41 @@
+package:
+    name: rasterio
+    version: "0.30"
+
+source:
+    fn: rasterio-0.30.0.tar.gz
+    url: https://pypi.python.org/packages/source/r/rasterio/rasterio-0.30.0.tar.gz
+    md5: d20553b1531397c76925c2df1a5d53d6
+
+build:
+    number: 0
+    skip: True  # [win and py35 or osx]
+
+    entry_points:
+        - rio = rasterio.rio.main:cli
+
+requirements:
+    build:
+        - python
+        - numpy x.x
+        - cython
+        - gdal ==1.11.3
+        - setuptools
+    run:
+        - python
+        - affine
+        - cligj
+        - enum34  #  [py27]
+        - numpy x.x
+        - snuggs
+        - gdal ==1.11.3
+        - click-plugins
+
+test:
+    imports:
+        - rasterio
+
+about:
+    home: https://github.com/mapbox/rasterio
+    license: BSD
+    summary: 'Rasterio reads and writes geospatial raster datasets'
