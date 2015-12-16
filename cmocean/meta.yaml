@@ -1,0 +1,29 @@
+package:
+    name: cmocean
+    version: "0.1"
+
+source:
+    fn: cmocean-0.1.tar.gz
+    url: https://pypi.python.org/packages/source/c/cmocean/cmocean-0.1.tar.gz
+    md5: a97fb272a3e4de066b277168e3c3aa15
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - numpy
+        - matplotlib
+
+test:
+    imports:
+        - cmocean
+
+about:
+    home: https://github.com/matplotlib/cmocean
+    license: MIT
+    summary: 'Colormaps for Oceanography'
