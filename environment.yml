@@ -13,7 +13,7 @@ dependencies:
     - descartes
     - fiona
     - folium
-    - gdal=1.11.3
+    - gdal<2
     - geojson
     - geojsonio
     - geopandas
