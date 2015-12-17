@@ -1,11 +1,11 @@
 package:
     name: quantities
-    version: "0.10.1"
+    version: "0.11.0"
 
 source:
-    fn: quantities-0.10.1.tar.gz
-    url: https://pypi.python.org/packages/source/q/quantities/quantities-0.10.1.tar.gz
-    md5: e924e21c0a5ddc9ebcdacbbe511b8ec7
+    fn: quantities-0.11.0.zip
+    url: https://pypi.python.org/packages/source/q/quantities/quantities-0.11.0.zip
+    md5: e966afe6c77e7e1d3a6e3f726cb59dc1
 
 build:
     number: 0
@@ -26,6 +26,6 @@ test:
       - quantities.units
 
 about:
-    home: http://packages.python.org/quantities
+    home: http://pythonhosted.org//quantities/
     license: BSD
-    summary: 'Support for physical quantities with units, based on numpy'
+    summary: 'Physical quantities with units, based upon Numpy'
