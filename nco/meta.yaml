@@ -7,12 +7,13 @@ source:
     git_tag: 4.5.3
 
 build:
-    number: 0
+    number: 1
     skip: True  # [win]
 
 requirements:
     build:
         - gsl
+        - antlr
         - curl
         - zlib
         - hdf5
@@ -29,7 +30,7 @@ test:
         - ncks --help
         - ncks -M http://test.opendap.org:80/opendap/data/ncml/sample_virtual_dataset.ncml
         - ncks -F --dimension samples,1 http://test.opendap.org:80/opendap/data/ncml/sample_virtual_dataset.ncml
-        - ncap2 --help  # [not osx]
+        - ncap2 --help
 
 about:
     home: http://nco.sourceforge.net/
