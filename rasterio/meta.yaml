@@ -9,7 +9,7 @@ source:
 
 build:
     number: 0
-    skip: True  # [win and py35 or osx]
+    skip: True  # [win and py35]
 
     entry_points:
         - rio = rasterio.rio.main:cli

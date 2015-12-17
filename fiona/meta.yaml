@@ -9,7 +9,7 @@ source:
 
 build:
     number: 0
-    skip: True  # [win and py35 or osx]
+    skip: True  # [win and py35]
     preserve_egg_dir: True
     entry_points:
         - fio=fiona.fio.main:main_group
