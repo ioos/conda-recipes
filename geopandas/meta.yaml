@@ -8,7 +8,7 @@ source:
     md5: a01b5d3eb6bc097665a0ba297c39029f
 
 build:
-    skip: True  # [py35 and win or osx]
+    skip: True  # [py35 and win]
     number: 2
 
 requirements:
@@ -27,7 +27,7 @@ requirements:
         - rtree
         - descartes
         - matplotlib
-        - psycopg2  # [not py3k and not win]
+        - psycopg2  # [not win]
         - sqlalchemy
         - geopy ==1.10.0
         - pysal  # [not py3k]
@@ -41,6 +41,7 @@ test:
         - test.dbf
         - test.shp
         - test.shx
+
 about:
     home: http://geopandas.org
     license: BSD
