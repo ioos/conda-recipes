@@ -18,13 +18,10 @@ addons:
             - check
             # NCO
             - gfortran
-            - antlr
             - g++
             - bison
             - flex
             - libantlr-dev
-            - gsl-bin
-            - libgsl0-dev
 
 before_install:
     - brew update
