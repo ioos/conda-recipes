@@ -1,0 +1,29 @@
+package:
+    name: pyspharm
+    version: "1.0.9"
+
+source:
+    git_url: https://github.com/jswhit/pyspharm.git
+    git_tag: master
+
+build:
+    number: 0
+    skip: True  # [win and py3k or win64]
+
+requirements:
+    build:
+        - python
+        - numpy x.x
+        - mingwpy  # [win]
+    run:
+        - python
+        - numpy x.x
+
+test:
+    imports:
+        - spharm
+
+about:
+    home: https://code.google.com/p/pyspharm/
+    license: MIT and https://www2.cisl.ucar.edu/resources/legacy/spherepack/license
+    summary: 'Provides an object-oriented python interface to the NCAR SPHEREPACK library.'
