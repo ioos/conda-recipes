@@ -9,28 +9,10 @@ env:
     global:
         secure: "Ot7aKmwqgrfttGbliX2uR2QVhwxdXKIgGmZlsr/hfIkMZoaei1JzHsbfmrKuxocoQ/38Z8UZvDh6fSXCZKVGuDpEhb/PHeNuk7YPFXITyJWA9NyIrOh+xjrfLBSp7S/V33idReGVznuI4v/tB3PfZChmqgEns5z7BGZZaz5sIws="
 
-addons:
-    apt:
-        packages:
-            # UDUNITS2
-            - texinfo
-            # libmo_unpack
-            - check
-            # NCO
-            - gfortran
-            - g++
-            - bison
-            - flex
-            - libantlr-dev
-
 before_install:
     - brew update
     # Unit testing framework for C (used by libmo_unpack).
     - brew install check
-    # NCO.
-    - brew install gsl
-    # https://travis-ci.org/ioos/conda-recipes/builds/67641190
-    #- brew install antlr2
 
 install:
     # Set the numpy variable. This isn't used, but conda-build complains if we haven't set it already.
