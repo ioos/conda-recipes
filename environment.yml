@@ -33,7 +33,7 @@ dependencies:
     - paegan-transport
     - pandas
     - pip
-    - proj4
+    - proj.4
     - pyoos
     - pyproj
     - pysgrid
