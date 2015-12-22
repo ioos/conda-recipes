@@ -1,11 +1,11 @@
 package:
     name: quantities
-    version: "0.11.0"
+    version: "0.11.1"
 
 source:
-    fn: quantities-0.11.0.zip
-    url: https://pypi.python.org/packages/source/q/quantities/quantities-0.11.0.zip
-    md5: e966afe6c77e7e1d3a6e3f726cb59dc1
+    fn: quantities-0.11.1.zip
+    url: https://pypi.python.org/packages/source/q/quantities/quantities-0.11.1.zip
+    md5: f4c6287bfd2e93322b25a7c1311a0243
 
 build:
     number: 0
