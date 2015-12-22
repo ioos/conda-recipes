@@ -1,11 +1,11 @@
 package:
     name: sparqlwrapper
-    version: "1.7.5"
+    version: "1.7.6"
 
 source:
-    fn: SPARQLWrapper-1.7.5.tar.gz
-    url: https://pypi.python.org/packages/source/S/SPARQLWrapper/SPARQLWrapper-1.7.5.tar.gz
-    md5: a7c0cf069c7b2185e8bf265d49c705a0
+    fn: SPARQLWrapper-1.7.6.tar.gz
+    url: https://pypi.python.org/packages/source/S/SPARQLWrapper/SPARQLWrapper-1.7.6.tar.gz
+    md5: 3d3be71af7720caafa8fc970806e1cb6
 
 build:
     number: 0
