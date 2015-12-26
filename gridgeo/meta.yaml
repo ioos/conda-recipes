@@ -1,0 +1,32 @@
+package:
+    name: gridgeo
+    version: "0.1.0"
+
+source:
+    git_url: https://github.com/pyoceans/gridgeo.git
+    git_tag: v0.1.0
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - pyugrid
+        - pysgrid
+        - shapely
+        - fiona  # [not py35 and not win]
+        - cartopy  # [not py35 and not win]
+        - iris  # [not py3k]
+
+test:
+    imports:
+        - gridgeo
+
+about:
+    home: https://github.com/pyoceans/gridgeo
+    license: MIT License
+    summary: 'Quick grid visualization and conversion to GIS formats.'
