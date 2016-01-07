@@ -1,26 +1,7 @@
-package:
-    name: pyproj
-    version: "1.9.4"
+# This is a placeholder meta, the canonical one comes from source.txt
 
-source:
-    git_url: https://github.com/ocefpaf/pyproj.git
-    git_tag: travis
+package:
+   name: pyproj
 
 build:
-    number: 3
-
-requirements:
-    build:
-        - python
-    run:
-        - python
-        - numpy
-
-test:
-    imports:
-        - pyproj
-
-about:
-    home: https://github.com/jswhit/pyproj
-    license: OSI
-    summary: 'Python interface to PROJ.4 library'
+   script: exit 1
