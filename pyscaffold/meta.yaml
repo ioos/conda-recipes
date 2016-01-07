@@ -1,11 +1,11 @@
 package:
     name: pyscaffold
-    version: "2.5"
+    version: "2.5.2"
 
 source:
-    fn: PyScaffold-2.5.tar.gz
-    url: https://pypi.python.org/packages/source/P/PyScaffold/PyScaffold-2.5.tar.gz
-    md5: 546e2c74e30d2b47df53f22af9faa2a1
+    fn: PyScaffold-2.5.2.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyScaffold/PyScaffold-2.5.2.tar.gz
+    md5: 2f20f32208188393b96bc92fe97e03bd
 
 build:
     number: 0
