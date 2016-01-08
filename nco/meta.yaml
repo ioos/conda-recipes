@@ -1,13 +1,13 @@
 package:
     name: nco
-    version: "4.5.3"
+    version: "4.5.4"
 
 source:
     git_url: https://github.com/nco/nco.git
-    git_tag: 4.5.3
+    git_tag: 4.5.4
 
 build:
-    number: 1
+    number: 0
     skip: True  # [win]
 
 requirements:
