@@ -12,6 +12,7 @@ RUN yum install -y bzip2 \
                    gcc-java \
                    gcc-gfortran \
                    git \
+                   hg \
                    libtool \
                    make \
                    patch \
