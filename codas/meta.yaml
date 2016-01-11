@@ -1,0 +1,26 @@
+package:
+    name: codas
+    version: "3.0.dev"
+
+source:
+    fn: tip.tar.gz
+    url: http://currents.soest.hawaii.edu/hg/codas3/archive/tip.tar.gz
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - mingw  # [win]
+    run:
+
+
+#test:
+    #commands:
+        #- some_cmd --help ?
+
+about:
+    home: http://currents.soest.hawaii.edu/hg/codas
+    license: BSD
+    summary: 'CODAS processing: ADCP data processing software.'
