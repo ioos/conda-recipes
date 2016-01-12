@@ -1,26 +1,26 @@
 package:
     name: cdo
-    version: 1.6.9
+    version: 1.7.0
 
 source:
-    fn: cdo-1.6.9.tar.gz
-    url: https://code.zmaw.de/attachments/download/10198/cdo-1.6.9.tar.gz
-    md5: bf0997bf20e812f35e10188a930e24e2
+    fn: cdo-1.7.0.tar.gz
+    url: https://code.zmaw.de/attachments/download/11392/cdo-1.7.0.tar.gz
+    md5: cca30c3c79335ad734e1838806f7bfc2
 
 build:
-    number: 1
+    number: 0
     skip: True  # [win]
 
 requirements:
     build:
-        - jasper  # [not win]
-        - ecmwf_grib  # [not win]
+        - jasper
         - libnetcdf
+        - netcdf-fortran
         - proj.4
     run:
-        - jasper  # [not win]
-        - ecmwf_grib  # [not win]
+        - jasper
         - libnetcdf
+        - netcdf-fortran
         - proj.4
 
 test:
