@@ -1,0 +1,7 @@
+# This is a placeholder meta, the canonical one comes from source.txt
+
+package:
+   name: msinttypes
+
+build:
+   script: exit 1
