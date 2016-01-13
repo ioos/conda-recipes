@@ -1,0 +1,37 @@
+package:
+    name: post_gnome
+    version: 0.1
+
+source:
+    git_url: https://github.com/NOAA-ORR-ERD/GnomeTools.git
+    git_tag: master
+    patches:
+        - should_just_send_a_pr.patch
+
+build:
+    number: 0
+    skip: True  # [py3k]
+
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - numpy
+        - netcdf4
+        - mako
+
+test:
+    imports:
+        - post_gnome
+    commands:
+        #- gnome_nc2kmz.py --help
+        #- moss2kmz.py --help
+        #- moss2kmz_simple.py --help
+
+about:
+    home: https://github.com/NOAA-ORR-ERD/GnomeTools
+    license: Public Domain
+    summary: 'Post Processing tools for gnome'
