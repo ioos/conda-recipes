@@ -1,11 +1,11 @@
 package:
     name: django-grappelli
-    version: "2.7.1"
+    version: "2.7.3"
 
 source:
-    fn: django-grappelli-2.7.1.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-grappelli/django-grappelli-2.7.1.tar.gz
-    md5: 97a2d3380475ca792dea2c0edcb6a0ba
+    fn: django-grappelli-2.7.3.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-grappelli/django-grappelli-2.7.3.tar.gz
+    md5: 4ef700bf0c2ba24747e37be414da4e61
 
 build:
     number: 0
