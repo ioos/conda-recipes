@@ -1,11 +1,11 @@
 package:
     name: pyscaffold
-    version: "2.5.2"
+    version: "2.5.3"
 
 source:
-    fn: PyScaffold-2.5.2.tar.gz
-    url: https://pypi.python.org/packages/source/P/PyScaffold/PyScaffold-2.5.2.tar.gz
-    md5: 2f20f32208188393b96bc92fe97e03bd
+    fn: PyScaffold-2.5.3.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyScaffold/PyScaffold-2.5.3.tar.gz
+    md5: 7c71ac59ff91fce924b162b778af8f41
 
 build:
     number: 0
@@ -30,13 +30,9 @@ requirements:
 test:
     imports:
         - pyscaffold
-        #- pyscaffold.contrib
         - pyscaffold.templates
     commands:
         - putup --help
-    requires:
-        - pytest
-        - pytest-cov  # [not py3k]
 
 about:
     home: http://pyscaffold.readthedocs.org/
