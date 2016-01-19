@@ -25,6 +25,9 @@ test:
     imports:
         - siphon
         - siphon.cdmr
+        - siphon.catalog
+        - siphon.ncss
+        - siphon.radarserver
 
 about:
     home: https://github.com/Unidata/siphon
