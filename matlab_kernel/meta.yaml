@@ -1,11 +1,11 @@
 package:
     name: matlab_kernel
-    version: "0.6.10"
+    version: "0.8.0"
 
 source:
-    fn: matlab_kernel-0.6.10.tar.gz
-    url: https://pypi.python.org/packages/source/m/matlab_kernel/matlab_kernel-0.6.10.tar.gz
-    md5: 8eb8cb88b9b92152aa2dc44725320d80
+    fn: matlab_kernel-0.8.0-py2.py3-none-any.whl
+    url: https://pypi.python.org/packages/py2.py3/m/matlab_kernel/matlab_kernel-0.8.0-py2.py3-none-any.whl
+    md5: 9bc3b0823ae5eb7e99153a6036cb5fcc
 
 build:
     number: 0
