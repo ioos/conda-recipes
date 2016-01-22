@@ -1,15 +1,14 @@
 package:
-    name: xray
-    version: "0.6.1"
+    name: xarray
+    version: "0.7.0"
 
 source:
-    fn: xray-0.6.1.tar.gz
-    url: https://pypi.python.org/packages/source/x/xray/xray-0.6.1.tar.gz
-    md5: 7d5e0e3ba365017d7a8b6542c48c4ce6
+    fn: xarray-0.7.0.tar.gz
+    url: https://pypi.python.org/packages/source/x/xarray/xarray-0.7.0.tar.gz
+    md5: 4b5767ca330de3c05237c721d4589d54
 
 build:
     number: 0
-    skip: True  # [py35 and win]
 
 requirements:
     build:
@@ -21,19 +20,20 @@ requirements:
         - pandas
         - netcdf4
         - scipy
-        - bottleneck  # [not py35]
+        - bottleneck
         - dask >=0.6
         - h5netcdf
         - cyordereddict
+        #- pynio
 
 test:
     imports:
-        - xray
-        - xray.backends
-        - xray.core
-        - xray.test
+        - xarray
+        - xarray.backends
+        - xarray.core
+        - xarray.test
 
 about:
-    home: https://github.com/xray/xray
+    home: https://github.com/pydata/xarray
     license: Apache Software License
     summary: 'N-D labeled arrays and datasets in Python'
