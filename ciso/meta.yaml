@@ -1,0 +1,29 @@
+package:
+    name: ciso
+    version: '0.0.1'
+
+source:
+    git_url: https://github.com/ioos/ciso.git
+    git_tag: v0.0.1
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - numpy x.x
+        - cython
+    run:
+        - python
+        - numpy x.x
+
+test:
+    imports:
+        - ciso
+
+about:
+    home: https://github.com/ioos/ciso
+    license: MIT License
+    summary: 'Cythonized Iso Surfaces (CISO)'
