@@ -1,11 +1,11 @@
 package:
     name: oct2py
-    version: "3.4.0"
+    version: "3.5.0"
 
 source:
-    fn: oct2py-3.4.0.tar.gz
-    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.4.0.tar.gz
-    md5: 010d527452abd78171bdf2575027daef
+    fn: oct2py-3.5.0.tar.gz
+    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.5.0.tar.gz
+    md5: 648ee3732b9784da778dfc400d91e0d3
 
 build:
     number: 0
@@ -21,8 +21,8 @@ requirements:
         - ipython
         #- octave
 
-test:
-    imports:
+#test:
+    #imports:
         #- oct2py
         #- oct2py.ipython
 
