@@ -46,4 +46,4 @@ ENV LANG en_US.UTF-8
 
 # Workaround until https://github.com/conda/conda-build/pull/731 makes into a
 # release.
-ln -s /usr/bin/gunzip /usr/bin/uncompress
+RUN ln -s /usr/bin/gunzip /usr/bin/uncompress
