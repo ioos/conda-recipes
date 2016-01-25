@@ -8,7 +8,7 @@ source:
     md5: 4b5767ca330de3c05237c721d4589d54
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -24,7 +24,7 @@ requirements:
         - dask >=0.6
         - h5netcdf
         - cyordereddict
-        #- pynio
+        - pynio  # [not py3k]
 
 test:
     imports:
