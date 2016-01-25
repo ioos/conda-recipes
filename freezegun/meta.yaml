@@ -1,11 +1,11 @@
 package:
     name: freezegun
-    version: "0.3.5"
+    version: "0.3.6"
 
 source:
-    fn: freezegun-0.3.5.tar.gz
-    url: https://pypi.python.org/packages/source/f/freezegun/freezegun-0.3.5.tar.gz
-    md5: 47065c66612f65b1cc2b8659970ee99a
+    fn: freezegun-0.3.6.tar.gz
+    url: https://pypi.python.org/packages/source/f/freezegun/freezegun-0.3.6.tar.gz
+    md5: c321cf7392343f91e524eec0b601e8ec
 
 build:
     number: 0
