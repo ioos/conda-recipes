@@ -1,0 +1,37 @@
+package:
+    name: nitime
+    version: "0.5"
+
+source:
+    fn: nitime-0.5.tar.gz
+    url: https://pypi.python.org/packages/source/n/nitime/nitime-0.5.tar.gz
+    md5: adacdf0468d3a47edfac9a6bbfa68c07
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - numpy
+        - cython
+    run:
+        - python
+        - numpy
+        - scipy
+
+test:
+    imports:
+        - nitime
+        - nitime.algorithms
+        - nitime.algorithms.tests
+        - nitime.analysis
+        - nitime.analysis.tests
+        - nitime.fmri
+        - nitime.fmri.tests
+        - nitime.tests
+
+about:
+    home: http://nipy.org/nitime
+    license: BSD License
+    summary: 'Nitime: timeseries analysis for neuroscience data'

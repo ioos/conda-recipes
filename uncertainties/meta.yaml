@@ -1,11 +1,11 @@
 package:
     name: uncertainties
-    version: "2.4.6.1"
+    version: "2.4.7.1"
 
 source:
-    fn: uncertainties-2.4.6.1.tar.gz
-    url: https://pypi.python.org/packages/source/u/uncertainties/uncertainties-2.4.6.1.tar.gz
-    md5: a30c01fda82b07ceb758e47e4768843f
+    fn: uncertainties-2.4.7.1.tar.gz
+    url: https://pypi.python.org/packages/source/u/uncertainties/uncertainties-2.4.7.1.tar.gz
+    md5: e266ad2fba12799c6b7ff16841a7b83a
 
 build:
     number: 0

@@ -4,12 +4,15 @@ MAINTAINER Filipe Fernandes <ocefpaf@gmail.com>
 
 RUN yum -y update && yum clean all
 
-# Some build tools.
+# Build tools.
 RUN yum install -y bzip2 \
                    check-devel \
                    file \
                    gcc-c++ \
+                   gcc-java \
+                   gcc-gfortran \
                    git \
+                   hg \
                    libtool \
                    make \
                    patch \
@@ -32,14 +35,15 @@ RUN PATH=/opt/conda/bin:$PATH obvci_install_conda_build_tools.py
 # Qt, matplotlib, and vispy.
 RUN yum install -y libXext libSM libXrender fontconfig mesa-libGL
 
-# octant.
-RUN yum install -y gcc-gfortran
-
 # udunits2.
 RUN yum install -y expat-devel
 
 # nco.
-RUN yum install -y bison byacc flex antlr
+RUN yum install -y bison byacc flex
 
 ENV PATH /opt/conda/bin:$PATH
 ENV LANG en_US.UTF-8
+
+# Workaround until https://github.com/conda/conda-build/pull/731 makes into a
+# release.
+RUN ln -s /usr/bin/gunzip /usr/bin/uncompress

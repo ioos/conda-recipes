@@ -1,11 +1,11 @@
 package:
     name: oct2py
-    version: "3.3.3"
+    version: "3.5.0"
 
 source:
-    fn: oct2py-3.3.3.zip
-    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.3.3.zip
-    md5: 3490c75455f2968b0da90a6e07d1b9a0
+    fn: oct2py-3.5.0.tar.gz
+    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.5.0.tar.gz
+    md5: 648ee3732b9784da778dfc400d91e0d3
 
 build:
     number: 0
@@ -19,13 +19,12 @@ requirements:
         - numpy
         - scipy
         - ipython
+        #- octave
 
-test:
-    imports:
-        - oct2py
-        - oct2py.tests
-        - oct2py.ipython
-        - oct2py.ipython.tests
+#test:
+    #imports:
+        #- oct2py
+        #- oct2py.ipython
 
 about:
     home: http://github.com/blink1073/oct2py

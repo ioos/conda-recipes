@@ -1,14 +1,14 @@
 package:
     name: qrcode
-    version: "5.1"
+    version: "5.2.2"
 
 source:
-    fn: qrcode-5.1.tar.gz
-    url: https://pypi.python.org/packages/source/q/qrcode/qrcode-5.1.tar.gz
-    md5: 1f20223419bbf992208ada0c12ed4577
+    fn: qrcode-5.2.2.tar.gz
+    url: https://pypi.python.org/packages/source/q/qrcode/qrcode-5.2.2.tar.gz
+    md5: 19b0c93e80087b31681080536f1bfbbd
 
 build:
-    number: 1
+    number: 0
     entry_points:
         - qr = qrcode.console_scripts:main
 
@@ -20,6 +20,7 @@ requirements:
     run:
         - python
         - six
+        - colorama
 
 test:
     imports:

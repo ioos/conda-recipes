@@ -3,20 +3,22 @@ channels:
     - ioos
 dependencies:
     - python=2.7
-    - basemap
     - beautifulsoup4
     - cartopy
     - cc-plugin-glider
+    - cmocean
     - compliance-checker
     - ctd
     - cython
     - descartes
     - fiona
     - folium
-    - gdal <2
+    - gdal=1.11.3
     - geojson
     - geojsonio
     - geopandas
+    - geos>=3.4.2
+    - gridgeo
     - gsw
     - iris
     - jupyter
@@ -32,7 +34,8 @@ dependencies:
     - paegan-transport
     - pandas
     - pip
-    - proj4
+    - proj.4
+    - pygc
     - pyoos
     - pyproj
     - pysgrid

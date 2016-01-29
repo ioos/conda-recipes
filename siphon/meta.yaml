@@ -1,11 +1,11 @@
 package:
     name: siphon
-    version: "0.3.1"
+    version: "0.3.2"
 
 source:
-    fn: siphon-0.3.1.tar.gz
-    url: https://pypi.python.org/packages/source/s/siphon/siphon-0.3.1.tar.gz
-    md5: 91c11e898107b87f44e5e3c6f1676dd2
+    fn: siphon-0.3.2.tar.gz
+    url: https://pypi.python.org/packages/source/s/siphon/siphon-0.3.2.tar.gz
+    md5: dd08ff89b1176939d59acae0d544dd81
 
 build:
     number: 0
@@ -25,6 +25,9 @@ test:
     imports:
         - siphon
         - siphon.cdmr
+        - siphon.catalog
+        - siphon.ncss
+        - siphon.radarserver
 
 about:
     home: https://github.com/Unidata/siphon

@@ -21,9 +21,6 @@ test:
     imports:
         - geopy
         - geopy.geocoders
-    requires:
-        - mock
-        - pylint  # [not win64 and not py35]
 
 about:
     home: https://github.com/geopy/geopy

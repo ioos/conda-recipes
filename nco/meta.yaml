@@ -1,10 +1,10 @@
 package:
     name: nco
-    version: "4.5.3"
+    version: "4.5.4"
 
 source:
     git_url: https://github.com/nco/nco.git
-    git_tag: 4.5.3
+    git_tag: 4.5.4
 
 build:
     number: 0
@@ -13,6 +13,7 @@ build:
 requirements:
     build:
         - gsl
+        - antlr
         - curl
         - zlib
         - hdf5
@@ -29,7 +30,7 @@ test:
         - ncks --help
         - ncks -M http://test.opendap.org:80/opendap/data/ncml/sample_virtual_dataset.ncml
         - ncks -F --dimension samples,1 http://test.opendap.org:80/opendap/data/ncml/sample_virtual_dataset.ncml
-        - ncap2 --help  # [not osx]
+        - ncap2 --help
 
 about:
     home: http://nco.sourceforge.net/

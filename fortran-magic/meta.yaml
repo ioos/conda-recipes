@@ -1,11 +1,11 @@
 package:
     name: fortran-magic
-    version: "0.5.1"
+    version: "0.6.1"
 
 source:
-    fn: fortran-magic-0.5.1.tar.gz
-    url: https://pypi.python.org/packages/source/f/fortran-magic/fortran-magic-0.5.1.tar.gz
-    md5: dfcd7d23b0608537722059e3ff885513
+    fn: fortran-magic-0.6.1.tar.gz
+    url: https://pypi.python.org/packages/source/f/fortran-magic/fortran-magic-0.6.1.tar.gz
+    md5: 124f07838959516022305f5edce37a38
 
 build:
     number: 0

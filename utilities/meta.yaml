@@ -1,13 +1,13 @@
 package:
     name: utilities
-    version: "0.3.0"
+    version: "0.4.1"
 
 source:
     git_url: https://github.com/pyoceans/utilities.git
-    git_tag: v0.3.0
+    git_tag: v0.4.1
 
 build:
-    number: 2
+    number: 0
 
 requirements:
     build:

@@ -1,0 +1,34 @@
+package:
+    name: eofs
+    version: "0.5.1"
+
+source:
+    fn: eofs-0.5.1.tar.gz
+    url: https://pypi.python.org/packages/source/e/eofs/eofs-0.5.1.tar.gz
+    md5: c9256f04a02db12f256990e1e82be0bd
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - numpy
+
+test:
+    requires:
+        - nose
+    imports:
+        - eofs
+        - eofs.examples
+        - eofs.multivariate
+        - eofs.tests
+        - eofs.tools
+
+about:
+    home: https://ajdawson.github.com/eofs
+    license: GPL-3.0
+    summary: 'EOF analysis in Python'

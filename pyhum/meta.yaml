@@ -1,11 +1,11 @@
 package:
     name: pyhum
-    version: "1.3.3"
+    version: "1.3.4"
 
 source:
-    fn: PyHum-1.3.3.tar.gz
-    url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.3.3.tar.gz
-    md5: 2f82d04eef58a6fbe8d2ec1a4be0fcc9
+    fn: PyHum-1.3.4.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyHum/PyHum-1.3.4.tar.gz
+    md5: 9836ac09b402a5181b53d3724d52da09
 
 build:
     number: 0
@@ -14,10 +14,10 @@ requirements:
     build:
         - python >=2.7,<3
         - cython
-        - numpy
+        - numpy x.x
     run:
         - python
-        - numpy
+        - numpy x.x
         - scipy
         - pillow
         - matplotlib
@@ -28,6 +28,7 @@ requirements:
         - simplekml
         - basemap
         - pyresample
+        - dask
 
 test:
     imports:

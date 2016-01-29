@@ -1,11 +1,11 @@
 package:
     name: metakernel
-    version: "0.11.3"
+    version: "0.12.2"
 
 source:
-    fn: metakernel-0.11.3.tar.gz
-    url: https://pypi.python.org/packages/source/m/metakernel/metakernel-0.11.3.tar.gz
-    md5: ad48873e3debc2c8651efff9b6519428
+    fn: metakernel-0.12.2.tar.gz
+    url: https://pypi.python.org/packages/source/m/metakernel/metakernel-0.12.2.tar.gz
+    md5: 7ccd4cb4851c48dea35b95f600c8350d
 
 build:
     number: 0

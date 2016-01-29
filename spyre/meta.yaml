@@ -1,0 +1,31 @@
+package:
+    name: spyre
+    version: "0.2.0"
+
+source:
+    git_url: https://github.com/adamhajari/spyre.git
+    git_tag: master
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - numpy
+        - pandas
+        - cherrypy
+        - jinja2
+        - matplotlib
+
+test:
+    imports:
+        - spyre
+
+about:
+    home: https://github.com/adamhajari/spyre
+    license: MIT License
+    summary: 'Web Application Framework for simple user interface'
