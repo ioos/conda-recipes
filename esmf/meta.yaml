@@ -3,7 +3,7 @@ package:
   version: 6.3.0rp1
 
 build: 
-  number: 1
+  number: 2
   skip: True # [win]
 
 source:
@@ -14,11 +14,9 @@ requirements:
   build:
     - netcdf-fortran
     - mpich2 # [linux]
-    - openmpi # [osx]
   run:
     - netcdf-fortran
     - mpich2 # [linux]
-    - openmpi # [osx]
 
 about:
   home: http://www.earthsystemmodeling.org/
