@@ -1,11 +1,11 @@
 package:
     name: geojson
-    version: "1.3.1"
+    version: "1.3.2"
 
 source:
-    fn: geojson-1.3.1.tar.gz
-    url: https://pypi.python.org/packages/source/g/geojson/geojson-1.3.1.tar.gz
-    md5: 2131dfaf4546db43f64d9c98d443b48c
+    fn: geojson-1.3.2.tar.gz
+    url: https://pypi.python.org/packages/source/g/geojson/geojson-1.3.2.tar.gz
+    md5: 27b75a4edbf9059e9aeb819eaad38593
 
 build:
     number: 0
