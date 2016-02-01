@@ -1,0 +1,3 @@
+gh-repo: conda-forge/staged-recipes
+git-tag: master
+contents: recipes/netcdf4/*
