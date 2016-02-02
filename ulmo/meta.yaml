@@ -1,15 +1,14 @@
 package:
     name: ulmo
-    version: "0.8.1"
+    version: "0.8.2"
 
 source:
-    fn: ulmo-0.8.1.tar.gz
-    url: https://pypi.python.org/packages/source/u/ulmo/ulmo-0.8.1.tar.gz
-    md5: a628f6e031748e152c4a98194b96fec3
+    fn: ulmo-0.8.2.tar.gz
+    url: https://pypi.python.org/packages/source/u/ulmo/ulmo-0.8.2.tar.gz
+    md5: 90e6d45effd57528a4a32bfb65b640ca
 
 build:
     number: 0
-    skip: True  # [py35 and win]
 
 requirements:
     build:
@@ -24,12 +23,11 @@ requirements:
         - isodate
         - numpy
         - pandas
-        - pytables # [not win and not py3k]
-        - pytables <=3.1.1 # [win and py3k]
+        - pytables
         - requests
         - suds-jurko
         - lxml
-        - mock
+        - mock  # [not py35]
 
 test:
     imports:
