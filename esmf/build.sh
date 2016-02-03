@@ -6,9 +6,12 @@ export ESMF_INSTALL_PREFIX=${PREFIX}
 export ESMF_NETCDF="split"
 export ESMF_NETCDF_INCLUDE=${PREFIX}/include
 export ESMF_NETCDF_LIBPATH=${PREFIX}/lib
-export ESMF_COMM=mpich2
+if [ "$(uname)" == "Darwin" ]; then
+    export ESMF_COMM=mpiuni
+else
+    export ESMF_COMM=mpich2
+fi
 
 make  -j ${CPU_COUNT}
-# TODO (bekozi): Enable ESMF tests?
-#make all_tests
+make check
 make install

@@ -3,8 +3,7 @@ package:
   version: 6.3.0rp1
 
 build:
-  number: 0
-  skip: True # [osx]
+  number: 1
   skip: True # [win]
   skip: True # [py3k]
 
@@ -21,7 +20,7 @@ requirements:
     - python
     - numpy
     - esmf ==6.3.0rp1
-    - mpi4py
+    - mpi4py # [linux]
 
 # TODO (bekozi): Use run_test.sh with ESMPy 7 release.
 test:
