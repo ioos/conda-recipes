@@ -1,25 +1,25 @@
 package:
   name: esmpy
-  version: 6.3.0rp1
+  version: 7.0.0
 
 build:
-  number: 1
+  number: 0
   skip: True # [win]
   skip: True # [py3k]
 
 source:
   git_url: git://git.code.sf.net/p/esmf/esmf
-  git_tag: ESMF_6_3_0rp1
+  git_tag: ESMF_7_0_0
 
 requirements:
   build:
     - python >=2.7,<3
     - numpy
-    - esmf ==6.3.0rp1
+    - esmf
   run:
     - python
     - numpy
-    - esmf ==6.3.0rp1
+    - esmf
     - mpi4py # [linux]
 
 # TODO (bekozi): Use run_test.sh with ESMPy 7 release.
