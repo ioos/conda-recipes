@@ -1,14 +1,14 @@
 package:
   name: esmf
-  version: 6.3.0rp1
+  version: 7.0.0
 
-build: 
-  number: 2
+build:
+  number: 0
   skip: True # [win]
 
 source:
   git_url: git://git.code.sf.net/p/esmf/esmf
-  git_tag: ESMF_6_3_0rp1
+  git_tag: ESMF_7_0_0
 
 requirements:
   build:
