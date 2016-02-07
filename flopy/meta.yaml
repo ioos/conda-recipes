@@ -1,10 +1,10 @@
 package:
     name: flopy
-    version: "3.2.3"
+    version: "3.2.4"
 
 source:
     git_url: https://github.com/modflowpy/flopy.git
-    git_tag: 3.2.3
+    git_tag: 3.2.4
 
 build:
     number: 0
@@ -21,6 +21,6 @@ requirements:
         - matplotlib
 
 about:
-    home: https://code.google.com/p/flowpy/
+    home: https://github.com/modflowpy/flopy.git
     license: BSD
-    summary: 'scripts to run MODFLOW, MT3D, SWI and SEAWAT'
+    summary: 'FloPy is a Python package for developing, running, and post-processing MODFLOW-based models'
