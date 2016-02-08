@@ -4,10 +4,10 @@ package:
 
 source:
     fn: tip.tar.gz
-    url: http://currents.soest.hawaii.edu/hg/pycurrents/archive/tip.tar.gz
+    url: http://currents.soest.hawaii.edu/hgstage/pycurrents/archive/tip.tar.gz
 
 build:
-    number: 0
+    number: 1
     skip: True  # [win and py3k]
 
 requirements:
@@ -15,7 +15,6 @@ requirements:
         - python
         - numpy x.x
         - codas
-        - mercurial  # [win]
         - mingwpy  # [win]
     run:
         - python
@@ -29,6 +28,9 @@ requirements:
 test:
     imports:
         - pycurrents
+    commands:
+        - adcptree.py --help
+        - quick_adcp.py --help
 
 about:
     home: http://currents.soest.hawaii.edu/hg/pycurrents
