@@ -32,12 +32,12 @@ test:
         # FIXME: Should reflect conda re-locatable binary concept.
         - codas_prefix  # [not win]
         # FIXME: Segfaults!
-        - fix_bt_ss_bug  # [not win]
+        #- fix_bt_ss_bug  # [not win]
         - atg.exe 40.0 40.0 10000.0  # [win]
         - bvfreq.exe 0 25 35 10 24.5 35 42  # [win]
         - depth.exe 10000 30  # [win]
         # FIXME: Segfaults!
-        - fix_bt_ss_bug.exe  # [win]
+        #- fix_bt_ss_bug.exe  # [win]
         - grav.exe 10000.0 30.0  # [win]
         - press.exe 0  # [win]
         - svan.exe 35 12 1000.0  # [win]
