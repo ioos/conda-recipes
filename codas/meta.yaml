@@ -7,7 +7,7 @@ source:
     url: http://currents.soest.hawaii.edu/hg/codas3/archive/tip.tar.gz
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
@@ -16,9 +16,37 @@ requirements:
     run:
 
 
-#test:
-    #commands:
-        #- some_cmd --help ?
+test:
+    commands:
+        - atg 40.0 40.0 10000.0  # [not win]
+        - bvfreq 0 25 35 10 24.5 35 42  # [not win]
+        - depth 10000 30  # [not win]
+        - grav 10000.0 30.0  # [not win]
+        - press 0  # [not win]
+        - svan 35 12 1000.0  # [not win]
+        - svel 35 12 1000.0  # [not win]
+        - theta 40.0 40.0 10000.0 0.0  # [not win]
+        - to_date 1980 31  # [not win]
+        - to_day 2000 01 01 00 00  # [not win]
+        - to_week 1992 123.452  # [not win]
+        # FIXME: Should reflect conda re-locatable binary concept.
+        - codas_prefix  # [not win]
+        # FIXME: Segfaults!
+        #- fix_bt_ss_bug  # [not win]
+        - atg.exe 40.0 40.0 10000.0  # [win]
+        - bvfreq.exe 0 25 35 10 24.5 35 42  # [win]
+        - depth.exe 10000 30  # [win]
+        # FIXME: Segfaults!
+        #- fix_bt_ss_bug.exe  # [win]
+        - grav.exe 10000.0 30.0  # [win]
+        - press.exe 0  # [win]
+        - svan.exe 35 12 1000.0  # [win]
+        - svel.exe 35 12 1000.0  # [win]
+        - theta 40.0 40.0 10000.0 0.0  # [win]
+        - to_date.exe 1980 31  # [win]
+        - to_day.exe 2000 01 01 00 00  # [win]
+        - to_week.exe 1992 123.452  # [win]
+        - codas_prefix.exe  # [win]
 
 about:
     home: http://currents.soest.hawaii.edu/hg/codas
