@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install
 
 requirements:
     build:
@@ -26,3 +27,7 @@ about:
     home: https://github.com/shoyer/cyordereddict
     license: BSD License
     summary: "Cython implementation of Python's collections.OrderedDict"
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
