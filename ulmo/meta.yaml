@@ -8,6 +8,7 @@ source:
     md5: 90e6d45effd57528a4a32bfb65b640ca
 
 build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
 
 requirements:
@@ -62,3 +63,8 @@ about:
     home: https://github.com/ulmo-dev/ulmo/
     license: BSD License
     summary: 'Clean, simple and fast access to public hydrology and climatology data'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - dharhas
