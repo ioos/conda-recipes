@@ -1,14 +1,15 @@
 package:
     name: pyaxiom
-    version: "1.1.6"
+    version: "1.1.7"
 
 source:
-    fn: pyaxiom-1.1.6.tar.gz
-    url: https://pypi.python.org/packages/source/p/pyaxiom/pyaxiom-1.1.6.tar.gz
-    md5: 0f74379d27fc26cbef6053e68ad451d1
+    fn: pyaxiom-1.1.7.tar.gz
+    url: https://pypi.python.org/packages/source/p/pyaxiom/pyaxiom-1.1.7.tar.gz
+    md5: 5df3d91546c55b01fd882761d28c8165
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
     entry_points:
         - binner=pyaxiom.netcdf.grids.binner:run
 
@@ -40,3 +41,8 @@ about:
     home: https://github.com/axiom-data-science/pyaxiom
     license: MIT License
     summary: 'An ocean data toolkit developed and used by Axiom Data Science'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox
