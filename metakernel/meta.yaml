@@ -1,13 +1,14 @@
 package:
     name: metakernel
-    version: "0.12.2"
+    version: "0.12.3"
 
 source:
-    fn: metakernel-0.12.2.tar.gz
-    url: https://pypi.python.org/packages/source/m/metakernel/metakernel-0.12.2.tar.gz
-    md5: 7ccd4cb4851c48dea35b95f600c8350d
+    fn: metakernel-0.12.3.tar.gz
+    url: https://pypi.python.org/packages/source/m/metakernel/metakernel-0.12.3.tar.gz
+    md5: 1a9fcfe71c4e0abae00e14cfb951d257
 
 build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
 
 requirements:
@@ -31,3 +32,7 @@ about:
     home: https://github.com/Calysto/metakernel
     license: BSD License
     summary: 'Metakernel for Jupyter'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
