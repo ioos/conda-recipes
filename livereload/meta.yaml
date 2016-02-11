@@ -1,0 +1,34 @@
+package:
+    name: livereload
+    version: "2.4.1"
+
+source:
+    fn: livereload-2.4.1.tar.gz
+    url: https://pypi.python.org/packages/source/l/livereload/livereload-2.4.1.tar.gz
+    md5: e79d3de78f11b459392f347f7bb20309
+
+build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
+    number: 0
+    entry_points:
+        - livereload = livereload.cli:main
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+        - tornado
+        - six
+
+test:
+    imports:
+        - livereload
+    commands:
+        - livereload --help
+
+about:
+    home: https://github.com/lepture/python-livereload
+    license: BSD License
+    summary: 'Python LiveReload is an awesome tool for web developers'

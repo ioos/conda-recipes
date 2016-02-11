@@ -1,0 +1,41 @@
+package:
+    name: mkdocs-bootswatch
+    version: "0.2.0"
+
+source:
+    fn: mkdocs-bootswatch-0.2.0.tar.gz
+    url: https://pypi.python.org/packages/source/m/mkdocs-bootswatch/mkdocs-bootswatch-0.2.0.tar.gz
+    md5: 009fc46a5201ba6bf90de5d90dd8606c
+
+build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
+    number: 0
+    preserve_egg_dir: True
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+
+test:
+    imports:
+        - mkdocs_bootswatch
+        - mkdocs_bootswatch.amelia
+        - mkdocs_bootswatch.cerulean
+        - mkdocs_bootswatch.cosmo
+        - mkdocs_bootswatch.cyborg
+        - mkdocs_bootswatch.flatly
+        - mkdocs_bootswatch.journal
+        - mkdocs_bootswatch.readable
+        - mkdocs_bootswatch.simplex
+        - mkdocs_bootswatch.slate
+        - mkdocs_bootswatch.spacelab
+        - mkdocs_bootswatch.united
+        - mkdocs_bootswatch.yeti
+
+about:
+    home: http://www.mkdocs.org
+    license: BSD
+    summary: 'Bootswatch themes for MkDocs'
