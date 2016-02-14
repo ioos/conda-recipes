@@ -4,10 +4,11 @@ package:
 
 source:
     git_url: https://github.com/python-visualization/folium.git
-    git_tag: master
+    git_tag: v0.2.0
 
 build:
-    number: 3
+    script: python setup.py install --single-version-externally-managed --record record.txt
+    number: 4
 
 requirements:
     build:
@@ -28,3 +29,7 @@ about:
   home: https://github.com/python-visualization/folium
   license: MIT License
   summary: 'Make beautiful maps with Leaflet.js and Python'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
