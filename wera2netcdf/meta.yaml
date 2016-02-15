@@ -8,8 +8,7 @@ source:
     md5: 1970a907d222905c262619d420cc4f8f
 
 build:
-    skip: True  # [win and py35]
-    number: 0
+    number: 1
 
 requirements:
     build:
