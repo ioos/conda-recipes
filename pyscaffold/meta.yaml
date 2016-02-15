@@ -1,13 +1,14 @@
 package:
     name: pyscaffold
-    version: "2.5.3"
+    version: "2.5.4"
 
 source:
-    fn: PyScaffold-2.5.3.tar.gz
-    url: https://pypi.python.org/packages/source/P/PyScaffold/PyScaffold-2.5.3.tar.gz
-    md5: 7c71ac59ff91fce924b162b778af8f41
+    fn: PyScaffold-2.5.4.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyScaffold/PyScaffold-2.5.4.tar.gz
+    md5: 3637bafd776263c9053b6e16a651ef74
 
 build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
     skip: True  # [py35]
     preserve_egg_dir: True
@@ -38,3 +39,7 @@ about:
     home: http://pyscaffold.readthedocs.org/
     license: BSD License
     summary: 'Template tool for putting up the scaffold of a Python project'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
