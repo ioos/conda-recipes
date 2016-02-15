@@ -8,7 +8,7 @@ source:
     md5: 1970a907d222905c262619d420cc4f8f
 
 build:
-    number: 1
+    number: 0
 
 requirements:
     build:
@@ -33,3 +33,8 @@ about:
   home: https://github.com/axiom-data-science/wera2netcdf
   license: MIT License
   summary: 'A utility to convert WERA total ASCII files into CF NetCDF files.'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox
