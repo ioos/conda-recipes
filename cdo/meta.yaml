@@ -17,11 +17,13 @@ requirements:
         - libnetcdf
         - netcdf-fortran
         - proj.4
+        - gcc
     run:
         - jasper
         - libnetcdf
         - netcdf-fortran
         - proj.4
+        - libgcc
 
 test:
     commands:
