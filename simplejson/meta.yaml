@@ -1,14 +1,15 @@
 package:
     name: simplejson
-    version: "3.8.0"
+    version: "3.8.2"
 
 source:
-    fn: simplejson-3.8.0.tar.gz
-    url: https://pypi.python.org/packages/source/s/simplejson/simplejson-3.8.0.tar.gz
-    md5: 72f3b93a6f9808df81535f79e79565a2
+    fn: simplejson-3.8.2.tar.gz
+    url: https://pypi.python.org/packages/source/s/simplejson/simplejson-3.8.2.tar.gz
+    md5: 53b1371bbf883b129a12d594a97e9a18
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -27,3 +28,7 @@ about:
     home: http://github.com/simplejson/simplejson
     license: MIT License or Academic Free License (AFL)
     summary: 'Simple, fast, extensible JSON encoder/decoder for Python'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
