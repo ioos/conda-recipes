@@ -1,16 +1,17 @@
 package:
     name: python-daemon
-    version: "2.0.6"
+    version: "2.1.1"
 
 source:
-    fn: python-daemon-2.0.6.tar.gz
-    url: https://pypi.python.org/packages/source/p/python-daemon/python-daemon-2.0.6.tar.gz
-    md5: 049508c47c8fa054e91ec9a3c572f939
+    fn: python-daemon-2.1.1.tar.gz
+    url: https://pypi.python.org/packages/source/p/python-daemon/python-daemon-2.1.1.tar.gz
+    md5: 72e2acf2c3d69c7fa75a6625d06adfd0
 
 build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
-    preserve_egg_dir: True
     skip: True  # [win]
+    preserve_egg_dir: True
 
 requirements:
     build:
@@ -30,3 +31,8 @@ about:
     home: https://alioth.debian.org/projects/python-daemon/
     license: Apache Software License
     summary: 'Library to implement a well-behaved Unix daemon process.'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox
