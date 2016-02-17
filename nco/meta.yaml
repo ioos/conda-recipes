@@ -19,11 +19,13 @@ requirements:
         - hdf5
         - libnetcdf
         - udunits2
+        - gcc
     run:
         - gsl
         - hdf5
         - libnetcdf
         - udunits2
+        - libgcc
 
 test:
     commands:
