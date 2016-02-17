@@ -1,14 +1,13 @@
 package:
     name: wera2netcdf
-    version: "0.0.1"
+    version: "0.0.3"
 
 source:
-    fn: wera2netcdf-0.0.1.tar.gz
-    url: https://pypi.python.org/packages/source/w/wera2netcdf/wera2netcdf-0.0.1.tar.gz
-    md5: beb3bd457aebe6fa3d3b64cd2d0c0cbf
+    fn: wera2netcdf-0.0.3.tar.gz
+    url: https://pypi.python.org/packages/source/w/wera2netcdf/wera2netcdf-0.0.3.tar.gz
+    md5: 1970a907d222905c262619d420cc4f8f
 
 build:
-    skip: True  # [win and py35]
     number: 0
 
 requirements:
@@ -34,3 +33,8 @@ about:
   home: https://github.com/axiom-data-science/wera2netcdf
   license: MIT License
   summary: 'A utility to convert WERA total ASCII files into CF NetCDF files.'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox
