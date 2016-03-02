@@ -1,27 +1,22 @@
 package:
     name: wicken
-    version: "0.1.2"
+    version: "0.2.0"
 
 source:
-    fn: Wicken-0.1.2.tar.gz
-    url: https://pypi.python.org/packages/source/W/Wicken/Wicken-0.1.2.tar.gz
-    md5: b522b3e713a8dd90d11c2dbc1cdd44c9
+    git_url: https://github.com/ioos/wicken.git
+    git_tag: v0.2.0
 
 build:
-    number: 3
+    number: 0
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
-        - nose >=1.2.0
-        - lxml >=3.2.1
-        - petulant-bear >=0.1.2
     run:
         - python
-        - nose >=1.2.0
-        - lxml >=3.2.1
-        - petulant-bear >=0.1.2
+        - lxml
+        - petulant-bear
 
 test:
     imports:

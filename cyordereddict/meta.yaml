@@ -1,14 +1,15 @@
 package:
     name: cyordereddict
-    version: "0.2.2"
+    version: "1.0.0"
 
 source:
-    fn: cyordereddict-0.2.2.tar.gz
-    url: https://pypi.python.org/packages/source/c/cyordereddict/cyordereddict-0.2.2.tar.gz
-    md5: 6279eb0bf9819f0293ad5315b2d484d0
+    fn: cyordereddict-1.0.0.tar.gz
+    url: https://pypi.python.org/packages/source/c/cyordereddict/cyordereddict-1.0.0.tar.gz
+    md5: 8924331ec3bb754c92fd2603d3a29489
 
 build:
     number: 0
+    script: python setup.py install
 
 requirements:
     build:
@@ -26,3 +27,7 @@ about:
     home: https://github.com/shoyer/cyordereddict
     license: BSD License
     summary: "Cython implementation of Python's collections.OrderedDict"
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

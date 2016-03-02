@@ -1,0 +1,38 @@
+package:
+    name: pycurrents
+    version: "0.0.1.dev"
+
+source:
+    fn: tip.tar.gz
+    url: http://currents.soest.hawaii.edu/hgstage/pycurrents/archive/tip.tar.gz
+
+build:
+    number: 1
+    skip: True  # [win and py3k]
+
+requirements:
+    build:
+        - python
+        - numpy x.x
+        - codas
+        - mingwpy  # [win]
+    run:
+        - python
+        - numpy x.x
+        - codas
+        - matplotlib
+        - scipy
+        - basemap
+        - future
+
+test:
+    imports:
+        - pycurrents
+    commands:
+        - adcptree.py --help
+        - quick_adcp.py --help
+
+about:
+    home: http://currents.soest.hawaii.edu/hg/pycurrents
+    license: BSD
+    summary: 'pycurrents'

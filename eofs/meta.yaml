@@ -1,14 +1,16 @@
 package:
     name: eofs
-    version: "0.5.1"
+    version: "1.0.0"
 
 source:
-    fn: eofs-0.5.1.tar.gz
-    url: https://pypi.python.org/packages/source/e/eofs/eofs-0.5.1.tar.gz
-    md5: c9256f04a02db12f256990e1e82be0bd
+    fn: eofs-1.0.0.tar.gz
+    url: https://pypi.python.org/packages/source/e/eofs/eofs-1.0.0.tar.gz
+    md5: e7ff7c5998379c4c6b0eda882e2de8b7
 
 build:
     number: 0
+    skip: True  # [py35]
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -32,3 +34,7 @@ about:
     home: https://ajdawson.github.com/eofs
     license: GPL-3.0
     summary: 'EOF analysis in Python'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

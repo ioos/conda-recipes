@@ -1,13 +1,14 @@
 package:
     name: testfixtures
-    version: "4.7.0"
+    version: "4.8.0"
 
 source:
-    fn: testfixtures-4.7.0.tar.gz
-    url: https://pypi.python.org/packages/source/t/testfixtures/testfixtures-4.7.0.tar.gz
-    md5: e892c81a6e223ff4a0cb301fe49b4ac0
+    fn: testfixtures-4.8.0.tar.gz
+    url: https://pypi.python.org/packages/source/t/testfixtures/testfixtures-4.8.0.tar.gz
+    md5: f3f558d1be89128e1c4bb4f940a56f7e
 
 build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
 
 requirements:
@@ -25,3 +26,7 @@ about:
     home: http://www.simplistix.co.uk/software/python/testfixtures
     license: MIT
     summary: 'A collection of helpers and mock objects for unit tests and doc tests.'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

@@ -1,11 +1,11 @@
 package:
     name: requests-toolbelt
-    version: "0.5.1"
+    version: "0.6.0"
 
 source:
-    fn: requests-toolbelt-0.5.1.tar.gz
-    url: https://pypi.python.org/packages/source/r/requests-toolbelt/requests-toolbelt-0.5.1.tar.gz
-    md5: 580ab16edf9d1afad883623ba7873af9
+    fn: requests-toolbelt-0.6.0.tar.gz
+    url: https://pypi.python.org/packages/source/r/requests-toolbelt/requests-toolbelt-0.6.0.tar.gz
+    md5: f7863ab5144a3ace64a4c851ec290907
 
 build:
     number: 0

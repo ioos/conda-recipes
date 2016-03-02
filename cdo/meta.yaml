@@ -8,7 +8,7 @@ source:
     md5: cca30c3c79335ad734e1838806f7bfc2
 
 build:
-    number: 0
+    number: 1
     skip: True  # [win]
 
 requirements:
@@ -17,11 +17,13 @@ requirements:
         - libnetcdf
         - netcdf-fortran
         - proj.4
+        - gcc
     run:
         - jasper
         - libnetcdf
         - netcdf-fortran
         - proj.4
+        - libgcc
 
 test:
     commands:

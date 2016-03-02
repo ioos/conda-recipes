@@ -25,6 +25,7 @@ install:
     - conda config --add channels ioos
     - python scripts/expand_source.py
     - obvci_install_conda_build_tools.py
+    - conda install --yes conda-build=1.18.2
 
 script:
     - obvci_conda_build_dir ./ ioos --channel main --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4"

@@ -62,6 +62,7 @@ install:
     - cmd: conda config --add channels ioos
     - cmd: conda install --yes --quiet obvious-ci --channel conda-forge
     - cmd: obvci_install_conda_build_tools.py
+    - cmd: conda install --yes conda-build=1.18.2
 
     # Expand external recipes sources.
     - cmd: conda install conda-execute --yes

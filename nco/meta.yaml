@@ -1,10 +1,10 @@
 package:
     name: nco
-    version: "4.5.4"
+    version: "4.5.5"
 
 source:
     git_url: https://github.com/nco/nco.git
-    git_tag: 4.5.4
+    git_tag: 4.5.5
 
 build:
     number: 0
@@ -19,11 +19,13 @@ requirements:
         - hdf5
         - libnetcdf
         - udunits2
+        - gcc
     run:
         - gsl
         - hdf5
         - libnetcdf
         - udunits2
+        - libgcc
 
 test:
     commands:
