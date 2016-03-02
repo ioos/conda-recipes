@@ -25,7 +25,6 @@ requirements:
         - numpy
         - shapely
         - rtree
-        - krb5  # TODO (bekozi): Remove when libcom_err.so.3 issue fixed.
 
 test:
   requires:
