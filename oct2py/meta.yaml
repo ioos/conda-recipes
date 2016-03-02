@@ -1,13 +1,14 @@
 package:
     name: oct2py
-    version: "3.5.0"
+    version: 3.5.1
 
 source:
-    fn: oct2py-3.5.0.tar.gz
-    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.5.0.tar.gz
-    md5: 648ee3732b9784da778dfc400d91e0d3
+    fn: oct2py-3.5.1.tar.gz
+    url: https://pypi.python.org/packages/source/o/oct2py/oct2py-3.5.1.tar.gz
+    md5: 3ae6ed07712d5817f1bcba8bde1ed6ab
 
 build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
 
 requirements:
@@ -30,3 +31,7 @@ about:
     home: http://github.com/blink1073/oct2py
     license: MIT License
     summary: 'Python to GNU Octave bridge --> run m-files from python'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
