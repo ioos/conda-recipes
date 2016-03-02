@@ -1,0 +1,72 @@
+package:
+  name: codar2netcdf
+  version: "0.0.1"
+
+source:
+  fn: codar2netcdf-0.0.1.tar.gz
+  url: https://pypi.python.org/packages/source/c/codar2netcdf/codar2netcdf-0.0.1.tar.gz
+  md5: 17f18a793ccd16330f53e67174d0d8bb
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # noarch_python: True
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - codar2netcdf = codar2netcdf:main
+    #
+    # Would create an entry point called codar2netcdf that calls codar2netcdf.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - pytest
+    - pandas
+    - netcdf4
+    - pytz
+    - python-dateutil
+
+  run:
+    - python
+    - pandas
+    - netcdf4
+    - pytz
+    - python-dateutil
+
+test:
+  # Python imports
+  imports:
+    - codar2netcdf
+    - codar2netcdf.tests
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  requires:
+    - pytest
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/axiom-data-science/codar2netcdf
+  license: MIT License
+  summary: 'A utility to convert CODAR total ASCII files into CF NetCDF files.'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
