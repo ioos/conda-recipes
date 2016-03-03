@@ -1,13 +1,14 @@
 package:
     name: uncertainties
-    version: "2.4.7.1"
+    version: "2.4.8"
 
 source:
-    fn: uncertainties-2.4.7.1.tar.gz
-    url: https://pypi.python.org/packages/source/u/uncertainties/uncertainties-2.4.7.1.tar.gz
-    md5: e266ad2fba12799c6b7ff16841a7b83a
+    fn: uncertainties-2.4.8.tar.gz
+    url: https://pypi.python.org/packages/source/u/uncertainties/uncertainties-2.4.8.tar.gz
+    md5: d56374b66ae52146d463667a37d8c1cc
 
 build:
+    script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
 
 requirements:
@@ -32,3 +33,7 @@ about:
     home: http://pythonhosted.org/uncertainties/
     license: BSD License
     summary: 'Transparent calculations with uncertainties on the quantities involved (aka "error propagation"); fast calculation of derivatives'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
