@@ -1,13 +1,13 @@
 package:
     name: nco
-    version: "4.5.5"
+    version: 4.5.5
 
 source:
     git_url: https://github.com/nco/nco.git
     git_tag: 4.5.5
 
 build:
-    number: 0
+    number: 1
     skip: True  # [win]
 
 requirements:
@@ -20,12 +20,14 @@ requirements:
         - libnetcdf
         - udunits2
         - gcc
+        - krb5
     run:
         - gsl
         - hdf5
         - libnetcdf
         - udunits2
         - libgcc
+        - krb5
 
 test:
     commands:
@@ -37,4 +39,8 @@ test:
 about:
     home: http://nco.sourceforge.net/
     license: GPL-3.0
-    summary: 'Suite of programs for manipulating NetCDF/HDF4 files'
+    summary: Suite of programs for manipulating NetCDF/HDF4 files
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
