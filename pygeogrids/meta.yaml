@@ -1,0 +1,35 @@
+package:
+    name: pygeogrids
+    version: 0.1.9
+
+source:
+    fn: pygeogrids-0.1.9.tar.gz
+    url: https://pypi.python.org/packages/source/p/pygeogrids/pygeogrids-0.1.9.tar.gz
+    md5: 395b224b03963119f87f7eafa2743c26
+
+build:
+    number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - pyscaffold
+    run:
+        - python
+        - numpy
+        - netcdf4
+        - pyproj
+        - scipy
+        - pykdtree  # [linux]
+
+test:
+    imports:
+        - pygeogrids
+        - pygeogrids.grids
+
+about:
+    home: https://github.com/TUW-GEO/pygeogrids
+    license: BSD License
+    summary: Creation and handling of Discrete Global Grids or Point collections.
