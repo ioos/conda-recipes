@@ -10,7 +10,6 @@ source:
 build:
     script: python setup.py install --single-version-externally-managed --record record.txt
     number: 0
-    skip: True  # [py35]
     preserve_egg_dir: True
     entry_points:
         - putup=pyscaffold.cli:run
