@@ -1,11 +1,11 @@
 package:
     name: pykdtree
-    version: "1.0"
+    version: 1.1.1
 
 source:
-    fn: pykdtree-1.0.tar.gz
-    url: https://pypi.python.org/packages/source/p/pykdtree/pykdtree-1.0.tar.gz
-    md5: 71cae67da7f95e3242e1d05d3053361f
+    fn: pykdtree-1.1.1.tar.gz
+    url: https://pypi.python.org/packages/source/p/pykdtree/pykdtree-1.1.1.tar.gz
+    md5: 936b0844b3d06d8f2f2a1ca40f587cfb
     patches:
         - win_comp.patch  # [win]
 
@@ -17,10 +17,10 @@ requirements:
     build:
         - python
         - setuptools
-        - numpy
+        - numpy x.x
     run:
         - python
-        - numpy
+        - numpy x.x
 
 test:
     imports:
@@ -29,4 +29,8 @@ test:
 about:
     home: https://pypi.python.org/pypi/pykdtree
     license: GNU General Public License v3 (GPLv3)
-    summary: 'Fast kd-tree implementation with OpenMP-enabled queries'
+    summary: Fast kd-tree implementation with OpenMP-enabled queries
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
