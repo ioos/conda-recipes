@@ -1,14 +1,15 @@
 package:
     name: django-grappelli
-    version: "2.7.3"
+    version: 2.8.1
 
 source:
-    fn: django-grappelli-2.7.3.tar.gz
-    url: https://pypi.python.org/packages/source/d/django-grappelli/django-grappelli-2.7.3.tar.gz
-    md5: 4ef700bf0c2ba24747e37be414da4e61
+    fn: django-grappelli-2.8.1.tar.gz
+    url: https://pypi.python.org/packages/source/d/django-grappelli/django-grappelli-2.8.1.tar.gz
+    md5: e4b892c1fc9004b081bdad9d67ee41f6
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -21,10 +22,6 @@ requirements:
 test:
     imports:
         - grappelli
-        #- grappelli.dashboard
-        #- grappelli.dashboard.management
-        #- grappelli.dashboard.management.commands
-        #- grappelli.dashboard.templatetags
         - grappelli.templatetags
         - grappelli.tests
         - grappelli.views
@@ -32,4 +29,8 @@ test:
 about:
     home: http://django-grappelli.readthedocs.org
     license: BSD License
-    summary: 'A jazzy skin for the Django Admin-Interface.'
+    summary: A jazzy skin for the Django Admin-Interface.
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
