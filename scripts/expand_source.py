@@ -5,14 +5,24 @@
 #  - python >3
 #  - pyyaml
 
+import errno
 import glob
 import os
 import shutil
 import subprocess
 import yaml
 
-
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def copy(src, dst):
+    try:
+        shutil.copytree(src, dst)
+    except OSError as e:
+        if e.errno == errno.ENOTDIR:
+            shutil.copy(src, dst)
+        else:
+            raise e
 
 
 def fetch_source(recipe_dir):
@@ -38,12 +48,12 @@ def fetch_source(recipe_dir):
     if os.path.exists(repo_dir):
         subprocess.check_call(['git', 'pull'], cwd=repo_dir)
     else:
-        subprocess.check_call(['git', 'clone', 'https://github.com/{}.git'.format(source['gh-repo']), repo_dir])
+        subprocess.check_call(['git', 'clone', 'https://github.com/{}.git'.format(source['gh-repo']), repo_dir])  # noqa
 
     subprocess.check_call(['git', 'checkout', source['git-tag']], cwd=repo_dir)
 
     for fname in glob.glob(os.path.join(repo_dir, source['contents'])):
-        shutil.copy(fname, os.path.join(recipe_dir, os.path.basename(fname)))
+        copy(fname, os.path.join(recipe_dir, os.path.basename(fname)))
 
 
 if __name__ == '__main__':
@@ -51,4 +61,3 @@ if __name__ == '__main__':
         recipe_name = os.path.basename(os.path.dirname(recipe_source))
         print('Fetching: {}'.format(recipe_name))
         fetch_source(os.path.dirname(recipe_source))
-
