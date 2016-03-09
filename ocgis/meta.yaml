@@ -4,7 +4,7 @@ package:
 
 source:
     git_url: https://github.com/NCPP/ocgis.git
-    git_tag: master  # TODO (bekozi): Change to tag when tagged.
+    git_tag: v1.3.0
 
 build:
     number: 0
@@ -34,4 +34,3 @@ about:
     home: http://ncpp.github.io/ocgis/
     license: NCSA License
     summary: OCGIS is short for OpenClimateGIS, a set of geoprocessing and calculation tools for CF-compliant climate datasets.
-
