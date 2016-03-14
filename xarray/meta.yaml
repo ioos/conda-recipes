@@ -1,11 +1,10 @@
 package:
     name: xarray
-    version: "0.7.1"
+    version: 0.7.2
 
 source:
-    fn: xarray-0.7.1.tar.gz
-    url: https://pypi.python.org/packages/source/x/xarray/xarray-0.7.1.tar.gz
-    md5: 22444bf16f9bd6d629385625df41e6b3
+    git_url: https://github.com/pydata/xarray.git
+    git_tag: v0.7.2
 
 build:
     script: python setup.py install --single-version-externally-managed --record record.txt
@@ -37,7 +36,7 @@ test:
 about:
     home: https://github.com/pydata/xarray
     license: Apache Software License
-    summary: 'N-D labeled arrays and datasets in Python'
+    summary: N-D labeled arrays and datasets in Python
 
 extra:
     recipe-maintainers:
