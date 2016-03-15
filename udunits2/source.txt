@@ -1,3 +1,3 @@
-gh-repo: SciTools/conda-recipes-scitools
+gh-repo: conda-forge/udunits2-feedstock
 git-tag: master
-contents: udunits2/*
+contents: recipe/*

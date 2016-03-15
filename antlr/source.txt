@@ -1,0 +1,3 @@
+gh-repo: conda-forge/antlr-feedstock
+git-tag: master
+contents: recipe/*
