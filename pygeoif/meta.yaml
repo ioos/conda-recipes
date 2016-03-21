@@ -1,63 +1,37 @@
 package:
-  name: pygeoif
-  version: "0.6"
+    name: pygeoif
+    version: 0.6
 
 source:
-  fn: pygeoif-0.6.tar.gz
-  url: https://pypi.python.org/packages/source/p/pygeoif/pygeoif-0.6.tar.gz
-  md5: e5d423724f9894aa2b2a1a8eb2314051
-#  patches:
-   # List any patch files here
-   # - fix.patch
+    fn: pygeoif-0.6.tar.gz
+    url: https://pypi.python.org/packages/source/p/pygeoif/pygeoif-0.6.tar.gz
+    md5: e5d423724f9894aa2b2a1a8eb2314051
 
 build:
-  # noarch_python: True
-  preserve_egg_dir: True
-  # entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - pygeoif = pygeoif:main
-    #
-    # Would create an entry point called pygeoif that calls pygeoif.main()
-
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+    number: 0
+    preserve_egg_dir: True
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-  build:
-    - python
-    - setuptools
-
-  run:
-    - python
-    - setuptools
+    build:
+        - python
+        - setuptools
+    run:
+        - python
 
 test:
-  # Python imports
-  imports:
-    - pygeoif
-
-  # commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  requires:
-    - pytest
-    # Put any additional test requirements here.  For example
-    # - nose
+    imports:
+        - pygeoif
+    requires:
+        - pytest
 
 about:
-  home: https://github.com/cleder/pygeoif/
-  license: GNU Library or Lesser General Public License (LGPL)
-  summary: 'A basic implementation of the __geo_interface__'
+    home: https://github.com/cleder/pygeoif/
+    license: GNU Library or Lesser General Public License (LGPL)
+    summary: A basic implementation of the __geo_interface__
 
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - benjwadams
+        - daf
