@@ -1,3 +1,0 @@
-gh-repo: conda-forge/nco-feedstock
-git-tag: master
-contents: recipe/*

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ "${BINSTAR_TOKEN}" ]; then
+  export UPLOAD="--upload-channels ioos"
+else
+  export UPLOAD=""
+fi
 
 REPO_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
 UPLOAD_OWNER="ioos"
@@ -31,18 +36,19 @@ export CONDA_NPY='19'
 export PYTHONUNBUFFERED=1
 echo "$config" > ~/.condarc
 
-conda install --yes obvious-ci --channel conda-forge
+conda update --yes --quiet conda
+conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
+conda install --yes anaconda-client
+conda install --yes conda-build
 
 # A lock sometimes occurs with incomplete builds.
-# The lock file is stored in build_artefacts.
 conda clean --lock
 
-python /conda-recipes/scripts/expand_source.py
-
-conda install --yes anaconda-client
-conda install --yes conda-build=1.18.2
 conda info
 
-obvci_conda_build_dir /conda-recipes $UPLOAD_OWNER --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4"
+# Expand external recipes sources.
+python /conda-recipes/scripts/expand_source.py
+
+conda-build-all /conda-recipes $UPLOAD --inspect-channels $UPLOAD_OWNER --matrix-conditions "numpy >=1.9" "python >=2.7,<3|>=3.4"
 
 EOF

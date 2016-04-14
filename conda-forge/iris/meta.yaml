@@ -1,7 +1,52 @@
-# This is a placeholder meta, the canonical one comes from source.txt
-
 package:
-   name: iris
+    name: iris
+    version: 1.9.2
+
+source:
+    git_url: https://github.com/SciTools/iris.git
+    git_tag: v1.9.2
 
 build:
-   script: exit 1
+    number: 0
+    # See https://github.com/SciTools/cartopy/pull/676
+    skip: True  # [py35]
+
+requirements:
+    build:
+        - python  # [not osx]
+        - python >=2.7,<3  # [osx]
+        - scipy
+        - biggus >=0.10
+        - cartopy >=0.12
+        - netcdf4
+        - numpy x.x
+        - udunits2
+        - cf_units
+        - pyke
+        - setuptools
+        - libmo_unpack  # [not win]
+    run:
+        - python  # [not osx]
+        - python >=2.7,<3  # [osx]
+        - scipy
+        - biggus >=0.10
+        - cartopy >=0.12
+        - matplotlib
+        - netcdf4
+        - ecmwf_grib >=1.12.1  # [not win and not py3k]
+        # There is a numpy C ABI dependency for as long as we have a C extension (pp_packing).
+        - numpy x.x
+        - pyke
+        - udunits2
+        - cf_units
+        - libmo_unpack  # [not win]
+
+test:
+    imports:
+        - iris
+        - iris.fileformats.pp_packing  # [not win]
+
+about:
+    home: http://www.scitools.org.uk/iris
+    license: GNU Lesser General Public License
+    summary: Analyse and visualise meteorological and oceanographic data sets.

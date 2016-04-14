@@ -1,3 +1,0 @@
-gh-repo: conda-forge/pyproj-feedstock
-git-tag: master
-contents: recipe/*

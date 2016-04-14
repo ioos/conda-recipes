@@ -10,22 +10,26 @@ env:
         secure: "Ot7aKmwqgrfttGbliX2uR2QVhwxdXKIgGmZlsr/hfIkMZoaei1JzHsbfmrKuxocoQ/38Z8UZvDh6fSXCZKVGuDpEhb/PHeNuk7YPFXITyJWA9NyIrOh+xjrfLBSp7S/V33idReGVznuI4v/tB3PfZChmqgEns5z7BGZZaz5sIws="
 
 before_install:
-    - brew update
-    # Unit testing framework for C (used by libmo_unpack).
-    - brew install check
+    - brew remove --force $(brew list)
 
 install:
-    # Set the numpy variable. This isn't used, but conda-build complains if we haven't set it already.
-    - export CONDA_NPY=19
-    - wget https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py
+    # Install miniconda.
+    - curl -O https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py
     - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
-    - conda config --set show_channel_urls True
-    - conda install obvious-ci --yes -c conda-forge
+
+    # This numpy variable is not used, but conda-build complains if we haven't set it already.
+    - export CONDA_NPY=19
 
     - conda config --add channels ioos
-    - python scripts/expand_source.py
+    - conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
     - obvci_install_conda_build_tools.py
-    - conda install --yes conda-build=1.18.2
+
+    - conda info
 
 script:
-    - obvci_conda_build_dir ./ ioos --channel main --build-condition "numpy >=1.9" "python >=2.7,<3|>=3.4"
+    - if [[ "$BINSTAR_TOKEN" == "" ]]; then
+        export UPLOAD="";
+      else
+        export UPLOAD="--upload-channels ioos";
+      fi
+    - conda-build-all ./ $UPLOAD --inspect-channels ioos --matrix-conditions "numpy >=1.9" "python >=2.7,<3|>=3.4"

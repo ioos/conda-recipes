@@ -1,7 +1,15 @@
-# This is a placeholder meta, the canonical one comes from source.txt
-
 package:
-   name: libmo_unpack
+    name: libmo_unpack
+    version: !!str 3.0
+
+source:
+    git_url: https://github.com/SciTools/libmo_unpack.git
+    git_rev: v3.0
 
 build:
-   script: exit 1
+    skip: True  # [win]
+    number: 3
+
+about:
+    home: https://github.com/SciTools/libmo_unpack
+    summary: Met Office PP/FieldsFile compression schemes

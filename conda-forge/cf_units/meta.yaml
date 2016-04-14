@@ -1,7 +1,29 @@
-# This is a placeholder meta, the canonical one comes from source.txt
-
 package:
-   name: cf_units
+    name: cf_units
+    version: "1.1"
+
+source:
+    git_url: https://github.com/SciTools/cf_units.git
+    git_tag: v1.1
 
 build:
-   script: exit 1
+    number: 0
+
+requirements:
+    build:
+        - python
+    run:
+        - python
+        - six
+        - udunits2
+        - netcdf4
+        - numpy
+
+test:
+    imports:
+        - cf_units
+
+about:
+    home: http://www.scitools.org.uk/iris
+    license: GNU Lesser General Public License
+    summary: 'Units of measure as required by the Climate and Forecast (CF) metadata conventions.'

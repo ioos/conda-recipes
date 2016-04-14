@@ -1,7 +1,31 @@
-# This is a placeholder meta, the canonical one comes from source.txt
-
 package:
-   name: mo_pack
+  name: mo_pack
+  version: 0.2.0
+
+source:
+  git_url: https://github.com/SciTools/mo_pack.git
+  git_tag: v0.2.0
 
 build:
-   script: exit 1
+  skip: True  # [win]
+  number: 1
+
+requirements:
+  build:
+    - python
+    - numpy x.x
+    - setuptools
+    - cython
+    - libmo_unpack # [not win]
+  run:
+    - python
+    - numpy x.x
+    - libmo_unpack # [not win]
+
+test:
+  imports:
+    - mo_pack
+
+about:
+  license: GNU LGPL
+  summary: 'Python wrapper to libmo_unpack'

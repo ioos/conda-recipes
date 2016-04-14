@@ -1,3 +1,0 @@
-gh-repo: conda-forge/expat-feedstock
-git-tag: master
-contents: recipe/*
