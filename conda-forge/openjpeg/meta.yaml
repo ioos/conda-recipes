@@ -1,21 +1,43 @@
 package:
     name: openjpeg
-    version: "2.1.0"
+    version: 2.1.0
 
 source:
     fn: version.2.1.tar.gz
     url: https://github.com/uclouvain/openjpeg/archive/version.2.1.tar.gz
+    md5: 3e1c451c087f8462955426da38aa3b3d
 
 build:
-    number: 0
-    skip: True  # [win]
+    number: 1
+    features:
+        - vc9  # [win and py27]
+        - vc10  # [win and py34]
+        - vc14  # [win and py35]
 
 requirements:
     build:
+        - python  # [win]
         - cmake
+        - libtiff
+        - libpng
+        - zlib
     run:
+        - libtiff
+        - libpng
+        - zlib
+
+test:
+    files:
+        - p0_01.j2k
+    commands:
+        - opj_dump -i p0_01.j2k
 
 about:
     home: http://www.openjpeg.org/
     license: 2-clauses BSD (https://github.com/uclouvain/openjpeg/blob/master/LICENSE)
-    summary: 'An open-source JPEG 2000 codec written in C'
+    summary: An open-source JPEG 2000 codec written in C
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - gillins

@@ -32,4 +32,4 @@ script:
       else
         export UPLOAD="--upload-channels ioos";
       fi
-    - conda-build-all ./ $UPLOAD --inspect-channels ioos --matrix-conditions "numpy >=1.9" "python >=2.7,<3|>=3.4"
+    - conda-build-all ./ $UPLOAD --inspect-channels ioos --matrix-conditions "numpy >=1.9,<=1.10" "python >=2.7,<3|>=3.4"
