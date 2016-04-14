@@ -1,7 +1,20 @@
-# This is a placeholder meta, the canonical one comes from source.txt
-
 package:
-   name: pyepsg
+    name: pyepsg
+    version: "0.2.0"
 
-build:
-   script: exit 1
+source:
+    git_url: https://github.com/rhattersley/pyepsg.git
+    git_tag: v0.2.0
+
+requirements:
+    build:
+        - python
+
+    run:
+        - python
+        - requests
+
+about:
+    home: https://pypi.python.org/pypi/pyepsg
+    license: LGPL
+    summary: Easy access to the EPSG database via http://epsg.io/

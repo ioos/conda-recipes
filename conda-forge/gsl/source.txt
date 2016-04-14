@@ -1,3 +1,0 @@
-gh-repo: conda-forge/gsl-feedstock
-git-tag: master
-contents: recipe/*

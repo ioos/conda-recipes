@@ -1,7 +1,44 @@
-# This is a placeholder meta, the canonical one comes from source.txt
+{% set version = "3.4.2" %}
 
 package:
-   name: geos
+    name: geos
+    version: {{ version }}
+
+source:
+    fn:  geos-{{ version }}.tar.bz2
+    url: http://download.osgeo.org/geos/geos-{{ version }}.tar.bz2
+    md5: fc5df2d926eb7e67f988a43a92683bae
+    patches:
+        - cmake.win.patch  # [win]
+        - lineintersector.patch  # [win and py35]
+        - wktwriter.patch  # [win and py35]
+        - bufferopp.patch  # [win and py35]
+        - offsetcurvebuilder.patch  # [win and py35]
+        - offsetcurvesetbuilder.patch  # [win and py35]
 
 build:
-   script: exit 1
+    number: 1
+    features:
+        - vc9  # [win and py27]
+        - vc10  # [win and py34]
+        - vc14  # [win and py35]
+
+requirements:
+    build:
+        - python  # [win]
+        - msinttypes  # [win]
+
+test:
+    commands:
+        - geos-config --version  # [not win]
+
+about:
+    home: http://trac.osgeo.org/geos/
+    license: LGPL
+    summary: Geometry Engine - Open Source
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - pelson
+    - gillins

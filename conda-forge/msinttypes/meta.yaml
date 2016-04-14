@@ -1,7 +1,11 @@
-# This is a placeholder meta, the canonical one comes from source.txt
-
 package:
-   name: msinttypes
+  name: msinttypes
+  version: r26
 
-build:
-   script: exit 1
+build:  # [not win]
+    skip: True  # [not win]
+
+source:
+  url: https://msinttypes.googlecode.com/files/msinttypes-r26.zip 
+  fn: msinttypes-r26.zip
+

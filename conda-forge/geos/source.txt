@@ -1,3 +1,0 @@
-gh-repo: conda-forge/geos-feedstock
-git-tag: master
-contents: recipe/*

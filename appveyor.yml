@@ -37,17 +37,12 @@ environment:
       PY_CONDITION: "python >=3.5"
 
 
-# We always use a 64-bit machine, but can build x86 distributions
-# with the TARGET_ARCH variable.
+# We always use a 64-bit machine, but can build x86 distributions with the TARGET_ARCH variable.
 platform:
     - x64
 
 install:
-    # If there is a newer build queued for the same PR, cancel this one.
-    # The AppVeyor 'rollout builds' option is supposed to serve the same
-    # purpose but it is problematic because it tends to cancel builds pushed
-    # directly to master instead of just PR builds (or the converse).
-    # credits: JuliaLang developers.
+    # If there is a newer build queued for the same PR cancel the previous one.
     - ps: if ($env:APPVEYOR_PULL_REQUEST_NUMBER -and $env:APPVEYOR_BUILD_NUMBER -ne ((Invoke-RestMethod `
          https://ci.appveyor.com/api/projects/$env:APPVEYOR_ACCOUNT_NAME/$env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
          Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
@@ -68,14 +63,12 @@ install:
     - cmd: conda update --yes --quiet conda
     - cmd: set PYTHONUNBUFFERED=1
 
-    - cmd: conda config --set show_channel_urls yes
     - cmd: conda config --add channels ioos
-    - cmd: conda install --yes --quiet obvious-ci --channel conda-forge
+    - cmd: conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
     - cmd: obvci_install_conda_build_tools.py
-    - cmd: conda install --yes conda-build=1.18.2
 
     # Expand external recipes sources.
-    - cmd: conda install conda-execute --yes
+    - cmd: conda install --yes --quiet conda-execute --channel conda-forge
     - cmd: conda execute -v scripts/expand_source.py
 
     - cmd: conda info
@@ -84,4 +77,5 @@ install:
 build: off
 
 test_script:
-    - '%CMD_IN_ENV% obvci_conda_build_dir .\ ioos --channel main  --build-condition "numpy >=1.9" "%PY_CONDITION%"'
+    - cmd: if not "%BINSTAR_TOKEN%" == "" (set UPLOAD=--upload-channels ioos) else (set UPLOAD=)
+    - '%CMD_IN_ENV% conda-build-all .\ %UPLOAD% --inspect-channels ioos --matrix-conditions "numpy >=1.9" "%PY_CONDITION%"'

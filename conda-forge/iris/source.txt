@@ -1,3 +1,0 @@
-gh-repo: SciTools/conda-recipes-scitools
-git-tag: master
-contents: iris/*

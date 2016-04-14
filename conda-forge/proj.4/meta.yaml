@@ -1,7 +1,29 @@
-# This is a placeholder meta, the canonical one comes from source.txt
-
 package:
-   name: proj.4
+    name: proj.4
+    version: "4.9.1"
+
+source:
+    fn:  proj-4.9.1.tar.gz
+    url: http://download.osgeo.org/proj/proj-4.9.1.tar.gz
+    md5: 3cbb2a964fd19a496f5f4265a717d31c
+    patches:
+        - make_check.patch  # [osx]
 
 build:
-   script: exit 1
+    number: 1
+    skip: True  # [py35 and win32]
+
+requirements:
+    run:
+        # The VS version is important. See # https://github.com/SciTools/conda-recipes-scitools/issues/94.
+        - python  # [win]
+
+test:
+    commands:
+        - echo -105 40 | proj +proj=utm +zone=13 +ellps=WGS84
+        - echo -117 30 | cs2cs +proj=latlong +datum=NAD27 +to +proj=latlong +datum=NAD83
+
+about:
+    home: http://trac.osgeo.org/proj/
+    license: MIT
+    summary: 'Cartographic projection software'
