@@ -78,4 +78,4 @@ build: off
 
 test_script:
     - cmd: if not "%BINSTAR_TOKEN%" == "" (set UPLOAD=--upload-channels ioos) else (set UPLOAD=)
-    - '%CMD_IN_ENV% conda-build-all .\ %UPLOAD% --inspect-channels ioos --matrix-conditions "numpy >=1.9" "%PY_CONDITION%"'
+    - '%CMD_IN_ENV% conda-build-all .\ %UPLOAD% --inspect-channels ioos --matrix-conditions "numpy >=1.9,<=1.10" "%PY_CONDITION%"'

@@ -1,11 +1,17 @@
+{% set version = "0.4.0" %}
+
 package:
     name: pywavelets
-    version: "0.4.0"
+    version: {{ version }}
 
 source:
-    fn: PyWavelets-0.4.0.tar.gz
-    url: https://pypi.python.org/packages/source/P/PyWavelets/PyWavelets-0.4.0.tar.gz
+    fn: PyWavelets-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/P/PyWavelets/PyWavelets-{{ version }}.tar.gz
     md5: 5b41cd6bf4bd7645aee8eaae72816853
+
+build:
+    number: 0
+    script: python setup.py install
 
 requirements:
     build:
@@ -23,4 +29,8 @@ test:
 about:
     home: https://github.com/PyWavelets/pywt
     license: MIT
-    summary: 'Discrete Wavelet Transforms in Python.'
+    summary: Discrete Wavelet Transforms in Python
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
