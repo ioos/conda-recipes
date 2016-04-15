@@ -6,21 +6,17 @@ RUN yum -y update && yum clean all
 
 # Build tools.
 RUN yum install -y bzip2 \
-                   check-devel \
-                   file \
                    gcc-c++ \
-                   gcc-java \
-                   gcc-gfortran \
                    git \
-                   hg \
-                   libtool \
                    make \
                    patch \
                    tar \
-                   texinfo \
-                   wget \
                    which \
-                   cmake
+                   libXext \
+                   libXrender \
+                   libSM \
+                   libX11-devel && \
+                   file
 
 RUN yum groupinstall -y 'Development Tools'
 
@@ -31,15 +27,6 @@ RUN /opt/conda/bin/conda config --add channels ioos --force
 RUN /opt/conda/bin/conda install -c pelson/channel/development --yes obvious-ci --force
 
 RUN PATH=/opt/conda/bin:$PATH obvci_install_conda_build_tools.py
-
-# Qt, matplotlib, and vispy.
-RUN yum install -y libXext libSM libXrender fontconfig mesa-libGL
-
-# udunits2.
-RUN yum install -y expat-devel
-
-# nco.
-RUN yum install -y bison byacc flex
 
 ENV PATH /opt/conda/bin:$PATH
 ENV LANG en_US.UTF-8
