@@ -15,7 +15,7 @@ RUN yum install -y bzip2 \
                    libXext \
                    libXrender \
                    libSM \
-                   libX11-devel && \
+                   libX11-devel \
                    file
 
 RUN yum groupinstall -y 'Development Tools'
