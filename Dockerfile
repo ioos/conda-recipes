@@ -16,7 +16,8 @@ RUN yum install -y bzip2 \
                    libXrender \
                    libSM \
                    libX11-devel \
-                   file
+                   file \
+                   wget
 
 RUN yum groupinstall -y 'Development Tools'
 
@@ -30,7 +31,3 @@ RUN PATH=/opt/conda/bin:$PATH obvci_install_conda_build_tools.py
 
 ENV PATH /opt/conda/bin:$PATH
 ENV LANG en_US.UTF-8
-
-# Workaround until https://github.com/conda/conda-build/pull/731 makes into a
-# release.
-RUN ln -s /usr/bin/gunzip /usr/bin/uncompress
