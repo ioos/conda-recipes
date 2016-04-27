@@ -1,0 +1,34 @@
+{% set version = "2016.04.25" %}
+
+package:
+    name: regex
+    version: {{ version }}
+
+source:
+    fn: regex-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/64/bf/585f12c0effb356a43ebc56d0129302e64e43668578e1ec8081136e29c00/regex-{{ version }}.tar.gz
+    md5: 2531484af7428826a89f9e0147ed9633
+
+build:
+    number: 0
+    script: python setup.py install
+
+requirements:
+    build:
+        - python
+    run:
+        - python
+
+test:
+    imports:
+        - regex
+
+about:
+    home: https://bitbucket.org/mrabarnett/mrab-regex
+    license: Python-2.0
+    summary: Alternative regular expression module, to replace re.
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox

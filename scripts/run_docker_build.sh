@@ -46,9 +46,6 @@ conda clean --lock
 
 conda info
 
-# Expand external recipes sources.
-python /conda-recipes/scripts/expand_source.py
-
-conda-build-all /conda-recipes $UPLOAD --inspect-channels $UPLOAD_OWNER --matrix-conditions "numpy >=1.9,<=1.10" "python >=2.7,<3|>=3.4"
+conda-build-all /conda-recipes/recipes $UPLOAD --inspect-channels $UPLOAD_OWNER --matrix-conditions "numpy >=1.9,<=1.10" "python >=2.7,<3|>=3.4"
 
 EOF
