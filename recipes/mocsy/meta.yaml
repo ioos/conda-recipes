@@ -1,23 +1,29 @@
+{% set version = "2.0.1" %}
+{% set commit = "348704bab6e34b1da297e01350ff93465a45d306" %}
+
 package:
     name: mocsy
-    version: "2.0.1"
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/ocefpaf/mocsy.git
-    git_tag: python_package
+    fn: mocsy-{{ commit }}.tar.gz
+    url: https://github.com/ocefpaf/mocsy/archive/{{ commit }}.tar.gz
+    sha256: f78e03bacd5c325f0230a4780ac334f052852c1f52bc71bad5a4f6c586c1e22b
 
 build:
     number: 0
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
         - mingwpy  # [win]
-        - numpy
+        - numpy x.x
+        - gcc
     run:
         - python
-        - numpy
+        - numpy x.x
+        - libgcc
 
 test:
     imports:
@@ -25,5 +31,9 @@ test:
 
 about:
     home: https://github.com/jamesorr/mocsy.git
-    license: MIT License
-    summary: 'Routines to model ocean carbonate system thermodynamics'
+    license: MIT
+    summary: Routines to model ocean carbonate system thermodynamics
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
