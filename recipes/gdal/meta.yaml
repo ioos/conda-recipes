@@ -36,8 +36,8 @@ requirements:
         - krb5
         - libpng 1.6*
         - openjpeg
-        - libtiff 4.0.6
-        - jpeg 9*
+        - libtiff 4*
+        - jpeg 8*
         - curl
         - expat
         - zlib 1.2*  # [not win]
@@ -59,8 +59,8 @@ requirements:
         - krb5
         - libpng 1.6*
         - openjpeg
-        - libtiff 4.0.6
-        - jpeg 9*
+        - libtiff 4*
+        - jpeg 8*
         - curl
         - expat
         - zlib 1.2*  # [not win]
