@@ -19,11 +19,11 @@ requirements:
         - setuptools
         - mingwpy  # [win]
         - numpy x.x
-        - gcc
+        - gcc  # [not win]
     run:
         - python
         - numpy x.x
-        - libgcc
+        - libgcc  # [not win]
 
 test:
     imports:
