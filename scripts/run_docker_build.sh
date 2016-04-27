@@ -39,7 +39,7 @@ echo "$config" > ~/.condarc
 conda update --yes --quiet conda
 conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
 conda install --yes anaconda-client
-conda install --yes conda-build
+conda install --yes conda-build=1.20.0
 
 # A lock sometimes occurs with incomplete builds.
 conda clean --lock
