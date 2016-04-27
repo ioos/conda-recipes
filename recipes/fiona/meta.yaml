@@ -1,15 +1,16 @@
+{% set version = "1.6.3" %}
+
 package:
     name: fiona
-    version: "1.6.3"
+    version: {{ version }}
 
 source:
-    fn: Fiona-1.6.3.tar.gz
-    url: https://pypi.python.org/packages/source/F/Fiona/Fiona-1.6.3.tar.gz
-    md5: f6b70e1a30fc8db597c360e375d186de
+    fn: Fiona-{{ version }}.post1.tar.gz
+    url: https://pypi.python.org/packages/source/F/Fiona/Fiona-{{ version }}.post1.tar.gz
+    md5: f68a470455f92cb45d56e4a549a2161c
 
 build:
-    number: 0
-    skip: True  # [win and py35]
+    number: 5
     preserve_egg_dir: True
     entry_points:
         - fio=fiona.fio.main:main_group
@@ -19,17 +20,17 @@ requirements:
         - python
         - cython
         - setuptools
-        - gdal ==1.11.3
         - numpy x.x
+        - gdal 1.11.4
     run:
         - python
         - setuptools
+        - numpy x.x
+        - gdal 1.11.4
         - cligj
         - munch
         - click-plugins
         - six
-        - gdal ==1.11.3
-        - numpy x.x
 
 test:
     imports:
@@ -37,6 +38,7 @@ test:
         - fiona.fio
     commands:
         - fio --help
+        - conda inspect linkages fiona --name _test  # [linux]
     requires:
         - nose
     files:
@@ -48,4 +50,8 @@ test:
 about:
     home: http://github.com/Toblerity/Fiona
     license: BSD License
-    summary: 'Fiona reads and writes spatial data files'
+    summary: Fiona reads and writes spatial data files
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

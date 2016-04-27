@@ -1,4 +1,4 @@
-{% set version = "1.2.3.1" %}
+{% set version = "1.2.4" %}
 
 package:
     name: netcdf4
@@ -7,10 +7,10 @@ package:
 source:
     fn: netCDF4-{{ version }}.tar.gz
     url: https://pypi.python.org/packages/source/n/netCDF4/netCDF4-{{ version }}.tar.gz
-    md5: 24fc0101c7c441709c230e76af611d53
+    md5: fb8083a17644bd559887b026fddd18a8
 
 build:
-    number: 2
+    number: 1
     entry_points:
         - ncinfo = netCDF4.utils:ncinfo
         - nc4tonc3 = netCDF4.utils:nc4tonc3
@@ -22,14 +22,14 @@ requirements:
         - setuptools
         - numpy x.x
         - cython
-        - hdf5 1.8.15.1
-        - libnetcdf
+        - hdf5 1.8.15*
+        - libnetcdf 4.3*
     run:
         - python
         - setuptools
         - numpy x.x
-        - hdf5 1.8.15.1
-        - libnetcdf
+        - hdf5 1.8.15*
+        - libnetcdf 4.3*
 
 test:
     imports:

@@ -1,13 +1,13 @@
-{% set version = "1.4.0" %}
+{% set version = "1.5.0" %}
 
 package:
     name: windspharm
     version: {{ version }}
 
 source:
-    fn: v{{ version }}.tar.gz
+    fn: windspharm-{{ version }}.tar.gz
     url: https://github.com/ajdawson/windspharm/archive/v{{ version }}.tar.gz
-    md5: 6f7b17b1ea821c5d5c63c5de175c585d
+    sha256: 33db44ccdc6df51d8bf801efa488bad5e171dec5d0b0cc17e500b495552dbda4
 
 build:
     number: 0
