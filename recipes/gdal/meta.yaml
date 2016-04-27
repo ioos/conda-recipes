@@ -1,0 +1,113 @@
+{% set version = "1.11.4" %}
+
+package:
+    name: gdal
+    version: {{ version }}
+
+source:
+    fn: gdal-{{ version }}.tar.gz
+    url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.gz
+    md5: e9a966f0f5a88c43da47faf78a865952
+    patches:
+        - clang.patch  # [osx]
+        - prepend-dll.patch  # [win]
+        - MSC_VER_1900_snprintf.patch  # [win]
+        - install_scripts.patch
+
+build:
+    number: 7
+    features:
+        - vc9  # [win and py27]
+        - vc10  # [win and py34]
+        - vc14  # [win and py35]
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - cmake  # [win]
+        - numpy x.x
+        - hdf4  # [not win]
+        - hdf5 1.8.15.1
+        - geos
+        - proj.4
+        - xerces-c
+        - libnetcdf 4.3*
+        - krb5
+        - libpng 1.6*
+        - openjpeg
+        - libtiff 4.0.6
+        - jpeg 9*
+        - curl
+        - expat
+        - zlib 1.2*  # [not win]
+        - postgresql  # [not win]
+        - jasper  # [not win]
+        - giflib  # [not win]
+        - json-c  # [not win]
+        - freexl  # [not win]
+        - libspatialite  # [not win]
+    run:
+        - python
+        - numpy x.x
+        - hdf4  # [not win]
+        - hdf5 1.8.15.1
+        - geos
+        - proj.4
+        - xerces-c
+        - libnetcdf 4.3*
+        - krb5
+        - libpng 1.6*
+        - openjpeg
+        - libtiff 4.0.6
+        - jpeg 9*
+        - curl
+        - expat
+        - zlib 1.2*  # [not win]
+        - postgresql  # [not win]
+        - jasper  # [not win]
+        - giflib  # [not win]
+        - json-c  # [not win]
+        - freexl  # [not win]
+        - libspatialite  # [not win]
+test:
+    files:
+        - os1_hw.py
+        - sites.dbf
+        - sites.sbn
+        - sites.sbx
+        - sites.shp
+        - sites.shx
+        - cropped.cub
+    imports:
+        - osr
+        - gdal
+        - gdalconst
+        - osgeo
+        - osgeo.ogr
+        - osgeo.gdal
+        - osgeo._gdal
+        - osgeo._gdalconst
+        - osgeo._ogr
+        - osgeo._osr
+    commands:
+        - ogrinfo sites.shp
+        - gdal_grid --version
+        - gdal_rasterize --version
+        - gdal_translate --version
+        - gdaladdo --version
+        - gdalenhance --version
+        - gdalwarp --version
+        - gdalinfo --formats
+        - conda inspect linkages -n _test gdal  # [linux]
+
+about:
+    home: http://www.gdal.org/
+    license: MIT
+    summary: The Geospatial Data Abstraction Library (GDAL)
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - kmuehlbauer
+    - gillins
