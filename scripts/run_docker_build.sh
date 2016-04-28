@@ -16,7 +16,7 @@ channels:
  - ${UPLOAD_OWNER}
  - defaults
 
-show_channel_urls: True
+show_channel_urls: true
 
 CONDARC
 )

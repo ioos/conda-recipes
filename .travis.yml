@@ -19,6 +19,7 @@ install:
 
     # This numpy variable is not used, but conda-build complains if we haven't set it already.
     - export CONDA_NPY=19
+    - conda config --set show_channel_urls true
 
     - conda config --add channels ioos
     - conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
