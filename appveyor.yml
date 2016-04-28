@@ -62,6 +62,7 @@ install:
           $env:path="$root;$root\Scripts;$root\Library\bin;$($env:path)"
     - cmd: conda update --yes --quiet conda
     - cmd: set PYTHONUNBUFFERED=1
+    - cmd: conda config --set show_channel_urls true
 
     - cmd: conda config --add channels ioos
     - cmd: conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
