@@ -1,6 +1,6 @@
 package:
     name: libiconv
-    version: "1.14"
+    version: 1.14
 
 source:
     fn: libiconv-1.14.tar.gz
@@ -10,19 +10,21 @@ source:
         - patch1.patch  # [linux]
 
 build:
-    number: 0
+    number: 1
     skip: True  # [win]
-
-requirements:
-    build:
-        - gcc
 
 test:
     commands:
         - iconv --help
-        - conda inspect linkages libiconv --name _test
+        - conda inspect linkages -n _test libiconv  # [linux]
 
 about:
     home: https://www.gnu.org/software/libiconv/
     license: GPL and LGPL
-    summary: "Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)"
+    summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - jakirkham
+        - jhamman
