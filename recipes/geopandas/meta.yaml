@@ -1,15 +1,18 @@
+{% set version = "0.2.0.dev0" %}
+{% set commit = "c15c2b7ebc7151261f00f1d29a838bfd82c6341e" %}
+
 package:
     name: geopandas
-    version: "0.1.1"
+    version: {{ version }}
 
 source:
-    fn: geopandas-0.1.1.tar.gz
-    url: https://pypi.python.org/packages/source/g/geopandas/geopandas-0.1.1.tar.gz
-    md5: a01b5d3eb6bc097665a0ba297c39029f
+    fn: geopandas-{{ version }}.tar.gz
+    url: https://github.com/geopandas/geopandas/archive/{{ commit }}.tar.gz
+    sha256: 0beb969e0a17a41076436ba7d536a5e763de9733665c42c6f902dc8490a5eaf0
 
 build:
-    skip: True  # [py35 and win]
-    number: 2
+    number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -22,7 +25,7 @@ requirements:
         - pyproj
         - shapely
         - fiona
-        - gdal ==1.11.3  # We need to pin gdal until fiona works with gdal >2.
+        - gdal 1.11.4
         - six
         - rtree
         - descartes
@@ -30,7 +33,7 @@ requirements:
         - psycopg2  # [not win]
         - sqlalchemy
         - geopy ==1.10.0
-        - pysal  # [not py3k]
+        - pysal
 
 test:
     imports:
@@ -44,5 +47,10 @@ test:
 
 about:
     home: http://geopandas.org
-    license: BSD
-    summary: 'Geographic pandas extensions'
+    license: BSD-3-clause
+    summary: Geographic pandas extensions
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - jorisvandenbossche
