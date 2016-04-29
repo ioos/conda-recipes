@@ -10,7 +10,7 @@ source:
     md5: 59d281614c87d0c767134c55de20a8a9
 
 build:
-    number: 4
+    number: 5
     skip: True  # [win]
 
 requirements:
@@ -21,13 +21,13 @@ requirements:
         - pkg-config
         - icu
         - libiconv
-        - zlib
-        - xz
+        - zlib 1.2*
+        - xz 5.0.*  # [not win]
     run:
         - icu
         - libiconv
-        - zlib
-        - xz
+        - zlib 1.2*
+        - xz 5.0.*  # [not win]
 
 test:
     files:
