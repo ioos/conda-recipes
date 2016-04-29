@@ -1,14 +1,17 @@
+{% set version = "5.2.2" %}
+
 package:
     name: qrcode
-    version: "5.2.2"
+    version: {{ version }}
 
 source:
-    fn: qrcode-5.2.2.tar.gz
-    url: https://pypi.python.org/packages/source/q/qrcode/qrcode-5.2.2.tar.gz
+    fn: qrcode-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/q/qrcode/qrcode-{{ version }}.tar.gz
     md5: 19b0c93e80087b31681080536f1bfbbd
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
     entry_points:
         - qr = qrcode.console_scripts:main
 
@@ -32,5 +35,9 @@ test:
 
 about:
     home: https://github.com/lincolnloop/python-qrcode
-    license: BSD License
-    summary: 'QR Code image generator'
+    license: BSD-3-Clause
+    summary: QR Code image generator
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

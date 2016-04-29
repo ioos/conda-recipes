@@ -8,22 +8,32 @@ source:
     sha1: a0d30024af16749a4a5ca60133b32735ae52f9e2
 
 build:
-    number: 0
+    number: 1
+    detect_binary_files_with_prefix: true
+    features:
+        - vc9  # [win and py27]
+        - vc10  # [win and py34]
+        - vc14  # [win and py35]
 
 requirements:
     build:
-        - expat  # [not osx]
+        - python  # [win]
+        - cmake  # [win]
+        - automake  # [not win]
+        - libtool  # [not win]
+        - texinfo  # [not win]
+        - expat
     run:
-        - expat  # [not osx]
-
-build:
-    number: 0
-    detect_binary_files_with_prefix: true
+        - expat
 
 test:
+    requires:
+        # Tests don't really need Python, but conda throws
+        - python {{ environ['PY_VER'] + '*' }}  # [win]
     commands:
         - udunits2 -h
         - udunits2 -H meter -W miles
+        - conda inspect linkages udunits2 --name _test  # [linux]
 
 about:
     home: http://www.unidata.ucar.edu/software/udunits/
@@ -32,6 +42,6 @@ about:
 
 extra:
     recipe-maintainers:
+        - kwilcox
         - ocefpaf
         - pelson
-        - kwilcox

@@ -1,6 +1,6 @@
 package:
     name: seawater
-    version: "3.3.4"
+    version: 3.3.4
 
 source:
     fn: seawater-3.3.4.tar.gz
@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -25,4 +26,8 @@ test:
 about:
     home: http://pypi.python.org/pypi/seawater/
     license: MIT License
-    summary: 'Seawater Library for Python'
+    summary: Seawater Library for Python
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

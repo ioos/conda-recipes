@@ -1,14 +1,17 @@
+{% set version = "0.2.5" %}
+
 package:
     name: oceans
-    version: "0.2.5"
+    version: {{ version }}
 
 source:
-    fn: oceans-0.2.5.tar.gz
-    url: https://pypi.python.org/packages/source/o/oceans/oceans-0.2.5.tar.gz
+    fn: oceans-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/o/oceans/oceans-{{ version }}.tar.gz
     md5: f8a7f628fcfffeafe5465eabc2e33400
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed  --record record.txt
 
 requirements:
     build:
@@ -25,7 +28,6 @@ requirements:
         - shapely
         - netcdf4
         - ctd
-        - iris  # [not py3k]
 
 test:
     imports:
@@ -33,5 +35,9 @@ test:
 
 about:
     home: http://pypi.python.org/pypi/oceans/
-    license: MIT License
-    summary: 'Misc functions for oceanographic data analysis'
+    license: MIT
+    summary: Misc functions for oceanographic data analysis
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

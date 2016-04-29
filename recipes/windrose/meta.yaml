@@ -1,6 +1,6 @@
 package:
     name: windrose
-    version: "1.6"
+    version: 1.6
 
 source:
     fn: windrose-1.6.tar.gz
@@ -11,6 +11,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -28,4 +29,8 @@ test:
 about:
     home: https://github.com/scls19fr/windrose
     license: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)
-    summary: 'Python Matplotlib, Numpy library to manage wind data, draw windrose (also known as a polar rose plot)'
+    summary: Python Matplotlib, Numpy library to manage wind data, draw windrose.
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

@@ -1,13 +1,16 @@
+{% set version = "0.3.0" %}
+
 package:
     name: yaml2ncml
-    version: "0.3.0"
+    version: {{ version }}
 
 source:
     git_url: https://github.com/usgs-cmg/yaml2ncml.git
-    git_tag: 0.3.0
+    git_tag: {{ version }}
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -25,5 +28,9 @@ test:
 
 about:
     home: https://github.com/rsignell-usgs/yaml2ncml
-    license: MIT License
-    summary: 'NcML aggregation from YAML specification'
+    license: MIT
+    summary: NcML aggregation from YAML specification
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

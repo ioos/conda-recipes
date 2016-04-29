@@ -1,14 +1,17 @@
+{% set version = "0.6.2" %}
+
 package:
     name: docopt
-    version: "0.6.2"
+    version: {{ version }}
 
 source:
-    fn: docopt-0.6.2.tar.gz
-    url: https://pypi.python.org/packages/source/d/docopt/docopt-0.6.2.tar.gz
+    fn: docopt-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/d/docopt/docopt-{{ version }}.tar.gz
     md5: 4bc74561b37fad5d3e7d037f82a4c3b1
 
 build:
-    number: 1
+    number: 0
+    script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
     build:
@@ -23,5 +26,9 @@ test:
 
 about:
     home: http://docopt.org
-    license: MIT License
-    summary: 'Pythonic argument parser, that will make you smile'
+    license: MIT
+    summary: Pythonic argument parser, that will make you smile
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

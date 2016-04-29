@@ -1,6 +1,6 @@
 package:
     name: requests-toolbelt
-    version: "0.6.0"
+    version: 0.6.0
 
 source:
     fn: requests-toolbelt-0.6.0.tar.gz
@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -30,5 +31,10 @@ test:
 
 about:
     home: https://toolbelt.readthedocs.org
-    license: Apache
-    summary: 'A utility belt for advanced users of python-requests'
+    license: Apache-2.0
+    summary: A utility belt for advanced users of python-requests
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox

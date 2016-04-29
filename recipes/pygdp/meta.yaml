@@ -1,17 +1,22 @@
+{% set version = "2.0.1" %}
+
 package:
     name: pygdp
-    version: "2.0.1"
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/USGS-CIDA/pyGDP.git
-    git_tag: v"2.0.1"
+    fn: v{{ version }}.tar.gz
+    url: https://github.com/USGS-CIDA/pyGDP/archive/v{{ version }}.tar.gz
+    sha256: fb64a5d665a5218b2bc105beb768ece199d21166c99a445a0792c372ba2e99a3
 
 build:
-    number: 3
+    number: 0
+    skip: True  # [py3k]
+    script: python setup.py install --single-version-externally-managed  --record record.txt
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
         - owslib
     run:
@@ -25,5 +30,10 @@ test:
 
 about:
     home: https://github.com/USGS-CIDA/pyGDP
-    license: CC0
-    summary: 'python interface to facilitate working with USGS-CIDA Geo Data Portal web services'
+    license: Public Domain
+    summary: Python interface to facilitate working with USGS-CIDA Geo Data Portal web services
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - ayan-usgs

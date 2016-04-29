@@ -1,16 +1,38 @@
+{% set version = "1.8.5" %}
+
 package:
     name: libspatialindex
-    version: 1.8.5
+    version: {{ version }}
 
 source:
-    fn: spatialindex-src-1.8.5.tar.gz
-    url: http://download.osgeo.org/libspatialindex/spatialindex-src-1.8.5.tar.gz
+    fn: spatialindex-src-{{ version }}.tar.gz
+    url: http://download.osgeo.org/libspatialindex/spatialindex-src-{{ version }}.tar.gz
     md5: 4065c6218ce3d1c4906beb3a313470db
+    patches:
+        - tool.h.patch  # [win and py35]
+        - cmakelists.patch  # [win and py35]
 
 build:
     number: 1
+    features:
+        - vc9  # [win and py27]
+        - vc10  # [win and py34]
+        - vc14  # [win and py35]
+
+requirements:
+    build:
+        - python  # [win]
+
+test:
+    commands:
+        - test -f ${PREFIX}/lib/libspatialindex_c.so  # [linux]
+        - test -f ${PREFIX}/lib/libspatialindex_c.dylib  # [osx]
 
 about:
     home: http://libspatialindex.github.io
     license: MIT
-    summary: 'Extensible framework for robust spatial indexing'
+    summary: Extensible framework for robust spatial indexing
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

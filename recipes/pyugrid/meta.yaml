@@ -1,13 +1,17 @@
+{% set version = "0.1.6" %}
+
 package:
     name: pyugrid
-    version: "0.1.6"
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/pyugrid/pyugrid.git
-    git_tag: "0.1.6"
+    fn: pyugrid-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/p/pyugrid/pyugrid-{{ version }}.tar.gz
+    md5: cb1c1196fefa44fae555659aeb91b7ee
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -26,4 +30,9 @@ about:
     home: https://github.com/pyugrid/pyugrid
     license: BSD
     summary: A Python API to utilize data written using the unstructured grid UGRID conventions.
-    home: https://github.com/pyugrid/pyugrid
+
+extra:
+    recipe-maintainers:
+        - pelson
+        - rhattersley
+        - ocefpaf

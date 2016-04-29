@@ -1,18 +1,22 @@
+{% set version = "3.1.1" %}
+
 package:
     name: pydap
-    version: "3.1.1"
+    version: {{ version }}
 
 source:
-    fn: Pydap-3.1.1.tar.gz
-    url: https://pypi.python.org/packages/source/P/Pydap/Pydap-3.1.1.tar.gz
+    fn: Pydap-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/P/Pydap/Pydap-{{ version }}.tar.gz
     md5: d13630328c121eeeb0e0f015eb9e7124
 
 build:
     number: 0
+    skip: True  # [py3k]
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
     run:
         - python
@@ -28,6 +32,10 @@ test:
         - pydap
 
 about:
-    home:  http://pydap.org/
-    license: MIT License
-    summary: 'Pure Python Opendap/DODS client and server'
+    home: http://pydap.org/
+    license: MIT
+    summary: Pure Python Opendap/DODS client and server
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

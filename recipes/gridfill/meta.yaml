@@ -1,24 +1,28 @@
+{% set version = "0.3.0" %}
+
 package:
     name: gridfill
-    version: "0.3.0"
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/ajdawson/gridfill.git
-    git_tag: v0.3.0
+    fn: v{{ version }}.tar.gz
+    url: https://github.com/ajdawson/gridfill/archive/v{{ version }}.tar.gz
+    md5: 4d26437253b77d756e5b37e516c63b51
 
 build:
     number: 0
-    skip: True  # [py3k and win or win64]
+    skip: True  # [win and py3k or win64]
 
 requirements:
     build:
         - python
         - numpy x.x
         - mingwpy  # [win]
+        - gcc  # [unix]
     run:
         - python
         - numpy x.x
-        - iris  # [not py3k]
+        - libgcc  # [unix]
 
 test:
     requires:
@@ -29,4 +33,9 @@ test:
 about:
     home: https://github.com/ajdawson/gridfill
     license: MIT
-    summary: "Fill missing values in a grid by solving Poisson's equation via an iterative relaxation scheme."
+    summary: Fill missing values in a grid by solving Poisson's equation via an iterative relaxation scheme
+
+extra:
+    recipe-maintainers:
+        - ajdawson
+        - ocefpaf

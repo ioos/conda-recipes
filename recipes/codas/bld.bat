@@ -1,5 +1,3 @@
-conda clean --yes --source-cache
-
 "%PYTHON%" waf --check-c-compiler=gcc configure build --prefix="%PREFIX%"
 if errorlevel 1 exit 1
 

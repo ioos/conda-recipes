@@ -1,6 +1,6 @@
 package:
     name: django-typed-models
-    version: "0.5.0"
+    version: 0.5.0
 
 source:
     fn: django-typed-models-0.5.0.tar.gz
@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install
 
 requirements:
     build:
@@ -23,5 +24,10 @@ test:
 
 about:
     home: http://github.com/craigds/django-typed-models
-    license: BSD License
-    summary: 'Sane single table model inheritance for Django'
+    license: BSD-3-Clause
+    summary: Sane single table model inheritance for Django
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox

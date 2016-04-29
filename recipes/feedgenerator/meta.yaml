@@ -1,14 +1,17 @@
+{% set version = "1.8" %}
+
 package:
     name: feedgenerator
-    version: "1.7"
+    version: {{ version }}
 
 source:
-    fn: feedgenerator-1.7.tar.gz
-    url: https://pypi.python.org/packages/source/f/feedgenerator/feedgenerator-1.7.tar.gz
-    md5: 92978492871342ad64e8ae0ccfcf200c
+    fn: feedgenerator-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/f/feedgenerator/feedgenerator-{{ version }}.tar.gz
+    md5: 1ca75c35334f82b9aa51f38b20b714e6
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -16,7 +19,7 @@ requirements:
         - setuptools
     run:
         - python
-        - pytz >=0a
+        - pytz
         - six
 
 test:
@@ -27,5 +30,9 @@ test:
 
 about:
     home: https://github.com/dmdm/feedgenerator-py3k.git
-    license: BSD License
-    summary: 'Standalone version of django.utils.feedgenerator, compatible with Py3k'
+    license: BSD-3-Clause
+    summary: Standalone version of django.utils.feedgenerator, compatible with Py3k
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

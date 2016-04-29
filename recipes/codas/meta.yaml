@@ -3,7 +3,7 @@ package:
     version: "3.0.dev"
 
 source:
-    fn: tip.tar.gz
+    fn: codas-tip.tar.gz
     url: http://currents.soest.hawaii.edu/hg/codas3/archive/tip.tar.gz
 
 build:

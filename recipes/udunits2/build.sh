@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [[ $(uname) != Darwin ]]; then
-    yum install -y automake libtool texinfo
-fi
-
-
 if [ ! -f configure ];
 then
    autoreconf -i --force

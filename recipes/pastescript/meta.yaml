@@ -1,6 +1,6 @@
 package:
     name: pastescript
-    version: "2.0.2"
+    version: 2.0.2
 
 source:
     fn: PasteScript-2.0.2.tar.gz
@@ -9,10 +9,12 @@ source:
 
 build:
     number: 0
+    skip: True  # [py3k]
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
         - paste >=1.3
         - pastedeploy
@@ -33,5 +35,9 @@ test:
 
 about:
     home: http://pythonpaste.org/script/
-    license: MIT License
-    summary: 'A pluggable command-line frontend, including commands to setup package file layouts'
+    license: MIT
+    summary: A pluggable command-line frontend, including commands to setup package file layouts
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

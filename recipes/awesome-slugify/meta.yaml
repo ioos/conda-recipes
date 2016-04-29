@@ -1,6 +1,6 @@
 package:
     name: awesome-slugify
-    version: "1.6.5"
+    version: 1.6.5
 
 source:
     fn: awesome-slugify-1.6.5.tar.gz
@@ -11,6 +11,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -27,5 +28,11 @@ test:
 
 about:
     home: https://github.com/dimka665/awesome-slugify
-    license: GNU General Public License v3 (GPLv3)
-    summary: 'Python flexible slugify function'
+    license: GPL-3.0
+    summary: Python flexible slugify function
+
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox
