@@ -1,19 +1,26 @@
+{% set version = "4.9.1" %}
+
 package:
     name: proj.4
-    version: "4.9.1"
+    version: {{ version }}
 
 source:
-    fn:  proj-4.9.1.tar.gz
-    url: http://download.osgeo.org/proj/proj-4.9.1.tar.gz
+    fn:  proj-{{ version }}.tar.gz
+    url: http://download.osgeo.org/proj/proj-{{ version }}.tar.gz
     md5: 3cbb2a964fd19a496f5f4265a717d31c
     patches:
         - make_check.patch  # [osx]
 
 build:
-    number: 1
-    skip: True  # [py35 and win32]
+    number: 2
+    features:
+        - vc9  # [win and py27]
+        - vc10  # [win and py34]
+        - vc14  # [win and py35]
 
 requirements:
+    build:
+        - python  # [win]
     run:
         # The VS version is important. See # https://github.com/SciTools/conda-recipes-scitools/issues/94.
         - python  # [win]
@@ -26,4 +33,10 @@ test:
 about:
     home: http://trac.osgeo.org/proj/
     license: MIT
-    summary: 'Cartographic projection software'
+    summary: Cartographic projection software
+
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - pelson
