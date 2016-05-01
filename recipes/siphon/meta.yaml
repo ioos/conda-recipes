@@ -1,14 +1,17 @@
+{% set version = "0.4.0" %}
+
 package:
     name: siphon
-    version: "0.3.2"
+    version: {{ version }}
 
 source:
-    fn: siphon-0.3.2.tar.gz
-    url: https://pypi.python.org/packages/source/s/siphon/siphon-0.3.2.tar.gz
-    md5: dd08ff89b1176939d59acae0d544dd81
+    fn: siphon-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/s/siphon/siphon-{{ version }}.tar.gz
+    md5: 19a24db825cba554af10c89b8d7aff64
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -20,6 +23,7 @@ requirements:
         - protobuf >=3.0.0a3
         - requests
         - netcdf4
+        - enum34  # [py27]
 
 test:
     imports:
@@ -33,3 +37,8 @@ about:
     home: https://github.com/Unidata/siphon
     license: MIT License
     summary: 'A collection of Python utilities for interacting with the Unidata technology stack.'
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - dopplershift

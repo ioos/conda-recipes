@@ -1,14 +1,17 @@
+{% set version = "0.5.1" %}
+
 package:
     name: betamax
-    version: "0.5.0"
+    version: {{ version }}
 
 source:
-    fn: betamax-0.5.0.tar.gz
-    url: https://pypi.python.org/packages/source/b/betamax/betamax-0.5.0.tar.gz
-    md5: 477727620e225fd19910878d29ad29c1
+    fn: betamax-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/b/betamax/betamax-{{ version }}.tar.gz
+    md5: 349e69e1a9da664a8ab8c0f545e2e38f
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -28,4 +31,8 @@ test:
 about:
     home: https://github.com/sigmavirus24/betamax
     license: Apache
-    summary: 'A VCR imitation for python-requests'
+    summary: A VCR imitation for python-requests
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

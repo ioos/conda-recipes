@@ -1,14 +1,17 @@
+{% set version = "1.1.4" %}
+
 package:
     name: paegan
-    version: "1.1.4"
+    version: {{ version }}
 
 source:
-    fn: paegan-1.1.4.tar.gz
-    url: https://pypi.python.org/packages/source/p/paegan/paegan-1.1.4.tar.gz
+    fn: paegan-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/p/paegan/paegan-{{ version }}.tar.gz
     md5: b535ca51296e7071d6d5771c5eefed92
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -41,4 +44,8 @@ test:
 about:
     home: https://github.com/axiom-data-science/paegan
     license: GNU General Public License v3 (GPLv3)
-    summary: 'Paegan - The Python CDM for Met/Ocean data'
+    summary: Paegan - The Python CDM for Met/Ocean data
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

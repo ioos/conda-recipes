@@ -1,13 +1,17 @@
+{% set version = "0.1.0" %}
+
 package:
     name: utide
-    version: "0.1.0.dev"
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/wesleybowman/UTide.git
-    git_tag: master
+    fn: UTide-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/U/UTide/UTide-{{ version }}.tar.gz
+    md5: 8b97d5355bfd37889a0b2a8ad8e376a4
 
 build:
-    number: 1
+    number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -23,6 +27,11 @@ test:
         - utide
 
 about:
-    home: https://github.com/wesleybowman/UTide.git
-    license: MIT License
-    summary: 'Python distribution of the MatLab package UTide'
+    home: https://github.com/wesleybowman/UTide
+    license: MIT
+    summary: Python distribution of the MatLab package UTide
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - wesleybowman

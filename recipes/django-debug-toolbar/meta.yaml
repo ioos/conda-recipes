@@ -1,6 +1,6 @@
 package:
     name: django-debug-toolbar
-    version: "1.4"
+    version: 1.4
 
 source:
     fn: django-debug-toolbar-1.4.tar.gz
@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -24,11 +25,13 @@ test:
         - debug_toolbar
         - debug_toolbar.management
         - debug_toolbar.management.commands
-        #- debug_toolbar.panels
-        #- debug_toolbar.panels.sql
-        #- debug_toolbar.panels.templates
 
 about:
     home: https://github.com/django-debug-toolbar/django-debug-toolbar
-    license: BSD License
-    summary: 'A configurable set of panels that display various debug information about the current request/response.'
+    license: BSD-3-Clause
+    summary: A configurable set of panels that display various debug information about the current request/response.
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox

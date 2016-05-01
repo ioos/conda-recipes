@@ -1,14 +1,17 @@
+{% set version = "0.0.2" %}
+
 package:
     name: geojsonio
-    version: "0.0.2"
+    version: {{ version }}
 
 source:
-    fn: geojsonio-0.0.2.tar.gz
-    url: https://pypi.python.org/packages/source/g/geojsonio/geojsonio-0.0.2.tar.gz
+    fn: geojsonio-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/g/geojsonio/geojsonio-{{ version }}.tar.gz
     md5: e75b0ec0786d456dc630f93874106bfd
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
     entry_points:
         - geojsonio = geojsonio:main
 
@@ -30,5 +33,9 @@ test:
 
 about:
     home: https://github.com/jwass/geojsonio.py
-    license: BSD License
-    summary: 'geojsonio CLI - Python.'
+    license: BSD-3-Clause
+    summary: geojsonio CLI - Python.
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

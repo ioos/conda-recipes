@@ -1,13 +1,16 @@
+{% set version = "0.2.0" %}
+
 package:
     name: petulant-bear
-    version: "0.2.0"
+    version: {{ version }}
 
 source:
     git_url: https://github.com/ioos/petulant-bear.git
-    git_tag: v0.2.0
+    git_tag: v{{ version }}
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 
 requirements:
@@ -26,5 +29,13 @@ test:
 
 about:
     home: https://github.com/ioos/petulant-bear
-    license:  GNU General Public License v3 (GPLv3)
-    summary: 'Presents etree interface to netcdf4-python objects using NCML data model'
+    license: GPLv3
+    summary: Presents etree interface to netcdf4-python objects using NCML data model
+
+extra:
+    recipe-maintainers:
+        - benjwadams
+        - daf
+        - kwilcox
+        - lukecampbell
+        - ocefpaf

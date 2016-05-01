@@ -1,14 +1,17 @@
+{% set version = "3.3" %}
+
 package:
     name: pelican
-    version: "3.3"
+    version: {{ version }}
 
 source:
-    fn: pelican-3.3.tar.gz
-    url: https://pypi.python.org/packages/source/p/pelican/pelican-3.3.tar.gz
+    fn: pelican-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/p/pelican/pelican-{{ version }}.tar.gz
     md5: 8aff3ca01631082372ab2305a874bb74
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
     entry_points:
         - pelican = pelican:main
         - pelican-import = pelican.tools.pelican_import:main
@@ -21,14 +24,14 @@ requirements:
         - setuptools
     run:
         - python
-        - feedgenerator >=1.6
-        - jinja2 >=2.7
+        - feedgenerator
+        - jinja2
         - pygments
         - docutils
-        - pytz >=0a
+        - pytz
         - blinker
         - unidecode
-        - six >=1.4
+        - six
         - python-dateutil
         - ghp-import
 
@@ -44,5 +47,9 @@ test:
 
 about:
     home: http://getpelican.com/
-    license: GNU Affero General Public License v3
-    summary: 'A tool to generate a static blog from reStructuredText or Markdown input files.'
+    license: AGPL-3.0
+    summary: A tool to generate a static blog from reStructuredText or Markdown input files.
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

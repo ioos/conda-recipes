@@ -1,6 +1,6 @@
 package:
     name: httpretty
-    version: "0.8.14"
+    version: 0.8.14
 
 source:
     fn: httpretty-0.8.14.tar.gz
@@ -10,6 +10,7 @@ source:
 build:
     number: 0
     skip: True  # [py3k]
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -25,4 +26,8 @@ test:
 about:
     home: http://github.com/gabrielfalcao/httpretty
     license: MIT License
-    summary: 'HTTP client mock for Python'
+    summary: HTTP client mock for Python
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

@@ -1,14 +1,17 @@
+{% set version = "0.11.1" %}
+
 package:
     name: quantities
-    version: "0.11.1"
+    version: {{ version }}
 
 source:
-    fn: quantities-0.11.1.zip
-    url: https://pypi.python.org/packages/source/q/quantities/quantities-0.11.1.zip
+    fn: quantities-{{ version }}.zip
+    url: https://pypi.python.org/packages/source/q/quantities/quantities-{{ version }}.zip
     md5: f4c6287bfd2e93322b25a7c1311a0243
 
 build:
     number: 0
+    script: python setup.py install
 
 requirements:
     build:
@@ -26,6 +29,10 @@ test:
       - quantities.units
 
 about:
-    home: http://pythonhosted.org//quantities/
-    license: BSD
-    summary: 'Physical quantities with units, based upon Numpy'
+    home: http://python-quantities.readthedocs.org/en/latest/
+    license: BSD-3-Clauses
+    summary: Physical quantities with units, based upon Numpy
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

@@ -1,14 +1,15 @@
 package:
     name: setuptools_scm
-    version: "1.10.1"
+    version: 1.8.0
 
 source:
-    fn: setuptools_scm-1.10.1.tar.bz2
-    url: https://pypi.python.org/packages/source/s/setuptools_scm/setuptools_scm-1.10.1.tar.bz2
-    md5: 99823e2cd564b996f18820a065f0a974
+    fn: setuptools_scm-1.8.0.tar.bz2
+    url: https://pypi.python.org/packages/source/s/setuptools_scm/setuptools_scm-1.8.0.tar.bz2
+    md5: 49e83e8fee9ac1d356a634707a62e294
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -23,5 +24,10 @@ test:
 
 about:
     home: https://github.com/pypa/setuptools_scm/
-    license: MIT License
-    summary: 'the blessed package to manage your versions by scm tags'
+    license: MIT
+    summary: The blessed package to manage your versions by scm tags
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox

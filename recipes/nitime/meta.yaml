@@ -1,23 +1,26 @@
+{% set version = "0.6" %}
+
 package:
     name: nitime
-    version: "0.5"
+    version: {{ version }}
 
 source:
-    fn: nitime-0.5.tar.gz
-    url: https://pypi.python.org/packages/source/n/nitime/nitime-0.5.tar.gz
-    md5: adacdf0468d3a47edfac9a6bbfa68c07
+    fn: nitime-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/n/nitime/nitime-{{ version }}.tar.gz
+    md5: 43d92863b8792a50336b40635999f909
 
 build:
     number: 0
+    script: python setup.py install
 
 requirements:
     build:
         - python
-        - numpy
+        - numpy x.x
         - cython
     run:
         - python
-        - numpy
+        - numpy x.x
         - scipy
 
 test:
@@ -33,5 +36,10 @@ test:
 
 about:
     home: http://nipy.org/nitime
-    license: BSD License
-    summary: 'Nitime: timeseries analysis for neuroscience data'
+    license: BSD-3-Clause
+    summary: Timeseries analysis for neuroscience data
+
+extra:
+    recipe-maintainers:
+        - arokem
+        - ocefpaf

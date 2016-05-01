@@ -1,20 +1,24 @@
+{% set version = "0.0.1" %}
+
 package:
     name: ciso
-    version: '0.0.1'
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/ioos/ciso.git
-    git_tag: v0.0.1
+    fn: v{{ version }}.tar.gz
+    url: https://github.com/ioos/ciso/archive/v{{ version }}.tar.gz
+    md5: f5f3465cbc3549d2c77068c46725376e
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
         - python
         - setuptools
-        - numpy x.x
         - cython
+        - numpy x.x
     run:
         - python
         - numpy x.x
@@ -25,5 +29,9 @@ test:
 
 about:
     home: https://github.com/ioos/ciso
-    license: MIT License
-    summary: 'Cythonized Iso Surfaces (CISO)'
+    license: MIT
+    summary: Cythonized Iso Surfaces (CISO)
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

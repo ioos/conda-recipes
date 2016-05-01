@@ -1,19 +1,23 @@
+{% set version = "1.0.1" %}
+
 package:
     name: cc-plugin-glider
-    version: "1.0.1"
+    version: {{ version }}
 
 source:
-    fn: cc-plugin-glider-1.0.1.tar.gz
-    url: https://pypi.python.org/packages/source/c/cc-plugin-glider/cc-plugin-glider-1.0.1.tar.gz
+    fn: cc-plugin-glider-{{ version }}.tar.gz
+    url: https://pypi.python.org/packages/source/c/cc-plugin-glider/cc-plugin-glider-{{ version }}.tar.gz
     md5: 6ed920190fc861c5ed177d803557c383
 
 build:
     number: 0
+    skip: True  # [py3k]
     preserve_egg_dir: True
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
         - setuptools
     run:
         - python
@@ -24,6 +28,14 @@ test:
         - cc_plugin_glider
 
 about:
-    home: https://github.com/ioos/compliance-checker
-    license: Apache Software License
-    summary: 'Compliance Checker Glider DAC plugin'
+    home: https://github.com/ioos/cc-plugin-glider
+    license: Apache 2.0
+    summary: Compliance Checker Glider DAC plugin
+
+extra:
+    recipe-maintainers:
+        - benjwadams
+        - daf
+        - kwilcox
+        - lukecampbell
+        - ocefpaf

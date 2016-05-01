@@ -1,6 +1,6 @@
 package:
     name: django-extensions
-    version: "1.6.1"
+    version: 1.6.1
 
 source:
     fn: django-extensions-1.6.1.tar.gz
@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -25,5 +26,10 @@ test:
 
 about:
     home: http://github.com/django-extensions/django-extensions
-    license: MIT License
-    summary: 'Extensions for Django'
+    license: MIT
+    summary: Extensions for Django
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox

@@ -1,27 +1,30 @@
+{% set version = "0.9.0" %}
+
 package:
     name: pyhdf
-    version: "0.9.0"
+    version: {{ version }}
 
 source:
-    fn: pyhdf-0.9.0.tar.gz
-    url: http://hdfeos.org/software/pyhdf/pyhdf-0.9.0.tar.gz
+    fn: pyhdf-{{ version }}.tar.gz
+    url: http://hdfeos.org/software/pyhdf/pyhdf-{{ version }}.tar.gz
+    sha256: c20c58e53f8fbdc47a1fcdec954262528f486cfcb4efa7e1c2e8847ad3e8092f
 
 build:
-    number: 0
+    number: 1
 
 requirements:
     build:
         - python
         - setuptools
-        - jpeg
         - numpy x.x
-        - zlib
+        - jpeg 8*
+        - zlib 1.2*
         - hdf4
     run:
         - python
         - numpy x.x
-        - jpeg
-        - zlib
+        - jpeg 8*
+        - zlib 1.2*
         - hdf4
 
 test:
@@ -30,5 +33,9 @@ test:
 
 about:
     home:  http://hdfeos.org/software/pyhdf
-    license: Public
-    summary: 'Python interface to the NCSA HDF4 library'
+    license: Public Domain
+    summary: Python interface to the NCSA HDF4 library
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

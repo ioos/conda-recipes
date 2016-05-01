@@ -8,7 +8,7 @@ source:
     md5: 3e1c451c087f8462955426da38aa3b3d
 
 build:
-    number: 1
+    number: 3
     features:
         - vc9  # [win and py27]
         - vc10  # [win and py34]
@@ -18,23 +18,26 @@ requirements:
     build:
         - python  # [win]
         - cmake
-        - libtiff
-        - libpng
-        - zlib
+        - libtiff 4*
+        - libpng 1.6*
+        - zlib 1.2*
     run:
-        - libtiff
-        - libpng
-        - zlib
+        - libtiff 4*
+        - libpng 1.6*
+        - zlib 1.2*
 
 test:
+    requires:
+        - python {{ environ['PY_VER'] + '*' }}  # [win]
     files:
         - p0_01.j2k
     commands:
         - opj_dump -i p0_01.j2k
+        - conda inspect linkages -n _test openjpeg  # [linux]
 
 about:
     home: http://www.openjpeg.org/
-    license: 2-clauses BSD (https://github.com/uclouvain/openjpeg/blob/master/LICENSE)
+    license: BSD 2-clauses
     summary: An open-source JPEG 2000 codec written in C
 
 extra:

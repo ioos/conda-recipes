@@ -3,7 +3,7 @@ package:
     version: "0.0.1.dev"
 
 source:
-    fn: tip.tar.gz
+    fn: pycurrents-tip.tar.gz
     url: http://currents.soest.hawaii.edu/hgstage/pycurrents/archive/tip.tar.gz
 
 build:

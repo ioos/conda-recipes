@@ -1,6 +1,6 @@
 package:
     name: pytest-django
-    version: "2.9.1"
+    version: 2.9.1
 
 source:
     fn: pytest-django-2.9.1.tar.gz
@@ -8,14 +8,15 @@ source:
     md5: 3c9dde85e99ec409df209a62b4715e1a
 
 build:
-    preserve_egg_dir: True
     number: 0
+    preserve_egg_dir: True
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
         - python
         - setuptools
-        - setuptools_scm
+        - setuptools_scm ==1.8.0
     run:
         - python
         - pytest >=2.5
@@ -26,5 +27,10 @@ test:
 
 about:
     home: http://pytest-django.readthedocs.org/
-    license: BSD License
-    summary: 'A Django plugin for py.test.'
+    license: BSD-3-Clause
+    summary: A Django plugin for py.test.
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
+        - kwilcox

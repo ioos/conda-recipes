@@ -1,45 +1,41 @@
+{% set version = "1.9.2" %}
+
 package:
     name: iris
-    version: 1.9.2
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/SciTools/iris.git
-    git_tag: v1.9.2
+    fn: iris-v{{ version }}.tar.gz
+    url: https://github.com/SciTools/iris/archive/v{{ version }}.tar.gz
+    sha256: 93f2cfe1c14aad293103727004863d09f21ea61de337aa73cb96a706df0b6133
 
 build:
     number: 0
-    # See https://github.com/SciTools/cartopy/pull/676
-    skip: True  # [py35]
 
 requirements:
     build:
-        - python  # [not osx]
-        - python >=2.7,<3  # [osx]
-        - scipy
-        - biggus >=0.10
-        - cartopy >=0.12
-        - netcdf4
+        - python
+        - setuptools
         - numpy x.x
-        - udunits2
+        - scipy
+        - biggus
+        - cartopy
+        - netcdf4
         - cf_units
         - pyke
-        - setuptools
         - libmo_unpack  # [not win]
     run:
-        - python  # [not osx]
-        - python >=2.7,<3  # [osx]
-        - scipy
-        - biggus >=0.10
-        - cartopy >=0.12
-        - matplotlib
-        - netcdf4
-        - ecmwf_grib >=1.12.1  # [not win and not py3k]
-        # There is a numpy C ABI dependency for as long as we have a C extension (pp_packing).
+        - python
         - numpy x.x
-        - pyke
-        - udunits2
+        - scipy
+        - biggus
+        - cartopy
+        - netcdf4
         - cf_units
+        - pyke
         - libmo_unpack  # [not win]
+        - matplotlib
+        - python-ecmwf_grib >=1.12.1  # [not win and not py3k]
 
 test:
     imports:
@@ -50,3 +46,9 @@ about:
     home: http://www.scitools.org.uk/iris
     license: GNU Lesser General Public License
     summary: Analyse and visualise meteorological and oceanographic data sets.
+
+extra:
+    recipe-maintainers:
+        - pelson
+        - rhattersley
+        - ocefpaf

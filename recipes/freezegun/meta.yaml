@@ -1,6 +1,6 @@
 package:
     name: freezegun
-    version: "0.3.6"
+    version: 0.3.6
 
 source:
     fn: freezegun-0.3.6.tar.gz
@@ -9,6 +9,7 @@ source:
 
 build:
     number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
     build:
@@ -28,4 +29,8 @@ test:
 about:
     home: https://github.com/spulec/freezegun
     license: Apache-2.0
-    summary: 'Let your Python tests travel through time'
+    summary: Let your Python tests travel through time
+
+extra:
+    recipe-maintainers:
+        - ocefpaf

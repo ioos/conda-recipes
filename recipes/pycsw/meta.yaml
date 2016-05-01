@@ -1,18 +1,23 @@
+{% set version = "1.10.4" %}
+
 package:
     name: pycsw
-    version: "1.10.3"
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/geopython/pycsw.git
-    git_tag: "1.10.3"
+    fn: pycsw-{{ version }}.tar.gz
+    url: https://github.com/geopython/pycsw/archive/{{ version }}.tar.gz
+    sha256: 655bd1b32f6da3cd8981443e4f1c5eb97e9637163d2c5bda7495e36d2442730c
 
 build:
     number: 0
+    skip: True  # [py3k]
+    script: python setup.py install
     preserve_egg_dir: True
 
 requirements:
     build:
-        - python >=2.7,<3
+        - python
     run:
         - python
         - sqlalchemy
@@ -29,4 +34,8 @@ test:
 about:
     home: https://github.com/geopython/pycsw
     license: MIT
-    summary: 'OGC Catalog Service for the Web (CSW) implementation in python'
+    summary: OGC Catalog Service for the Web (CSW) implementation in python
+
+extra:
+    recipe-maintainers:
+        - ocefpaf
