@@ -27,6 +27,7 @@ requirements:
     build:
         - python  # [win]
         - msinttypes  # [win]
+        - cmake  # [win]
 
 test:
     commands:
