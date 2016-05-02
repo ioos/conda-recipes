@@ -1,24 +1,22 @@
 #!/bin/bash
 
-LDFLAGS="-L$PREFIX/lib -Wl,-rpath,$PREFIX/lib" PYTHON="$PYTHON" PYTHON_LDFLAGS="$PREFIX/lib" CFLAGS="-fPIC -I$PREFIX/include" ./configure --with-jasper=$PREFIX/lib --disable-fortran --prefix=$PREFIX --enable-python
-
-make
-
-if [[ $(uname) == Linux ]]; then
-    make check
+if [[ $(uname) == Darwin ]]; then
+  export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
+elif [[ $(uname) == Linux ]]; then
+  export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
 fi
 
+export PYTHON=
+export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
+export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
+
+./configure --prefix=$PREFIX \
+            --with-jasper=$PREFIX \
+            --with-netcdf=$PREFIX \
+            --with-png-support \
+            --disable-fortran \
+            --disable-python
+
+make
+eval ${LIBRARY_SEARCH_VAR}=$PREFIX/lib make check
 make install
-
-
-# For some reason the installer places the Python files in a sub-directory
-# of site-packages called "grib_api". (NB. The sub-directory is not a package.)
-# The install instructions in python/README include the suggestion:
-#   Add this folder to your PYTHONPATH and you are ready to go.
-# Instead of that, we just rename the directory and make it a package.
-mv $SP_DIR/grib_api $SP_DIR/gribapi
-mv $SP_DIR/gribapi/gribapi.py $SP_DIR/gribapi/__init__.py
-
-# Delete useless files
-find $PREFIX/lib -name '*.a' -delete
-find $PREFIX/lib -name '*.la' -delete

@@ -1,7 +1,7 @@
 {% set version = "1.14.7" %}
 
 package:
-    name: ecmwf_grib
+    name: python-ecmwf_grib
     version: {{ version }}
 
 source:
@@ -10,25 +10,29 @@ source:
     md5: b3caa51fd2c2ae6e4e304e570489074f
 
 build:
-    number: 3
-    skip: True  # [win]
+    number: 1
+    skip: True  # [win or py3k]
     detect_binary_files_with_prefix: true
 
 requirements:
     build:
+        - python
+        - numpy x.x
         - jasper
         - libpng 1.6*
         - libnetcdf 4.3*
+        - ecmwf_grib {{ version }}
     run:
+        - python
+        - numpy x.x
         - jasper
         - libpng 1.6*
         - libnetcdf 4.3*
+        - ecmwf_grib {{ version }}
 
 test:
-    commands:
-        - grib_info
-        - ls $(grib_info -t)
-        - ls $(grib_info -d)
+    imports:
+        - gribapi
 
 about:
     home: https://software.ecmwf.int/wiki/display/GRIB/Home
