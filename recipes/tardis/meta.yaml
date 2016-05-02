@@ -8,6 +8,7 @@ source:
 
 build:
     number: 2
+    skip: True  # [osx and py3k]
     script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
@@ -29,5 +30,5 @@ test:
 
 about:
     home: https://github.com/pyoceans/tardis.git
-    license: MIT License
-    summary: "TARDIS is a collection of functions for SciTools Iris"
+    license: MIT
+    summary: TARDIS is a collection of functions for SciTools Iris
