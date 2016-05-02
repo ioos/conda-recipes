@@ -24,6 +24,8 @@ requirements:
         - pyparsing
 
 test:
+    requires:
+        - pytest
     imports:
         - snuggs
 
