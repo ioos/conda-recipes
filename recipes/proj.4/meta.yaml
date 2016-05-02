@@ -21,6 +21,7 @@ build:
 requirements:
     build:
         - python  # [win]
+        - cmake  # [win]
     run:
         # The VS version is important. See # https://github.com/SciTools/conda-recipes-scitools/issues/94.
         - python  # [win]
