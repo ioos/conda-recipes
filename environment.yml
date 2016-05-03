@@ -13,11 +13,11 @@ dependencies:
     - descartes
     - fiona
     - folium
-    - gdal=1.11.3
+    - gdal>=1.11.4
     - geojson
     - geojsonio
     - geopandas
-    - geos>=3.4.2
+    - geos
     - gridgeo
     - gsw
     - iris
