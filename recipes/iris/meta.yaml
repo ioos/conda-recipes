@@ -8,10 +8,13 @@ source:
     fn: iris-v{{ version }}.tar.gz
     url: https://github.com/SciTools/iris/archive/v{{ version }}.tar.gz
     sha256: 93f2cfe1c14aad293103727004863d09f21ea61de337aa73cb96a706df0b6133
+    patches:
+        # Issue reported in https://github.com/SciTools/iris/issues/2004.
+        # We work around this in build.sh.
+        - no_compile_setup.patch  # [osx]
 
 build:
     number: 0
-    skip: True  # [osx and py3k]
 
 requirements:
     build:
@@ -42,6 +45,7 @@ test:
     imports:
         - iris
         - iris.fileformats.pp_packing  # [not win]
+        - iris.fileformats._pyke_rules.compiled_krb
 
 about:
     home: http://www.scitools.org.uk/iris

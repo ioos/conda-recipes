@@ -1,0 +1,15 @@
+diff --git setup.py setup.py
+index ace2211..3ca47de 100644
+--- setup.py
++++ setup.py
+@@ -130,8 +130,8 @@ class MakePykeRules(Command):
+     def _pyke_rule_compile():
+         """Compile the PyKE rule base."""
+         from pyke import knowledge_engine
+-        import iris.fileformats._pyke_rules
+-        knowledge_engine.engine(iris.fileformats._pyke_rules)
++#        import iris.fileformats._pyke_rules
++#        knowledge_engine.engine(iris.fileformats._pyke_rules)
+ 
+     def run(self):
+         # Compile the PyKE rules.
