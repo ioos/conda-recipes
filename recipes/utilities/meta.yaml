@@ -15,12 +15,13 @@ build:
 
 requirements:
     build:
+        - python
         - setuptools
     run:
         - python
-        - iris  # [not (osx and py3k)]
+        - iris
         - lxml
-        - tardis  # [not (osx and py3k)]
+        - tardis
         - oceans
         - pandas
         - folium
