@@ -1,6 +1,5 @@
 name: IOOS
 channels:
-    - ioos
     - conda-forge
 dependencies:
     - python=2.7
@@ -14,7 +13,7 @@ dependencies:
     - descartes
     - fiona
     - folium
-    - gdal==1.11.4
+    - gdal
     - geojson
     - geojsonio
     - geopandas
@@ -32,9 +31,7 @@ dependencies:
     - oct2py
     - owslib
     - paegan
-    - paegan-transport
     - pandas
-    - pip
     - proj.4
     - pygc
     - pyoos
@@ -43,7 +40,6 @@ dependencies:
     - pyugrid
     - qrcode
     - rasterio
-    - rdflib
     - requests
     - rtree
     - scikit-learn
@@ -52,7 +48,6 @@ dependencies:
     - shapely
     - statsmodels
     - sympy
-    - utilities
     - xlrd
     - xray
     - yaml
