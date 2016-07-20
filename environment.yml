@@ -48,6 +48,7 @@ dependencies:
     - shapely
     - statsmodels
     - sympy
+    - thredds_crawler
     - xlrd
     - xray
     - yaml
