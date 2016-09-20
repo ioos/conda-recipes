@@ -8,7 +8,7 @@ fi
 
 REPO_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
 UPLOAD_OWNER="ioos"
-IMAGE_NAME="ocefpaf/conda-recipes:latest_x64"
+IMAGE_NAME="pelson/obvious-ci:latest_x64"
 
 config=$(cat <<CONDARC
 
@@ -36,15 +36,18 @@ export CONDA_NPY='19'
 export PYTHONUNBUFFERED=1
 echo "$config" > ~/.condarc
 
-conda update --yes --quiet conda
-conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
+conda update --yes conda
+conda install --yes -c conda-forge obvious-ci conda-build-all
 conda install --yes anaconda-client
+
+# Workaournd https://github.com/conda/conda-build/issues/1491
+conda install --yes conda-build=2.0.6
 
 # A lock sometimes occurs with incomplete builds.
 conda clean --lock
 
 conda info
 
-conda-build-all /conda-recipes/recipes $UPLOAD --inspect-channels $UPLOAD_OWNER --matrix-conditions "numpy >=1.9,<=1.10" "python >=2.7,<3|>=3.4"
+conda-build-all /conda-recipes/recipes $UPLOAD --inspect-channels $UPLOAD_OWNER --matrix-conditions "numpy >=1.11" "python >=2.7,<3|>=3.4"
 
 EOF

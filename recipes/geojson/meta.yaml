@@ -1,33 +1,35 @@
+{% set version = "1.3.3" %}
+
 package:
-    name: geojson
-    version: 1.3.2
+  name: geojson
+  version: {{ version }}
 
 source:
-    fn: geojson-1.3.2.tar.gz
-    url: https://pypi.python.org/packages/source/g/geojson/geojson-1.3.2.tar.gz
-    md5: 27b75a4edbf9059e9aeb819eaad38593
+  fn: geojson-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/g/geojson/geojson-{{ version }}.tar.gz
+  md5: 2da9a02548ff783bb1f4c3624e31cf78
 
 build:
-    number: 0
-    preserve_egg_dir: True
-    script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  preserve_egg_dir: True
+  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-    build:
-        - python
-        - setuptools
-    run:
-        - python
+  build:
+    - python
+    - setuptools
+  run:
+    - python
 
 test:
-    imports:
-        - geojson
+  imports:
+    - geojson
 
 about:
-    home: https://github.com/frewsxcv/python-geojson
-    license: BSD License
-    summary: Python bindings and utilities for GeoJSON
+  home: https://github.com/frewsxcv/python-geojson
+  license: BSD 3-Clause
+  summary: 'Python bindings and utilities for GeoJSON.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

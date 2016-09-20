@@ -1,46 +1,49 @@
 {% set version = "2.9.3" %}
 
 package:
-    name: libxml2
-    version: {{ version }}
+  name: libxml2
+  version: {{ version }}
 
 source:
-    fn: libxml2-{{ version }}.tar.xz
-    url: https://git.gnome.org/browse/libxml2/snapshot/libxml2-{{ version }}.tar.xz
-    md5: 59d281614c87d0c767134c55de20a8a9
+  fn: libxml2-{{ version }}.tar.gz
+  url: https://git.gnome.org/browse/libxml2/snapshot/libxml2-{{ version }}.tar.gz
+  sha256: 473e8a80775f796a6ae8e44138a14081d21a93b38251af76e5a149afb94e980d
 
 build:
-    number: 5
-    skip: True  # [win]
+  # Build is failing 10 tests :-(
+  skip: True  # [osx]
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
 
 requirements:
-    build:
-        - autoconf
-        - automake
-        - libtool
-        - pkg-config
-        - icu
-        - libiconv
-        - zlib 1.2*
-        - xz 5.0.*  # [not win]
-    run:
-        - icu
-        - libiconv
-        - zlib 1.2*
-        - xz 5.0.*  # [not win]
+  build:
+    - python  # [win]
+    - libiconv  # [win]
+    - autoconf  # [not win]
+    - automake  # [not win]
+    - libtool  # [not win]
+    - pkg-config  # [not win]
+    - zlib 1.2.*
+  run:
+    - libiconv  # [win]
+    - zlib 1.2.*
 
 test:
-    files:
-        - test.xml
-    commands:
-        - xmllint test.xml
+  files:
+    - test.xml
+  commands:
+    - xmllint test.xml
+    - conda inspect linkages -p $PREFIX libxml2  # [not win]
+    - conda inspect objects -p $PREFIX libxml2  # [osx]
 
 about:
-    home: http://xmlsoft.org/
-    license: MIT
-    summary: The XML C parser and toolkit of Gnome
+  home: http://xmlsoft.org/
+  license: MIT
+  summary: 'The XML C parser and toolkit of Gnome.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
-        - jakirkham
+  recipe-maintainers:
+    - ocefpaf

@@ -1,57 +1,62 @@
-{% set version = "1.6.3" %}
+{% set version = "1.7.0" %}
 
 package:
-    name: fiona
-    version: {{ version }}
+  name: fiona
+  version: {{ version }}
 
 source:
-    fn: Fiona-{{ version }}.post1.tar.gz
-    url: https://pypi.python.org/packages/source/F/Fiona/Fiona-{{ version }}.post1.tar.gz
-    md5: f68a470455f92cb45d56e4a549a2161c
+  fn: fiona-{{ version }}.post1.tar.gz
+  url: https://github.com/Toblerity/Fiona/archive/{{ version }}.post2.tar.gz
+  sha256: 5eb68355b72f69f93a6c9948c0a6dc92b14408aa0d7c0ec48f097fcf17f70ee4
+  patches:
+    - gdal_version.patch
 
 build:
-    number: 5
-    preserve_egg_dir: True
-    entry_points:
-        - fio=fiona.fio.main:main_group
+  number: 0
+  preserve_egg_dir: True
+  entry_points:
+    - fio=fiona.fio.main:main_group
 
 requirements:
-    build:
-        - python
-        - cython
-        - setuptools
-        - numpy x.x
-        - gdal 1.11.4
-    run:
-        - python
-        - setuptools
-        - numpy x.x
-        - gdal 1.11.4
-        - cligj
-        - munch
-        - click-plugins
-        - six
+  build:
+    - python
+    - cython
+    - setuptools
+    - numpy x.x
+    - gdal 2.1.*
+  run:
+    - python
+    - setuptools
+    - numpy x.x
+    - gdal 2.1.*
+    - cligj
+    - munch
+    - click-plugins
+    - six
 
 test:
-    imports:
-        - fiona
-        - fiona.fio
-    commands:
-        - fio --help
-        - conda inspect linkages fiona --name _test  # [linux]
-    requires:
-        - nose
-    files:
-        - test.cpg
-        - test.dbf
-        - test.shp
-        - test.shx
+  imports:
+    - fiona
+    - fiona.fio
+  requires:
+    - nose
+    - pytest
+  files:
+    - test_data/test.cpg
+    - test_data/test.dbf
+    - test_data/test.shp
+    - test_data/test.shx
+  commands:
+    - cp -r $SRC_DIR/tests /tmp && cd /tmp && nosetests --exclude test_filter_vsi --exclude test_geopackage --exclude test_write_mismatch tests  # [linux]
+    - fio --help
+    - conda inspect linkages -p $PREFIX fiona  # [not win]
+    - conda inspect objects -p $PREFIX fiona  # [osx]
 
 about:
-    home: http://github.com/Toblerity/Fiona
-    license: BSD License
-    summary: Fiona reads and writes spatial data files
+  home: http://github.com/Toblerity/Fiona
+  license: BSD 3-Clause
+  summary: 'Fiona reads and writes spatial data files.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

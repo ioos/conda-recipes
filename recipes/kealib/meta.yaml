@@ -1,0 +1,46 @@
+{% set version = "1.4.6" %}
+
+package:
+  name: kealib
+  version: {{ version }}
+
+source:
+  fn: kealib-{{ version }}.tar.gz
+  url: https://bitbucket.org/chchrsc/kealib/downloads/kealib-{{ version }}.tar.gz
+  md5: 789174bd519736ac1e726613b6eb7672
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    # Use AppVeyor's cmake.
+    - cmake  # [not win]
+    - python  # [win]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+    - hdf5 1.8.17.*
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+    - hdf5 1.8.17.*
+
+test:
+  commands:
+    - conda inspect linkages -p $PREFIX kealib  # [not win]
+    - conda inspect objects -p $PREFIX kealib  # [osx]
+
+about:
+  home: kealib.org
+  license: MIT
+  summary: 'The KEA format provides an implementation of the GDAL specification within the the HDF5 file format.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

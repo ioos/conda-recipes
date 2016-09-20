@@ -1,11 +1,11 @@
 machine:
-    services:
-        - docker
+  services:
+    - docker
 
 dependencies:
-    override:
-        - docker pull ocefpaf/conda-recipes:latest_x64
+  override:
+    - docker pull ocefpaf/conda-recipes:latest_x64
 
 test:
-    override:
-        - ./scripts/run_docker_build.sh
+  override:
+    - ./scripts/run_docker_build.sh

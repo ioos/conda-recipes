@@ -10,6 +10,6 @@ fi
 SITECFG=cf_units/etc/site.cfg
 echo "[System]" > $SITECFG
 echo "udunits2_path = $PREFIX/lib/libudunits2.${EXT}" >> $SITECFG
-
+echo "udunits2_xml_path = $PREFIX/share/udunits/udunits2.xml" >> $SITECFG
 
 $PYTHON setup.py install --single-version-externally-managed  --record record.txt

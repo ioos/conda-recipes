@@ -1,0 +1,33 @@
+--- setup.py	2016-06-15 13:28:44.000000000 -0300
++++ setup.py	2016-06-16 18:50:23.438168356 -0300
+@@ -74,11 +74,18 @@
+ # Set a flag for builds where the source directory is a repo checkout.
+ source_is_repo = os.path.exists("MANIFEST.in")
+ 
+-# Get GDAL API version from the command line if specified there.
++# Get GDAL API version from the command line, if specified there,
++# or the python bindings.
+ if '--gdalversion' in sys.argv and 'clean' not in sys.argv:
+     index = sys.argv.index('--gdalversion')
+     sys.argv.pop(index)
+     gdalversion = sys.argv.pop(index)
++else:
++    try:
++        from osgeo import gdal
++        gdalversion = gdal.__version__
++    except ImportError:
++        gdalversion = None
+ 
+ # Extend distutil's sdist command to generate C extension sources from
+ # both `ogrext`.pyx` and `ogrext2.pyx` for GDAL 1.x and 2.x.
+@@ -120,7 +127,9 @@
+             else:
+                 # e.g. -framework GDAL
+                 extra_link_args.append(item)
+-        gdalversion = gdal_output[3]
++            # No python bindings install (does not work on Windows.)
++            if not gdalversion:
++                gdalversion = gdal_output[3]
+ 
+     except Exception as e:
+         if os.name == "nt":

@@ -1,36 +1,39 @@
-language: c
+language: generic
 
-os:
-    - osx
+os: osx
+osx_image: beta-xcode6.1
 
 sudo: false
 
 env:
-    global:
-        secure: "Ot7aKmwqgrfttGbliX2uR2QVhwxdXKIgGmZlsr/hfIkMZoaei1JzHsbfmrKuxocoQ/38Z8UZvDh6fSXCZKVGuDpEhb/PHeNuk7YPFXITyJWA9NyIrOh+xjrfLBSp7S/V33idReGVznuI4v/tB3PfZChmqgEns5z7BGZZaz5sIws="
+  global:
+    secure: "Ot7aKmwqgrfttGbliX2uR2QVhwxdXKIgGmZlsr/hfIkMZoaei1JzHsbfmrKuxocoQ/38Z8UZvDh6fSXCZKVGuDpEhb/PHeNuk7YPFXITyJWA9NyIrOh+xjrfLBSp7S/V33idReGVznuI4v/tB3PfZChmqgEns5z7BGZZaz5sIws="
 
 before_install:
-    - brew remove --force $(brew list)
+  - brew remove --force $(brew list)
 
 install:
-    # Install miniconda.
-    - curl -O https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py
-    - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
+  # Install miniconda.
+  - curl -L -O https://raw.githubusercontent.com/conda-forge/conda-smithy/master/bootstrap-obvious-ci-and-miniconda.py
+  - python bootstrap-obvious-ci-and-miniconda.py ~/miniconda x64 2 --without-obvci && source ~/miniconda/bin/activate root
 
-    # This numpy variable is not used, but conda-build complains if we haven't set it already.
-    - export CONDA_NPY=19
-    - conda config --set show_channel_urls true
+  # This numpy variable is not used, but conda-build complains if we haven't set it already.
+  - export CONDA_NPY=19
+  - conda config --set show_channel_urls true
 
-    - conda config --add channels ioos
-    - conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
-    - obvci_install_conda_build_tools.py
+  - conda config --add channels ioos
+  - conda install --yes -c conda-forge obvious-ci conda-build-all
+  - obvci_install_conda_build_tools.py
 
-    - conda info
+  # Workaournd https://github.com/conda/conda-build/issues/1491
+  - conda install --yes conda-build=2.0.6
+
+  - conda info
 
 script:
-    - if [[ "$BINSTAR_TOKEN" == "" ]]; then
-        export UPLOAD="";
-      else
-        export UPLOAD="--upload-channels ioos";
-      fi
-    - conda-build-all ./recipes $UPLOAD --inspect-channels ioos --matrix-conditions "numpy >=1.9,<=1.10" "python >=2.7,<3|>=3.4"
+  - if [[ "$BINSTAR_TOKEN" == "" ]]; then
+      export UPLOAD="";
+    else
+      export UPLOAD="--upload-channels ioos";
+    fi
+  - conda-build-all ./recipes $UPLOAD --inspect-channels ioos --matrix-conditions "numpy >=1.11" "python >=2.7,<3|>=3.4"

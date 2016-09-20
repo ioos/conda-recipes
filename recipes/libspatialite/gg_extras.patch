@@ -1,0 +1,11 @@
+--- src\gaiageo\gg_extras.c.orig	2016-06-23 14:28:16.937500000 +1000
++++ src\gaiageo\gg_extras.c	2016-06-23 14:28:39.937500000 +1000
+@@ -59,7 +59,7 @@
+ #include <spatialite/sqlite.h>
+ #include <spatialite/gaiageo.h>
+ 
+-#if defined(_WIN32) && !defined(__MINGW32__)
++#if defined(_WIN32) && !defined(__MINGW32__) && (_MSC_VER < 1900)
+ static double
+ rint (double x)
+ {

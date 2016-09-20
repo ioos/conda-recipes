@@ -1,0 +1,64 @@
+{% set version = "4.2.12" %}
+
+package:
+  name: hdf4
+  version: {{ version }}
+
+source:
+  fn: hdf-{{ version }}.tar.bz2
+  url: http://www.hdfgroup.org/ftp/HDF/HDF_Current/src/hdf-{{ version }}.tar.bz2
+  sha256: 2d224a57a711d853d71b92ef0875d295b410454b005144ebd3dd4b3d4c811208
+  patches:
+    - max_files.patch
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    - python  # [win]
+    # Use AppVeyor's cmake.
+    #- cmake  # [win]
+    - msinttypes  # [win and py<35]
+    - bison  # [unix]
+    - flex  # [unix]
+    - zlib 1.2.*
+    - jpeg 8*
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - zlib 1.2.*
+    - jpeg 8*
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+
+test:
+  commands:
+    - hdiff -V  # [unix]
+    - h4_ncgen -V  # [unix]
+    - h4_ncdump -V  # [unix]
+    - test -f ${PREFIX}/lib/libdf.a  # [unix]
+    - test -f ${PREFIX}/lib/libmfhdf.a  # [unix]
+    - test -f ${PREFIX}/lib/libdf.so  # [linux]
+    - test -f ${PREFIX}/lib/libdf.dylib  # [osx]
+    - test -f ${PREFIX}/lib/libmfhdf.so  # [linux]
+    - test -f ${PREFIX}/lib/libmfhdf.dylib  # [osx]
+    - conda inspect linkages -p $PREFIX hdf4  # [not win]
+    - conda inspect objects -p $PREFIX hdf4  # [osx]
+
+about:
+  home: http://www.hdfgroup.org/HDF4/
+  license: BSD 3-Clause
+  summary: 'Library and multi-object file format for storing and managing data between machines.'
+  license_family: BSD
+  license_file: COPYING
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

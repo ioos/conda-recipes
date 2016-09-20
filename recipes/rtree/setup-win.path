@@ -1,0 +1,30 @@
+--- rtree-f5ee10617b84a681cb69e7a921aa1b1113d8debd.orig/setup.py	2016-10-16 01:12:17.000000000 -0300
++++ rtree-f5ee10617b84a681cb69e7a921aa1b1113d8debd/setup.py	2016-10-17 13:42:39.999830914 -0300
+@@ -7,19 +7,6 @@
+ with open('docs/source/README.txt', 'r') as fp:
+     readme_text = fp.read()
+ 
+-import os
+-
+-if os.name == 'nt':
+-    data_files = [('Lib/site-packages/rtree',
+-                  [os.environ['SPATIALINDEX_LIBRARY']
+-                      if 'SPATIALINDEX_LIBRARY' in os.environ else
+-                      r'D:\libspatialindex\bin\spatialindex.dll',
+-                   os.environ['SPATIALINDEX_C_LIBRARY']
+-                      if 'SPATIALINDEX_C_LIBRARY' in os.environ else
+-                      r'D:\libspatialindex\bin\spatialindex_c.dll'])]
+-else:
+-    data_files = None
+-
+ setup(
+     name          = 'Rtree',
+     version       = rtree.__version__,
+@@ -35,7 +22,6 @@
+     packages      = ['rtree'],
+     install_requires = ['setuptools'],
+     test_suite = 'tests.test_suite',
+-    data_files = data_files,
+     zip_safe = False,
+     classifiers   = [
+       'Development Status :: 5 - Production/Stable',

@@ -1,35 +1,35 @@
 {% set version = "1.10.0" %}
 
 package:
-    name: geopy
-    version: {{ version }}
+  name: geopy
+  version: {{ version }}
 
 source:
-    fn: geopy-{{ version }}.tar.gz
-    url: https://pypi.python.org/packages/source/g/geopy/geopy-{{ version }}.tar.gz
-    md5: 57cab8fd885a88ad4acecc53346e4c39
+  fn: geopy-{{ version }}.tar.gz
+  url: https://github.com/geopy/geopy/archive/{{ version }}.tar.gz
+  sha256: d1445731b20762b4e1d13e98d6370ff39a58fb29bd526afe1a44d510e91ee815
 
 build:
-    number: 0
-    script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-    build:
-        - python
-        - setuptools
-    run:
-        - python
+  build:
+    - python
+    - setuptools
+  run:
+    - python
 
 test:
-    imports:
-        - geopy
-        - geopy.geocoders
+  imports:
+    - geopy
+    - geopy.geocoders
 
 about:
-    home: https://github.com/geopy/geopy
-    license: MIT License
-    summary: Python Geocoding Toolbox
+  home: https://github.com/geopy/geopy
+  license: MIT
+  summary: 'Python Geocoding Toolbox.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

@@ -1,0 +1,11 @@
+--- cmake/ecbuild_find_python.cmake	2016-04-25 10:12:25.000000000 -0300
++++ cmake/ecbuild_find_python.cmake	2016-06-20 21:16:10.561510648 -0300
+@@ -110,8 +110,6 @@
+         # find python config
+ 
+         if( PYTHON_EXECUTABLE AND EXISTS ${PYTHON_EXECUTABLE}-config )
+-            set(PYTHON_CONFIG_EXECUTABLE ${PYTHON_EXECUTABLE}-config CACHE PATH "" FORCE)
+-        else()
+             find_program( PYTHON_CONFIG_EXECUTABLE NAMES python-config python-config${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR} )
+         endif()
+ 

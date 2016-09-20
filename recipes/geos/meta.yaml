@@ -1,45 +1,51 @@
 {% set version = "3.4.2" %}
 
 package:
-    name: geos
-    version: {{ version }}
+  name: geos
+  version: {{ version }}
 
 source:
-    fn:  geos-{{ version }}.tar.bz2
-    url: http://download.osgeo.org/geos/geos-{{ version }}.tar.bz2
-    md5: fc5df2d926eb7e67f988a43a92683bae
-    patches:
-        - cmake.win.patch  # [win]
-        - lineintersector.patch  # [win and py35]
-        - wktwriter.patch  # [win and py35]
-        - bufferopp.patch  # [win and py35]
-        - offsetcurvebuilder.patch  # [win and py35]
-        - offsetcurvesetbuilder.patch  # [win and py35]
+  fn:  geos-{{ version }}.tar.bz2
+  url: http://download.osgeo.org/geos/geos-{{ version }}.tar.bz2
+  sha256: 15e8bfdf7e29087a957b56ac543ea9a80321481cef4d4f63a7b268953ad26c53
+  patches:  # [win]
+    - cmake.win.patch  # [win]
+    - lineintersector.patch  # [win and py35]
+    - wktwriter.patch  # [win and py35]
+    - bufferopp.patch  # [win and py35]
+    - offsetcurvebuilder.patch  # [win and py35]
+    - offsetcurvesetbuilder.patch  # [win and py35]
 
 build:
-    number: 1
-    features:
-        - vc9  # [win and py27]
-        - vc10  # [win and py34]
-        - vc14  # [win and py35]
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
 
 requirements:
-    build:
-        - python  # [win]
-        - msinttypes  # [win]
-        - cmake  # [win]
+  build:
+    - python  # [win]
+    - msinttypes  # [win]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
 
-test:
-    commands:
-        - geos-config --version  # [not win]
+test:  # [not win]
+  commands:  # [not win]
+    - geos-config --version  # [not win]
+    - conda inspect linkages -p $PREFIX geos  # [not win]
+    - conda inspect objects -p $PREFIX geos  # [osx]
 
 about:
-    home: http://trac.osgeo.org/geos/
-    license: LGPL
-    summary: Geometry Engine - Open Source
+  home: http://trac.osgeo.org/geos/
+  license: LGPLv2.1
+  summary: 'Geometry Engine - Open Source.'
 
 extra:
   recipe-maintainers:
     - ocefpaf
-    - pelson
-    - gillins

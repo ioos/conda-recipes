@@ -2,6 +2,8 @@
 
 bash ./autogen.sh
 
+export  CFLAGS="-Wno-error $CFLAGS"
+
 ./configure --prefix=$PREFIX
 
 make

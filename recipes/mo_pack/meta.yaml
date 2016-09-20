@@ -1,14 +1,17 @@
+{% set version = "0.2.0" %}
+
 package:
   name: mo_pack
-  version: 0.2.0
+  version: {{ version }}
 
 source:
-  git_url: https://github.com/SciTools/mo_pack.git
-  git_tag: v0.2.0
+  fn: v{{ version }}.tar.gz
+  url: https://github.com/SciTools/mo_pack/archive/v{{ version }}.tar.gz
+  md5: c8dbbabd2a267c1e7457c2f0603e7838
 
 build:
+  number: 0
   skip: True  # [win]
-  number: 1
 
 requirements:
   build:
@@ -16,16 +19,21 @@ requirements:
     - numpy x.x
     - setuptools
     - cython
-    - libmo_unpack # [not win]
+    - libmo_unpack
   run:
     - python
     - numpy x.x
-    - libmo_unpack # [not win]
+    - libmo_unpack
 
 test:
   imports:
     - mo_pack
 
 about:
-  license: GNU LGPL
-  summary: 'Python wrapper to libmo_unpack'
+  home: https://github.com/SciTools/mo_pack
+  license: LGPL-3.0
+  summary: 'Python wrapper to libmo_unpack.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

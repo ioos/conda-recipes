@@ -1,42 +1,51 @@
-{% set version = "1.14.7" %}
+{% set version = "1.15.0" %}
 
 package:
-    name: ecmwf_grib
-    version: {{ version }}
+  name: ecmwf_grib
+  version: {{ version }}
 
 source:
-    fn: grib_api-{{ version }}.tar.gz
-    url: https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-{{ version }}-Source.tar.gz
-    md5: b3caa51fd2c2ae6e4e304e570489074f
+  fn: grib_api-{{ version }}.tar.gz
+  url: https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-{{ version }}-Source.tar.gz
+  md5: df1e3779df73d09570c338ebe46341cf
 
 build:
-    number: 3
-    skip: True  # [win]
-    detect_binary_files_with_prefix: true
+  number: 0
+  skip: True  # [win]
+  detect_binary_files_with_prefix: true
 
 requirements:
-    build:
-        - jasper
-        - libpng 1.6*
-        - libnetcdf 4.3*
-    run:
-        - jasper
-        - libpng 1.6*
-        - libnetcdf 4.3*
+  build:
+    - cmake
+    - jasper
+    - libpng 1.6.22
+    - libnetcdf 4.4.*
+    - gcc
+  run:
+    - jasper
+    - libpng 1.6.22
+    - libnetcdf 4.4.*
+    - libgfortran
 
 test:
-    commands:
-        - grib_info
-        - ls $(grib_info -t)
-        - ls $(grib_info -d)
+  commands:
+    - grib_info
+    - ls $(grib_info -t)
+    - ls $(grib_info -d)
+    - test -f ${PREFIX}/lib/libgrib_api.so  # [linux]
+    - test -f ${PREFIX}/lib/libgrib_api_f77.so  # [linux]
+    - test -f ${PREFIX}/lib/libgrib_api_f90.so  # [linux]
+    - test -f ${PREFIX}/lib/libgrib_api.dylib  # [osx]
+    - test -f ${PREFIX}/lib/libgrib_api_f77.dylib  # [osx]
+    - test -f ${PREFIX}/lib/libgrib_api_f90.dylib  # [osx]
+    - conda inspect linkages -p $PREFIX ecmwf_grib  # [not win]
+    - conda inspect objects -p $PREFIX ecmwf_grib  # [osx]
 
 about:
-    home: https://software.ecmwf.int/wiki/display/GRIB/Home
-    license: Apache-2.0
-    summary: The ECMWF API for encoding and decoding WMO FM-92 GRIB edition 1 and edition 2 messages.
+  home: https://software.ecmwf.int/wiki/display/GRIB/Home
+  license: Apache-2.0
+  summary: 'The ECMWF API for encoding and decoding WMO FM-92 GRIB edition 1 and edition 2 messages.'
 
 extra:
-    recipe-maintainers:
-        - pelson
-        - rhattersley
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

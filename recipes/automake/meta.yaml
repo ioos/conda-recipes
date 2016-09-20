@@ -1,35 +1,37 @@
 {% set version = "1.14" %}
 
 package:
-    name: automake
-    version: {{ version }}
+  name: automake
+  version: {{ version }}
 
 source:
-    fn: automake-{{ version }}.tar.gz
-    url: http://ftp.gnu.org/gnu/automake/automake-{{ version }}.tar.gz
+  fn: automake-{{ version }}.tar.gz
+  url: http://ftp.gnu.org/gnu/automake/automake-{{ version }}.tar.gz
+  sha256: 7847424d4204d1627c129e9c15b81e145836afa2a1bf9003ffe10aa26ea75755
 
 build:
-    number: 0
-    skip: True  # [win]
+  number: 0
+  skip: True  # [win]
 
 requirements:
-    build:
-        - m4
-        - autoconf
-    run:
-        - m4
-        - autoconf
+  build:
+    - m4
+    - autoconf
+  run:
+    - m4
+    - autoconf
 
 test:
-    commands:
-        - automake --help
-        - conda inspect linkages -n _test automake  # [linux]
+  commands:
+    - automake --help
+    - conda inspect linkages -p $PREFIX automake  # [not win]
+    - conda inspect objects -p $PREFIX automake  # [osx]
 
 about:
-    home: http://www.gnu.org/software/automake/
-    license: GPL 3
-    summary: Tool for automatically generating Makefile.in files compliant with the GNU Coding Standards.
+  home: http://www.gnu.org/software/automake/
+  license: GPL-3.0
+  summary: 'Tool for automatically generating Makefile.in files compliant with the GNU Coding Standards.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

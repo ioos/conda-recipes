@@ -1,0 +1,11 @@
+--- rtree-f5ee10617b84a681cb69e7a921aa1b1113d8debd.orig/rtree/core.py	2016-10-17 07:38:29.307146038 -0300
++++ rtree-f5ee10617b84a681cb69e7a921aa1b1113d8debd/rtree/core.py	2016-10-17 07:38:52.882147212 -0300
+@@ -73,7 +73,7 @@
+ 
+ if os.name == 'nt':
+     os.environ['PATH'] = "{};{}".format(os.environ['PATH'], os.path.join(sys.prefix, "Library", "bin"))
+-    rt = ctypes.CDLL("spatialindex_c-64.dll")
++    rt = ctypes.CDLL("spatialindex_c-32.dll")
+ elif os.name == 'posix':
+     if 'linux' in sys.platform:
+         lib_name = 'libspatialindex_c.so'

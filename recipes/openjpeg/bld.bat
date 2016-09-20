@@ -1,4 +1,3 @@
-
 cmake -G "NMake Makefiles" ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -D TIFF_LIBRARY=%LIBRARY_LIB%\libtiff.lib ^

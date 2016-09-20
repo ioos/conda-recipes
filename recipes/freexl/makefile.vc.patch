@@ -1,0 +1,20 @@
+--- makefile.vc.orig	2016-06-08 17:20:11.967622300 +1000
++++ makefile.vc	2016-06-08 17:23:29.199067600 +1000
+@@ -7,7 +7,7 @@
+ LIBOBJ	               =	freexl.obj
+ FREEXL_DLL	 	       =	freexl$(VERSION).dll
+ 
+-CFLAGS	=	/nologo -IC:\OSGeo4W\include -I. -Iheaders $(OPTFLAGS)
++CFLAGS	=	/nologo -I$(LIBRARY_INC) -I. -Iheaders $(OPTFLAGS)
+ 
+ default:	all
+ 
+@@ -25,7 +25,7 @@
+ freexl_i.lib:	$(LIBOBJ)
+ 	link /debug /dll /out:$(FREEXL_DLL) \
+ 		/implib:freexl_i.lib $(LIBOBJ) \
+-		C:\OSGeo4w\lib\iconv.lib
++		$(LIBRARY_LIB)\iconv.lib
+ 	if exist $(FREEXL_DLL).manifest mt -manifest \
+ 		$(FREEXL_DLL).manifest -outputresource:$(FREEXL_DLL);2 
+ 

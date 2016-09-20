@@ -1,20 +1,22 @@
 #!/bin/bash
 
-
-# Problems with cartopy if the -m{32,64} flag is not defined.
-# See https://taskman.eionet.europa.eu/issues/14817.
-
-MACHINE_TYPE=`uname -m`
-if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-  ARCH="-m64"
-elif [ ${MACHINE_TYPE} == 'x86_32' ]; then
-  ARCH="-m32"
-else
-  ARCH=""
+if [[ $(uname) == Darwin ]]; then
+    export CC=clang
+    export CXX=clang++
+    export MACOSX_VERSION_MIN="10.9"
+    export MACOSX_DEPLOYMENT_TARGET="${MACOSX_VERSION_MIN}"
+    export CMAKE_OSX_DEPLOYMENT_TARGET="${MACOSX_VERSION_MIN}"
+    export CFLAGS="${CFLAGS} -mmacosx-version-min=${MACOSX_VERSION_MIN}"
+    export CXXFLAGS="${CXXFLAGS} -mmacosx-version-min=${MACOSX_VERSION_MIN}"
+    export CXXFLAGS="${CXXFLAGS} -stdlib=libc++"
+    export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
+    export LDFLAGS="${LDFLAGS} -mmacosx-version-min=${MACOSX_VERSION_MIN}"
+    export LDFLAGS="${LDFLAGS} -lc++"
+    export LINKFLAGS="${LDFLAGS}"
+    export CXX="${CXX} -stdlib=libc++"
 fi
 
-CFLAGS=${ARCH} CPPFLAGS=${ARCH} CXXFLAGS=${ARCH} LDFLAGS=${ARCH} FFLAGS=${ARCH} \
-    ./configure --prefix=$PREFIX --without-jni
+./configure --prefix=$PREFIX
 
 make
 

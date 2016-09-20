@@ -1,40 +1,44 @@
 {% set version = "2.1.0" %}
 
 package:
-    name: expat
-    version: {{ version }}
+  name: expat
+  version: {{ version }}
 
 source:
-    fn: expat-{{ version }}.tar.bz2
-    url: http://downloads.sourceforge.net/project/expat/expat/{{ version }}/expat-{{ version }}.tar.gz
-    md5: dd7dab7a5fea97d2a6a43f511449b7cd
+  fn: expat-{{ version }}.tar.bz2
+  url: http://downloads.sourceforge.net/project/expat/expat/{{ version }}/expat-{{ version }}.tar.gz
+  md5: dd7dab7a5fea97d2a6a43f511449b7cd
 
 build:
-    number: 1
-    features:
-        - vc9  # [win and py27]
-        - vc10  # [win and py34]
-        - vc14  # [win and py35]
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
 
 requirements:
-    build:
-        - cmake  # [win]
-        - python  # [win]
-        - msinttypes  # [win]
+  build:
+    - python  # [win]
+    # Use AppVeyor's cmake.
+    #- cmake  # [win]
+    - msinttypes  # [win]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
 
 test:
-    requires:
-        - python {{ environ['PY_VER'] + '*' }}  # [win]
-    commands:
-        - xmlwf -h
+  commands:
+    - xmlwf -h
 
 about:
-    home: http://expat.sourceforge.net/
-    license: MIT
-    summary: Expat XML parser library in C
+  home: http://expat.sourceforge.net/
+  license: MIT
+  summary: 'Expat XML parser library in C.'
 
 extra:
-    recipe-maintainers:
-        - kwilcox
-        - ocefpaf
-        - pelson
+  recipe-maintainers:
+    - ocefpaf

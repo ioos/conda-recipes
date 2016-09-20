@@ -1,0 +1,40 @@
+{% set version="2.0.8" %}
+
+package:
+  name: gitpython
+  version: {{ version }}
+
+source:
+  fn: GitPython-{{ version }}.tar.gz
+  url: https://github.com/gitpython-developers/GitPython/archive/{{ version }}.tar.gz
+  sha256: adbc08a2244f5f00cd8d0dc7a115b55f269ca1677799393a86d499b6a4dd513e
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - gitdb >=0.6.4
+
+test:
+  imports:
+    - git
+    - git.index
+    - git.objects
+    - git.objects.submodule
+    - git.refs
+    - git.repo
+
+about:
+  home: https://github.com/gitpython-developers/GitPython
+  license: BSD 3-Clause
+  summary: 'Python Git Library'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

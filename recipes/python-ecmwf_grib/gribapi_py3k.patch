@@ -1,0 +1,4954 @@
+Index: cmake/ecbuild_find_python.cmake
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- cmake/ecbuild_find_python.cmake	(date 1466164908000)
++++ cmake/ecbuild_find_python.cmake	(date 1466165185000)
+@@ -101,7 +101,7 @@
+         # find where python site-packages are ...
+ 
+         if( PYTHON_EXECUTABLE )
+-            execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
++            execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
+         endif()
+         ecbuild_debug( "ecbuild_find_python: PYTHON_SITE_PACKAGES=${PYTHON_SITE_PACKAGES}" )
+ 
+Index: python/CMakeLists.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- python/CMakeLists.txt	(date 1466165185000)
++++ python/CMakeLists.txt	(date 1466165264000)
+@@ -64,6 +64,10 @@
+             include_directories( ${NUMPY_INCLUDE_DIRS} )
+         endif()
+ 
++        if (PYTHON_VERSION_MAJOR GREATER 2)
++		    set_property(SOURCE gribapi_swig.i APPEND PROPERTY SWIG_FLAGS "-py3" "-DSWIGPYTHON3")
++        endif()
++
+         # Invoke swig to generate the C wrapper
+         #  swig_add_module( gribapi_swig python grib_interface.h grib_interface.c gribapi_swig.i )
+         #  swig_link_libraries( gribapi_swig grib_api ${PYTHON_LIBRARIES} )
+Index: python/gribapi.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- python/gribapi.py	(date 1466165185000)
++++ python/gribapi.py	(date 1466165264000)
+@@ -28,12 +28,14 @@
+     - NumPy (optional)
+ 
+ """
+-import gribapi_swig as _internal
++#import gribapi_swig as _internal
++from gribapi import gribapi_swig as _internal
+ import types
+ import sys
+ import os
+ from array import array
+ from functools import wraps
++from io import IOBase
+ # import inspect
+ 
+ KEYTYPES = {
+@@ -60,12 +62,12 @@
+         @wraps(_func_)
+         # The wrapper function. Replaces the target function and receives its args
+         def modified(*args, **kw):
+-            arg_names = _func_.func_code.co_varnames
++            arg_names = _func_.__code__.co_varnames
+             # argnames, varargs, kwargs, defaults = inspect.getargspec(_func_)
+             kw.update(zip(arg_names, args))
+-            for name, allowed_types in _params_.iteritems():
++            for name, allowed_types in _params_.items():
+                 param = kw[name]
+-                if isinstance(allowed_types, types.TypeType):
++                if isinstance(allowed_types, type):
+                     allowed_types = (allowed_types,)
+                 assert isinstance(param, allowed_types), \
+                     "Parameter '%s' is of type %s and should be of type %s" % (name, type(param).__name__, " or ".join([t.__name__ for t in allowed_types]))
+@@ -152,7 +154,7 @@
+         raise GribInternalError(errid)
+ 
+ 
+-@require(fileobj=file)
++@require(fileobj=IOBase)
+ def gts_new_from_file(fileobj, headers_only=False):
+     """
+     @brief Load in memory a GTS message from a file.
+@@ -184,7 +186,7 @@
+         return gribid
+ 
+ 
+-@require(fileobj=file)
++@require(fileobj=IOBase)
+ def bufr_new_from_file(fileobj, headers_only=False):
+     """
+     @brief Load in memory a BUFR message from a file.
+@@ -216,7 +218,7 @@
+         return gribid
+ 
+ 
+-@require(fileobj=file)
++@require(fileobj=IOBase)
+ def grib_new_from_file(fileobj, headers_only=False):
+     """
+     @brief Load in memory a grib message from a file.
+@@ -248,7 +250,7 @@
+         return gribid
+ 
+ 
+-@require(fileobj=file)
++@require(fileobj=IOBase)
+ def grib_count_in_file(fileobj):
+     """
+     @brief Count the messages in a file.
+@@ -347,7 +349,7 @@
+     _internal.grib_c_gribex_mode_off()
+ 
+ 
+-@require(gribid=int, fileobj=file)
++@require(gribid=int, fileobj=IOBase)
+ def grib_write(gribid, fileobj):
+     """
+     @brief Write a message to a file.
+@@ -361,7 +363,7 @@
+     GRIB_CHECK(_internal.grib_c_write(gribid, fileobj))
+ 
+ 
+-@require(multigribid=int, fileobj=file)
++@require(multigribid=int, fileobj=IOBase)
+ def grib_multi_write(multigribid, fileobj):
+     """
+     @brief Write a multi field message to a file.
+@@ -675,7 +677,7 @@
+     return value
+ 
+ 
+-@require(gribid=int, key=str, value=(int, long, float, str))
++@require(gribid=int, key=str, value=(int, int, float, str))
+ def grib_set_long(gribid, key, value):
+     """
+     @brief Set the integer value for a key in a grib message.
+@@ -693,13 +695,13 @@
+     except (ValueError, TypeError):
+         raise TypeError("Invalid type")
+ 
+-    if (value > sys.maxint):
++    if (value > sys.maxsize):
+         raise TypeError("Invalid type")
+ 
+     GRIB_CHECK(_internal.grib_c_set_long(gribid, key, value))
+ 
+ 
+-@require(gribid=int, key=str, value=(int, long, float, str))
++@require(gribid=int, key=str, value=(int, int, float, str))
+ def grib_set_double(gribid, key, value):
+     """
+     @brief Set the double value for a key in a grib message.
+Index: python/gribapi_swig.i
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- python/gribapi_swig.i	(date 1466165185000)
++++ python/gribapi_swig.i	(date 1466165264000)
+@@ -21,14 +21,34 @@
+ 
+ #endif
+ 
+-/* Converts a PyFile instance to a stdio FILE* */
+-%typemap(in) FILE* {
+-    if ( PyFile_Check($input) ){
+-        $1 = PyFile_AsFile($input);
+-    } else {
+-        PyErr_SetString(PyExc_TypeError, "$1_name must be a file type.");
++// FILE* emulation code applied from https://github.com/pygraphviz/pygraphviz
++%{
++ #if PY_VERSION_HEX >= 0x03000000
++ extern PyTypeObject PyIOBase_Type;
++ #endif
++%}
++
++%typemap(in) FILE* (int fd, PyObject *mode_obj, PyObject *mode_byte_obj, char *mode) {
++%#if PY_VERSION_HEX >= 0x03000000
++    if (!PyObject_IsInstance($input, (PyObject *)&PyIOBase_Type)) {
++        PyErr_SetString(PyExc_TypeError, "not a file handle");
+         return NULL;
+     }
++    // work around to get hold of FILE*
++    fd = PyObject_AsFileDescriptor($input);
++    mode_obj = PyObject_GetAttrString($input, "mode");
++    mode_byte_obj = PyUnicode_AsUTF8String(mode_obj);
++    mode = PyBytes_AsString(mode_byte_obj);
++    $1 = fdopen(fd, mode);
++    Py_XDECREF(mode_obj);
++    Py_XDECREF(mode_byte_obj);
++%#else
++    if (!PyFile_Check($input)) {
++        PyErr_SetString(PyExc_TypeError, "not a file handle");
++        return NULL;
++    }
++    $1 = PyFile_AsFile($input);
++%#endif
+ }
+ 
+ %pointer_class(int, intp);
+Index: python/swig_wrap_numpy.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- python/swig_wrap_numpy.py	(date 1466165185000)
++++ python/swig_wrap_numpy.py	(date 1466165264000)
+@@ -1,12 +1,15 @@
+ # This file was automatically generated by SWIG (http://www.swig.org).
+-# Version 1.3.40
++# Version 3.0.8
+ #
+ # Do not make changes to this file unless you know what you are doing--modify
+ # the SWIG interface file instead.
+-# This file is compatible with both classic and new-style classes.
+ 
++
++
++
++
+ from sys import version_info
+-if version_info >= (2,6,0):
++if version_info >= (2, 6, 0):
+     def swig_import_helper():
+         from os.path import dirname
+         import imp
+@@ -30,105 +33,238 @@
+ try:
+     _swig_property = property
+ except NameError:
+-    pass # Python < 2.2 doesn't have 'property'.
++    pass  # Python < 2.2 doesn't have 'property'.
++
++
+-def _swig_setattr_nondynamic(self,class_type,name,value,static=1):
++def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
+-    if (name == "thisown"): return self.this.own(value)
++    if (name == "thisown"):
++        return self.this.own(value)
+     if (name == "this"):
+         if type(value).__name__ == 'SwigPyObject':
+             self.__dict__[name] = value
+             return
+-    method = class_type.__swig_setmethods__.get(name,None)
++    method = class_type.__swig_setmethods__.get(name, None)
+-    if method: return method(self,value)
+-    if (not static) or hasattr(self,name):
++    if method:
++        return method(self, value)
++    if (not static):
++        if _newclass:
++            object.__setattr__(self, name, value)
++        else:
+-        self.__dict__[name] = value
++            self.__dict__[name] = value
+     else:
+         raise AttributeError("You cannot add attributes to %s" % self)
+ 
++
+-def _swig_setattr(self,class_type,name,value):
++def _swig_setattr(self, class_type, name, value):
+-    return _swig_setattr_nondynamic(self,class_type,name,value,0)
++    return _swig_setattr_nondynamic(self, class_type, name, value, 0)
+ 
+-def _swig_getattr(self,class_type,name):
+-    if (name == "thisown"): return self.this.own()
++
++def _swig_getattr_nondynamic(self, class_type, name, static=1):
++    if (name == "thisown"):
++        return self.this.own()
+-    method = class_type.__swig_getmethods__.get(name,None)
++    method = class_type.__swig_getmethods__.get(name, None)
+-    if method: return method(self)
++    if method:
++        return method(self)
++    if (not static):
++        return object.__getattr__(self, name)
++    else:
+-    raise AttributeError(name)
++        raise AttributeError(name)
+ 
++def _swig_getattr(self, class_type, name):
++    return _swig_getattr_nondynamic(self, class_type, name, 0)
++
++
+ def _swig_repr(self):
+-    try: strthis = "proxy of " + self.this.__repr__()
+-    except: strthis = ""
++    try:
++        strthis = "proxy of " + self.this.__repr__()
++    except Exception:
++        strthis = ""
+     return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+ 
+ try:
+     _object = object
+     _newclass = 1
+ except AttributeError:
+-    class _object : pass
++    class _object:
++        pass
+     _newclass = 0
+ 
+ 
+ 
+-def cdata(*args):
+-  return _gribapi_swig.cdata(*args)
++def cdata(ptr: 'void *', nelements: 'size_t'=1) -> "SWIGCDATA":
++    return _gribapi_swig.cdata(ptr, nelements)
+ cdata = _gribapi_swig.cdata
+ 
+-def memmove(*args):
+-  return _gribapi_swig.memmove(*args)
++def memmove(data: 'void *', indata: 'void const *') -> "void":
++    return _gribapi_swig.memmove(data, indata)
+ memmove = _gribapi_swig.memmove
++
++_gribapi_swig.GRIB_SUCCESS_swigconstant(_gribapi_swig)
+ GRIB_SUCCESS = _gribapi_swig.GRIB_SUCCESS
++
++_gribapi_swig.GRIB_END_OF_FILE_swigconstant(_gribapi_swig)
+ GRIB_END_OF_FILE = _gribapi_swig.GRIB_END_OF_FILE
++
++_gribapi_swig.GRIB_INTERNAL_ERROR_swigconstant(_gribapi_swig)
+ GRIB_INTERNAL_ERROR = _gribapi_swig.GRIB_INTERNAL_ERROR
++
++_gribapi_swig.GRIB_BUFFER_TOO_SMALL_swigconstant(_gribapi_swig)
+ GRIB_BUFFER_TOO_SMALL = _gribapi_swig.GRIB_BUFFER_TOO_SMALL
++
++_gribapi_swig.GRIB_NOT_IMPLEMENTED_swigconstant(_gribapi_swig)
+ GRIB_NOT_IMPLEMENTED = _gribapi_swig.GRIB_NOT_IMPLEMENTED
++
++_gribapi_swig.GRIB_7777_NOT_FOUND_swigconstant(_gribapi_swig)
+ GRIB_7777_NOT_FOUND = _gribapi_swig.GRIB_7777_NOT_FOUND
++
++_gribapi_swig.GRIB_ARRAY_TOO_SMALL_swigconstant(_gribapi_swig)
+ GRIB_ARRAY_TOO_SMALL = _gribapi_swig.GRIB_ARRAY_TOO_SMALL
++
++_gribapi_swig.GRIB_FILE_NOT_FOUND_swigconstant(_gribapi_swig)
+ GRIB_FILE_NOT_FOUND = _gribapi_swig.GRIB_FILE_NOT_FOUND
++
++_gribapi_swig.GRIB_CODE_NOT_FOUND_IN_TABLE_swigconstant(_gribapi_swig)
+ GRIB_CODE_NOT_FOUND_IN_TABLE = _gribapi_swig.GRIB_CODE_NOT_FOUND_IN_TABLE
++
++_gribapi_swig.GRIB_WRONG_ARRAY_SIZE_swigconstant(_gribapi_swig)
+ GRIB_WRONG_ARRAY_SIZE = _gribapi_swig.GRIB_WRONG_ARRAY_SIZE
++
++_gribapi_swig.GRIB_NOT_FOUND_swigconstant(_gribapi_swig)
+ GRIB_NOT_FOUND = _gribapi_swig.GRIB_NOT_FOUND
++
++_gribapi_swig.GRIB_IO_PROBLEM_swigconstant(_gribapi_swig)
+ GRIB_IO_PROBLEM = _gribapi_swig.GRIB_IO_PROBLEM
++
++_gribapi_swig.GRIB_INVALID_MESSAGE_swigconstant(_gribapi_swig)
+ GRIB_INVALID_MESSAGE = _gribapi_swig.GRIB_INVALID_MESSAGE
++
++_gribapi_swig.GRIB_DECODING_ERROR_swigconstant(_gribapi_swig)
+ GRIB_DECODING_ERROR = _gribapi_swig.GRIB_DECODING_ERROR
++
++_gribapi_swig.GRIB_ENCODING_ERROR_swigconstant(_gribapi_swig)
+ GRIB_ENCODING_ERROR = _gribapi_swig.GRIB_ENCODING_ERROR
++
++_gribapi_swig.GRIB_NO_MORE_IN_SET_swigconstant(_gribapi_swig)
+ GRIB_NO_MORE_IN_SET = _gribapi_swig.GRIB_NO_MORE_IN_SET
++
++_gribapi_swig.GRIB_GEOCALCULUS_PROBLEM_swigconstant(_gribapi_swig)
+ GRIB_GEOCALCULUS_PROBLEM = _gribapi_swig.GRIB_GEOCALCULUS_PROBLEM
++
++_gribapi_swig.GRIB_OUT_OF_MEMORY_swigconstant(_gribapi_swig)
+ GRIB_OUT_OF_MEMORY = _gribapi_swig.GRIB_OUT_OF_MEMORY
++
++_gribapi_swig.GRIB_READ_ONLY_swigconstant(_gribapi_swig)
+ GRIB_READ_ONLY = _gribapi_swig.GRIB_READ_ONLY
++
++_gribapi_swig.GRIB_INVALID_ARGUMENT_swigconstant(_gribapi_swig)
+ GRIB_INVALID_ARGUMENT = _gribapi_swig.GRIB_INVALID_ARGUMENT
++
++_gribapi_swig.GRIB_NULL_HANDLE_swigconstant(_gribapi_swig)
+ GRIB_NULL_HANDLE = _gribapi_swig.GRIB_NULL_HANDLE
++
++_gribapi_swig.GRIB_INVALID_SECTION_NUMBER_swigconstant(_gribapi_swig)
+ GRIB_INVALID_SECTION_NUMBER = _gribapi_swig.GRIB_INVALID_SECTION_NUMBER
++
++_gribapi_swig.GRIB_VALUE_CANNOT_BE_MISSING_swigconstant(_gribapi_swig)
+ GRIB_VALUE_CANNOT_BE_MISSING = _gribapi_swig.GRIB_VALUE_CANNOT_BE_MISSING
++
++_gribapi_swig.GRIB_WRONG_LENGTH_swigconstant(_gribapi_swig)
+ GRIB_WRONG_LENGTH = _gribapi_swig.GRIB_WRONG_LENGTH
++
++_gribapi_swig.GRIB_INVALID_TYPE_swigconstant(_gribapi_swig)
+ GRIB_INVALID_TYPE = _gribapi_swig.GRIB_INVALID_TYPE
++
++_gribapi_swig.GRIB_WRONG_STEP_swigconstant(_gribapi_swig)
+ GRIB_WRONG_STEP = _gribapi_swig.GRIB_WRONG_STEP
++
++_gribapi_swig.GRIB_WRONG_STEP_UNIT_swigconstant(_gribapi_swig)
+ GRIB_WRONG_STEP_UNIT = _gribapi_swig.GRIB_WRONG_STEP_UNIT
++
++_gribapi_swig.GRIB_INVALID_FILE_swigconstant(_gribapi_swig)
+ GRIB_INVALID_FILE = _gribapi_swig.GRIB_INVALID_FILE
++
++_gribapi_swig.GRIB_INVALID_GRIB_swigconstant(_gribapi_swig)
+ GRIB_INVALID_GRIB = _gribapi_swig.GRIB_INVALID_GRIB
++
++_gribapi_swig.GRIB_INVALID_INDEX_swigconstant(_gribapi_swig)
+ GRIB_INVALID_INDEX = _gribapi_swig.GRIB_INVALID_INDEX
++
++_gribapi_swig.GRIB_INVALID_ITERATOR_swigconstant(_gribapi_swig)
+ GRIB_INVALID_ITERATOR = _gribapi_swig.GRIB_INVALID_ITERATOR
++
++_gribapi_swig.GRIB_INVALID_KEYS_ITERATOR_swigconstant(_gribapi_swig)
+ GRIB_INVALID_KEYS_ITERATOR = _gribapi_swig.GRIB_INVALID_KEYS_ITERATOR
++
++_gribapi_swig.GRIB_INVALID_NEAREST_swigconstant(_gribapi_swig)
+ GRIB_INVALID_NEAREST = _gribapi_swig.GRIB_INVALID_NEAREST
++
++_gribapi_swig.GRIB_INVALID_ORDERBY_swigconstant(_gribapi_swig)
+ GRIB_INVALID_ORDERBY = _gribapi_swig.GRIB_INVALID_ORDERBY
++
++_gribapi_swig.GRIB_MISSING_KEY_swigconstant(_gribapi_swig)
+ GRIB_MISSING_KEY = _gribapi_swig.GRIB_MISSING_KEY
++
++_gribapi_swig.GRIB_OUT_OF_AREA_swigconstant(_gribapi_swig)
+ GRIB_OUT_OF_AREA = _gribapi_swig.GRIB_OUT_OF_AREA
++
++_gribapi_swig.GRIB_CONCEPT_NO_MATCH_swigconstant(_gribapi_swig)
+ GRIB_CONCEPT_NO_MATCH = _gribapi_swig.GRIB_CONCEPT_NO_MATCH
++
++_gribapi_swig.GRIB_NO_DEFINITIONS_swigconstant(_gribapi_swig)
+ GRIB_NO_DEFINITIONS = _gribapi_swig.GRIB_NO_DEFINITIONS
++
++_gribapi_swig.GRIB_WRONG_TYPE_swigconstant(_gribapi_swig)
+ GRIB_WRONG_TYPE = _gribapi_swig.GRIB_WRONG_TYPE
++
++_gribapi_swig.GRIB_END_swigconstant(_gribapi_swig)
+ GRIB_END = _gribapi_swig.GRIB_END
++
++_gribapi_swig.GRIB_NO_VALUES_swigconstant(_gribapi_swig)
+ GRIB_NO_VALUES = _gribapi_swig.GRIB_NO_VALUES
++
++_gribapi_swig.GRIB_WRONG_GRID_swigconstant(_gribapi_swig)
+ GRIB_WRONG_GRID = _gribapi_swig.GRIB_WRONG_GRID
++
++_gribapi_swig.GRIB_END_OF_INDEX_swigconstant(_gribapi_swig)
+ GRIB_END_OF_INDEX = _gribapi_swig.GRIB_END_OF_INDEX
++
++_gribapi_swig.GRIB_NULL_INDEX_swigconstant(_gribapi_swig)
+ GRIB_NULL_INDEX = _gribapi_swig.GRIB_NULL_INDEX
++
++_gribapi_swig.GRIB_PREMATURE_END_OF_FILE_swigconstant(_gribapi_swig)
+ GRIB_PREMATURE_END_OF_FILE = _gribapi_swig.GRIB_PREMATURE_END_OF_FILE
++
++_gribapi_swig.GRIB_INTERNAL_ARRAY_TOO_SMALL_swigconstant(_gribapi_swig)
+ GRIB_INTERNAL_ARRAY_TOO_SMALL = _gribapi_swig.GRIB_INTERNAL_ARRAY_TOO_SMALL
++
++_gribapi_swig.GRIB_MESSAGE_TOO_LARGE_swigconstant(_gribapi_swig)
+ GRIB_MESSAGE_TOO_LARGE = _gribapi_swig.GRIB_MESSAGE_TOO_LARGE
++
++_gribapi_swig.GRIB_CONSTANT_FIELD_swigconstant(_gribapi_swig)
+ GRIB_CONSTANT_FIELD = _gribapi_swig.GRIB_CONSTANT_FIELD
++
++_gribapi_swig.GRIB_SWITCH_NO_MATCH_swigconstant(_gribapi_swig)
+ GRIB_SWITCH_NO_MATCH = _gribapi_swig.GRIB_SWITCH_NO_MATCH
++
++_gribapi_swig.GRIB_UNDERFLOW_swigconstant(_gribapi_swig)
+ GRIB_UNDERFLOW = _gribapi_swig.GRIB_UNDERFLOW
++
++_gribapi_swig.GRIB_MESSAGE_MALFORMED_swigconstant(_gribapi_swig)
+ GRIB_MESSAGE_MALFORMED = _gribapi_swig.GRIB_MESSAGE_MALFORMED
++
++_gribapi_swig.GRIB_CORRUPTED_INDEX_swigconstant(_gribapi_swig)
+ GRIB_CORRUPTED_INDEX = _gribapi_swig.GRIB_CORRUPTED_INDEX
++
++_gribapi_swig.GRIB_INVALID_BPV_swigconstant(_gribapi_swig)
+ GRIB_INVALID_BPV = _gribapi_swig.GRIB_INVALID_BPV
++
++_gribapi_swig.GRIB_DIFFERENT_EDITION_swigconstant(_gribapi_swig)
+ GRIB_DIFFERENT_EDITION = _gribapi_swig.GRIB_DIFFERENT_EDITION
++
++_gribapi_swig.GRIB_VALUE_DIFFERENT_swigconstant(_gribapi_swig)
+ GRIB_VALUE_DIFFERENT = _gribapi_swig.GRIB_VALUE_DIFFERENT
++
++_gribapi_swig.GRIB_INVALID_KEY_VALUE_swigconstant(_gribapi_swig)
+ GRIB_INVALID_KEY_VALUE = _gribapi_swig.GRIB_INVALID_KEY_VALUE
+ class intp(_object):
+     __swig_setmethods__ = {}
+@@ -136,22 +272,32 @@
+     __swig_getmethods__ = {}
+     __getattr__ = lambda self, name: _swig_getattr(self, intp, name)
+     __repr__ = _swig_repr
++
+-    def __init__(self): 
++    def __init__(self):
+         this = _gribapi_swig.new_intp()
+-        try: self.this.append(this)
+-        except: self.this = this
++        try:
++            self.this.append(this)
++        except Exception:
++            self.this = this
+     __swig_destroy__ = _gribapi_swig.delete_intp
+-    __del__ = lambda self : None;
+-    def assign(self, *args): return _gribapi_swig.intp_assign(self, *args)
+-    def value(self): return _gribapi_swig.intp_value(self)
+-    def cast(self): return _gribapi_swig.intp_cast(self)
++    __del__ = lambda self: None
++
++    def assign(self, value: 'int') -> "void":
++        return _gribapi_swig.intp_assign(self, value)
++
++    def value(self) -> "int":
++        return _gribapi_swig.intp_value(self)
++
++    def cast(self) -> "int *":
++        return _gribapi_swig.intp_cast(self)
+     __swig_getmethods__["frompointer"] = lambda x: _gribapi_swig.intp_frompointer
+-    if _newclass:frompointer = staticmethod(_gribapi_swig.intp_frompointer)
++    if _newclass:
++        frompointer = staticmethod(_gribapi_swig.intp_frompointer)
+ intp_swigregister = _gribapi_swig.intp_swigregister
+ intp_swigregister(intp)
+ 
+-def intp_frompointer(*args):
+-  return _gribapi_swig.intp_frompointer(*args)
++def intp_frompointer(t: 'int *') -> "intp *":
++    return _gribapi_swig.intp_frompointer(t)
+ intp_frompointer = _gribapi_swig.intp_frompointer
+ 
+ class longp(_object):
+@@ -160,22 +306,32 @@
+     __swig_getmethods__ = {}
+     __getattr__ = lambda self, name: _swig_getattr(self, longp, name)
+     __repr__ = _swig_repr
++
+-    def __init__(self): 
++    def __init__(self):
+         this = _gribapi_swig.new_longp()
+-        try: self.this.append(this)
+-        except: self.this = this
++        try:
++            self.this.append(this)
++        except Exception:
++            self.this = this
+     __swig_destroy__ = _gribapi_swig.delete_longp
+-    __del__ = lambda self : None;
+-    def assign(self, *args): return _gribapi_swig.longp_assign(self, *args)
+-    def value(self): return _gribapi_swig.longp_value(self)
+-    def cast(self): return _gribapi_swig.longp_cast(self)
++    __del__ = lambda self: None
++
++    def assign(self, value: 'long') -> "void":
++        return _gribapi_swig.longp_assign(self, value)
++
++    def value(self) -> "long":
++        return _gribapi_swig.longp_value(self)
++
++    def cast(self) -> "long *":
++        return _gribapi_swig.longp_cast(self)
+     __swig_getmethods__["frompointer"] = lambda x: _gribapi_swig.longp_frompointer
+-    if _newclass:frompointer = staticmethod(_gribapi_swig.longp_frompointer)
++    if _newclass:
++        frompointer = staticmethod(_gribapi_swig.longp_frompointer)
+ longp_swigregister = _gribapi_swig.longp_swigregister
+ longp_swigregister(longp)
+ 
+-def longp_frompointer(*args):
+-  return _gribapi_swig.longp_frompointer(*args)
++def longp_frompointer(t: 'long *') -> "longp *":
++    return _gribapi_swig.longp_frompointer(t)
+ longp_frompointer = _gribapi_swig.longp_frompointer
+ 
+ class doublep(_object):
+@@ -184,391 +340,402 @@
+     __swig_getmethods__ = {}
+     __getattr__ = lambda self, name: _swig_getattr(self, doublep, name)
+     __repr__ = _swig_repr
++
+-    def __init__(self): 
++    def __init__(self):
+         this = _gribapi_swig.new_doublep()
+-        try: self.this.append(this)
+-        except: self.this = this
++        try:
++            self.this.append(this)
++        except Exception:
++            self.this = this
+     __swig_destroy__ = _gribapi_swig.delete_doublep
+-    __del__ = lambda self : None;
+-    def assign(self, *args): return _gribapi_swig.doublep_assign(self, *args)
+-    def value(self): return _gribapi_swig.doublep_value(self)
+-    def cast(self): return _gribapi_swig.doublep_cast(self)
++    __del__ = lambda self: None
++
++    def assign(self, value: 'double') -> "void":
++        return _gribapi_swig.doublep_assign(self, value)
++
++    def value(self) -> "double":
++        return _gribapi_swig.doublep_value(self)
++
++    def cast(self) -> "double *":
++        return _gribapi_swig.doublep_cast(self)
+     __swig_getmethods__["frompointer"] = lambda x: _gribapi_swig.doublep_frompointer
+-    if _newclass:frompointer = staticmethod(_gribapi_swig.doublep_frompointer)
++    if _newclass:
++        frompointer = staticmethod(_gribapi_swig.doublep_frompointer)
+ doublep_swigregister = _gribapi_swig.doublep_swigregister
+ doublep_swigregister(doublep)
+ 
+-def doublep_frompointer(*args):
+-  return _gribapi_swig.doublep_frompointer(*args)
++def doublep_frompointer(t: 'double *') -> "doublep *":
++    return _gribapi_swig.doublep_frompointer(t)
+ doublep_frompointer = _gribapi_swig.doublep_frompointer
+ 
+ 
+-def new_doubleArray(*args):
+-  return _gribapi_swig.new_doubleArray(*args)
++def new_doubleArray(nelements: 'size_t') -> "double *":
++    return _gribapi_swig.new_doubleArray(nelements)
+ new_doubleArray = _gribapi_swig.new_doubleArray
+ 
+-def delete_doubleArray(*args):
+-  return _gribapi_swig.delete_doubleArray(*args)
++def delete_doubleArray(ary: 'double *') -> "void":
++    return _gribapi_swig.delete_doubleArray(ary)
+ delete_doubleArray = _gribapi_swig.delete_doubleArray
+ 
+-def doubleArray_getitem(*args):
+-  return _gribapi_swig.doubleArray_getitem(*args)
++def doubleArray_getitem(ary: 'double *', index: 'size_t') -> "double":
++    return _gribapi_swig.doubleArray_getitem(ary, index)
+ doubleArray_getitem = _gribapi_swig.doubleArray_getitem
+ 
+-def doubleArray_setitem(*args):
+-  return _gribapi_swig.doubleArray_setitem(*args)
++def doubleArray_setitem(ary: 'double *', index: 'size_t', value: 'double') -> "void":
++    return _gribapi_swig.doubleArray_setitem(ary, index, value)
+ doubleArray_setitem = _gribapi_swig.doubleArray_setitem
+ 
+-def new_longArray(*args):
+-  return _gribapi_swig.new_longArray(*args)
++def new_longArray(nelements: 'size_t') -> "long *":
++    return _gribapi_swig.new_longArray(nelements)
+ new_longArray = _gribapi_swig.new_longArray
+ 
+-def delete_longArray(*args):
+-  return _gribapi_swig.delete_longArray(*args)
++def delete_longArray(ary: 'long *') -> "void":
++    return _gribapi_swig.delete_longArray(ary)
+ delete_longArray = _gribapi_swig.delete_longArray
+ 
+-def longArray_getitem(*args):
+-  return _gribapi_swig.longArray_getitem(*args)
++def longArray_getitem(ary: 'long *', index: 'size_t') -> "long":
++    return _gribapi_swig.longArray_getitem(ary, index)
+ longArray_getitem = _gribapi_swig.longArray_getitem
+ 
+-def longArray_setitem(*args):
+-  return _gribapi_swig.longArray_setitem(*args)
++def longArray_setitem(ary: 'long *', index: 'size_t', value: 'long') -> "void":
++    return _gribapi_swig.longArray_setitem(ary, index, value)
+ longArray_setitem = _gribapi_swig.longArray_setitem
+ 
+-def new_intArray(*args):
+-  return _gribapi_swig.new_intArray(*args)
++def new_intArray(nelements: 'size_t') -> "int *":
++    return _gribapi_swig.new_intArray(nelements)
+ new_intArray = _gribapi_swig.new_intArray
+ 
+-def delete_intArray(*args):
+-  return _gribapi_swig.delete_intArray(*args)
++def delete_intArray(ary: 'int *') -> "void":
++    return _gribapi_swig.delete_intArray(ary)
+ delete_intArray = _gribapi_swig.delete_intArray
+ 
+-def intArray_getitem(*args):
+-  return _gribapi_swig.intArray_getitem(*args)
++def intArray_getitem(ary: 'int *', index: 'size_t') -> "int":
++    return _gribapi_swig.intArray_getitem(ary, index)
+ intArray_getitem = _gribapi_swig.intArray_getitem
+ 
+-def intArray_setitem(*args):
+-  return _gribapi_swig.intArray_setitem(*args)
++def intArray_setitem(ary: 'int *', index: 'size_t', value: 'int') -> "void":
++    return _gribapi_swig.intArray_setitem(ary, index, value)
+ intArray_setitem = _gribapi_swig.intArray_setitem
+ 
+-def grib_c_new_from_file(*args):
+-  return _gribapi_swig.grib_c_new_from_file(*args)
++def grib_c_new_from_file(f: 'FILE *', INOUT: 'int *', headers_only: 'int') -> "int *":
++    return _gribapi_swig.grib_c_new_from_file(f, INOUT, headers_only)
+ grib_c_new_from_file = _gribapi_swig.grib_c_new_from_file
+ 
+-def grib_c_new_bufr_from_file(*args):
+-  return _gribapi_swig.grib_c_new_bufr_from_file(*args)
++def grib_c_new_bufr_from_file(f: 'FILE *', headers_only: 'int', INOUT: 'int *') -> "int *":
++    return _gribapi_swig.grib_c_new_bufr_from_file(f, headers_only, INOUT)
+ grib_c_new_bufr_from_file = _gribapi_swig.grib_c_new_bufr_from_file
+ 
+-def grib_c_new_gts_from_file(*args):
+-  return _gribapi_swig.grib_c_new_gts_from_file(*args)
++def grib_c_new_gts_from_file(f: 'FILE *', headers_only: 'int', INOUT: 'int *') -> "int *":
++    return _gribapi_swig.grib_c_new_gts_from_file(f, headers_only, INOUT)
+ grib_c_new_gts_from_file = _gribapi_swig.grib_c_new_gts_from_file
+ 
+-def grib_c_iterator_new(*args):
+-  return _gribapi_swig.grib_c_iterator_new(*args)
++def grib_c_iterator_new(arg1: 'int *', arg3: 'int *') -> "int *":
++    return _gribapi_swig.grib_c_iterator_new(arg1, arg3)
+ grib_c_iterator_new = _gribapi_swig.grib_c_iterator_new
+ 
+-def grib_c_keys_iterator_new(*args):
+-  return _gribapi_swig.grib_c_keys_iterator_new(*args)
++def grib_c_keys_iterator_new(INPUT: 'int *', name_space: 'char *') -> "int *":
++    return _gribapi_swig.grib_c_keys_iterator_new(INPUT, name_space)
+ grib_c_keys_iterator_new = _gribapi_swig.grib_c_keys_iterator_new
+ 
+-def grib_c_new_from_samples(*args):
+-  return _gribapi_swig.grib_c_new_from_samples(*args)
++def grib_c_new_from_samples(INOUT: 'int *', name: 'char *') -> "int *":
++    return _gribapi_swig.grib_c_new_from_samples(INOUT, name)
+ grib_c_new_from_samples = _gribapi_swig.grib_c_new_from_samples
+ 
+-def grib_c_index_new_from_file(*args):
+-  return _gribapi_swig.grib_c_index_new_from_file(*args)
++def grib_c_index_new_from_file(file: 'char *', keys: 'char *') -> "int *":
++    return _gribapi_swig.grib_c_index_new_from_file(file, keys)
+ grib_c_index_new_from_file = _gribapi_swig.grib_c_index_new_from_file
+ 
+-def grib_c_index_add_file(*args):
+-  return _gribapi_swig.grib_c_index_add_file(*args)
++def grib_c_index_add_file(INPUT: 'int *', file: 'char *') -> "int":
++    return _gribapi_swig.grib_c_index_add_file(INPUT, file)
+ grib_c_index_add_file = _gribapi_swig.grib_c_index_add_file
+ 
+-def grib_c_new_from_index(*args):
+-  return _gribapi_swig.grib_c_new_from_index(*args)
++def grib_c_new_from_index(INPUT: 'int *', INOUT: 'int *') -> "int *":
++    return _gribapi_swig.grib_c_new_from_index(INPUT, INOUT)
+ grib_c_new_from_index = _gribapi_swig.grib_c_new_from_index
+ 
+-def grib_c_index_write(*args):
+-  return _gribapi_swig.grib_c_index_write(*args)
++def grib_c_index_write(INPUT: 'int *', file: 'char *') -> "int":
++    return _gribapi_swig.grib_c_index_write(INPUT, file)
+ grib_c_index_write = _gribapi_swig.grib_c_index_write
+ 
+-def grib_c_index_read(*args):
+-  return _gribapi_swig.grib_c_index_read(*args)
++def grib_c_index_read(file: 'char *') -> "int *":
++    return _gribapi_swig.grib_c_index_read(file)
+ grib_c_index_read = _gribapi_swig.grib_c_index_read
+ 
+-def grib_c_new_from_message(*args):
+-  return _gribapi_swig.grib_c_new_from_message(*args)
++def grib_c_new_from_message(INOUT: 'int *', binmsg: 'char *', INPUT: 'size_t *') -> "int *":
++    return _gribapi_swig.grib_c_new_from_message(INOUT, binmsg, INPUT)
+ grib_c_new_from_message = _gribapi_swig.grib_c_new_from_message
+ 
+-def grib_c_count_in_file(*args):
+-  return _gribapi_swig.grib_c_count_in_file(*args)
++def grib_c_count_in_file(f: 'FILE *') -> "int *":
++    return _gribapi_swig.grib_c_count_in_file(f)
+ grib_c_count_in_file = _gribapi_swig.grib_c_count_in_file
+ 
+-def grib_c_release(*args):
+-  return _gribapi_swig.grib_c_release(*args)
++def grib_c_release(gid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_release(gid)
+ grib_c_release = _gribapi_swig.grib_c_release
+ 
+-def grib_c_write(*args):
+-  return _gribapi_swig.grib_c_write(*args)
++def grib_c_write(gid: 'int *', f: 'FILE *') -> "int":
++    return _gribapi_swig.grib_c_write(gid, f)
+ grib_c_write = _gribapi_swig.grib_c_write
+ 
+-def grib_c_get_size_long(*args):
+-  return _gribapi_swig.grib_c_get_size_long(*args)
++def grib_c_get_size_long(gid: 'int *', key: 'char *') -> "long *":
++    return _gribapi_swig.grib_c_get_size_long(gid, key)
+ grib_c_get_size_long = _gribapi_swig.grib_c_get_size_long
+ 
+-def grib_c_get_string_length(*args):
+-  return _gribapi_swig.grib_c_get_string_length(*args)
++def grib_c_get_string_length(gid: 'int *', key: 'char *') -> "size_t *":
++    return _gribapi_swig.grib_c_get_string_length(gid, key)
+ grib_c_get_string_length = _gribapi_swig.grib_c_get_string_length
+ 
+-def grib_c_clone(*args):
+-  return _gribapi_swig.grib_c_clone(*args)
++def grib_c_clone(gid: 'int *', INOUT: 'int *') -> "int *":
++    return _gribapi_swig.grib_c_clone(gid, INOUT)
+ grib_c_clone = _gribapi_swig.grib_c_clone
+ 
+-def grib_c_copy_namespace(*args):
+-  return _gribapi_swig.grib_c_copy_namespace(*args)
++def grib_c_copy_namespace(gid: 'int *', name: 'char *', INPUT: 'int *') -> "int":
++    return _gribapi_swig.grib_c_copy_namespace(gid, name, INPUT)
+ grib_c_copy_namespace = _gribapi_swig.grib_c_copy_namespace
+ 
+-def grib_c_get_message_size(*args):
+-  return _gribapi_swig.grib_c_get_message_size(*args)
++def grib_c_get_message_size(gid: 'int *') -> "size_t *":
++    return _gribapi_swig.grib_c_get_message_size(gid)
+ grib_c_get_message_size = _gribapi_swig.grib_c_get_message_size
+ 
+-def grib_c_get_message_offset(*args):
+-  return _gribapi_swig.grib_c_get_message_offset(*args)
++def grib_c_get_message_offset(gid: 'int *') -> "size_t *":
++    return _gribapi_swig.grib_c_get_message_offset(gid)
+ grib_c_get_message_offset = _gribapi_swig.grib_c_get_message_offset
+ 
+-def grib_c_get_native_type(*args):
+-  return _gribapi_swig.grib_c_get_native_type(*args)
++def grib_c_get_native_type(gid: 'int *', key: 'char *') -> "int *":
++    return _gribapi_swig.grib_c_get_native_type(gid, key)
+ grib_c_get_native_type = _gribapi_swig.grib_c_get_native_type
+ 
+-def grib_c_multi_new():
++def grib_c_multi_new() -> "int *":
+-  return _gribapi_swig.grib_c_multi_new()
++    return _gribapi_swig.grib_c_multi_new()
+ grib_c_multi_new = _gribapi_swig.grib_c_multi_new
+ 
+-def grib_c_multi_support_on():
++def grib_c_multi_support_on() -> "int":
+-  return _gribapi_swig.grib_c_multi_support_on()
++    return _gribapi_swig.grib_c_multi_support_on()
+ grib_c_multi_support_on = _gribapi_swig.grib_c_multi_support_on
+ 
+-def grib_c_multi_write(*args):
+-  return _gribapi_swig.grib_c_multi_write(*args)
++def grib_c_multi_write(gid: 'int *', f: 'FILE *') -> "int":
++    return _gribapi_swig.grib_c_multi_write(gid, f)
+ grib_c_multi_write = _gribapi_swig.grib_c_multi_write
+ 
+-def grib_c_multi_support_off():
++def grib_c_multi_support_off() -> "int":
+-  return _gribapi_swig.grib_c_multi_support_off()
++    return _gribapi_swig.grib_c_multi_support_off()
+ grib_c_multi_support_off = _gribapi_swig.grib_c_multi_support_off
+ 
+-def grib_c_multi_release(*args):
+-  return _gribapi_swig.grib_c_multi_release(*args)
++def grib_c_multi_release(gid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_multi_release(gid)
+ grib_c_multi_release = _gribapi_swig.grib_c_multi_release
+ 
+-def grib_c_multi_append(*args):
+-  return _gribapi_swig.grib_c_multi_append(*args)
++def grib_c_multi_append(arg1: 'int *', arg2: 'int *', arg3: 'int *') -> "int":
++    return _gribapi_swig.grib_c_multi_append(arg1, arg2, arg3)
+ grib_c_multi_append = _gribapi_swig.grib_c_multi_append
+ 
+-def grib_c_gribex_mode_on():
++def grib_c_gribex_mode_on() -> "int":
+-  return _gribapi_swig.grib_c_gribex_mode_on()
++    return _gribapi_swig.grib_c_gribex_mode_on()
+ grib_c_gribex_mode_on = _gribapi_swig.grib_c_gribex_mode_on
+ 
+-def grib_c_gribex_mode_off():
++def grib_c_gribex_mode_off() -> "int":
+-  return _gribapi_swig.grib_c_gribex_mode_off()
++    return _gribapi_swig.grib_c_gribex_mode_off()
+ grib_c_gribex_mode_off = _gribapi_swig.grib_c_gribex_mode_off
+ 
+-def grib_c_keys_iterator_next(*args):
+-  return _gribapi_swig.grib_c_keys_iterator_next(*args)
++def grib_c_keys_iterator_next(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_keys_iterator_next(iterid)
+ grib_c_keys_iterator_next = _gribapi_swig.grib_c_keys_iterator_next
+ 
+-def grib_c_keys_iterator_delete(*args):
+-  return _gribapi_swig.grib_c_keys_iterator_delete(*args)
++def grib_c_keys_iterator_delete(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_keys_iterator_delete(iterid)
+ grib_c_keys_iterator_delete = _gribapi_swig.grib_c_keys_iterator_delete
+ 
+-def grib_c_skip_computed(*args):
+-  return _gribapi_swig.grib_c_skip_computed(*args)
++def grib_c_skip_computed(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_skip_computed(iterid)
+ grib_c_skip_computed = _gribapi_swig.grib_c_skip_computed
+ 
+-def grib_c_skip_coded(*args):
+-  return _gribapi_swig.grib_c_skip_coded(*args)
++def grib_c_skip_coded(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_skip_coded(iterid)
+ grib_c_skip_coded = _gribapi_swig.grib_c_skip_coded
+ 
+-def grib_c_skip_edition_specific(*args):
+-  return _gribapi_swig.grib_c_skip_edition_specific(*args)
++def grib_c_skip_edition_specific(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_skip_edition_specific(iterid)
+ grib_c_skip_edition_specific = _gribapi_swig.grib_c_skip_edition_specific
+ 
+-def grib_c_skip_duplicates(*args):
+-  return _gribapi_swig.grib_c_skip_duplicates(*args)
++def grib_c_skip_duplicates(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_skip_duplicates(iterid)
+ grib_c_skip_duplicates = _gribapi_swig.grib_c_skip_duplicates
+ 
+-def grib_c_skip_read_only(*args):
+-  return _gribapi_swig.grib_c_skip_read_only(*args)
++def grib_c_skip_read_only(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_skip_read_only(iterid)
+ grib_c_skip_read_only = _gribapi_swig.grib_c_skip_read_only
+ 
+-def grib_c_skip_function(*args):
+-  return _gribapi_swig.grib_c_skip_function(*args)
++def grib_c_skip_function(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_skip_function(iterid)
+ grib_c_skip_function = _gribapi_swig.grib_c_skip_function
+ 
+-def grib_c_keys_iterator_rewind(*args):
+-  return _gribapi_swig.grib_c_keys_iterator_rewind(*args)
++def grib_c_keys_iterator_rewind(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_keys_iterator_rewind(iterid)
+ grib_c_keys_iterator_rewind = _gribapi_swig.grib_c_keys_iterator_rewind
+ 
+-def grib_c_keys_iterator_get_name(*args):
+-  return _gribapi_swig.grib_c_keys_iterator_get_name(*args)
++def grib_c_keys_iterator_get_name(iterid: 'int *', len: 'int') -> "char *":
++    return _gribapi_swig.grib_c_keys_iterator_get_name(iterid, len)
+ grib_c_keys_iterator_get_name = _gribapi_swig.grib_c_keys_iterator_get_name
+ 
+-def grib_c_index_get_size_long(*args):
+-  return _gribapi_swig.grib_c_index_get_size_long(*args)
++def grib_c_index_get_size_long(iid: 'int *', key: 'char *') -> "long *":
++    return _gribapi_swig.grib_c_index_get_size_long(iid, key)
+ grib_c_index_get_size_long = _gribapi_swig.grib_c_index_get_size_long
+ 
+-def grib_c_index_get_long(*args):
+-  return _gribapi_swig.grib_c_index_get_long(*args)
++def grib_c_index_get_long(iid: 'int *', key: 'char *', val: 'long *', size: 'int *') -> "int":
++    return _gribapi_swig.grib_c_index_get_long(iid, key, val, size)
+ grib_c_index_get_long = _gribapi_swig.grib_c_index_get_long
+ 
+-def grib_c_index_get_real8(*args):
+-  return _gribapi_swig.grib_c_index_get_real8(*args)
++def grib_c_index_get_real8(iid: 'int *', key: 'char *', val: 'double *', size: 'int *') -> "int":
++    return _gribapi_swig.grib_c_index_get_real8(iid, key, val, size)
+ grib_c_index_get_real8 = _gribapi_swig.grib_c_index_get_real8
+ 
+-def grib_c_index_get_string(*args):
+-  return _gribapi_swig.grib_c_index_get_string(*args)
++def grib_c_index_get_string(iid: 'int *', key: 'char *', INPUT: 'int *', INOUT: 'int *') -> "char *, int *":
++    return _gribapi_swig.grib_c_index_get_string(iid, key, INPUT, INOUT)
+ grib_c_index_get_string = _gribapi_swig.grib_c_index_get_string
+ 
+-def grib_c_index_select_long(*args):
+-  return _gribapi_swig.grib_c_index_select_long(*args)
++def grib_c_index_select_long(iid: 'int *', key: 'char *', INPUT: 'long *') -> "int":
++    return _gribapi_swig.grib_c_index_select_long(iid, key, INPUT)
+ grib_c_index_select_long = _gribapi_swig.grib_c_index_select_long
+ 
+-def grib_c_index_select_real8(*args):
+-  return _gribapi_swig.grib_c_index_select_real8(*args)
++def grib_c_index_select_real8(iid: 'int *', key: 'char *', INPUT: 'double *') -> "int":
++    return _gribapi_swig.grib_c_index_select_real8(iid, key, INPUT)
+ grib_c_index_select_real8 = _gribapi_swig.grib_c_index_select_real8
+ 
+-def grib_c_index_select_string(*args):
+-  return _gribapi_swig.grib_c_index_select_string(*args)
++def grib_c_index_select_string(iid: 'int *', key: 'char *', val: 'char *') -> "int":
++    return _gribapi_swig.grib_c_index_select_string(iid, key, val)
+ grib_c_index_select_string = _gribapi_swig.grib_c_index_select_string
+ 
+-def grib_c_index_release(*args):
+-  return _gribapi_swig.grib_c_index_release(*args)
++def grib_c_index_release(iid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_index_release(iid)
+ grib_c_index_release = _gribapi_swig.grib_c_index_release
+ 
+-def grib_c_iterator_delete(*args):
+-  return _gribapi_swig.grib_c_iterator_delete(*args)
++def grib_c_iterator_delete(iterid: 'int *') -> "int":
++    return _gribapi_swig.grib_c_iterator_delete(iterid)
+ grib_c_iterator_delete = _gribapi_swig.grib_c_iterator_delete
+ 
+-def grib_c_iterator_next(*args):
+-  return _gribapi_swig.grib_c_iterator_next(*args)
++def grib_c_iterator_next(iterid: 'int *') -> "double *, double *, double *":
++    return _gribapi_swig.grib_c_iterator_next(iterid)
+ grib_c_iterator_next = _gribapi_swig.grib_c_iterator_next
+ 
+-def grib_c_get_string(*args):
+-  return _gribapi_swig.grib_c_get_string(*args)
++def grib_c_get_string(gid: 'int *', key: 'char *', string_val: 'char *') -> "size_t *":
++    return _gribapi_swig.grib_c_get_string(gid, key, string_val)
+ grib_c_get_string = _gribapi_swig.grib_c_get_string
+ 
+-def grib_c_set_string(*args):
+-  return _gribapi_swig.grib_c_set_string(*args)
++def grib_c_set_string(gid: 'int *', key: 'char *', sval: 'char *', len2: 'int') -> "int":
++    return _gribapi_swig.grib_c_set_string(gid, key, sval, len2)
+ grib_c_set_string = _gribapi_swig.grib_c_set_string
+ 
+-def grib_c_get_long(*args):
+-  return _gribapi_swig.grib_c_get_long(*args)
++def grib_c_get_long(gid: 'int *', key: 'char *') -> "long *":
++    return _gribapi_swig.grib_c_get_long(gid, key)
+ grib_c_get_long = _gribapi_swig.grib_c_get_long
+ 
+-def grib_c_set_long(*args):
+-  return _gribapi_swig.grib_c_set_long(*args)
++def grib_c_set_long(gid: 'int *', key: 'char *', INPUT: 'long *') -> "int":
++    return _gribapi_swig.grib_c_set_long(gid, key, INPUT)
+ grib_c_set_long = _gribapi_swig.grib_c_set_long
+ 
+-def grib_c_get_double(*args):
+-  return _gribapi_swig.grib_c_get_double(*args)
++def grib_c_get_double(gid: 'int *', key: 'char *') -> "double *":
++    return _gribapi_swig.grib_c_get_double(gid, key)
+ grib_c_get_double = _gribapi_swig.grib_c_get_double
+ 
+-def grib_c_set_double(*args):
+-  return _gribapi_swig.grib_c_set_double(*args)
++def grib_c_set_double(gid: 'int *', key: 'char *', INPUT: 'double *') -> "int":
++    return _gribapi_swig.grib_c_set_double(gid, key, INPUT)
+ grib_c_set_double = _gribapi_swig.grib_c_set_double
+ 
+-def grib_c_set_real8_array(*args):
+-  return _gribapi_swig.grib_c_set_real8_array(*args)
++def grib_c_set_real8_array(gid: 'int *', key: 'char *', val: 'double *', size: 'int *') -> "int":
++    return _gribapi_swig.grib_c_set_real8_array(gid, key, val, size)
+ grib_c_set_real8_array = _gribapi_swig.grib_c_set_real8_array
+ 
+-def grib_c_get_real8_array(*args):
+-  return _gribapi_swig.grib_c_get_real8_array(*args)
++def grib_c_get_real8_array(gid: 'int *', key: 'char *', val: 'double *', size: 'int *') -> "int":
++    return _gribapi_swig.grib_c_get_real8_array(gid, key, val, size)
+ grib_c_get_real8_array = _gribapi_swig.grib_c_get_real8_array
+ 
+-def grib_c_get_long_array(*args):
+-  return _gribapi_swig.grib_c_get_long_array(*args)
++def grib_c_get_long_array(gid: 'int *', key: 'char *', val: 'long *', size: 'int *') -> "int":
++    return _gribapi_swig.grib_c_get_long_array(gid, key, val, size)
+ grib_c_get_long_array = _gribapi_swig.grib_c_get_long_array
+ 
+-def grib_c_set_long_array(*args):
+-  return _gribapi_swig.grib_c_set_long_array(*args)
++def grib_c_set_long_array(gid: 'int *', key: 'char *', val: 'long *', size: 'int *') -> "int":
++    return _gribapi_swig.grib_c_set_long_array(gid, key, val, size)
+ grib_c_set_long_array = _gribapi_swig.grib_c_set_long_array
+ 
+-def grib_c_get_real8_element(*args):
+-  return _gribapi_swig.grib_c_get_real8_element(*args)
++def grib_c_get_real8_element(gid: 'int *', key: 'char *', INPUT: 'int *') -> "double *":
++    return _gribapi_swig.grib_c_get_real8_element(gid, key, INPUT)
+ grib_c_get_real8_element = _gribapi_swig.grib_c_get_real8_element
+ 
+-def grib_c_get_real8_elements(*args):
+-  return _gribapi_swig.grib_c_get_real8_elements(*args)
++def grib_c_get_real8_elements(gid: 'int *', key: 'char *', index: 'int *', val: 'double *', size: 'int *') -> "int":
++    return _gribapi_swig.grib_c_get_real8_elements(gid, key, index, val, size)
+ grib_c_get_real8_elements = _gribapi_swig.grib_c_get_real8_elements
+ 
+-def grib_c_set_missing(*args):
+-  return _gribapi_swig.grib_c_set_missing(*args)
++def grib_c_set_missing(gid: 'int *', key: 'char *') -> "int":
++    return _gribapi_swig.grib_c_set_missing(gid, key)
+ grib_c_set_missing = _gribapi_swig.grib_c_set_missing
+ 
+-def grib_c_set_key_vals(*args):
+-  return _gribapi_swig.grib_c_set_key_vals(*args)
++def grib_c_set_key_vals(gid: 'int *', keyvals: 'char *') -> "int":
++    return _gribapi_swig.grib_c_set_key_vals(gid, keyvals)
+ grib_c_set_key_vals = _gribapi_swig.grib_c_set_key_vals
+ 
+-def grib_c_is_missing(*args):
+-  return _gribapi_swig.grib_c_is_missing(*args)
++def grib_c_is_missing(gid: 'int *', key: 'char *') -> "int *":
++    return _gribapi_swig.grib_c_is_missing(gid, key)
+ grib_c_is_missing = _gribapi_swig.grib_c_is_missing
+ 
+-def grib_c_is_defined(*args):
+-  return _gribapi_swig.grib_c_is_defined(*args)
++def grib_c_is_defined(gid: 'int *', key: 'char *') -> "int *":
++    return _gribapi_swig.grib_c_is_defined(gid, key)
+ grib_c_is_defined = _gribapi_swig.grib_c_is_defined
+ 
+-def with_numpy():
++def with_numpy() -> "void":
+-  return _gribapi_swig.with_numpy()
++    return _gribapi_swig.with_numpy()
+ with_numpy = _gribapi_swig.with_numpy
+ 
+-def grib_set_double_ndarray(*args):
+-  return _gribapi_swig.grib_set_double_ndarray(*args)
++def grib_set_double_ndarray(gid: 'int *', key: 'char *', dpin_val: 'double *') -> "int":
++    return _gribapi_swig.grib_set_double_ndarray(gid, key, dpin_val)
+ grib_set_double_ndarray = _gribapi_swig.grib_set_double_ndarray
+ 
+-def grib_set_long_ndarray(*args):
+-  return _gribapi_swig.grib_set_long_ndarray(*args)
++def grib_set_long_ndarray(gid: 'int *', key: 'char *', lpin_val: 'long *') -> "int":
++    return _gribapi_swig.grib_set_long_ndarray(gid, key, lpin_val)
+ grib_set_long_ndarray = _gribapi_swig.grib_set_long_ndarray
+ 
+-def grib_get_double_ndarray(*args):
+-  return _gribapi_swig.grib_get_double_ndarray(*args)
++def grib_get_double_ndarray(gid: 'int *', key: 'char *', dpout_val: 'double *') -> "int":
++    return _gribapi_swig.grib_get_double_ndarray(gid, key, dpout_val)
+ grib_get_double_ndarray = _gribapi_swig.grib_get_double_ndarray
+ 
+-def grib_get_long_ndarray(*args):
+-  return _gribapi_swig.grib_get_long_ndarray(*args)
++def grib_get_long_ndarray(gid: 'int *', key: 'char *', lpout_val: 'long *') -> "int":
++    return _gribapi_swig.grib_get_long_ndarray(gid, key, lpout_val)
+ grib_get_long_ndarray = _gribapi_swig.grib_get_long_ndarray
+ 
+-def grib_get_double_ndelements(*args):
+-  return _gribapi_swig.grib_get_double_ndelements(*args)
++def grib_get_double_ndelements(gid: 'int *', key: 'char *', ipin_index: 'int *', dpout_val: 'double *') -> "int":
++    return _gribapi_swig.grib_get_double_ndelements(gid, key, ipin_index, dpout_val)
+ grib_get_double_ndelements = _gribapi_swig.grib_get_double_ndelements
+ 
+-def grib_c_find_nearest_single(*args):
+-  return _gribapi_swig.grib_c_find_nearest_single(*args)
++def grib_c_find_nearest_single(gid: 'int *', arg2: 'int *', arg3: 'double *', arg4: 'double *') -> "double *, double *, double *, double *, int *":
++    return _gribapi_swig.grib_c_find_nearest_single(gid, arg2, arg3, arg4)
+ grib_c_find_nearest_single = _gribapi_swig.grib_c_find_nearest_single
+ 
+-def grib_c_find_nearest_four_single(*args):
+-  return _gribapi_swig.grib_c_find_nearest_four_single(*args)
++def grib_c_find_nearest_four_single(gid: 'int *', arg2: 'int *', arg3: 'double *', arg4: 'double *', outlats: 'double *', outlons: 'double *', values: 'double *', distances: 'double *', indexes: 'int *') -> "int":
++    return _gribapi_swig.grib_c_find_nearest_four_single(gid, arg2, arg3, arg4, outlats, outlons, values, distances, indexes)
+ grib_c_find_nearest_four_single = _gribapi_swig.grib_c_find_nearest_four_single
+ 
+-def grib_c_get_message(*args):
+-  return _gribapi_swig.grib_c_get_message(*args)
++def grib_c_get_message(gid: 'int *') -> "size_t *":
++    return _gribapi_swig.grib_c_get_message(gid)
+ grib_c_get_message = _gribapi_swig.grib_c_get_message
+ 
+-def grib_c_get_error_string(*args):
+-  return _gribapi_swig.grib_c_get_error_string(*args)
++def grib_c_get_error_string(INPUT: 'int *', len: 'int') -> "char *":
++    return _gribapi_swig.grib_c_get_error_string(INPUT, len)
+ grib_c_get_error_string = _gribapi_swig.grib_c_get_error_string
+ 
+-def no_fail_on_wrong_length(*args):
+-  return _gribapi_swig.no_fail_on_wrong_length(*args)
++def no_fail_on_wrong_length(flag: 'int') -> "void":
++    return _gribapi_swig.no_fail_on_wrong_length(flag)
+ no_fail_on_wrong_length = _gribapi_swig.no_fail_on_wrong_length
+ 
+-def grib_c_get_api_version():
++def grib_c_get_api_version() -> "long":
+-  return _gribapi_swig.grib_c_get_api_version()
++    return _gribapi_swig.grib_c_get_api_version()
+ grib_c_get_api_version = _gribapi_swig.grib_c_get_api_version
+ 
+-def grib_c_gts_header_on():
++def grib_c_gts_header_on() -> "void":
+-  return _gribapi_swig.grib_c_gts_header_on()
++    return _gribapi_swig.grib_c_gts_header_on()
+ grib_c_gts_header_on = _gribapi_swig.grib_c_gts_header_on
+ 
+-def grib_c_gts_header_off():
++def grib_c_gts_header_off() -> "void":
+-  return _gribapi_swig.grib_c_gts_header_off()
++    return _gribapi_swig.grib_c_gts_header_off()
+ grib_c_gts_header_off = _gribapi_swig.grib_c_gts_header_off
++# This file is compatible with both classic and new-style classes.
+ 
+ 
+Index: python/swig_wrap_numpy.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- python/swig_wrap_numpy.c	(date 1466165185000)
++++ python/swig_wrap_numpy.c	(date 1466167079000)
+@@ -1,14 +1,18 @@
+ /* ----------------------------------------------------------------------------
+  * This file was automatically generated by SWIG (http://www.swig.org).
+- * Version 1.3.40
++ * Version 3.0.8
+- * 
+- * This file is not intended to be easily readable and contains a number of 
++ *
++ * This file is not intended to be easily readable and contains a number of
+  * coding conventions designed to improve portability and efficiency. Do not make
+- * changes to this file unless you know what you are doing--modify the SWIG 
+- * interface file instead. 
++ * changes to this file unless you know what you are doing--modify the SWIG
++ * interface file instead.
+  * ----------------------------------------------------------------------------- */
+ 
++
++#ifndef SWIGPYTHON
+ #define SWIGPYTHON
++#endif
++
+ #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
+ 
+ /* -----------------------------------------------------------------------------
+@@ -42,28 +46,28 @@
+ #ifndef SWIGUNUSED
+ # if defined(__GNUC__)
+ #   if !(defined(__cplusplus)) || (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4))
+-#     define SWIGUNUSED __attribute__ ((__unused__)) 
++#     define SWIGUNUSED __attribute__ ((__unused__))
+ #   else
+ #     define SWIGUNUSED
+ #   endif
+ # elif defined(__ICC)
+-#   define SWIGUNUSED __attribute__ ((__unused__)) 
++#   define SWIGUNUSED __attribute__ ((__unused__))
+ # else
+-#   define SWIGUNUSED 
++#   define SWIGUNUSED
+ # endif
+ #endif
+ 
+ #ifndef SWIG_MSC_UNSUPPRESS_4505
+ # if defined(_MSC_VER)
+ #   pragma warning(disable : 4505) /* unreferenced local function has been removed */
+-# endif 
++# endif
+ #endif
+ 
+ #ifndef SWIGUNUSEDPARM
+ # ifdef __cplusplus
+ #   define SWIGUNUSEDPARM(p)
+ # else
+-#   define SWIGUNUSEDPARM(p) p SWIGUNUSED 
++#   define SWIGUNUSEDPARM(p) p SWIGUNUSED
+ # endif
+ #endif
+ 
+@@ -106,7 +110,7 @@
+ #   define SWIGSTDCALL __stdcall
+ # else
+ #   define SWIGSTDCALL
+-# endif 
++# endif
+ #endif
+ 
+ /* Deal with Microsoft's attempt at deprecating C standard runtime functions */
+@@ -119,10 +123,29 @@
+ # define _SCL_SECURE_NO_DEPRECATE
+ #endif
+ 
++/* Deal with Apple's deprecated 'AssertMacros.h' from Carbon-framework */
++#if defined(__APPLE__) && !defined(__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES)
++# define __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES 0
++#endif
+ 
++/* Intel's compiler complains if a variable which was never initialised is
++ * cast to void, which is a common idiom which we use to indicate that we
++ * are aware a variable isn't used.  So we just silence that warning.
++ * See: https://github.com/swig/swig/issues/192 for more discussion.
++ */
++#ifdef __INTEL_COMPILER
++# pragma warning disable 592
++#endif
+ 
+-/* Python.h has to appear first */
++
++#if defined(_DEBUG) && defined(SWIG_PYTHON_INTERPRETER_NO_DEBUG)
++/* Use debug wrappers with the Python release dll */
++# undef _DEBUG
+-#include <Python.h>
++# include <Python.h>
++# define _DEBUG
++#else
++# include <Python.h>
++#endif
+ 
+ /* -----------------------------------------------------------------------------
+  * swigrun.swg
+@@ -148,7 +171,7 @@
+   You can use the SWIGRUNTIME and SWIGRUNTIMEINLINE macros for
+   creating a static or dynamic library from the SWIG runtime code.
+   In 99.9% of the cases, SWIG just needs to declare them as 'static'.
+-  
++
+   But only do this if strictly necessary, ie, if you have problems
+   with your compiler or suchlike.
+ */
+@@ -174,16 +197,16 @@
+ #define SWIG_POINTER_OWN           0x1
+ 
+ 
+-/* 
++/*
+    Flags/methods for returning states.
+-   
++
+-   The SWIG conversion methods, as ConvertPtr, return and integer 
++   The SWIG conversion methods, as ConvertPtr, return an integer
+    that tells if the conversion was successful or not. And if not,
+    an error code can be returned (see swigerrors.swg for the codes).
+-   
++
+    Use the following macros/flags to set or process the returning
+    states.
+-   
++
+    In old versions of SWIG, code such as the following was usually written:
+ 
+      if (SWIG_ConvertPtr(obj,vptr,ty.flags) != -1) {
+@@ -216,23 +239,23 @@
+     } else {
+       // fail code
+     }
+-    
++
+    I.e., now SWIG_ConvertPtr can return new objects and you can
+    identify the case and take care of the deallocation. Of course that
+    also requires SWIG_ConvertPtr to return new result values, such as
+ 
+-      int SWIG_ConvertPtr(obj, ptr,...) {         
+-        if (<obj is ok>) {			       
+-          if (<need new object>) {		       
+-            *ptr = <ptr to new allocated object>; 
+-            return SWIG_NEWOBJ;		       
+-          } else {				       
+-            *ptr = <ptr to old object>;	       
+-            return SWIG_OLDOBJ;		       
+-          } 				       
+-        } else {				       
+-          return SWIG_BADOBJ;		       
+-        }					       
++      int SWIG_ConvertPtr(obj, ptr,...) {
++        if (<obj is ok>) {
++          if (<need new object>) {
++            *ptr = <ptr to new allocated object>;
++            return SWIG_NEWOBJ;
++          } else {
++            *ptr = <ptr to old object>;
++            return SWIG_OLDOBJ;
++          }
++        } else {
++          return SWIG_BADOBJ;
++        }
+       }
+ 
+    Of course, returning the plain '0(success)/-1(fail)' still works, but you can be
+@@ -246,17 +269,17 @@
+        int fooi(int);
+ 
+    and you call
+- 
++
+       food(1)   // cast rank '1'  (1 -> 1.0)
+       fooi(1)   // cast rank '0'
+ 
+    just use the SWIG_AddCast()/SWIG_CheckState()
+ */
+ 
+-#define SWIG_OK                    (0) 
++#define SWIG_OK                    (0)
+ #define SWIG_ERROR                 (-1)
+ #define SWIG_IsOK(r)               (r >= 0)
+-#define SWIG_ArgError(r)           ((r != SWIG_ERROR) ? r : SWIG_TypeError)  
++#define SWIG_ArgError(r)           ((r != SWIG_ERROR) ? r : SWIG_TypeError)
+ 
+ /* The CastRankLimit says how many bits are used for the cast rank */
+ #define SWIG_CASTRANKLIMIT         (1 << 8)
+@@ -287,14 +310,14 @@
+ #  endif
+ #  define SWIG_CASTRANKMASK          ((SWIG_CASTRANKLIMIT) -1)
+ #  define SWIG_CastRank(r)           (r & SWIG_CASTRANKMASK)
+-SWIGINTERNINLINE int SWIG_AddCast(int r) { 
++SWIGINTERNINLINE int SWIG_AddCast(int r) {
+   return SWIG_IsOK(r) ? ((SWIG_CastRank(r) < SWIG_MAXCASTRANK) ? (r + 1) : SWIG_ERROR) : r;
+ }
+-SWIGINTERNINLINE int SWIG_CheckState(int r) { 
+-  return SWIG_IsOK(r) ? SWIG_CastRank(r) + 1 : 0; 
++SWIGINTERNINLINE int SWIG_CheckState(int r) {
++  return SWIG_IsOK(r) ? SWIG_CastRank(r) + 1 : 0;
+ }
+ #else /* no cast-rank mode */
+-#  define SWIG_AddCast
++#  define SWIG_AddCast(r) (r)
+ #  define SWIG_CheckState(r) (SWIG_IsOK(r) ? 1 : 0)
+ #endif
+ 
+@@ -338,7 +361,7 @@
+   void                    *clientdata;		/* Language specific module data */
+ } swig_module_info;
+ 
+-/* 
++/*
+   Compare two type names skipping the space characters, therefore
+   "char*" == "char *" and "Class<int>" == "Class<int >", etc.
+ 
+@@ -358,18 +381,18 @@
+ 
+ /*
+   Check type equivalence in a name list like <name1>|<name2>|...
+-  Return 0 if not equal, 1 if equal
++  Return 0 if equal, -1 if nb < tb, 1 if nb > tb
+ */
+ SWIGRUNTIME int
+-SWIG_TypeEquiv(const char *nb, const char *tb) {
+-  int equiv = 0;
++SWIG_TypeCmp(const char *nb, const char *tb) {
++  int equiv = 1;
+   const char* te = tb + strlen(tb);
+   const char* ne = nb;
+-  while (!equiv && *ne) {
++  while (equiv != 0 && *ne) {
+     for (nb = ne; *ne; ++ne) {
+       if (*ne == '|') break;
+     }
+-    equiv = (SWIG_TypeNameComp(nb, ne, tb, te) == 0) ? 1 : 0;
++    equiv = SWIG_TypeNameComp(nb, ne, tb, te);
+     if (*ne) ++ne;
+   }
+   return equiv;
+@@ -377,24 +400,13 @@
+ 
+ /*
+   Check type equivalence in a name list like <name1>|<name2>|...
+-  Return 0 if equal, -1 if nb < tb, 1 if nb > tb
++  Return 0 if not equal, 1 if equal
+ */
+ SWIGRUNTIME int
+-SWIG_TypeCompare(const char *nb, const char *tb) {
+-  int equiv = 0;
+-  const char* te = tb + strlen(tb);
+-  const char* ne = nb;
+-  while (!equiv && *ne) {
+-    for (nb = ne; *ne; ++ne) {
+-      if (*ne == '|') break;
++SWIG_TypeEquiv(const char *nb, const char *tb) {
++  return SWIG_TypeCmp(nb, tb) == 0 ? 1 : 0;
+-    }
++}
+-    equiv = (SWIG_TypeNameComp(nb, ne, tb, te) == 0) ? 1 : 0;
+-    if (*ne) ++ne;
+-  }
+-  return equiv;
+-}
+ 
+-
+ /*
+   Check the typename
+ */
+@@ -422,7 +434,7 @@
+   return 0;
+ }
+ 
+-/* 
++/*
+   Identical to SWIG_TypeCheck, except strcmp is replaced with a pointer comparison
+ */
+ SWIGRUNTIME swig_cast_info *
+@@ -457,7 +469,7 @@
+   return ((!ty) || (!ty->converter)) ? ptr : (*ty->converter)(ptr, newmemory);
+ }
+ 
+-/* 
++/*
+    Dynamic pointer casting. Down an inheritance hierarchy
+ */
+ SWIGRUNTIME swig_type_info *
+@@ -501,7 +513,7 @@
+     return type->name;
+ }
+ 
+-/* 
++/*
+    Set the clientdata field for a type
+ */
+ SWIGRUNTIME void
+@@ -509,14 +521,14 @@
+   swig_cast_info *cast = ti->cast;
+   /* if (ti->clientdata == clientdata) return; */
+   ti->clientdata = clientdata;
+-  
++
+   while (cast) {
+     if (!cast->converter) {
+       swig_type_info *tc = cast->type;
+       if (!tc->clientdata) {
+ 	SWIG_TypeClientData(tc, clientdata);
+       }
+-    }    
++    }
+     cast = cast->next;
+   }
+ }
+@@ -525,31 +537,31 @@
+   SWIG_TypeClientData(ti, clientdata);
+   ti->owndata = 1;
+ }
+-  
++
+ /*
+   Search for a swig_type_info structure only by mangled name
+   Search is a O(log #types)
+-  
+-  We start searching at module start, and finish searching when start == end.  
++
++  We start searching at module start, and finish searching when start == end.
+   Note: if start == end at the beginning of the function, we go all the way around
+   the circular list.
+ */
+ SWIGRUNTIME swig_type_info *
+-SWIG_MangledTypeQueryModule(swig_module_info *start, 
+-                            swig_module_info *end, 
++SWIG_MangledTypeQueryModule(swig_module_info *start,
++                            swig_module_info *end,
+ 		            const char *name) {
+   swig_module_info *iter = start;
+   do {
+     if (iter->size) {
+-      register size_t l = 0;
+-      register size_t r = iter->size - 1;
++      size_t l = 0;
++      size_t r = iter->size - 1;
+       do {
+ 	/* since l+r >= 0, we can (>> 1) instead (/ 2) */
+-	register size_t i = (l + r) >> 1; 
++	size_t i = (l + r) >> 1;
+ 	const char *iname = iter->types[i]->name;
+ 	if (iname) {
+-	  register int compare = strcmp(name, iname);
++	  int compare = strcmp(name, iname);
+-	  if (compare == 0) {	    
++	  if (compare == 0) {
+ 	    return iter->types[i];
+ 	  } else if (compare < 0) {
+ 	    if (i) {
+@@ -574,14 +586,14 @@
+   Search for a swig_type_info structure for either a mangled name or a human readable name.
+   It first searches the mangled names of the types, which is a O(log #types)
+   If a type is not found it then searches the human readable names, which is O(#types).
+-  
+-  We start searching at module start, and finish searching when start == end.  
++
++  We start searching at module start, and finish searching when start == end.
+   Note: if start == end at the beginning of the function, we go all the way around
+   the circular list.
+ */
+ SWIGRUNTIME swig_type_info *
+-SWIG_TypeQueryModule(swig_module_info *start, 
+-                     swig_module_info *end, 
++SWIG_TypeQueryModule(swig_module_info *start,
++                     swig_module_info *end,
+ 		     const char *name) {
+   /* STEP 1: Search the name field using binary search */
+   swig_type_info *ret = SWIG_MangledTypeQueryModule(start, end, name);
+@@ -592,7 +604,7 @@
+        of the str field (the human readable name) */
+     swig_module_info *iter = start;
+     do {
+-      register size_t i = 0;
++      size_t i = 0;
+       for (; i < iter->size; ++i) {
+ 	if (iter->types[i]->str && (SWIG_TypeEquiv(iter->types[i]->str, name)))
+ 	  return iter->types[i];
+@@ -600,56 +612,56 @@
+       iter = iter->next;
+     } while (iter != end);
+   }
+-  
++
+   /* neither found a match */
+   return 0;
+ }
+ 
+-/* 
++/*
+    Pack binary data into a string
+ */
+ SWIGRUNTIME char *
+ SWIG_PackData(char *c, void *ptr, size_t sz) {
+   static const char hex[17] = "0123456789abcdef";
+-  register const unsigned char *u = (unsigned char *) ptr;
+-  register const unsigned char *eu =  u + sz;
++  const unsigned char *u = (unsigned char *) ptr;
++  const unsigned char *eu =  u + sz;
+   for (; u != eu; ++u) {
+-    register unsigned char uu = *u;
++    unsigned char uu = *u;
+     *(c++) = hex[(uu & 0xf0) >> 4];
+     *(c++) = hex[uu & 0xf];
+   }
+   return c;
+ }
+ 
+-/* 
++/*
+    Unpack binary data from a string
+ */
+ SWIGRUNTIME const char *
+ SWIG_UnpackData(const char *c, void *ptr, size_t sz) {
+-  register unsigned char *u = (unsigned char *) ptr;
+-  register const unsigned char *eu = u + sz;
++  unsigned char *u = (unsigned char *) ptr;
++  const unsigned char *eu = u + sz;
+   for (; u != eu; ++u) {
+-    register char d = *(c++);
+-    register unsigned char uu;
++    char d = *(c++);
++    unsigned char uu;
+     if ((d >= '0') && (d <= '9'))
+       uu = ((d - '0') << 4);
+     else if ((d >= 'a') && (d <= 'f'))
+       uu = ((d - ('a'-10)) << 4);
+-    else 
++    else
+       return (char *) 0;
+     d = *(c++);
+     if ((d >= '0') && (d <= '9'))
+       uu |= (d - '0');
+     else if ((d >= 'a') && (d <= 'f'))
+       uu |= (d - ('a'-10));
+-    else 
++    else
+       return (char *) 0;
+     *u = uu;
+   }
+   return c;
+ }
+ 
+-/* 
++/*
+    Pack 'void *' into a string buffer.
+ */
+ SWIGRUNTIME char *
+@@ -709,18 +721,18 @@
+ #endif
+ 
+ /*  Errors in SWIG */
+-#define  SWIG_UnknownError    	   -1 
+-#define  SWIG_IOError        	   -2 
+-#define  SWIG_RuntimeError   	   -3 
+-#define  SWIG_IndexError     	   -4 
+-#define  SWIG_TypeError      	   -5 
+-#define  SWIG_DivisionByZero 	   -6 
+-#define  SWIG_OverflowError  	   -7 
+-#define  SWIG_SyntaxError    	   -8 
+-#define  SWIG_ValueError     	   -9 
++#define  SWIG_UnknownError    	   -1
++#define  SWIG_IOError        	   -2
++#define  SWIG_RuntimeError   	   -3
++#define  SWIG_IndexError     	   -4
++#define  SWIG_TypeError      	   -5
++#define  SWIG_DivisionByZero 	   -6
++#define  SWIG_OverflowError  	   -7
++#define  SWIG_SyntaxError    	   -8
++#define  SWIG_ValueError     	   -9
+ #define  SWIG_SystemError    	   -10
+ #define  SWIG_AttributeError 	   -11
+-#define  SWIG_MemoryError    	   -12 
++#define  SWIG_MemoryError    	   -12
+ #define  SWIG_NullReferenceError   -13
+ 
+ 
+@@ -732,7 +744,16 @@
+ #define PyInt_Check(x) PyLong_Check(x)
+ #define PyInt_AsLong(x) PyLong_AsLong(x)
+ #define PyInt_FromLong(x) PyLong_FromLong(x)
++#define PyInt_FromSize_t(x) PyLong_FromSize_t(x)
++#define PyString_Check(name) PyBytes_Check(name)
++#define PyString_FromString(x) PyUnicode_FromString(x)
+ #define PyString_Format(fmt, args)  PyUnicode_Format(fmt, args)
++#define PyString_AsString(str) PyBytes_AsString(str)
++#define PyString_Size(str) PyBytes_Size(str)	
++#define PyString_InternFromString(key) PyUnicode_InternFromString(key)
++#define Py_TPFLAGS_HAVE_CLASS Py_TPFLAGS_BASETYPE
++#define PyString_AS_STRING(x) PyUnicode_AS_STRING(x)
++#define _PyLong_FromSsize_t(x) PyLong_FromSsize_t(x)
+ 
+ #endif
+ 
+@@ -872,8 +893,69 @@
+ typedef int Py_ssize_t;
+ # define PY_SSIZE_T_MAX INT_MAX
+ # define PY_SSIZE_T_MIN INT_MIN
++typedef inquiry lenfunc;
++typedef intargfunc ssizeargfunc;
++typedef intintargfunc ssizessizeargfunc;
++typedef intobjargproc ssizeobjargproc;
++typedef intintobjargproc ssizessizeobjargproc;
++typedef getreadbufferproc readbufferproc;
++typedef getwritebufferproc writebufferproc;
++typedef getsegcountproc segcountproc;
++typedef getcharbufferproc charbufferproc;
++static long PyNumber_AsSsize_t (PyObject *x, void *SWIGUNUSEDPARM(exc))
++{
++  long result = 0;
++  PyObject *i = PyNumber_Int(x);
++  if (i) {
++    result = PyInt_AsLong(i);
++    Py_DECREF(i);
++  }
++  return result;
++}
+ #endif
+ 
++#if PY_VERSION_HEX < 0x02050000
++#define PyInt_FromSize_t(x) PyInt_FromLong((long)x)
++#endif
++
++#if PY_VERSION_HEX < 0x02040000
++#define Py_VISIT(op)				\
++  do { 						\
++    if (op) {					\
++      int vret = visit((op), arg);		\
++      if (vret)					\
++        return vret;				\
++    }						\
++  } while (0)
++#endif
++
++#if PY_VERSION_HEX < 0x02030000
++typedef struct {
++  PyTypeObject type;
++  PyNumberMethods as_number;
++  PyMappingMethods as_mapping;
++  PySequenceMethods as_sequence;
++  PyBufferProcs as_buffer;
++  PyObject *name, *slots;
++} PyHeapTypeObject;
++#endif
++
++#if PY_VERSION_HEX < 0x02030000
++typedef destructor freefunc;
++#endif
++
++#if ((PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION > 6) || \
++     (PY_MAJOR_VERSION == 3 && PY_MINOR_VERSION > 0) || \
++     (PY_MAJOR_VERSION > 3))
++# define SWIGPY_USE_CAPSULE
++# define SWIGPY_CAPSULE_NAME ((char*)"swig_runtime_data" SWIG_RUNTIME_VERSION ".type_pointer_capsule" SWIG_TYPE_TABLE_NAME)
++#endif
++
++#if PY_VERSION_HEX < 0x03020000
++#define PyDescr_TYPE(x) (((PyDescrObject *)(x))->d_type)
++#define PyDescr_NAME(x) (((PyDescrObject *)(x))->d_name)
++#endif
++
+ /* -----------------------------------------------------------------------------
+  * error manipulation
+  * ----------------------------------------------------------------------------- */
+@@ -1018,10 +1100,7 @@
+ 
+ #ifdef __cplusplus
+ extern "C" {
+-#if 0
+-} /* cc-mode */
+ #endif
+-#endif
+ 
+ /* -----------------------------------------------------------------------------
+  * Constant declarations
+@@ -1046,27 +1125,24 @@
+  * Wrapper of PyInstanceMethod_New() used in Python 3
+  * It is exported to the generated module, used for -fastproxy
+  * ----------------------------------------------------------------------------- */
+-SWIGRUNTIME PyObject* SWIG_PyInstanceMethod_New(PyObject *self, PyObject *func)
+-{
+ #if PY_VERSION_HEX >= 0x03000000
++SWIGRUNTIME PyObject* SWIG_PyInstanceMethod_New(PyObject *SWIGUNUSEDPARM(self), PyObject *func)
++{
+   return PyInstanceMethod_New(func);
++}
+ #else
++SWIGRUNTIME PyObject* SWIG_PyInstanceMethod_New(PyObject *SWIGUNUSEDPARM(self), PyObject *SWIGUNUSEDPARM(func))
++{
+   return NULL;
+-#endif
+ }
++#endif
+ 
+ #ifdef __cplusplus
+-#if 0
+-{ /* cc-mode */
+-#endif
+ }
+ #endif
+ 
+ 
+ /* -----------------------------------------------------------------------------
+- * See the LICENSE file for information on copyright, usage and redistribution
+- * of SWIG, and the README file for authors - http://www.swig.org/release.html.
+- *
+  * pyrun.swg
+  *
+  * This file contains the runtime support for Python modules
+@@ -1081,7 +1157,15 @@
+ #define SWIG_Python_ConvertPtr(obj, pptr, type, flags)  SWIG_Python_ConvertPtrAndOwn(obj, pptr, type, flags, 0)
+ #define SWIG_ConvertPtr(obj, pptr, type, flags)         SWIG_Python_ConvertPtr(obj, pptr, type, flags)
+ #define SWIG_ConvertPtrAndOwn(obj,pptr,type,flags,own)  SWIG_Python_ConvertPtrAndOwn(obj, pptr, type, flags, own)
+-#define SWIG_NewPointerObj(ptr, type, flags)            SWIG_Python_NewPointerObj(ptr, type, flags)
++
++#ifdef SWIGPYTHON_BUILTIN
++#define SWIG_NewPointerObj(ptr, type, flags)            SWIG_Python_NewPointerObj(self, ptr, type, flags)
++#else
++#define SWIG_NewPointerObj(ptr, type, flags)            SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
++#endif
++
++#define SWIG_InternalNewPointerObj(ptr, type, flags)	SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
++
+ #define SWIG_CheckImplicit(ty)                          SWIG_Python_CheckImplicit(ty) 
+ #define SWIG_AcquirePtr(ptr, src)                       SWIG_Python_AcquirePtr(ptr, src)
+ #define swig_owntype                                    int
+@@ -1096,7 +1180,7 @@
+ 
+ /* for C or C++ function pointers */
+ #define SWIG_ConvertFunctionPtr(obj, pptr, type)        SWIG_Python_ConvertFunctionPtr(obj, pptr, type)
+-#define SWIG_NewFunctionPtrObj(ptr, type)               SWIG_Python_NewPointerObj(ptr, type, 0)
++#define SWIG_NewFunctionPtrObj(ptr, type)               SWIG_Python_NewPointerObj(NULL, ptr, type, 0)
+ 
+ /* for C++ member pointers, ie, member methods */
+ #define SWIG_ConvertMember(obj, ptr, sz, ty)            SWIG_Python_ConvertPacked(obj, ptr, sz, ty)
+@@ -1105,7 +1189,7 @@
+ 
+ /* Runtime API */
+ 
+-#define SWIG_GetModule(clientdata)                      SWIG_Python_GetModule()
++#define SWIG_GetModule(clientdata)                      SWIG_Python_GetModule(clientdata)
+ #define SWIG_SetModule(clientdata, pointer)             SWIG_Python_SetModule(pointer)
+ #define SWIG_NewClientData(obj)                         SwigPyClientData_New(obj)
+ 
+@@ -1131,7 +1215,7 @@
+ SWIGINTERN void 
+ SWIG_Python_SetErrorMsg(PyObject *errtype, const char *msg) {
+   SWIG_PYTHON_THREAD_BEGIN_BLOCK;
+-  PyErr_SetString(errtype, (char *) msg);
++  PyErr_SetString(errtype, msg);
+   SWIG_PYTHON_THREAD_END_BLOCK;
+ }
+ 
+@@ -1139,12 +1223,41 @@
+ 
+ /* Set a constant value */
+ 
++#if defined(SWIGPYTHON_BUILTIN)
++
+ SWIGINTERN void
++SwigPyBuiltin_AddPublicSymbol(PyObject *seq, const char *key) {
++  PyObject *s = PyString_InternFromString(key);
++  PyList_Append(seq, s);
++  Py_DECREF(s);
++}
++
++SWIGINTERN void
++SWIG_Python_SetConstant(PyObject *d, PyObject *public_interface, const char *name, PyObject *obj) {   
++#if PY_VERSION_HEX < 0x02030000
++  PyDict_SetItemString(d, (char *)name, obj);
++#else
++  PyDict_SetItemString(d, name, obj);
++#endif
++  Py_DECREF(obj);
++  if (public_interface)
++    SwigPyBuiltin_AddPublicSymbol(public_interface, name);
++}
++
++#else
++
++SWIGINTERN void
+ SWIG_Python_SetConstant(PyObject *d, const char *name, PyObject *obj) {   
++#if PY_VERSION_HEX < 0x02030000
+-  PyDict_SetItemString(d, (char*) name, obj);
++  PyDict_SetItemString(d, (char *)name, obj);
++#else
++  PyDict_SetItemString(d, name, obj);
++#endif
+   Py_DECREF(obj);                            
+ }
+ 
++#endif
++
+ /* Append a value to the result obj */
+ 
+ SWIGINTERN PyObject*
+@@ -1192,7 +1305,7 @@
+ 
+ /* Unpack the argument tuple */
+ 
+-SWIGINTERN int
++SWIGINTERN Py_ssize_t
+ SWIG_Python_UnpackTuple(PyObject *args, const char *name, Py_ssize_t min, Py_ssize_t max, PyObject **objs)
+ {
+   if (!args) {
+@@ -1205,10 +1318,18 @@
+     }
+   }  
+   if (!PyTuple_Check(args)) {
++    if (min <= 1 && max >= 1) {
++      Py_ssize_t i;
++      objs[0] = args;
++      for (i = 1; i < max; ++i) {
++	objs[i] = 0;
++      }
++      return 2;
++    }
+     PyErr_SetString(PyExc_SystemError, "UnpackTuple() argument list is not a tuple");
+     return 0;
+   } else {
+-    register Py_ssize_t l = PyTuple_GET_SIZE(args);
++    Py_ssize_t l = PyTuple_GET_SIZE(args);
+     if (l < min) {
+       PyErr_Format(PyExc_TypeError, "%s expected %s%d arguments, got %d", 
+ 		   name, (min == max ? "" : "at least "), (int)min, (int)l);
+@@ -1218,7 +1339,7 @@
+ 		   name, (min == max ? "" : "at most "), (int)max, (int)l);
+       return 0;
+     } else {
+-      register int i;
++      Py_ssize_t i;
+       for (i = 0; i < l; ++i) {
+ 	objs[i] = PyTuple_GET_ITEM(args, i);
+       }
+@@ -1257,12 +1378,12 @@
+ 
+ #define SWIG_POINTER_IMPLICIT_CONV  (SWIG_POINTER_DISOWN   << 1)
+ 
++#define SWIG_BUILTIN_TP_INIT	    (SWIG_POINTER_OWN << 2)
++#define SWIG_BUILTIN_INIT	    (SWIG_BUILTIN_TP_INIT | SWIG_POINTER_OWN)
++
+ #ifdef __cplusplus
+ extern "C" {
+-#if 0
+-} /* cc-mode */
+ #endif
+-#endif
+ 
+ /*  How to access Py_None */
+ #if defined(_WIN32) || defined(__WIN32__) || defined(__CYGWIN__)
+@@ -1312,6 +1433,7 @@
+   PyObject *destroy;
+   int delargs;
+   int implicitconv;
++  PyTypeObject *pytype;
+ } SwigPyClientData;
+ 
+ SWIGRUNTIMEINLINE int 
+@@ -1378,13 +1500,13 @@
+       data->delargs = 0;
+     }
+     data->implicitconv = 0;
++    data->pytype = 0;
+     return data;
+   }
+ }
+ 
+ SWIGRUNTIME void 
+-SwigPyClientData_Del(SwigPyClientData* data)
+-{
++SwigPyClientData_Del(SwigPyClientData *data) {
+   Py_XDECREF(data->newraw);
+   Py_XDECREF(data->newargs);
+   Py_XDECREF(data->destroy);
+@@ -1398,9 +1520,29 @@
+   swig_type_info *ty;
+   int own;
+   PyObject *next;
++#ifdef SWIGPYTHON_BUILTIN
++  PyObject *dict;
++#endif
+ } SwigPyObject;
+ 
++
++#ifdef SWIGPYTHON_BUILTIN
++
+ SWIGRUNTIME PyObject *
++SwigPyObject_get___dict__(PyObject *v, PyObject *SWIGUNUSEDPARM(args))
++{
++  SwigPyObject *sobj = (SwigPyObject *)v;
++
++  if (!sobj->dict)
++    sobj->dict = PyDict_New();
++
++  Py_INCREF(sobj->dict);
++  return sobj->dict;
++}
++
++#endif
++
++SWIGRUNTIME PyObject *
+ SwigPyObject_long(SwigPyObject *v)
+ {
+   return PyLong_FromVoidPtr(v->ptr);
+@@ -1448,54 +1590,26 @@
+ #endif
+ {
+   const char *name = SWIG_TypePrettyName(v->ty);
+-  PyObject *repr = SWIG_Python_str_FromFormat("<Swig Object of type '%s' at %p>", name, v);
++  PyObject *repr = SWIG_Python_str_FromFormat("<Swig Object of type '%s' at %p>", (name ? name : "unknown"), (void *)v);
+   if (v->next) {
+-#ifdef METH_NOARGS
++# ifdef METH_NOARGS
+     PyObject *nrep = SwigPyObject_repr((SwigPyObject *)v->next);
+-#else
++# else
+     PyObject *nrep = SwigPyObject_repr((SwigPyObject *)v->next, args);
+-#endif
++# endif
+-#if PY_VERSION_HEX >= 0x03000000
++# if PY_VERSION_HEX >= 0x03000000
+     PyObject *joined = PyUnicode_Concat(repr, nrep);
+     Py_DecRef(repr);
+     Py_DecRef(nrep);
+     repr = joined;
+-#else
++# else
+     PyString_ConcatAndDel(&repr,nrep);
+-#endif
++# endif
+   }
+   return repr;  
+ }
+ 
+ SWIGRUNTIME int
+-SwigPyObject_print(SwigPyObject *v, FILE *fp, int SWIGUNUSEDPARM(flags))
+-{
+-  char *str;
+-#ifdef METH_NOARGS
+-  PyObject *repr = SwigPyObject_repr(v);
+-#else
+-  PyObject *repr = SwigPyObject_repr(v, NULL);
+-#endif
+-  if (repr) {
+-    str = SWIG_Python_str_AsChar(repr); 
+-    fputs(str, fp);
+-    SWIG_Python_str_DelForPy3(str);
+-    Py_DECREF(repr);
+-    return 0; 
+-  } else {
+-    return 1; 
+-  }
+-}
+-
+-SWIGRUNTIME PyObject *
+-SwigPyObject_str(SwigPyObject *v)
+-{
+-  char result[SWIG_BUFFER_SIZE];
+-  return SWIG_PackVoidPtr(result, v->ptr, v->ty->name, sizeof(result)) ?
+-    SWIG_Python_str_FromChar(result) : 0;
+-}
+-
+-SWIGRUNTIME int
+ SwigPyObject_compare(SwigPyObject *v, SwigPyObject *w)
+ {
+   void *i = v->ptr;
+@@ -1512,27 +1626,43 @@
+     Py_INCREF(Py_NotImplemented);
+     return Py_NotImplemented;
+   }
+-  if( (SwigPyObject_compare(v, w)==0) == (op == Py_EQ) )
+-    res = Py_True;
+-  else
+-    res = Py_False;
+-  Py_INCREF(res);
++  res = PyBool_FromLong( (SwigPyObject_compare(v, w)==0) == (op == Py_EQ) ? 1 : 0);
+   return res;  
+ }
+ 
+ 
+-SWIGRUNTIME PyTypeObject* _PySwigObject_type(void);
++SWIGRUNTIME PyTypeObject* SwigPyObject_TypeOnce(void);
+ 
++#ifdef SWIGPYTHON_BUILTIN
++static swig_type_info *SwigPyObject_stype = 0;
+ SWIGRUNTIME PyTypeObject*
+ SwigPyObject_type(void) {
+-  static PyTypeObject *SWIG_STATIC_POINTER(type) = _PySwigObject_type();
++    SwigPyClientData *cd;
++    assert(SwigPyObject_stype);
++    cd = (SwigPyClientData*) SwigPyObject_stype->clientdata;
++    assert(cd);
++    assert(cd->pytype);
++    return cd->pytype;
++}
++#else
++SWIGRUNTIME PyTypeObject*
++SwigPyObject_type(void) {
++  static PyTypeObject *SWIG_STATIC_POINTER(type) = SwigPyObject_TypeOnce();
+   return type;
+ }
++#endif
+ 
+ SWIGRUNTIMEINLINE int
+ SwigPyObject_Check(PyObject *op) {
++#ifdef SWIGPYTHON_BUILTIN
++  PyTypeObject *target_tp = SwigPyObject_type();
++  if (PyType_IsSubtype(op->ob_type, target_tp))
++    return 1;
++  return (strcmp(op->ob_type->tp_name, "SwigPyObject") == 0);
++#else
+   return (Py_TYPE(op) == SwigPyObject_type())
+     || (strcmp(Py_TYPE(op)->tp_name,"SwigPyObject") == 0);
++#endif
+ }
+ 
+ SWIGRUNTIME PyObject *
+@@ -1550,16 +1680,32 @@
+     if (destroy) {
+       /* destroy is always a VARARGS method */
+       PyObject *res;
++
++      /* PyObject_CallFunction() has the potential to silently drop
++         the active active exception.  In cases of unnamed temporary
++         variable or where we just finished iterating over a generator
++         StopIteration will be active right now, and this needs to
++         remain true upon return from SwigPyObject_dealloc.  So save
++         and restore. */
++      
++      PyObject *val = NULL, *type = NULL, *tb = NULL;
++      PyErr_Fetch(&val, &type, &tb);
++
+       if (data->delargs) {
+-	/* we need to create a temporary object to carry the destroy operation */
+-	PyObject *tmp = SwigPyObject_New(sobj->ptr, ty, 0);
+-	res = SWIG_Python_CallFunctor(destroy, tmp);
+-	Py_DECREF(tmp);
++        /* we need to create a temporary object to carry the destroy operation */
++        PyObject *tmp = SwigPyObject_New(sobj->ptr, ty, 0);
++        res = SWIG_Python_CallFunctor(destroy, tmp);
++        Py_DECREF(tmp);
+       } else {
+-	PyCFunction meth = PyCFunction_GET_FUNCTION(destroy);
+-	PyObject *mself = PyCFunction_GET_SELF(destroy);
+-	res = ((*meth)(mself, v));
++        PyCFunction meth = PyCFunction_GET_FUNCTION(destroy);
++        PyObject *mself = PyCFunction_GET_SELF(destroy);
++        res = ((*meth)(mself, v));
+       }
++      if (!res)
++        PyErr_WriteUnraisable(destroy);
++
++      PyErr_Restore(val, type, tb);
++
+       Py_XDECREF(res);
+     } 
+ #if !defined(SWIG_PYTHON_SILENT_MEMLEAK)
+@@ -1583,6 +1729,7 @@
+   next = tmp;
+ #endif
+   if (!SwigPyObject_Check(next)) {
++    PyErr_SetString(PyExc_TypeError, "Attempt to append a non SwigPyObject");
+     return NULL;
+   }
+   sobj->next = next;
+@@ -1636,8 +1783,10 @@
+   PyObject *val = 0;
+ #if (PY_VERSION_HEX < 0x02020000)
+   if (!PyArg_ParseTuple(args,(char *)"|O:own",&val))
+-#else
++#elif (PY_VERSION_HEX < 0x02050000)
+   if (!PyArg_UnpackTuple(args, (char *)"own", 0, 1, &val)) 
++#else
++  if (!PyArg_UnpackTuple(args, "own", 0, 1, &val)) 
+ #endif
+     {
+       return NULL;
+@@ -1669,7 +1818,7 @@
+ static PyMethodDef
+ swigobject_methods[] = {
+   {(char *)"disown",  (PyCFunction)SwigPyObject_disown,  METH_NOARGS,  (char *)"releases ownership of the pointer"},
+-  {(char *)"acquire", (PyCFunction)SwigPyObject_acquire, METH_NOARGS,  (char *)"aquires ownership of the pointer"},
++  {(char *)"acquire", (PyCFunction)SwigPyObject_acquire, METH_NOARGS,  (char *)"acquires ownership of the pointer"},
+   {(char *)"own",     (PyCFunction)SwigPyObject_own,     METH_VARARGS, (char *)"returns/sets ownership of the pointer"},
+   {(char *)"append",  (PyCFunction)SwigPyObject_append,  METH_O,       (char *)"appends another 'this' object"},
+   {(char *)"next",    (PyCFunction)SwigPyObject_next,    METH_NOARGS,  (char *)"returns the next 'this' object"},
+@@ -1680,7 +1829,7 @@
+ static PyMethodDef
+ swigobject_methods[] = {
+   {(char *)"disown",  (PyCFunction)SwigPyObject_disown,  METH_VARARGS,  (char *)"releases ownership of the pointer"},
+-  {(char *)"acquire", (PyCFunction)SwigPyObject_acquire, METH_VARARGS,  (char *)"aquires ownership of the pointer"},
++  {(char *)"acquire", (PyCFunction)SwigPyObject_acquire, METH_VARARGS,  (char *)"acquires ownership of the pointer"},
+   {(char *)"own",     (PyCFunction)SwigPyObject_own,     METH_VARARGS,  (char *)"returns/sets ownership of the pointer"},
+   {(char *)"append",  (PyCFunction)SwigPyObject_append,  METH_VARARGS,  (char *)"appends another 'this' object"},
+   {(char *)"next",    (PyCFunction)SwigPyObject_next,    METH_VARARGS,  (char *)"returns the next 'this' object"},
+@@ -1698,9 +1847,9 @@
+ #endif
+ 
+ SWIGRUNTIME PyTypeObject*
+-_PySwigObject_type(void) {
++SwigPyObject_TypeOnce(void) {
+   static char swigobject_doc[] = "Swig object carries a C/C++ instance pointer";
+-  
++
+   static PyNumberMethods SwigPyObject_as_number = {
+     (binaryfunc)0, /*nb_add*/
+     (binaryfunc)0, /*nb_subtract*/
+@@ -1736,7 +1885,9 @@
+     (unaryfunc)SwigPyObject_oct,  /*nb_oct*/
+     (unaryfunc)SwigPyObject_hex,  /*nb_hex*/
+ #endif
+-#if PY_VERSION_HEX >= 0x03000000 /* 3.0 */
++#if PY_VERSION_HEX >= 0x03050000 /* 3.5 */
++    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 /* nb_inplace_add -> nb_inplace_matrix_multiply */
++#elif PY_VERSION_HEX >= 0x03000000 /* 3.0 */
+     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 /* nb_inplace_add -> nb_index, nb_inplace_divide removed */
+ #elif PY_VERSION_HEX >= 0x02050000 /* 2.5.0 */
+     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 /* nb_inplace_add -> nb_index */
+@@ -1747,85 +1898,98 @@
+ #endif
+   };
+ 
+-  static PyTypeObject swigpyobject_type;  
++  static PyTypeObject swigpyobject_type;
+   static int type_init = 0;
+   if (!type_init) {
+-    const PyTypeObject tmp
+-      = {
++    const PyTypeObject tmp = {
+-	/* PyObject header changed in Python 3 */
++      /* PyObject header changed in Python 3 */
+ #if PY_VERSION_HEX >= 0x03000000
+-	PyVarObject_HEAD_INIT(&PyType_Type, 0)
++      PyVarObject_HEAD_INIT(NULL, 0)
+-#else    
+-	PyObject_HEAD_INIT(NULL)
++#else
++      PyObject_HEAD_INIT(NULL)
+-	0,				    /* ob_size */
++      0,                                    /* ob_size */
+ #endif
+-	(char *)"SwigPyObject",		    /* tp_name */
++      (char *)"SwigPyObject",               /* tp_name */
+-	sizeof(SwigPyObject),		    /* tp_basicsize */
++      sizeof(SwigPyObject),                 /* tp_basicsize */
+-	0,			            /* tp_itemsize */
++      0,                                    /* tp_itemsize */
+-	(destructor)SwigPyObject_dealloc,   /* tp_dealloc */
++      (destructor)SwigPyObject_dealloc,     /* tp_dealloc */
+-	(printfunc)SwigPyObject_print,	    /* tp_print */
++      0,				    /* tp_print */
+ #if PY_VERSION_HEX < 0x02020000
+-	(getattrfunc)SwigPyObject_getattr,  /* tp_getattr */ 
++      (getattrfunc)SwigPyObject_getattr,    /* tp_getattr */
+ #else
+-	(getattrfunc)0,			    /* tp_getattr */ 
++      (getattrfunc)0,                       /* tp_getattr */
+ #endif
+-	(setattrfunc)0,			    /* tp_setattr */ 
++      (setattrfunc)0,                       /* tp_setattr */
+ #if PY_VERSION_HEX >= 0x03000000
+     0, /* tp_reserved in 3.0.1, tp_compare in 3.0.0 but not used */
+ #else
+-	(cmpfunc)SwigPyObject_compare,	    /* tp_compare */
++      (cmpfunc)SwigPyObject_compare,        /* tp_compare */
+ #endif
+-	(reprfunc)SwigPyObject_repr,	    /* tp_repr */    
++      (reprfunc)SwigPyObject_repr,          /* tp_repr */
+-	&SwigPyObject_as_number,	    /* tp_as_number */
++      &SwigPyObject_as_number,              /* tp_as_number */
+-	0,				    /* tp_as_sequence */
++      0,                                    /* tp_as_sequence */
+-	0,				    /* tp_as_mapping */
++      0,                                    /* tp_as_mapping */
+-	(hashfunc)0,			    /* tp_hash */
++      (hashfunc)0,                          /* tp_hash */
+-	(ternaryfunc)0,			    /* tp_call */
++      (ternaryfunc)0,                       /* tp_call */
+-	(reprfunc)SwigPyObject_str,	    /* tp_str */
++      0,				    /* tp_str */
+-	PyObject_GenericGetAttr,            /* tp_getattro */
++      PyObject_GenericGetAttr,              /* tp_getattro */
+-	0,				    /* tp_setattro */
++      0,                                    /* tp_setattro */
+-	0,		                    /* tp_as_buffer */
++      0,                                    /* tp_as_buffer */
+-	Py_TPFLAGS_DEFAULT,	            /* tp_flags */
++      Py_TPFLAGS_DEFAULT,                   /* tp_flags */
+-	swigobject_doc, 	            /* tp_doc */        
++      swigobject_doc,                       /* tp_doc */
+-	0,                                  /* tp_traverse */
++      0,                                    /* tp_traverse */
+-	0,                                  /* tp_clear */
++      0,                                    /* tp_clear */
+-	(richcmpfunc)SwigPyObject_richcompare,           /* tp_richcompare */
++      (richcmpfunc)SwigPyObject_richcompare,/* tp_richcompare */
+-	0,                                  /* tp_weaklistoffset */
++      0,                                    /* tp_weaklistoffset */
+ #if PY_VERSION_HEX >= 0x02020000
+-	0,                                  /* tp_iter */
++      0,                                    /* tp_iter */
+-	0,                                  /* tp_iternext */
++      0,                                    /* tp_iternext */
+-	swigobject_methods,		    /* tp_methods */ 
++      swigobject_methods,                   /* tp_methods */
+-	0,			            /* tp_members */
++      0,                                    /* tp_members */
+-	0,				    /* tp_getset */	    	
++      0,                                    /* tp_getset */
+-	0,			            /* tp_base */	        
++      0,                                    /* tp_base */
+-	0,				    /* tp_dict */	    	
++      0,                                    /* tp_dict */
+-	0,				    /* tp_descr_get */  	
++      0,                                    /* tp_descr_get */
+-	0,				    /* tp_descr_set */  	
++      0,                                    /* tp_descr_set */
+-	0,				    /* tp_dictoffset */ 	
++      0,                                    /* tp_dictoffset */
+-	0,				    /* tp_init */	    	
++      0,                                    /* tp_init */
+-	0,				    /* tp_alloc */	    	
++      0,                                    /* tp_alloc */
+-	0,			            /* tp_new */	    	
++      0,                                    /* tp_new */
+-	0,	                            /* tp_free */	   
++      0,                                    /* tp_free */
+-	0,                                  /* tp_is_gc */  
++      0,                                    /* tp_is_gc */
+-	0,				    /* tp_bases */   
++      0,                                    /* tp_bases */
+-	0,				    /* tp_mro */
++      0,                                    /* tp_mro */
+-	0,				    /* tp_cache */   
++      0,                                    /* tp_cache */
+-	0,				    /* tp_subclasses */
++      0,                                    /* tp_subclasses */
+-	0,				    /* tp_weaklist */
++      0,                                    /* tp_weaklist */
+ #endif
+ #if PY_VERSION_HEX >= 0x02030000
+-	0,                                  /* tp_del */
++      0,                                    /* tp_del */
+ #endif
++#if PY_VERSION_HEX >= 0x02060000
++      0,                                    /* tp_version_tag */
++#endif
++#if PY_VERSION_HEX >= 0x03040000
++      0,                                    /* tp_finalize */
++#endif
+ #ifdef COUNT_ALLOCS
+-	0,0,0,0                             /* tp_alloc -> tp_next */
++      0,                                    /* tp_allocs */
++      0,                                    /* tp_frees */
++      0,                                    /* tp_maxalloc */
++#if PY_VERSION_HEX >= 0x02050000
++      0,                                    /* tp_prev */
+ #endif
++      0                                     /* tp_next */
++#endif
+-      };
++    };
+     swigpyobject_type = tmp;
+-    /* for Python 3 we already assigned ob_type in PyVarObject_HEAD_INIT() */
+-#if PY_VERSION_HEX < 0x03000000
++    type_init = 1;
++#if PY_VERSION_HEX < 0x02020000
+     swigpyobject_type.ob_type = &PyType_Type;
++#else
++    if (PyType_Ready(&swigpyobject_type) < 0)
++      return NULL;
+ #endif
+-    type_init = 1;
+   }
+   return &swigpyobject_type;
+ }
+@@ -1899,17 +2063,17 @@
+   return s ? s : strncmp((char *)v->pack, (char *)w->pack, 2*v->size);
+ }
+ 
+-SWIGRUNTIME PyTypeObject* _PySwigPacked_type(void);
++SWIGRUNTIME PyTypeObject* SwigPyPacked_TypeOnce(void);
+ 
+ SWIGRUNTIME PyTypeObject*
+ SwigPyPacked_type(void) {
+-  static PyTypeObject *SWIG_STATIC_POINTER(type) = _PySwigPacked_type();
++  static PyTypeObject *SWIG_STATIC_POINTER(type) = SwigPyPacked_TypeOnce();
+   return type;
+ }
+ 
+ SWIGRUNTIMEINLINE int
+ SwigPyPacked_Check(PyObject *op) {
+-  return ((op)->ob_type == _PySwigPacked_type()) 
++  return ((op)->ob_type == SwigPyPacked_TypeOnce()) 
+     || (strcmp((op)->ob_type->tp_name,"SwigPyPacked") == 0);
+ }
+ 
+@@ -1924,83 +2088,96 @@
+ }
+ 
+ SWIGRUNTIME PyTypeObject*
+-_PySwigPacked_type(void) {
++SwigPyPacked_TypeOnce(void) {
+   static char swigpacked_doc[] = "Swig object carries a C/C++ instance pointer";
+   static PyTypeObject swigpypacked_type;
+-  static int type_init = 0;  
++  static int type_init = 0;
+   if (!type_init) {
+-    const PyTypeObject tmp
+-      = {
++    const PyTypeObject tmp = {
+-    /* PyObject header changed in Python 3 */
++      /* PyObject header changed in Python 3 */
+ #if PY_VERSION_HEX>=0x03000000
+-    PyVarObject_HEAD_INIT(&PyType_Type, 0)
++      PyVarObject_HEAD_INIT(NULL, 0)
+ #else
+-	PyObject_HEAD_INIT(NULL)
++      PyObject_HEAD_INIT(NULL)
+-    0,				    /* ob_size */	
++      0,                                    /* ob_size */
+ #endif
+-	(char *)"SwigPyPacked",		    /* tp_name */	
++      (char *)"SwigPyPacked",               /* tp_name */
+-	sizeof(SwigPyPacked),		    /* tp_basicsize */	
++      sizeof(SwigPyPacked),                 /* tp_basicsize */
+-	0,				    /* tp_itemsize */	
++      0,                                    /* tp_itemsize */
+-	(destructor)SwigPyPacked_dealloc,   /* tp_dealloc */	
++      (destructor)SwigPyPacked_dealloc,     /* tp_dealloc */
+-	(printfunc)SwigPyPacked_print,	    /* tp_print */   	
++      (printfunc)SwigPyPacked_print,        /* tp_print */
+-	(getattrfunc)0,			    /* tp_getattr */ 	
++      (getattrfunc)0,                       /* tp_getattr */
+-	(setattrfunc)0,			    /* tp_setattr */ 	
++      (setattrfunc)0,                       /* tp_setattr */
+ #if PY_VERSION_HEX>=0x03000000
+-    0, /* tp_reserved in 3.0.1 */
++      0, /* tp_reserved in 3.0.1 */
+ #else
+-    (cmpfunc)SwigPyPacked_compare,	    /* tp_compare */
++      (cmpfunc)SwigPyPacked_compare,        /* tp_compare */
+ #endif
+-	(reprfunc)SwigPyPacked_repr,	    /* tp_repr */
++      (reprfunc)SwigPyPacked_repr,          /* tp_repr */
+-	0,	                            /* tp_as_number */
++      0,                                    /* tp_as_number */
+-	0,				    /* tp_as_sequence */
++      0,                                    /* tp_as_sequence */
+-	0,				    /* tp_as_mapping */
++      0,                                    /* tp_as_mapping */
+-	(hashfunc)0,			    /* tp_hash */
++      (hashfunc)0,                          /* tp_hash */
+-	(ternaryfunc)0,			    /* tp_call */
++      (ternaryfunc)0,                       /* tp_call */
+-	(reprfunc)SwigPyPacked_str,	    /* tp_str */
++      (reprfunc)SwigPyPacked_str,           /* tp_str */
+-	PyObject_GenericGetAttr,            /* tp_getattro */
++      PyObject_GenericGetAttr,              /* tp_getattro */
+-	0,				    /* tp_setattro */
++      0,                                    /* tp_setattro */
+-	0,		                    /* tp_as_buffer */
++      0,                                    /* tp_as_buffer */
+-	Py_TPFLAGS_DEFAULT,	            /* tp_flags */
++      Py_TPFLAGS_DEFAULT,                   /* tp_flags */
+-	swigpacked_doc, 	            /* tp_doc */
++      swigpacked_doc,                       /* tp_doc */
+-	0,                                  /* tp_traverse */
++      0,                                    /* tp_traverse */
+-	0,                                  /* tp_clear */
++      0,                                    /* tp_clear */
+-	0,                                  /* tp_richcompare */
++      0,                                    /* tp_richcompare */
+-	0,                                  /* tp_weaklistoffset */
++      0,                                    /* tp_weaklistoffset */
+ #if PY_VERSION_HEX >= 0x02020000
+-	0,                                  /* tp_iter */
++      0,                                    /* tp_iter */
+-	0,                                  /* tp_iternext */
++      0,                                    /* tp_iternext */
+-	0,		                    /* tp_methods */ 
++      0,                                    /* tp_methods */
+-	0,			            /* tp_members */
++      0,                                    /* tp_members */
+-	0,				    /* tp_getset */	    	
++      0,                                    /* tp_getset */
+-	0,			            /* tp_base */	        
++      0,                                    /* tp_base */
+-	0,				    /* tp_dict */	    	
++      0,                                    /* tp_dict */
+-	0,				    /* tp_descr_get */  	
++      0,                                    /* tp_descr_get */
+-	0,				    /* tp_descr_set */  	
++      0,                                    /* tp_descr_set */
+-	0,				    /* tp_dictoffset */ 	
++      0,                                    /* tp_dictoffset */
+-	0,				    /* tp_init */	    	
++      0,                                    /* tp_init */
+-	0,				    /* tp_alloc */	    	
++      0,                                    /* tp_alloc */
+-	0,			            /* tp_new */	    	
++      0,                                    /* tp_new */
+-	0, 	                            /* tp_free */	   
++      0,                                    /* tp_free */
+-        0,                                  /* tp_is_gc */  
++      0,                                    /* tp_is_gc */
+-	0,				    /* tp_bases */   
++      0,                                    /* tp_bases */
+-	0,				    /* tp_mro */
++      0,                                    /* tp_mro */
+-	0,				    /* tp_cache */   
++      0,                                    /* tp_cache */
+- 	0,				    /* tp_subclasses */
++      0,                                    /* tp_subclasses */
+-	0,				    /* tp_weaklist */
++      0,                                    /* tp_weaklist */
+ #endif
+ #if PY_VERSION_HEX >= 0x02030000
+-	0,                                  /* tp_del */
++      0,                                    /* tp_del */
+ #endif
++#if PY_VERSION_HEX >= 0x02060000
++      0,                                    /* tp_version_tag */
++#endif
++#if PY_VERSION_HEX >= 0x03040000
++      0,                                    /* tp_finalize */
++#endif
+ #ifdef COUNT_ALLOCS
+-	0,0,0,0                             /* tp_alloc -> tp_next */
++      0,                                    /* tp_allocs */
++      0,                                    /* tp_frees */
++      0,                                    /* tp_maxalloc */
++#if PY_VERSION_HEX >= 0x02050000
++      0,                                    /* tp_prev */
+ #endif
++      0                                     /* tp_next */
++#endif
+-      };
++    };
+     swigpypacked_type = tmp;
+-    /* for Python 3 the ob_type already assigned in PyVarObject_HEAD_INIT() */
+-#if PY_VERSION_HEX < 0x03000000
++    type_init = 1;
++#if PY_VERSION_HEX < 0x02020000
+     swigpypacked_type.ob_type = &PyType_Type;
++#else
++    if (PyType_Ready(&swigpypacked_type) < 0)
++      return NULL;
+ #endif
+-    type_init = 1;
+   }
+   return &swigpypacked_type;
+ }
+@@ -2047,10 +2224,13 @@
+     return SWIG_Python_str_FromChar("this");
+ }
+ 
++static PyObject *swig_this = NULL;
++
+ SWIGRUNTIME PyObject *
+ SWIG_This(void)
+ {
+-  static PyObject *SWIG_STATIC_POINTER(swig_this) = _SWIG_This();
++  if (swig_this == NULL)
++    swig_this = _SWIG_This();
+   return swig_this;
+ }
+ 
+@@ -2064,51 +2244,66 @@
+ SWIGRUNTIME SwigPyObject *
+ SWIG_Python_GetSwigThis(PyObject *pyobj) 
+ {
+-  if (SwigPyObject_Check(pyobj)) {
++  PyObject *obj;
++
++  if (SwigPyObject_Check(pyobj))
+     return (SwigPyObject *) pyobj;
+-  } else {
+-    PyObject *obj = 0;
++
++#ifdef SWIGPYTHON_BUILTIN
++  (void)obj;
++# ifdef PyWeakref_CheckProxy
++  if (PyWeakref_CheckProxy(pyobj)) {
++    pyobj = PyWeakref_GET_OBJECT(pyobj);
++    if (pyobj && SwigPyObject_Check(pyobj))
++      return (SwigPyObject*) pyobj;
++  }
++# endif
++  return NULL;
++#else
++
++  obj = 0;
++
+ #if (!defined(SWIG_PYTHON_SLOW_GETSET_THIS) && (PY_VERSION_HEX >= 0x02030000))
+-    if (PyInstance_Check(pyobj)) {
+-      obj = _PyInstance_Lookup(pyobj, SWIG_This());      
+-    } else {
+-      PyObject **dictptr = _PyObject_GetDictPtr(pyobj);
+-      if (dictptr != NULL) {
+-	PyObject *dict = *dictptr;
+-	obj = dict ? PyDict_GetItem(dict, SWIG_This()) : 0;
+-      } else {
++  if (PyInstance_Check(pyobj)) {
++    obj = _PyInstance_Lookup(pyobj, SWIG_This());      
++  } else {
++    PyObject **dictptr = _PyObject_GetDictPtr(pyobj);
++    if (dictptr != NULL) {
++      PyObject *dict = *dictptr;
++      obj = dict ? PyDict_GetItem(dict, SWIG_This()) : 0;
++    } else {
+ #ifdef PyWeakref_CheckProxy
+-	if (PyWeakref_CheckProxy(pyobj)) {
+-	  PyObject *wobj = PyWeakref_GET_OBJECT(pyobj);
+-	  return wobj ? SWIG_Python_GetSwigThis(wobj) : 0;
+-	}
++      if (PyWeakref_CheckProxy(pyobj)) {
++	PyObject *wobj = PyWeakref_GET_OBJECT(pyobj);
++	return wobj ? SWIG_Python_GetSwigThis(wobj) : 0;
++      }
+ #endif
+-	obj = PyObject_GetAttr(pyobj,SWIG_This());
+-	if (obj) {
+-	  Py_DECREF(obj);
+-	} else {
+-	  if (PyErr_Occurred()) PyErr_Clear();
+-	  return 0;
+-	}
+-      }
+-    }
++      obj = PyObject_GetAttr(pyobj,SWIG_This());
++      if (obj) {
++	Py_DECREF(obj);
++      } else {
++	if (PyErr_Occurred()) PyErr_Clear();
++	return 0;
++      }
++    }
++  }
+ #else
+-    obj = PyObject_GetAttr(pyobj,SWIG_This());
+-    if (obj) {
+-      Py_DECREF(obj);
+-    } else {
+-      if (PyErr_Occurred()) PyErr_Clear();
+-      return 0;
+-    }
++  obj = PyObject_GetAttr(pyobj,SWIG_This());
++  if (obj) {
++    Py_DECREF(obj);
++  } else {
++    if (PyErr_Occurred()) PyErr_Clear();
++    return 0;
++  }
+ #endif
+-    if (obj && !SwigPyObject_Check(obj)) {
+-      /* a PyObject is called 'this', try to get the 'real this'
+-	 SwigPyObject from it */ 
+-      return SWIG_Python_GetSwigThis(obj);
+-    }
+-    return (SwigPyObject *)obj;
++  if (obj && !SwigPyObject_Check(obj)) {
++    /* a PyObject is called 'this', try to get the 'real this'
++       SwigPyObject from it */ 
++    return SWIG_Python_GetSwigThis(obj);
++  }
++  return (SwigPyObject *)obj;
++#endif
+-  }
++}
+-}
+ 
+ /* Acquire a pointer value */
+ 
+@@ -2129,91 +2324,105 @@
+ 
+ SWIGRUNTIME int
+ SWIG_Python_ConvertPtrAndOwn(PyObject *obj, void **ptr, swig_type_info *ty, int flags, int *own) {
+-  if (!obj) return SWIG_ERROR;
+-  if (obj == Py_None) {
+-    if (ptr) *ptr = 0;
++  int res;
++  SwigPyObject *sobj;
++  int implicit_conv = (flags & SWIG_POINTER_IMPLICIT_CONV) != 0;
++
++  if (!obj)
++    return SWIG_ERROR;
++  if (obj == Py_None && !implicit_conv) {
++    if (ptr)
++      *ptr = 0;
+     return SWIG_OK;
+-  } else {
+-    SwigPyObject *sobj = SWIG_Python_GetSwigThis(obj);
++  }
++
++  res = SWIG_ERROR;
++
++  sobj = SWIG_Python_GetSwigThis(obj);
+-    if (own)
+-      *own = 0;
+-    while (sobj) {
+-      void *vptr = sobj->ptr;
+-      if (ty) {
+-	swig_type_info *to = sobj->ty;
+-	if (to == ty) {
+-	  /* no type cast needed */
+-	  if (ptr) *ptr = vptr;
+-	  break;
+-	} else {
+-	  swig_cast_info *tc = SWIG_TypeCheck(to->name,ty);
+-	  if (!tc) {
+-	    sobj = (SwigPyObject *)sobj->next;
+-	  } else {
+-	    if (ptr) {
+-              int newmemory = 0;
+-              *ptr = SWIG_TypeCast(tc,vptr,&newmemory);
+-              if (newmemory == SWIG_CAST_NEW_MEMORY) {
++  if (own)
++    *own = 0;
++  while (sobj) {
++    void *vptr = sobj->ptr;
++    if (ty) {
++      swig_type_info *to = sobj->ty;
++      if (to == ty) {
++        /* no type cast needed */
++        if (ptr) *ptr = vptr;
++        break;
++      } else {
++        swig_cast_info *tc = SWIG_TypeCheck(to->name,ty);
++        if (!tc) {
++          sobj = (SwigPyObject *)sobj->next;
++        } else {
++          if (ptr) {
++            int newmemory = 0;
++            *ptr = SWIG_TypeCast(tc,vptr,&newmemory);
++            if (newmemory == SWIG_CAST_NEW_MEMORY) {
+-                assert(own);
++              assert(own); /* badly formed typemap which will lead to a memory leak - it must set and use own to delete *ptr */
+-                if (own)
+-                  *own = *own | SWIG_CAST_NEW_MEMORY;
+-              }
+-            }
+-	    break;
+-	  }
+-	}
+-      } else {
+-	if (ptr) *ptr = vptr;
+-	break;
+-      }
+-    }
+-    if (sobj) {
+-      if (own)
+-        *own = *own | sobj->own;
+-      if (flags & SWIG_POINTER_DISOWN) {
+-	sobj->own = 0;
+-      }
++              if (own)
++                *own = *own | SWIG_CAST_NEW_MEMORY;
++            }
++          }
++          break;
++        }
++      }
++    } else {
++      if (ptr) *ptr = vptr;
++      break;
++    }
++  }
++  if (sobj) {
++    if (own)
++      *own = *own | sobj->own;
++    if (flags & SWIG_POINTER_DISOWN) {
++      sobj->own = 0;
++    }
+-      return SWIG_OK;
++    res = SWIG_OK;
+-    } else {
++  } else {
+-      int res = SWIG_ERROR;
+-      if (flags & SWIG_POINTER_IMPLICIT_CONV) {
++    if (implicit_conv) {
+-	SwigPyClientData *data = ty ? (SwigPyClientData *) ty->clientdata : 0;
+-	if (data && !data->implicitconv) {
+-	  PyObject *klass = data->klass;
+-	  if (klass) {
+-	    PyObject *impconv;
+-	    data->implicitconv = 1; /* avoid recursion and call 'explicit' constructors*/
+-	    impconv = SWIG_Python_CallFunctor(klass, obj);
+-	    data->implicitconv = 0;
+-	    if (PyErr_Occurred()) {
+-	      PyErr_Clear();
+-	      impconv = 0;
+-	    }
+-	    if (impconv) {
+-	      SwigPyObject *iobj = SWIG_Python_GetSwigThis(impconv);
+-	      if (iobj) {
+-		void *vptr;
+-		res = SWIG_Python_ConvertPtrAndOwn((PyObject*)iobj, &vptr, ty, 0, 0);
+-		if (SWIG_IsOK(res)) {
+-		  if (ptr) {
+-		    *ptr = vptr;
+-		    /* transfer the ownership to 'ptr' */
+-		    iobj->own = 0;
+-		    res = SWIG_AddCast(res);
+-		    res = SWIG_AddNewMask(res);
+-		  } else {
+-		    res = SWIG_AddCast(res);		    
+-		  }
+-		}
+-	      }
+-	      Py_DECREF(impconv);
+-	    }
+-	  }
+-	}
+-      }
++      SwigPyClientData *data = ty ? (SwigPyClientData *) ty->clientdata : 0;
++      if (data && !data->implicitconv) {
++        PyObject *klass = data->klass;
++        if (klass) {
++          PyObject *impconv;
++          data->implicitconv = 1; /* avoid recursion and call 'explicit' constructors*/
++          impconv = SWIG_Python_CallFunctor(klass, obj);
++          data->implicitconv = 0;
++          if (PyErr_Occurred()) {
++            PyErr_Clear();
++            impconv = 0;
++          }
++          if (impconv) {
++            SwigPyObject *iobj = SWIG_Python_GetSwigThis(impconv);
++            if (iobj) {
++              void *vptr;
++              res = SWIG_Python_ConvertPtrAndOwn((PyObject*)iobj, &vptr, ty, 0, 0);
++              if (SWIG_IsOK(res)) {
++                if (ptr) {
++                  *ptr = vptr;
++                  /* transfer the ownership to 'ptr' */
++                  iobj->own = 0;
++                  res = SWIG_AddCast(res);
++                  res = SWIG_AddNewMask(res);
++                } else {
++                  res = SWIG_AddCast(res);		    
++                }
++              }
++            }
++            Py_DECREF(impconv);
++          }
++        }
++      }
++    }
+-      return res;
++    if (!SWIG_IsOK(res) && obj == Py_None) {
++      if (ptr)
++        *ptr = 0;
++      if (PyErr_Occurred())
++        PyErr_Clear();
++      res = SWIG_OK;
+     }
+   }
++  return res;
+ }
+ 
+ /* Convert a function ptr value */
+@@ -2299,24 +2508,30 @@
+     }
+   } else {
+ #if PY_VERSION_HEX >= 0x03000000
+-    inst = PyBaseObject_Type.tp_new((PyTypeObject*) data->newargs, Py_None, Py_None);
++    inst = ((PyTypeObject*) data->newargs)->tp_new((PyTypeObject*) data->newargs, Py_None, Py_None);
++    if (inst) {
+-    PyObject_SetAttr(inst, SWIG_This(), swig_this);
+-    Py_TYPE(inst)->tp_flags &= ~Py_TPFLAGS_VALID_VERSION_TAG;
++      PyObject_SetAttr(inst, SWIG_This(), swig_this);
++      Py_TYPE(inst)->tp_flags &= ~Py_TPFLAGS_VALID_VERSION_TAG;
++    }
+ #else
+     PyObject *dict = PyDict_New();
++    if (dict) {
+-    PyDict_SetItem(dict, SWIG_This(), swig_this);
+-    inst = PyInstance_NewRaw(data->newargs, dict);
+-    Py_DECREF(dict);
++      PyDict_SetItem(dict, SWIG_This(), swig_this);
++      inst = PyInstance_NewRaw(data->newargs, dict);
++      Py_DECREF(dict);
++    }
+ #endif
+   }
+   return inst;
+ #else
+ #if (PY_VERSION_HEX >= 0x02010000)
+-  PyObject *inst;
++  PyObject *inst = 0;
+   PyObject *dict = PyDict_New();
++  if (dict) {
+-  PyDict_SetItem(dict, SWIG_This(), swig_this);
+-  inst = PyInstance_NewRaw(data->newargs, dict);
+-  Py_DECREF(dict);
++    PyDict_SetItem(dict, SWIG_This(), swig_this);
++    inst = PyInstance_NewRaw(data->newargs, dict);
++    Py_DECREF(dict);
++  }
+   return (PyObject *) inst;
+ #else
+   PyInstanceObject *inst = PyObject_NEW(PyInstanceObject, &PyInstance_Type);
+@@ -2367,7 +2582,7 @@
+ SWIGINTERN PyObject *
+ SWIG_Python_InitShadowInstance(PyObject *args) {
+   PyObject *obj[2];
+-  if (!SWIG_Python_UnpackTuple(args,(char*)"swiginit", 2, 2, obj)) {
++  if (!SWIG_Python_UnpackTuple(args, "swiginit", 2, 2, obj)) {
+     return NULL;
+   } else {
+     SwigPyObject *sthis = SWIG_Python_GetSwigThis(obj[0]);
+@@ -2383,23 +2598,56 @@
+ /* Create a new pointer object */
+ 
+ SWIGRUNTIME PyObject *
+-SWIG_Python_NewPointerObj(void *ptr, swig_type_info *type, int flags) {
+-  if (!ptr) {
++SWIG_Python_NewPointerObj(PyObject *self, void *ptr, swig_type_info *type, int flags) {
++  SwigPyClientData *clientdata;
++  PyObject * robj;
++  int own;
++
++  if (!ptr)
+     return SWIG_Py_Void();
++
++  clientdata = type ? (SwigPyClientData *)(type->clientdata) : 0;
++  own = (flags & SWIG_POINTER_OWN) ? SWIG_POINTER_OWN : 0;
++  if (clientdata && clientdata->pytype) {
++    SwigPyObject *newobj;
++    if (flags & SWIG_BUILTIN_TP_INIT) {
++      newobj = (SwigPyObject*) self;
++      if (newobj->ptr) {
++        PyObject *next_self = clientdata->pytype->tp_alloc(clientdata->pytype, 0);
++        while (newobj->next)
++	  newobj = (SwigPyObject *) newobj->next;
++        newobj->next = next_self;
++        newobj = (SwigPyObject *)next_self;
++#ifdef SWIGPYTHON_BUILTIN
++        newobj->dict = 0;
++#endif
++      }
+-  } else {
++    } else {
+-    int own = (flags & SWIG_POINTER_OWN) ? SWIG_POINTER_OWN : 0;
+-    PyObject *robj = SwigPyObject_New(ptr, type, own);
+-    SwigPyClientData *clientdata = type ? (SwigPyClientData *)(type->clientdata) : 0;
+-    if (clientdata && !(flags & SWIG_POINTER_NOSHADOW)) {
++      newobj = PyObject_New(SwigPyObject, clientdata->pytype);
++#ifdef SWIGPYTHON_BUILTIN
++      newobj->dict = 0;
++#endif
++    }
++    if (newobj) {
++      newobj->ptr = ptr;
++      newobj->ty = type;
++      newobj->own = own;
++      newobj->next = 0;
++      return (PyObject*) newobj;
++    }
++    return SWIG_Py_Void();
++  }
++
++  assert(!(flags & SWIG_BUILTIN_TP_INIT));
++
++  robj = SwigPyObject_New(ptr, type, own);
++  if (robj && clientdata && !(flags & SWIG_POINTER_NOSHADOW)) {
+-      PyObject *inst = SWIG_Python_NewShadowInstance(clientdata, robj);
++    PyObject *inst = SWIG_Python_NewShadowInstance(clientdata, robj);
+-      if (inst) {
+-	Py_DECREF(robj);
+-	robj = inst;
+-      }
++    Py_DECREF(robj);
++    robj = inst;
++  }
+-    }
+-    return robj;
+-  }
++  return robj;
++}
+-}
+ 
+ /* Create a new packed object */
+ 
+@@ -2417,15 +2665,19 @@
+ #endif
+ 
+ SWIGRUNTIME swig_module_info *
+-SWIG_Python_GetModule(void) {
++SWIG_Python_GetModule(void *SWIGUNUSEDPARM(clientdata)) {
+   static void *type_pointer = (void *)0;
+   /* first check if module already created */
+   if (!type_pointer) {
+ #ifdef SWIG_LINK_RUNTIME
+     type_pointer = SWIG_ReturnGlobalTypeList((void *)0);
+ #else
++# ifdef SWIGPY_USE_CAPSULE
++    type_pointer = PyCapsule_Import(SWIGPY_CAPSULE_NAME, 0);
++# else
+     type_pointer = PyCObject_Import((char*)"swig_runtime_data" SWIG_RUNTIME_VERSION,
+ 				    (char*)"type_pointer" SWIG_TYPE_TABLE_NAME);
++# endif
+     if (PyErr_Occurred()) {
+       PyErr_Clear();
+       type_pointer = (void *)0;
+@@ -2443,13 +2695,11 @@
+ {
+   PyObject *dict;
+   if (!PyModule_Check(m)) {
+-    PyErr_SetString(PyExc_TypeError,
+-		    "PyModule_AddObject() needs module as first arg");
++    PyErr_SetString(PyExc_TypeError, "PyModule_AddObject() needs module as first arg");
+     return SWIG_ERROR;
+   }
+   if (!o) {
+-    PyErr_SetString(PyExc_TypeError,
+-		    "PyModule_AddObject() needs non-NULL value");
++    PyErr_SetString(PyExc_TypeError, "PyModule_AddObject() needs non-NULL value");
+     return SWIG_ERROR;
+   }
+   
+@@ -2468,9 +2718,17 @@
+ #endif
+ 
+ SWIGRUNTIME void
++#ifdef SWIGPY_USE_CAPSULE
++SWIG_Python_DestroyModule(PyObject *obj)
++#else
+ SWIG_Python_DestroyModule(void *vptr)
++#endif
+ {
++#ifdef SWIGPY_USE_CAPSULE
++  swig_module_info *swig_module = (swig_module_info *) PyCapsule_GetPointer(obj, SWIGPY_CAPSULE_NAME);
++#else
+   swig_module_info *swig_module = (swig_module_info *) vptr;
++#endif
+   swig_type_info **types = swig_module->types;
+   size_t i;
+   for (i =0; i < swig_module->size; ++i) {
+@@ -2481,25 +2739,33 @@
+     }
+   }
+   Py_DECREF(SWIG_This());
++  swig_this = NULL;
+ }
+ 
+ SWIGRUNTIME void
+ SWIG_Python_SetModule(swig_module_info *swig_module) {
+-  static PyMethodDef swig_empty_runtime_method_table[] = { {NULL, NULL, 0, NULL} };/* Sentinel */
+-
+ #if PY_VERSION_HEX >= 0x03000000
+  /* Add a dummy module object into sys.modules */
+   PyObject *module = PyImport_AddModule((char*)"swig_runtime_data" SWIG_RUNTIME_VERSION);
+ #else
+-  PyObject *module = Py_InitModule((char*)"swig_runtime_data" SWIG_RUNTIME_VERSION,
+-				   swig_empty_runtime_method_table);
++  static PyMethodDef swig_empty_runtime_method_table[] = { {NULL, NULL, 0, NULL} }; /* Sentinel */
++  PyObject *module = Py_InitModule((char*)"swig_runtime_data" SWIG_RUNTIME_VERSION, swig_empty_runtime_method_table);
+ #endif
++#ifdef SWIGPY_USE_CAPSULE
++  PyObject *pointer = PyCapsule_New((void *) swig_module, SWIGPY_CAPSULE_NAME, SWIG_Python_DestroyModule);
++  if (pointer && module) {
++    PyModule_AddObject(module, (char*)"type_pointer_capsule" SWIG_TYPE_TABLE_NAME, pointer);
++  } else {
++    Py_XDECREF(pointer);
++  }
++#else
+   PyObject *pointer = PyCObject_FromVoidPtr((void *) swig_module, SWIG_Python_DestroyModule);
+   if (pointer && module) {
+     PyModule_AddObject(module, (char*)"type_pointer" SWIG_TYPE_TABLE_NAME, pointer);
+   } else {
+     Py_XDECREF(pointer);
+   }
++#endif
+ }
+ 
+ /* The python cached type query */
+@@ -2517,12 +2783,20 @@
+   PyObject *obj = PyDict_GetItem(cache, key);
+   swig_type_info *descriptor;
+   if (obj) {
++#ifdef SWIGPY_USE_CAPSULE
++    descriptor = (swig_type_info *) PyCapsule_GetPointer(obj, NULL);
++#else
+     descriptor = (swig_type_info *) PyCObject_AsVoidPtr(obj);
++#endif
+   } else {
+-    swig_module_info *swig_module = SWIG_Python_GetModule();
++    swig_module_info *swig_module = SWIG_GetModule(0);
+     descriptor = SWIG_TypeQueryModule(swig_module, swig_module, type);
+     if (descriptor) {
++#ifdef SWIGPY_USE_CAPSULE
++      obj = PyCapsule_New((void*) descriptor, NULL, NULL);
++#else
+       obj = PyCObject_FromVoidPtr(descriptor, NULL);
++#endif
+       PyDict_SetItem(cache, key, obj);
+       Py_DECREF(obj);
+     }
+@@ -2583,7 +2857,7 @@
+ {
+   SwigPyObject *v = (SwigPyObject *)self;
+   swig_type_info *ty = v ? v->ty : 0;
+-  return ty ? ty->str : (char*)"";
++  return ty ? ty->str : "";
+ }
+ 
+ SWIGRUNTIME void
+@@ -2626,7 +2900,7 @@
+ 
+ /* Convert a pointer value, signal an exception on a type mismatch */
+ SWIGRUNTIME void *
+-SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags) {
++SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int SWIGUNUSEDPARM(argnum), int flags) {
+   void *result;
+   if (SWIG_Python_ConvertPtr(obj, &result, ty, flags) == -1) {
+     PyErr_Clear();
+@@ -2640,16 +2914,66 @@
+   return result;
+ }
+ 
++#ifdef SWIGPYTHON_BUILTIN
++SWIGRUNTIME int
++SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
++  PyTypeObject *tp = obj->ob_type;
++  PyObject *descr;
++  PyObject *encoded_name;
++  descrsetfunc f;
++  int res = -1;
+ 
+-#ifdef __cplusplus
+-#if 0
+-{ /* cc-mode */
++# ifdef Py_USING_UNICODE
++  if (PyString_Check(name)) {
++    name = PyUnicode_Decode(PyString_AsString(name), PyString_Size(name), NULL, NULL);
++    if (!name)
++      return -1;
++  } else if (!PyUnicode_Check(name))
++# else
++  if (!PyString_Check(name))
+-#endif
++# endif
++  {
++    PyErr_Format(PyExc_TypeError, "attribute name must be string, not '%.200s'", name->ob_type->tp_name);
++    return -1;
++  } else {
++    Py_INCREF(name);
+-}
++  }
++
++  if (!tp->tp_dict) {
++    if (PyType_Ready(tp) < 0)
++      goto done;
++  }
++
++  descr = _PyType_Lookup(tp, name);
++  f = NULL;
++  if (descr != NULL)
++    f = descr->ob_type->tp_descr_set;
++  if (!f) {
++    if (PyString_Check(name)) {
++      encoded_name = name;
++      Py_INCREF(name);
++    } else {
++      encoded_name = PyUnicode_AsUTF8String(name);
++    }
++    PyErr_Format(PyExc_AttributeError, "'%.100s' object has no attribute '%.200s'", tp->tp_name, PyString_AsString(encoded_name));
++    Py_DECREF(encoded_name);
++  } else {
++    res = f(descr, obj, value);
++  }
++  
++  done:
++  Py_DECREF(name);
++  return res;
++}
+ #endif
+ 
+ 
++#ifdef __cplusplus
++}
++#endif
+ 
++
++
+ #define SWIG_exception_fail(code, msg) do { SWIG_Error(code, msg); SWIG_fail; } while(0) 
+ 
+ #define SWIG_contract_assert(expr, msg) if (!(expr)) { SWIG_Error(SWIG_RuntimeError, msg); SWIG_fail; } else 
+@@ -2693,7 +3017,7 @@
+ #endif
+ #define SWIG_name    "_gribapi_swig"
+ 
+-#define SWIGVERSION 0x010340 
++#define SWIGVERSION 0x030008 
+ #define SWIG_VERSION SWIGVERSION
+ 
+ 
+@@ -2737,9 +3061,11 @@
+   if (PyFloat_Check(obj)) {
+     if (val) *val = PyFloat_AsDouble(obj);
+     return SWIG_OK;
++#if PY_VERSION_HEX < 0x03000000
+   } else if (PyInt_Check(obj)) {
+     if (val) *val = PyInt_AsLong(obj);
+     return SWIG_OK;
++#endif
+   } else if (PyLong_Check(obj)) {
+     double v = PyLong_AsDouble(obj);
+     if (!PyErr_Occurred()) {
+@@ -2813,6 +3139,7 @@
+ SWIGINTERN int
+ SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
+ {
++#if PY_VERSION_HEX < 0x03000000
+   if (PyInt_Check(obj)) {
+     long v = PyInt_AsLong(obj);
+     if (v >= 0) {
+@@ -2821,13 +3148,16 @@
+     } else {
+       return SWIG_OverflowError;
+     }
+-  } else if (PyLong_Check(obj)) {
++  } else
++#endif
++  if (PyLong_Check(obj)) {
+     unsigned long v = PyLong_AsUnsignedLong(obj);
+     if (!PyErr_Occurred()) {
+       if (val) *val = v;
+       return SWIG_OK;
+     } else {
+       PyErr_Clear();
++      return SWIG_OverflowError;
+     }
+   }
+ #ifdef SWIG_PYTHON_CAST_MODE
+@@ -2884,13 +3214,17 @@
+     if (size > INT_MAX) {
+       swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+       return pchar_descriptor ? 
+-	SWIG_NewPointerObj((char *)(carray), pchar_descriptor, 0) : SWIG_Py_Void();
++	SWIG_InternalNewPointerObj((char *)(carray), pchar_descriptor, 0) : SWIG_Py_Void();
+     } else {
+ #if PY_VERSION_HEX >= 0x03000000
+-      return PyUnicode_FromStringAndSize(carray, (int)(size));
++#if PY_VERSION_HEX >= 0x03010000
++      return PyUnicode_DecodeUTF8(carray, (Py_ssize_t)(size), "surrogateescape");
+ #else
+-      return PyString_FromStringAndSize(carray, (int)(size));
++      return PyUnicode_FromStringAndSize(carray, (Py_ssize_t)(size));
+ #endif
++#else
++      return PyString_FromStringAndSize(carray, (Py_ssize_t)(size));
++#endif
+     }
+   } else {
+     return SWIG_Py_Void();
+@@ -2898,13 +3232,109 @@
+ }
+ 
+ 
+-  #define SWIG_From_long   PyInt_FromLong 
++SWIGINTERN int
++SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
++{
++#if PY_VERSION_HEX>=0x03000000
++  if (PyUnicode_Check(obj))
++#else  
++  if (PyString_Check(obj))
++#endif
++  {
++    char *cstr; Py_ssize_t len;
++#if PY_VERSION_HEX>=0x03000000
++    if (!alloc && cptr) {
++        /* We can't allow converting without allocation, since the internal
++           representation of string in Python 3 is UCS-2/UCS-4 but we require
++           a UTF-8 representation.
++           TODO(bhy) More detailed explanation */
++        return SWIG_RuntimeError;
++    }
++    obj = PyUnicode_AsUTF8String(obj);
++    PyBytes_AsStringAndSize(obj, &cstr, &len);
++    if(alloc) *alloc = SWIG_NEWOBJ;
++#else
++    PyString_AsStringAndSize(obj, &cstr, &len);
++#endif
++    if (cptr) {
++      if (alloc) {
++	/* 
++	   In python the user should not be able to modify the inner
++	   string representation. To warranty that, if you define
++	   SWIG_PYTHON_SAFE_CSTRINGS, a new/copy of the python string
++	   buffer is always returned.
+ 
++	   The default behavior is just to return the pointer value,
++	   so, be careful.
++	*/ 
++#if defined(SWIG_PYTHON_SAFE_CSTRINGS)
++	if (*alloc != SWIG_OLDOBJ) 
++#else
++	if (*alloc == SWIG_NEWOBJ) 
++#endif
++	{
++	  *cptr = (char *)memcpy((char *)malloc((len + 1)*sizeof(char)), cstr, sizeof(char)*(len + 1));
++	  *alloc = SWIG_NEWOBJ;
++	} else {
++	  *cptr = cstr;
++	  *alloc = SWIG_OLDOBJ;
++	}
++      } else {
++	#if PY_VERSION_HEX>=0x03000000
++	assert(0); /* Should never reach here in Python 3 */
++	#endif
++	*cptr = SWIG_Python_str_AsChar(obj);
++      }
++    }
++    if (psize) *psize = len + 1;
++#if PY_VERSION_HEX>=0x03000000
++    Py_XDECREF(obj);
++#endif
++    return SWIG_OK;
++  } else {
++#if defined(SWIG_PYTHON_2_UNICODE)
++#if PY_VERSION_HEX<0x03000000
++    if (PyUnicode_Check(obj)) {
++      char *cstr; Py_ssize_t len;
++      if (!alloc && cptr) {
++        return SWIG_RuntimeError;
++      }
++      obj = PyUnicode_AsUTF8String(obj);
++      if (PyString_AsStringAndSize(obj, &cstr, &len) != -1) {
++        if (cptr) {
++          if (alloc) *alloc = SWIG_NEWOBJ;
++          *cptr = (char *)memcpy((char *)malloc((len + 1)*sizeof(char)), cstr, sizeof(char)*(len + 1));
++        }
++        if (psize) *psize = len + 1;
+ 
++        Py_XDECREF(obj);
++        return SWIG_OK;
++      } else {
++        Py_XDECREF(obj);
++      }
++    }
++#endif
++#endif
++
++    swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
++    if (pchar_descriptor) {
++      void* vptr = 0;
++      if (SWIG_ConvertPtr(obj, &vptr, pchar_descriptor, 0) == SWIG_OK) {
++	if (cptr) *cptr = (char *) vptr;
++	if (psize) *psize = vptr ? (strlen((char *)vptr) + 1) : 0;
++	if (alloc) *alloc = SWIG_OLDOBJ;
++	return SWIG_OK;
++      }
++    }
++  }
++  return SWIG_TypeError;
++}
++
++
+-SWIGINTERNINLINE PyObject *
++SWIGINTERNINLINE PyObject*
+-SWIG_From_int  (int value)
+-{    
++  SWIG_From_int  (int value)
++{
+-  return SWIG_From_long  (value);
++  return PyInt_FromLong((long) value);
+ }
+ 
+ 
+@@ -2919,9 +3349,14 @@
+ #include <numpy/arrayobject.h>
+ 
+ 
++ #if PY_VERSION_HEX >= 0x03000000
++ extern PyTypeObject PyIOBase_Type;
++ #endif
++
++
+ typedef int intp;
+ 
+-SWIGINTERN intp *new_intp(){
++SWIGINTERN intp *new_intp(void){
+     return (int *)malloc(sizeof(int));
+   }
+ SWIGINTERN void delete_intp(intp *self){
+@@ -2941,16 +3376,20 @@
+ SWIGINTERN int
+ SWIG_AsVal_long (PyObject *obj, long* val)
+ {
++#if PY_VERSION_HEX < 0x03000000
+   if (PyInt_Check(obj)) {
+     if (val) *val = PyInt_AsLong(obj);
+     return SWIG_OK;
+-  } else if (PyLong_Check(obj)) {
++  } else
++#endif
++  if (PyLong_Check(obj)) {
+     long v = PyLong_AsLong(obj);
+     if (!PyErr_Occurred()) {
+       if (val) *val = v;
+       return SWIG_OK;
+     } else {
+       PyErr_Clear();
++      return SWIG_OverflowError;
+     }
+   }
+ #ifdef SWIG_PYTHON_CAST_MODE
+@@ -3007,7 +3446,7 @@
+ 
+ typedef long longp;
+ 
+-SWIGINTERN longp *new_longp(){
++SWIGINTERN longp *new_longp(void){
+     return (long *)malloc(sizeof(long));
+   }
+ SWIGINTERN void delete_longp(longp *self){
+@@ -3019,6 +3458,9 @@
+ SWIGINTERN long longp_value(longp *self){
+     return *self;
+   }
++
++  #define SWIG_From_long   PyLong_FromLong 
++
+ SWIGINTERN long *longp_cast(longp *self){
+     return self;
+   }
+@@ -3028,7 +3470,7 @@
+ 
+ typedef double doublep;
+ 
+-SWIGINTERN doublep *new_doublep(){
++SWIGINTERN doublep *new_doublep(void){
+     return (double *)malloc(sizeof(double));
+   }
+ SWIGINTERN void delete_doublep(doublep *self){
+@@ -3098,90 +3540,14 @@
+   }
+ 
+ 
+-SWIGINTERN int
+-SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
+-{
+-#if PY_VERSION_HEX>=0x03000000
+-  if (PyUnicode_Check(obj))
+-#else  
+-  if (PyString_Check(obj))
+-#endif
+-  {
+-    char *cstr; Py_ssize_t len;
+-#if PY_VERSION_HEX>=0x03000000
+-    if (!alloc && cptr) {
+-        /* We can't allow converting without allocation, since the internal
+-           representation of string in Python 3 is UCS-2/UCS-4 but we require
+-           a UTF-8 representation.
+-           TODO(bhy) More detailed explanation */
+-        return SWIG_RuntimeError;
+-    }
+-    obj = PyUnicode_AsUTF8String(obj);
+-    PyBytes_AsStringAndSize(obj, &cstr, &len);
+-    if(alloc) *alloc = SWIG_NEWOBJ;
+-#else
+-    PyString_AsStringAndSize(obj, &cstr, &len);
+-#endif
+-    if (cptr) {
+-      if (alloc) {
+-	/* 
+-	   In python the user should not be able to modify the inner
+-	   string representation. To warranty that, if you define
+-	   SWIG_PYTHON_SAFE_CSTRINGS, a new/copy of the python string
+-	   buffer is always returned.
+ 
+-	   The default behavior is just to return the pointer value,
+-	   so, be careful.
+-	*/ 
+-#if defined(SWIG_PYTHON_SAFE_CSTRINGS)
+-	if (*alloc != SWIG_OLDOBJ) 
+-#else
+-	if (*alloc == SWIG_NEWOBJ) 
+-#endif
+-	  {
+-	    *cptr = (char *)memcpy((char *)malloc((len + 1)*sizeof(char)), cstr, sizeof(char)*(len + 1));
+-	    *alloc = SWIG_NEWOBJ;
+-	  }
+-	else {
+-	  *cptr = cstr;
+-	  *alloc = SWIG_OLDOBJ;
+-	}
+-      } else {
+-        #if PY_VERSION_HEX>=0x03000000
+-        assert(0); /* Should never reach here in Python 3 */
+-        #endif
+-	*cptr = SWIG_Python_str_AsChar(obj);
+-      }
+-    }
+-    if (psize) *psize = len + 1;
+-#if PY_VERSION_HEX>=0x03000000
+-    Py_XDECREF(obj);
+-#endif
+-    return SWIG_OK;
+-  } else {
+-    swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+-    if (pchar_descriptor) {
+-      void* vptr = 0;
+-      if (SWIG_ConvertPtr(obj, &vptr, pchar_descriptor, 0) == SWIG_OK) {
+-	if (cptr) *cptr = (char *) vptr;
+-	if (psize) *psize = vptr ? (strlen((char *)vptr) + 1) : 0;
+-	if (alloc) *alloc = SWIG_OLDOBJ;
+-	return SWIG_OK;
+-      }
+-    }
+-  }
+-  return SWIG_TypeError;
+-}
+ 
+ 
+-
+-
+-
+ SWIGINTERNINLINE PyObject* 
+ SWIG_From_unsigned_SS_long  (unsigned long value)
+ {
+   return (value > LONG_MAX) ?
+-    PyLong_FromUnsignedLong(value) : PyInt_FromLong((long)(value)); 
++    PyLong_FromUnsignedLong(value) : PyLong_FromLong((long)(value)); 
+ }
+ 
+ 
+@@ -3291,15 +3657,17 @@
+     if (py_obj == NULL          ) return "C NULL value";
+     if (py_obj == Py_None       ) return "Python None" ;
+     if (PyCallable_Check(py_obj)) return "callable"    ;
+-    if (PyString_Check(  py_obj)) return "string"      ;
+     if (PyInt_Check(     py_obj)) return "int"         ;
+     if (PyFloat_Check(   py_obj)) return "float"       ;
+     if (PyDict_Check(    py_obj)) return "dict"        ;
+     if (PyList_Check(    py_obj)) return "list"        ;
+     if (PyTuple_Check(   py_obj)) return "tuple"       ;
+-    if (PyFile_Check(    py_obj)) return "file"        ;
+     if (PyModule_Check(  py_obj)) return "module"      ;
++#if PY_VERSION_HEX < 0x03000000
++    if (PyFile_Check(    py_obj)) return "file"        ;
++    if (PyString_Check(  py_obj)) return "string"      ;
+     if (PyInstance_Check(py_obj)) return "instance"    ;
++#endif
+ 
+     return "unknown type";
+   }
+@@ -3686,26 +4054,23 @@
+   size_t arg3 ;
+   int res1 ;
+   int res2 ;
+-  size_t val3 ;
+-  int ecode3 = 0 ;
++  char *buf2 = 0 ;
++  size_t size2 = 0 ;
++  int alloc2 = 0 ;
+   PyObject * obj0 = 0 ;
+   PyObject * obj1 = 0 ;
+-  PyObject * obj2 = 0 ;
+   
+-  if (!PyArg_ParseTuple(args,(char *)"OOO:memmove",&obj0,&obj1,&obj2)) SWIG_fail;
++  if (!PyArg_ParseTuple(args,(char *)"OO:memmove",&obj0,&obj1)) SWIG_fail;
+   res1 = SWIG_ConvertPtr(obj0,SWIG_as_voidptrptr(&arg1), 0, 0);
+   if (!SWIG_IsOK(res1)) {
+     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "memmove" "', argument " "1"" of type '" "void *""'"); 
+   }
+-  res2 = SWIG_ConvertPtr(obj1,SWIG_as_voidptrptr(&arg2), 0, 0);
++  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, &size2, &alloc2);
+   if (!SWIG_IsOK(res2)) {
+-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "memmove" "', argument " "2"" of type '" "void const *""'"); 
++    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "memmove" "', argument " "2"" of type '" "void const *""'");
+   }
+-  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+-  if (!SWIG_IsOK(ecode3)) {
+-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "memmove" "', argument " "3"" of type '" "size_t""'");
+-  } 
+-  arg3 = (size_t)(val3);
++  arg2 = (void *)(buf2);
++  arg3 = (size_t)(size2);
+   memmove(arg1,(void const *)arg2,arg3);
+   resultobj = SWIG_Py_Void();
+   return resultobj;
+@@ -3714,6 +4079,622 @@
+ }
+ 
+ 
++SWIGINTERN PyObject *GRIB_SUCCESS_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_SUCCESS",SWIG_From_int((int)(0)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_END_OF_FILE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_END_OF_FILE",SWIG_From_int((int)(-1)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INTERNAL_ERROR_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INTERNAL_ERROR",SWIG_From_int((int)(-2)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_BUFFER_TOO_SMALL_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_BUFFER_TOO_SMALL",SWIG_From_int((int)(-3)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_NOT_IMPLEMENTED_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_NOT_IMPLEMENTED",SWIG_From_int((int)(-4)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_7777_NOT_FOUND_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_7777_NOT_FOUND",SWIG_From_int((int)(-5)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_ARRAY_TOO_SMALL_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_ARRAY_TOO_SMALL",SWIG_From_int((int)(-6)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_FILE_NOT_FOUND_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_FILE_NOT_FOUND",SWIG_From_int((int)(-7)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_CODE_NOT_FOUND_IN_TABLE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_CODE_NOT_FOUND_IN_TABLE",SWIG_From_int((int)(-8)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_WRONG_ARRAY_SIZE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_WRONG_ARRAY_SIZE",SWIG_From_int((int)(-9)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_NOT_FOUND_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_NOT_FOUND",SWIG_From_int((int)(-10)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_IO_PROBLEM_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_IO_PROBLEM",SWIG_From_int((int)(-11)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_MESSAGE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_MESSAGE",SWIG_From_int((int)(-12)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_DECODING_ERROR_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_DECODING_ERROR",SWIG_From_int((int)(-13)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_ENCODING_ERROR_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_ENCODING_ERROR",SWIG_From_int((int)(-14)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_NO_MORE_IN_SET_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_NO_MORE_IN_SET",SWIG_From_int((int)(-15)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_GEOCALCULUS_PROBLEM_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_GEOCALCULUS_PROBLEM",SWIG_From_int((int)(-16)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_OUT_OF_MEMORY_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_OUT_OF_MEMORY",SWIG_From_int((int)(-17)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_READ_ONLY_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_READ_ONLY",SWIG_From_int((int)(-18)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_ARGUMENT_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_ARGUMENT",SWIG_From_int((int)(-19)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_NULL_HANDLE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_NULL_HANDLE",SWIG_From_int((int)(-20)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_SECTION_NUMBER_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_SECTION_NUMBER",SWIG_From_int((int)(-21)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_VALUE_CANNOT_BE_MISSING_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_VALUE_CANNOT_BE_MISSING",SWIG_From_int((int)(-22)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_WRONG_LENGTH_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_WRONG_LENGTH",SWIG_From_int((int)(-23)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_TYPE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_TYPE",SWIG_From_int((int)(-24)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_WRONG_STEP_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_WRONG_STEP",SWIG_From_int((int)(-25)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_WRONG_STEP_UNIT_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_WRONG_STEP_UNIT",SWIG_From_int((int)(-26)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_FILE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_FILE",SWIG_From_int((int)(-27)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_GRIB_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_GRIB",SWIG_From_int((int)(-28)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_INDEX_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_INDEX",SWIG_From_int((int)(-29)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_ITERATOR_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_ITERATOR",SWIG_From_int((int)(-30)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_KEYS_ITERATOR_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_KEYS_ITERATOR",SWIG_From_int((int)(-31)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_NEAREST_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_NEAREST",SWIG_From_int((int)(-32)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_ORDERBY_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_ORDERBY",SWIG_From_int((int)(-33)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_MISSING_KEY_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_MISSING_KEY",SWIG_From_int((int)(-34)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_OUT_OF_AREA_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_OUT_OF_AREA",SWIG_From_int((int)(-35)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_CONCEPT_NO_MATCH_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_CONCEPT_NO_MATCH",SWIG_From_int((int)(-36)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_NO_DEFINITIONS_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_NO_DEFINITIONS",SWIG_From_int((int)(-37)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_WRONG_TYPE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_WRONG_TYPE",SWIG_From_int((int)(-38)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_END_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_END",SWIG_From_int((int)(-39)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_NO_VALUES_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_NO_VALUES",SWIG_From_int((int)(-40)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_WRONG_GRID_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_WRONG_GRID",SWIG_From_int((int)(-41)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_END_OF_INDEX_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_END_OF_INDEX",SWIG_From_int((int)(-42)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_NULL_INDEX_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_NULL_INDEX",SWIG_From_int((int)(-43)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_PREMATURE_END_OF_FILE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_PREMATURE_END_OF_FILE",SWIG_From_int((int)(-44)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INTERNAL_ARRAY_TOO_SMALL_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INTERNAL_ARRAY_TOO_SMALL",SWIG_From_int((int)(-45)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_MESSAGE_TOO_LARGE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_MESSAGE_TOO_LARGE",SWIG_From_int((int)(-46)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_CONSTANT_FIELD_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_CONSTANT_FIELD",SWIG_From_int((int)(-47)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_SWITCH_NO_MATCH_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_SWITCH_NO_MATCH",SWIG_From_int((int)(-48)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_UNDERFLOW_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_UNDERFLOW",SWIG_From_int((int)(-49)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_MESSAGE_MALFORMED_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_MESSAGE_MALFORMED",SWIG_From_int((int)(-50)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_CORRUPTED_INDEX_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_CORRUPTED_INDEX",SWIG_From_int((int)(-51)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_BPV_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_BPV",SWIG_From_int((int)(-52)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_DIFFERENT_EDITION_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_DIFFERENT_EDITION",SWIG_From_int((int)(-53)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_VALUE_DIFFERENT_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_VALUE_DIFFERENT",SWIG_From_int((int)(-54)));
++  return SWIG_Py_Void();
++}
++
++
++SWIGINTERN PyObject *GRIB_INVALID_KEY_VALUE_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
++  PyObject *module;
++  PyObject *d;
++  if (!PyArg_ParseTuple(args,(char*)"O:swigconstant", &module)) return NULL;
++  d = PyModule_GetDict(module);
++  if (!d) return NULL;
++  SWIG_Python_SetConstant(d, "GRIB_INVALID_KEY_VALUE",SWIG_From_int((int)(-55)));
++  return SWIG_Py_Void();
++}
++
++
+ SWIGINTERN PyObject *_wrap_new_intp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+   PyObject *resultobj = 0;
+   intp *result = 0 ;
+@@ -4469,6 +5450,10 @@
+   FILE *arg1 = (FILE *) 0 ;
+   int *arg2 = (int *) 0 ;
+   int arg3 ;
++  int fd1 ;
++  PyObject *mode_obj1 ;
++  PyObject *mode_byte_obj1 ;
++  char *mode1 ;
+   int temp2 ;
+   int res2 = 0 ;
+   int val3 ;
+@@ -4480,13 +5465,27 @@
+   
+   if (!PyArg_ParseTuple(args,(char *)"OOO:grib_c_new_from_file",&obj0,&obj1,&obj2)) SWIG_fail;
+   {
+-    if ( PyFile_Check(obj0) ){
+-      arg1 = PyFile_AsFile(obj0);
+-    } else {
+-      PyErr_SetString(PyExc_TypeError, "f must be a file type.");
++#if PY_VERSION_HEX >= 0x03000000
++    if (!PyObject_IsInstance(obj0, (PyObject *)&PyIOBase_Type)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
+       return NULL;
+     }
++    // work around to get hold of FILE*
++    fd1 = PyObject_AsFileDescriptor(obj0);
++    mode_obj1 = PyObject_GetAttrString(obj0, "mode");
++    mode_byte_obj1 = PyUnicode_AsUTF8String(mode_obj1);
++    mode1 = PyBytes_AsString(mode_byte_obj1);
++    arg1 = fdopen(fd1, mode1);
++    Py_XDECREF(mode_obj1);
++    Py_XDECREF(mode_byte_obj1);
++#else
++    if (!PyFile_Check(obj0)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
++      return NULL;
+-  }
++    }
++    arg1 = PyFile_AsFile(obj0);
++#endif
++  }
+   if (!(SWIG_IsOK((res2 = SWIG_ConvertPtr(obj1,SWIG_as_voidptrptr(&arg2),SWIGTYPE_p_int,0))))) {
+     int val; 
+     int ecode = SWIG_AsVal_int(obj1, &val);
+@@ -4503,6 +5502,7 @@
+   } 
+   arg3 = (int)(val3);
+   result = (int)grib_c_new_from_file(arg1,arg2,arg3);
++  fflush(arg1);
+   resultobj = SWIG_From_int((int)(result));
+   if (SWIG_IsTmpObj(res2)) {
+     resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_From_int((*arg2)));
+@@ -4521,6 +5521,10 @@
+   FILE *arg1 = (FILE *) 0 ;
+   int arg2 ;
+   int *arg3 = (int *) 0 ;
++  int fd1 ;
++  PyObject *mode_obj1 ;
++  PyObject *mode_byte_obj1 ;
++  char *mode1 ;
+   int val2 ;
+   int ecode2 = 0 ;
+   int temp3 ;
+@@ -4532,13 +5536,27 @@
+   
+   if (!PyArg_ParseTuple(args,(char *)"OOO:grib_c_new_bufr_from_file",&obj0,&obj1,&obj2)) SWIG_fail;
+   {
+-    if ( PyFile_Check(obj0) ){
+-      arg1 = PyFile_AsFile(obj0);
+-    } else {
+-      PyErr_SetString(PyExc_TypeError, "f must be a file type.");
++#if PY_VERSION_HEX >= 0x03000000
++    if (!PyObject_IsInstance(obj0, (PyObject *)&PyIOBase_Type)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
+       return NULL;
+     }
++    // work around to get hold of FILE*
++    fd1 = PyObject_AsFileDescriptor(obj0);
++    mode_obj1 = PyObject_GetAttrString(obj0, "mode");
++    mode_byte_obj1 = PyUnicode_AsUTF8String(mode_obj1);
++    mode1 = PyBytes_AsString(mode_byte_obj1);
++    arg1 = fdopen(fd1, mode1);
++    Py_XDECREF(mode_obj1);
++    Py_XDECREF(mode_byte_obj1);
++#else
++    if (!PyFile_Check(obj0)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
++      return NULL;
+-  }
++    }
++    arg1 = PyFile_AsFile(obj0);
++#endif
++  }
+   ecode2 = SWIG_AsVal_int(obj1, &val2);
+   if (!SWIG_IsOK(ecode2)) {
+     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "grib_c_new_bufr_from_file" "', argument " "2"" of type '" "int""'");
+@@ -4555,6 +5573,7 @@
+     res3 = SWIG_AddTmpMask(ecode);
+   }
+   result = (int)grib_c_new_bufr_from_file(arg1,arg2,arg3);
++  fflush(arg1);
+   resultobj = SWIG_From_int((int)(result));
+   if (SWIG_IsTmpObj(res3)) {
+     resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_From_int((*arg3)));
+@@ -4573,6 +5592,10 @@
+   FILE *arg1 = (FILE *) 0 ;
+   int arg2 ;
+   int *arg3 = (int *) 0 ;
++  int fd1 ;
++  PyObject *mode_obj1 ;
++  PyObject *mode_byte_obj1 ;
++  char *mode1 ;
+   int val2 ;
+   int ecode2 = 0 ;
+   int temp3 ;
+@@ -4584,13 +5607,27 @@
+   
+   if (!PyArg_ParseTuple(args,(char *)"OOO:grib_c_new_gts_from_file",&obj0,&obj1,&obj2)) SWIG_fail;
+   {
+-    if ( PyFile_Check(obj0) ){
+-      arg1 = PyFile_AsFile(obj0);
+-    } else {
+-      PyErr_SetString(PyExc_TypeError, "f must be a file type.");
++#if PY_VERSION_HEX >= 0x03000000
++    if (!PyObject_IsInstance(obj0, (PyObject *)&PyIOBase_Type)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
+       return NULL;
+     }
++    // work around to get hold of FILE*
++    fd1 = PyObject_AsFileDescriptor(obj0);
++    mode_obj1 = PyObject_GetAttrString(obj0, "mode");
++    mode_byte_obj1 = PyUnicode_AsUTF8String(mode_obj1);
++    mode1 = PyBytes_AsString(mode_byte_obj1);
++    arg1 = fdopen(fd1, mode1);
++    Py_XDECREF(mode_obj1);
++    Py_XDECREF(mode_byte_obj1);
++#else
++    if (!PyFile_Check(obj0)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
++      return NULL;
+-  }
++    }
++    arg1 = PyFile_AsFile(obj0);
++#endif
++  }
+   ecode2 = SWIG_AsVal_int(obj1, &val2);
+   if (!SWIG_IsOK(ecode2)) {
+     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "grib_c_new_gts_from_file" "', argument " "2"" of type '" "int""'");
+@@ -4607,6 +5644,7 @@
+     res3 = SWIG_AddTmpMask(ecode);
+   }
+   result = (int)grib_c_new_gts_from_file(arg1,arg2,arg3);
++  fflush(arg1);
+   resultobj = SWIG_From_int((int)(result));
+   if (SWIG_IsTmpObj(res3)) {
+     resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_From_int((*arg3)));
+@@ -5049,6 +6087,10 @@
+   PyObject *resultobj = 0;
+   FILE *arg1 = (FILE *) 0 ;
+   int *arg2 = (int *) 0 ;
++  int fd1 ;
++  PyObject *mode_obj1 ;
++  PyObject *mode_byte_obj1 ;
++  char *mode1 ;
+   int temp2 ;
+   int res2 = SWIG_TMPOBJ ;
+   PyObject * obj0 = 0 ;
+@@ -5057,14 +6099,29 @@
+   arg2 = &temp2;
+   if (!PyArg_ParseTuple(args,(char *)"O:grib_c_count_in_file",&obj0)) SWIG_fail;
+   {
+-    if ( PyFile_Check(obj0) ){
+-      arg1 = PyFile_AsFile(obj0);
+-    } else {
+-      PyErr_SetString(PyExc_TypeError, "f must be a file type.");
++#if PY_VERSION_HEX >= 0x03000000
++    if (!PyObject_IsInstance(obj0, (PyObject *)&PyIOBase_Type)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
+       return NULL;
+     }
++    // work around to get hold of FILE*
++    fd1 = PyObject_AsFileDescriptor(obj0);
++    mode_obj1 = PyObject_GetAttrString(obj0, "mode");
++    mode_byte_obj1 = PyUnicode_AsUTF8String(mode_obj1);
++    mode1 = PyBytes_AsString(mode_byte_obj1);
++    arg1 = fdopen(fd1, mode1);
++    Py_XDECREF(mode_obj1);
++    Py_XDECREF(mode_byte_obj1);
++#else
++    if (!PyFile_Check(obj0)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
++      return NULL;
+-  }
++    }
++    arg1 = PyFile_AsFile(obj0);
++#endif
++  }
+   result = (int)grib_c_count_in_file(arg1,arg2);
++  fflush(arg1);
+   resultobj = SWIG_From_int((int)(result));
+   if (SWIG_IsTmpObj(res2)) {
+     resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_From_int((*arg2)));
+@@ -5113,6 +6170,10 @@
+   FILE *arg2 = (FILE *) 0 ;
+   int temp1 ;
+   int res1 = 0 ;
++  int fd2 ;
++  PyObject *mode_obj2 ;
++  PyObject *mode_byte_obj2 ;
++  char *mode2 ;
+   PyObject * obj0 = 0 ;
+   PyObject * obj1 = 0 ;
+   int result;
+@@ -5129,14 +6190,29 @@
+     res1 = SWIG_AddTmpMask(ecode);
+   }
+   {
+-    if ( PyFile_Check(obj1) ){
+-      arg2 = PyFile_AsFile(obj1);
+-    } else {
+-      PyErr_SetString(PyExc_TypeError, "f must be a file type.");
++#if PY_VERSION_HEX >= 0x03000000
++    if (!PyObject_IsInstance(obj1, (PyObject *)&PyIOBase_Type)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
+       return NULL;
+     }
++    // work around to get hold of FILE*
++    fd2 = PyObject_AsFileDescriptor(obj1);
++    mode_obj2 = PyObject_GetAttrString(obj1, "mode");
++    mode_byte_obj2 = PyUnicode_AsUTF8String(mode_obj2);
++    mode2 = PyBytes_AsString(mode_byte_obj2);
++    arg2 = fdopen(fd2, mode2);
++    Py_XDECREF(mode_obj2);
++    Py_XDECREF(mode_byte_obj2);
++#else
++    if (!PyFile_Check(obj1)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
++      return NULL;
+-  }
++    }
++    arg2 = PyFile_AsFile(obj1);
++#endif
++  }
+   result = (int)grib_c_write(arg1,arg2);
++  fflush(arg2);
+   resultobj = SWIG_From_int((int)(result));
+   if (SWIG_IsNewObj(res1)) free((char*)arg1);
+   return resultobj;
+@@ -5525,6 +6601,10 @@
+   FILE *arg2 = (FILE *) 0 ;
+   int temp1 ;
+   int res1 = 0 ;
++  int fd2 ;
++  PyObject *mode_obj2 ;
++  PyObject *mode_byte_obj2 ;
++  char *mode2 ;
+   PyObject * obj0 = 0 ;
+   PyObject * obj1 = 0 ;
+   int result;
+@@ -5541,14 +6621,29 @@
+     res1 = SWIG_AddTmpMask(ecode);
+   }
+   {
+-    if ( PyFile_Check(obj1) ){
+-      arg2 = PyFile_AsFile(obj1);
+-    } else {
+-      PyErr_SetString(PyExc_TypeError, "f must be a file type.");
++#if PY_VERSION_HEX >= 0x03000000
++    if (!PyObject_IsInstance(obj1, (PyObject *)&PyIOBase_Type)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
+       return NULL;
+     }
++    // work around to get hold of FILE*
++    fd2 = PyObject_AsFileDescriptor(obj1);
++    mode_obj2 = PyObject_GetAttrString(obj1, "mode");
++    mode_byte_obj2 = PyUnicode_AsUTF8String(mode_obj2);
++    mode2 = PyBytes_AsString(mode_byte_obj2);
++    arg2 = fdopen(fd2, mode2);
++    Py_XDECREF(mode_obj2);
++    Py_XDECREF(mode_byte_obj2);
++#else
++    if (!PyFile_Check(obj1)) {
++      PyErr_SetString(PyExc_TypeError, "not a file handle");
++      return NULL;
+-  }
++    }
++    arg2 = PyFile_AsFile(obj1);
++#endif
++  }
+   result = (int)grib_c_multi_write(arg1,arg2);
++  fflush(arg2);
+   resultobj = SWIG_From_int((int)(result));
+   if (SWIG_IsNewObj(res1)) free((char*)arg1);
+   return resultobj;
+@@ -8180,6 +9275,62 @@
+ 	 { (char *)"SWIG_PyInstanceMethod_New", (PyCFunction)SWIG_PyInstanceMethod_New, METH_O, NULL},
+ 	 { (char *)"cdata", _wrap_cdata, METH_VARARGS, NULL},
+ 	 { (char *)"memmove", _wrap_memmove, METH_VARARGS, NULL},
++	 { (char *)"GRIB_SUCCESS_swigconstant", GRIB_SUCCESS_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_END_OF_FILE_swigconstant", GRIB_END_OF_FILE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INTERNAL_ERROR_swigconstant", GRIB_INTERNAL_ERROR_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_BUFFER_TOO_SMALL_swigconstant", GRIB_BUFFER_TOO_SMALL_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_NOT_IMPLEMENTED_swigconstant", GRIB_NOT_IMPLEMENTED_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_7777_NOT_FOUND_swigconstant", GRIB_7777_NOT_FOUND_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_ARRAY_TOO_SMALL_swigconstant", GRIB_ARRAY_TOO_SMALL_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_FILE_NOT_FOUND_swigconstant", GRIB_FILE_NOT_FOUND_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_CODE_NOT_FOUND_IN_TABLE_swigconstant", GRIB_CODE_NOT_FOUND_IN_TABLE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_WRONG_ARRAY_SIZE_swigconstant", GRIB_WRONG_ARRAY_SIZE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_NOT_FOUND_swigconstant", GRIB_NOT_FOUND_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_IO_PROBLEM_swigconstant", GRIB_IO_PROBLEM_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_MESSAGE_swigconstant", GRIB_INVALID_MESSAGE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_DECODING_ERROR_swigconstant", GRIB_DECODING_ERROR_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_ENCODING_ERROR_swigconstant", GRIB_ENCODING_ERROR_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_NO_MORE_IN_SET_swigconstant", GRIB_NO_MORE_IN_SET_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_GEOCALCULUS_PROBLEM_swigconstant", GRIB_GEOCALCULUS_PROBLEM_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_OUT_OF_MEMORY_swigconstant", GRIB_OUT_OF_MEMORY_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_READ_ONLY_swigconstant", GRIB_READ_ONLY_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_ARGUMENT_swigconstant", GRIB_INVALID_ARGUMENT_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_NULL_HANDLE_swigconstant", GRIB_NULL_HANDLE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_SECTION_NUMBER_swigconstant", GRIB_INVALID_SECTION_NUMBER_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_VALUE_CANNOT_BE_MISSING_swigconstant", GRIB_VALUE_CANNOT_BE_MISSING_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_WRONG_LENGTH_swigconstant", GRIB_WRONG_LENGTH_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_TYPE_swigconstant", GRIB_INVALID_TYPE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_WRONG_STEP_swigconstant", GRIB_WRONG_STEP_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_WRONG_STEP_UNIT_swigconstant", GRIB_WRONG_STEP_UNIT_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_FILE_swigconstant", GRIB_INVALID_FILE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_GRIB_swigconstant", GRIB_INVALID_GRIB_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_INDEX_swigconstant", GRIB_INVALID_INDEX_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_ITERATOR_swigconstant", GRIB_INVALID_ITERATOR_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_KEYS_ITERATOR_swigconstant", GRIB_INVALID_KEYS_ITERATOR_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_NEAREST_swigconstant", GRIB_INVALID_NEAREST_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_ORDERBY_swigconstant", GRIB_INVALID_ORDERBY_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_MISSING_KEY_swigconstant", GRIB_MISSING_KEY_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_OUT_OF_AREA_swigconstant", GRIB_OUT_OF_AREA_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_CONCEPT_NO_MATCH_swigconstant", GRIB_CONCEPT_NO_MATCH_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_NO_DEFINITIONS_swigconstant", GRIB_NO_DEFINITIONS_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_WRONG_TYPE_swigconstant", GRIB_WRONG_TYPE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_END_swigconstant", GRIB_END_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_NO_VALUES_swigconstant", GRIB_NO_VALUES_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_WRONG_GRID_swigconstant", GRIB_WRONG_GRID_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_END_OF_INDEX_swigconstant", GRIB_END_OF_INDEX_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_NULL_INDEX_swigconstant", GRIB_NULL_INDEX_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_PREMATURE_END_OF_FILE_swigconstant", GRIB_PREMATURE_END_OF_FILE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INTERNAL_ARRAY_TOO_SMALL_swigconstant", GRIB_INTERNAL_ARRAY_TOO_SMALL_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_MESSAGE_TOO_LARGE_swigconstant", GRIB_MESSAGE_TOO_LARGE_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_CONSTANT_FIELD_swigconstant", GRIB_CONSTANT_FIELD_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_SWITCH_NO_MATCH_swigconstant", GRIB_SWITCH_NO_MATCH_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_UNDERFLOW_swigconstant", GRIB_UNDERFLOW_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_MESSAGE_MALFORMED_swigconstant", GRIB_MESSAGE_MALFORMED_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_CORRUPTED_INDEX_swigconstant", GRIB_CORRUPTED_INDEX_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_BPV_swigconstant", GRIB_INVALID_BPV_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_DIFFERENT_EDITION_swigconstant", GRIB_DIFFERENT_EDITION_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_VALUE_DIFFERENT_swigconstant", GRIB_VALUE_DIFFERENT_swigconstant, METH_VARARGS, NULL},
++	 { (char *)"GRIB_INVALID_KEY_VALUE_swigconstant", GRIB_INVALID_KEY_VALUE_swigconstant, METH_VARARGS, NULL},
+ 	 { (char *)"new_intp", _wrap_new_intp, METH_VARARGS, NULL},
+ 	 { (char *)"delete_intp", _wrap_delete_intp, METH_VARARGS, NULL},
+ 	 { (char *)"intp_assign", _wrap_intp_assign, METH_VARARGS, NULL},
+@@ -8367,18 +9518,18 @@
+ #endif
+ /* -----------------------------------------------------------------------------
+  * Type initialization:
+- * This problem is tough by the requirement that no dynamic 
+- * memory is used. Also, since swig_type_info structures store pointers to 
++ * This problem is tough by the requirement that no dynamic
++ * memory is used. Also, since swig_type_info structures store pointers to
+  * swig_cast_info structures and swig_cast_info structures store pointers back
+- * to swig_type_info structures, we need some lookup code at initialization. 
+- * The idea is that swig generates all the structures that are needed. 
+- * The runtime then collects these partially filled structures. 
+- * The SWIG_InitializeModule function takes these initial arrays out of 
++ * to swig_type_info structures, we need some lookup code at initialization.
++ * The idea is that swig generates all the structures that are needed.
++ * The runtime then collects these partially filled structures.
++ * The SWIG_InitializeModule function takes these initial arrays out of
+  * swig_module, and does all the lookup, filling in the swig_module.types
+  * array with the correct data and linking the correct swig_cast_info
+  * structures together.
+  *
+- * The generated swig_type_info structures are assigned staticly to an initial 
++ * The generated swig_type_info structures are assigned statically to an initial
+  * array. We just loop through that array, and handle each type individually.
+  * First we lookup if this type has been already loaded, and if so, use the
+  * loaded structure instead of the generated one. Then we have to fill in the
+@@ -8388,17 +9539,17 @@
+  * a column is one of the swig_cast_info structures for that type.
+  * The cast_initial array is actually an array of arrays, because each row has
+  * a variable number of columns. So to actually build the cast linked list,
+- * we find the array of casts associated with the type, and loop through it 
++ * we find the array of casts associated with the type, and loop through it
+  * adding the casts to the list. The one last trick we need to do is making
+  * sure the type pointer in the swig_cast_info struct is correct.
+  *
+- * First off, we lookup the cast->type name to see if it is already loaded. 
++ * First off, we lookup the cast->type name to see if it is already loaded.
+  * There are three cases to handle:
+  *  1) If the cast->type has already been loaded AND the type we are adding
+  *     casting info to has not been loaded (it is in this module), THEN we
+  *     replace the cast->type pointer with the type pointer that has already
+  *     been loaded.
+- *  2) If BOTH types (the one we are adding casting info to, and the 
++ *  2) If BOTH types (the one we are adding casting info to, and the
+  *     cast->type) are loaded, THEN the cast info has already been loaded by
+  *     the previous module so we just ignore it.
+  *  3) Finally, if cast->type has not already been loaded, then we add that
+@@ -8422,10 +9573,8 @@
+ SWIG_InitializeModule(void *clientdata) {
+   size_t i;
+   swig_module_info *module_head, *iter;
+-  int found, init;
++  int init;
+   
+-  clientdata = clientdata;
+-  
+   /* check to see if the circular list has been setup, if not, set it up */
+   if (swig_module.next==0) {
+     /* Initialize the swig_module */
+@@ -8443,27 +9592,23 @@
+     /* This is the first module loaded for this interpreter */
+     /* so set the swig module into the interpreter */
+     SWIG_SetModule(clientdata, &swig_module);
+-    module_head = &swig_module;
+   } else {
+     /* the interpreter has loaded a SWIG module, but has it loaded this one? */
+-    found=0;
+     iter=module_head;
+     do {
+       if (iter==&swig_module) {
+-        found=1;
+-        break;
++        /* Our module is already in the list, so there's nothing more to do. */
++        return;
+       }
+       iter=iter->next;
+     } while (iter!= module_head);
+     
+-    /* if the is found in the list, then all is done and we may leave */
+-    if (found) return;
+-    /* otherwise we must add out module into the list */
++    /* otherwise we must add our module into the list */
+     swig_module.next = module_head->next;
+     module_head->next = &swig_module;
+   }
+   
+-  /* When multiple interpeters are used, a module could have already been initialized in
++  /* When multiple interpreters are used, a module could have already been initialized in
+        a different interpreter, but not yet have a pointer in this interpreter.
+        In this case, we do not want to continue adding types... everything should be
+        set up already */
+@@ -8710,7 +9855,7 @@
+       var = var->next;
+     }
+     if (res == NULL && !PyErr_Occurred()) {
+-      PyErr_SetString(PyExc_NameError,"Unknown C global variable");
++      PyErr_Format(PyExc_AttributeError, "Unknown C global variable '%s'", n);
+     }
+     return res;
+   }
+@@ -8727,7 +9872,7 @@
+       var = var->next;
+     }
+     if (res == 1 && !PyErr_Occurred()) {
+-      PyErr_SetString(PyExc_NameError,"Unknown C global variable");
++      PyErr_Format(PyExc_AttributeError, "Unknown C global variable '%s'", n);
+     }
+     return res;
+   }
+@@ -8736,24 +9881,23 @@
+   swig_varlink_type(void) {
+     static char varlink__doc__[] = "Swig var link object";
+     static PyTypeObject varlink_type;
+-    static int type_init = 0;  
++    static int type_init = 0;
+     if (!type_init) {
+-      const PyTypeObject tmp
+-      = {
++      const PyTypeObject tmp = {
+         /* PyObject header changed in Python 3 */
+ #if PY_VERSION_HEX >= 0x03000000
+-        PyVarObject_HEAD_INIT(&PyType_Type, 0)
++        PyVarObject_HEAD_INIT(NULL, 0)
+ #else
+         PyObject_HEAD_INIT(NULL)
+-        0,                                  /* Number of items in variable part (ob_size) */
++        0,                                  /* ob_size */
+ #endif
+-        (char *)"swigvarlink",              /* Type name (tp_name) */
+-        sizeof(swig_varlinkobject),         /* Basic size (tp_basicsize) */
+-        0,                                  /* Itemsize (tp_itemsize) */
+-        (destructor) swig_varlink_dealloc,  /* Deallocator (tp_dealloc) */ 
+-        (printfunc) swig_varlink_print,     /* Print (tp_print) */
+-        (getattrfunc) swig_varlink_getattr, /* get attr (tp_getattr) */
+-        (setattrfunc) swig_varlink_setattr, /* Set attr (tp_setattr) */
++        (char *)"swigvarlink",              /* tp_name */
++        sizeof(swig_varlinkobject),         /* tp_basicsize */
++        0,                                  /* tp_itemsize */
++        (destructor) swig_varlink_dealloc,  /* tp_dealloc */
++        (printfunc) swig_varlink_print,     /* tp_print */
++        (getattrfunc) swig_varlink_getattr, /* tp_getattr */
++        (setattrfunc) swig_varlink_setattr, /* tp_setattr */
+         0,                                  /* tp_compare */
+         (reprfunc) swig_varlink_repr,       /* tp_repr */
+         0,                                  /* tp_as_number */
+@@ -8777,16 +9921,30 @@
+ #if PY_VERSION_HEX >= 0x02030000
+         0,                                  /* tp_del */
+ #endif
++#if PY_VERSION_HEX >= 0x02060000
++        0,                                  /* tp_version_tag */
++#endif
++#if PY_VERSION_HEX >= 0x03040000
++        0,                                  /* tp_finalize */
++#endif
+ #ifdef COUNT_ALLOCS
+-        0,0,0,0                             /* tp_alloc -> tp_next */
++        0,                                  /* tp_allocs */
++        0,                                  /* tp_frees */
++        0,                                  /* tp_maxalloc */
++#if PY_VERSION_HEX >= 0x02050000
++        0,                                  /* tp_prev */
+ #endif
++        0                                   /* tp_next */
++#endif
+       };
+       varlink_type = tmp;
+-      /* for Python 3 we already assigned ob_type in PyVarObject_HEAD_INIT() */
+-#if PY_VERSION_HEX < 0x03000000
++      type_init = 1;
++#if PY_VERSION_HEX < 0x02020000
+       varlink_type.ob_type = &PyType_Type;
++#else
++      if (PyType_Ready(&varlink_type) < 0)
++      return NULL;
+ #endif
+-      type_init = 1;
+     }
+     return &varlink_type;
+   }
+@@ -8837,7 +9995,7 @@
+     for (i = 0; constants[i].type; ++i) {
+       switch(constants[i].type) {
+       case SWIG_PY_POINTER:
+-        obj = SWIG_NewPointerObj(constants[i].pvalue, *(constants[i]).ptype,0);
++        obj = SWIG_InternalNewPointerObj(constants[i].pvalue, *(constants[i]).ptype,0);
+         break;
+       case SWIG_PY_BINARY:
+         obj = SWIG_NewPackedObj(constants[i].pvalue, constants[i].lvalue, *(constants[i].ptype));
+@@ -8865,7 +10023,9 @@
+     size_t i;
+     for (i = 0; methods[i].ml_name; ++i) {
+       const char *c = methods[i].ml_doc;
+-      if (c && (c = strstr(c, "swig_ptr: "))) {
++      if (!c) continue;
++      c = strstr(c, "swig_ptr: ");
++      if (c) {
+         int j;
+         swig_const_info *ci = 0;
+         const char *name = c + 10;
+@@ -8877,15 +10037,15 @@
+           }
+         }
+         if (ci) {
++          void *ptr = (ci->type == SWIG_PY_POINTER) ? ci->pvalue : 0;
++          if (ptr) {
+-          size_t shift = (ci->ptype) - types;
+-          swig_type_info *ty = types_initial[shift];
+-          size_t ldoc = (c - methods[i].ml_doc);
+-          size_t lptr = strlen(ty->name)+2*sizeof(void*)+2;
+-          char *ndoc = (char*)malloc(ldoc + lptr + 10);
+-          if (ndoc) {
+-            char *buff = ndoc;
++            size_t shift = (ci->ptype) - types;
++            swig_type_info *ty = types_initial[shift];
++            size_t ldoc = (c - methods[i].ml_doc);
++            size_t lptr = strlen(ty->name)+2*sizeof(void*)+2;
++            char *ndoc = (char*)malloc(ldoc + lptr + 10);
++            if (ndoc) {
++              char *buff = ndoc;
+-            void *ptr = (ci->type == SWIG_PY_POINTER) ? ci->pvalue : 0;
+-            if (ptr) {
+               strncpy(buff, methods[i].ml_doc, ldoc);
+               buff += ldoc;
+               strncpy(buff, "swig_ptr: ", 10);
+@@ -8918,10 +10078,19 @@
+ void
+ #endif
+ SWIG_init(void) {
+-  PyObject *m, *d;  
++  PyObject *m, *d, *md;
+ #if PY_VERSION_HEX >= 0x03000000
+   static struct PyModuleDef SWIG_module = {
++# if PY_VERSION_HEX >= 0x03020000
+     PyModuleDef_HEAD_INIT,
++# else
++    {
++      PyObject_HEAD_INIT(NULL)
++      NULL, /* m_init */
++      0,    /* m_index */
++      NULL, /* m_copy */
++    },
++# endif
+     (char *) SWIG_name,
+     NULL,
+     -1,
+@@ -8933,6 +10102,51 @@
+   };
+ #endif
+   
++#if defined(SWIGPYTHON_BUILTIN)
++  static SwigPyClientData SwigPyObject_clientdata = {
++    0, 0, 0, 0, 0, 0, 0
++  };
++  static PyGetSetDef this_getset_def = {
++    (char *)"this", &SwigPyBuiltin_ThisClosure, NULL, NULL, NULL
++  };
++  static SwigPyGetSet thisown_getset_closure = {
++    (PyCFunction) SwigPyObject_own,
++    (PyCFunction) SwigPyObject_own
++  };
++  static PyGetSetDef thisown_getset_def = {
++    (char *)"thisown", SwigPyBuiltin_GetterClosure, SwigPyBuiltin_SetterClosure, NULL, &thisown_getset_closure
++  };
++  PyObject *metatype_args;
++  PyTypeObject *builtin_pytype;
++  int builtin_base_count;
++  swig_type_info *builtin_basetype;
++  PyObject *tuple;
++  PyGetSetDescrObject *static_getset;
++  PyTypeObject *metatype;
++  SwigPyClientData *cd;
++  PyObject *public_interface, *public_symbol;
++  PyObject *this_descr;
++  PyObject *thisown_descr;
++  PyObject *self = 0;
++  int i;
++  
++  (void)builtin_pytype;
++  (void)builtin_base_count;
++  (void)builtin_basetype;
++  (void)tuple;
++  (void)static_getset;
++  (void)self;
++  
++  /* metatype is used to implement static member variables. */
++  metatype_args = Py_BuildValue("(s(O){})", "SwigPyObjectType", &PyType_Type);
++  assert(metatype_args);
++  metatype = (PyTypeObject *) PyType_Type.tp_call((PyObject *) &PyType_Type, metatype_args, NULL);
++  assert(metatype);
++  Py_DECREF(metatype_args);
++  metatype->tp_setattro = (setattrofunc) &SwigPyObjectType_setattro;
++  assert(PyType_Ready(metatype) >= 0);
++#endif
++  
+   /* Fix SwigMethods to carry the callback ptrs when needed */
+   SWIG_Python_FixMethods(SwigMethods, swig_const_table, swig_types, swig_type_initial);
+   
+@@ -8941,68 +10155,50 @@
+ #else
+   m = Py_InitModule((char *) SWIG_name, SwigMethods);
+ #endif
+-  d = PyModule_GetDict(m);
+   
++  md = d = PyModule_GetDict(m);
++  (void)md;
++  
+   SWIG_InitializeModule(0);
+-  SWIG_InstallConstants(d,swig_const_table);
+   
++#ifdef SWIGPYTHON_BUILTIN
++  SwigPyObject_stype = SWIG_MangledTypeQuery("_p_SwigPyObject");
++  assert(SwigPyObject_stype);
++  cd = (SwigPyClientData*) SwigPyObject_stype->clientdata;
++  if (!cd) {
++    SwigPyObject_stype->clientdata = &SwigPyObject_clientdata;
++    SwigPyObject_clientdata.pytype = SwigPyObject_TypeOnce();
++  } else if (SwigPyObject_TypeOnce()->tp_basicsize != cd->pytype->tp_basicsize) {
++    PyErr_SetString(PyExc_RuntimeError, "Import error: attempted to load two incompatible swig-generated modules.");
++# if PY_VERSION_HEX >= 0x03000000
++    return NULL;
++# else
++    return;
++# endif
++  }
+   
+-  SWIG_Python_SetConstant(d, "GRIB_SUCCESS",SWIG_From_int((int)(0)));
+-  SWIG_Python_SetConstant(d, "GRIB_END_OF_FILE",SWIG_From_int((int)(-1)));
+-  SWIG_Python_SetConstant(d, "GRIB_INTERNAL_ERROR",SWIG_From_int((int)(-2)));
+-  SWIG_Python_SetConstant(d, "GRIB_BUFFER_TOO_SMALL",SWIG_From_int((int)(-3)));
+-  SWIG_Python_SetConstant(d, "GRIB_NOT_IMPLEMENTED",SWIG_From_int((int)(-4)));
+-  SWIG_Python_SetConstant(d, "GRIB_7777_NOT_FOUND",SWIG_From_int((int)(-5)));
+-  SWIG_Python_SetConstant(d, "GRIB_ARRAY_TOO_SMALL",SWIG_From_int((int)(-6)));
+-  SWIG_Python_SetConstant(d, "GRIB_FILE_NOT_FOUND",SWIG_From_int((int)(-7)));
+-  SWIG_Python_SetConstant(d, "GRIB_CODE_NOT_FOUND_IN_TABLE",SWIG_From_int((int)(-8)));
+-  SWIG_Python_SetConstant(d, "GRIB_WRONG_ARRAY_SIZE",SWIG_From_int((int)(-9)));
+-  SWIG_Python_SetConstant(d, "GRIB_NOT_FOUND",SWIG_From_int((int)(-10)));
+-  SWIG_Python_SetConstant(d, "GRIB_IO_PROBLEM",SWIG_From_int((int)(-11)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_MESSAGE",SWIG_From_int((int)(-12)));
+-  SWIG_Python_SetConstant(d, "GRIB_DECODING_ERROR",SWIG_From_int((int)(-13)));
+-  SWIG_Python_SetConstant(d, "GRIB_ENCODING_ERROR",SWIG_From_int((int)(-14)));
+-  SWIG_Python_SetConstant(d, "GRIB_NO_MORE_IN_SET",SWIG_From_int((int)(-15)));
+-  SWIG_Python_SetConstant(d, "GRIB_GEOCALCULUS_PROBLEM",SWIG_From_int((int)(-16)));
+-  SWIG_Python_SetConstant(d, "GRIB_OUT_OF_MEMORY",SWIG_From_int((int)(-17)));
+-  SWIG_Python_SetConstant(d, "GRIB_READ_ONLY",SWIG_From_int((int)(-18)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_ARGUMENT",SWIG_From_int((int)(-19)));
+-  SWIG_Python_SetConstant(d, "GRIB_NULL_HANDLE",SWIG_From_int((int)(-20)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_SECTION_NUMBER",SWIG_From_int((int)(-21)));
+-  SWIG_Python_SetConstant(d, "GRIB_VALUE_CANNOT_BE_MISSING",SWIG_From_int((int)(-22)));
+-  SWIG_Python_SetConstant(d, "GRIB_WRONG_LENGTH",SWIG_From_int((int)(-23)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_TYPE",SWIG_From_int((int)(-24)));
+-  SWIG_Python_SetConstant(d, "GRIB_WRONG_STEP",SWIG_From_int((int)(-25)));
+-  SWIG_Python_SetConstant(d, "GRIB_WRONG_STEP_UNIT",SWIG_From_int((int)(-26)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_FILE",SWIG_From_int((int)(-27)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_GRIB",SWIG_From_int((int)(-28)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_INDEX",SWIG_From_int((int)(-29)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_ITERATOR",SWIG_From_int((int)(-30)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_KEYS_ITERATOR",SWIG_From_int((int)(-31)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_NEAREST",SWIG_From_int((int)(-32)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_ORDERBY",SWIG_From_int((int)(-33)));
+-  SWIG_Python_SetConstant(d, "GRIB_MISSING_KEY",SWIG_From_int((int)(-34)));
+-  SWIG_Python_SetConstant(d, "GRIB_OUT_OF_AREA",SWIG_From_int((int)(-35)));
+-  SWIG_Python_SetConstant(d, "GRIB_CONCEPT_NO_MATCH",SWIG_From_int((int)(-36)));
+-  SWIG_Python_SetConstant(d, "GRIB_NO_DEFINITIONS",SWIG_From_int((int)(-37)));
+-  SWIG_Python_SetConstant(d, "GRIB_WRONG_TYPE",SWIG_From_int((int)(-38)));
+-  SWIG_Python_SetConstant(d, "GRIB_END",SWIG_From_int((int)(-39)));
+-  SWIG_Python_SetConstant(d, "GRIB_NO_VALUES",SWIG_From_int((int)(-40)));
+-  SWIG_Python_SetConstant(d, "GRIB_WRONG_GRID",SWIG_From_int((int)(-41)));
+-  SWIG_Python_SetConstant(d, "GRIB_END_OF_INDEX",SWIG_From_int((int)(-42)));
+-  SWIG_Python_SetConstant(d, "GRIB_NULL_INDEX",SWIG_From_int((int)(-43)));
+-  SWIG_Python_SetConstant(d, "GRIB_PREMATURE_END_OF_FILE",SWIG_From_int((int)(-44)));
+-  SWIG_Python_SetConstant(d, "GRIB_INTERNAL_ARRAY_TOO_SMALL",SWIG_From_int((int)(-45)));
+-  SWIG_Python_SetConstant(d, "GRIB_MESSAGE_TOO_LARGE",SWIG_From_int((int)(-46)));
+-  SWIG_Python_SetConstant(d, "GRIB_CONSTANT_FIELD",SWIG_From_int((int)(-47)));
+-  SWIG_Python_SetConstant(d, "GRIB_SWITCH_NO_MATCH",SWIG_From_int((int)(-48)));
+-  SWIG_Python_SetConstant(d, "GRIB_UNDERFLOW",SWIG_From_int((int)(-49)));
+-  SWIG_Python_SetConstant(d, "GRIB_MESSAGE_MALFORMED",SWIG_From_int((int)(-50)));
+-  SWIG_Python_SetConstant(d, "GRIB_CORRUPTED_INDEX",SWIG_From_int((int)(-51)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_BPV",SWIG_From_int((int)(-52)));
+-  SWIG_Python_SetConstant(d, "GRIB_DIFFERENT_EDITION",SWIG_From_int((int)(-53)));
+-  SWIG_Python_SetConstant(d, "GRIB_VALUE_DIFFERENT",SWIG_From_int((int)(-54)));
+-  SWIG_Python_SetConstant(d, "GRIB_INVALID_KEY_VALUE",SWIG_From_int((int)(-55)));
++  /* All objects have a 'this' attribute */
++  this_descr = PyDescr_NewGetSet(SwigPyObject_type(), &this_getset_def);
++  (void)this_descr;
++  
++  /* All objects have a 'thisown' attribute */
++  thisown_descr = PyDescr_NewGetSet(SwigPyObject_type(), &thisown_getset_def);
++  (void)thisown_descr;
++  
++  public_interface = PyList_New(0);
++  public_symbol = 0;
++  (void)public_symbol;
++  
++  PyDict_SetItemString(md, "__all__", public_interface);
++  Py_DECREF(public_interface);
++  for (i = 0; SwigMethods[i].ml_name != NULL; ++i)
++  SwigPyBuiltin_AddPublicSymbol(public_interface, SwigMethods[i].ml_name);
++  for (i = 0; swig_const_table[i].name != 0; ++i)
++  SwigPyBuiltin_AddPublicSymbol(public_interface, swig_const_table[i].name);
++#endif
++  
++  SWIG_InstallConstants(d,swig_const_table);
++  
+   
+   import_array();
+   

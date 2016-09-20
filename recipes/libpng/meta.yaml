@@ -1,0 +1,53 @@
+{% set version = "1.6.22" %}
+
+package:
+  name: libpng
+  version: {{ version }}
+
+source:
+  fn: libpng-{{ version }}.tar.gz
+  url: http://downloads.sourceforge.net/project/libpng/libpng16/older-releases/{{ version }}/libpng-{{ version }}.tar.gz
+  sha256: 7944056621477eca2eba31cf1e99fa484721216a8af03c124426fccb37665df9
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    - python  # [win]
+    # Use AppVeyor's cmake.
+    #- cmake  # [win]
+    - libtool  # [not win]
+    - automake  # [not win]
+    - zlib 1.2.*
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - zlib 1.2.*
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+
+test:  # [not win]
+  commands:  # [not win]
+    - test -f ${PREFIX}/lib/libpng.a  # [not win]
+    - test -f ${PREFIX}/lib/libpng.so  # [linux]
+    - test -f ${PREFIX}/lib/libpng.dylib  # [osx]
+    - libpng-config --version  # [not win]
+    - conda inspect linkages -p $PREFIX libpng  # [not win]
+    - conda inspect objects -p $PREFIX libpng  # [osx]
+
+about:
+  home: http://www.libpng.org/pub/png/libpng.html
+  license: Zlib
+  summary: 'PNG reference library.'
+  license_file: libpng-LICENSE.txt
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

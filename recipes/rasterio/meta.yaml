@@ -1,48 +1,56 @@
-{% set version = "0.34.0" %}
+{% set version = "1.0a2" %}
 
 package:
-    name: rasterio
-    version: {{ version }}
+  name: rasterio
+  version: {{ version }}
 
 source:
-    fn: rasterio-{{ version }}.tar.gz
-    url: https://pypi.python.org/packages/source/r/rasterio/rasterio-{{ version }}.tar.gz
-    md5: 203c1336e94900b3b98f31cb3f011c18
+  fn: rasterio-{{ version }}.tar.gz
+  url: https://github.com/mapbox/rasterio/archive/{{ version }}.tar.gz
+  sha256: 03fc123ef4ede2017b79e8a26c9ba374a10e116e05a359121bbf696307642ca6
 
 build:
-    number: 1
-    entry_points:
-        - rio = rasterio.rio.main:main_group
+  number: 0
+  entry_points:
+    - rio = rasterio.rio.main:main_group
 
 requirements:
-    build:
-        - python
-        - numpy x.x
-        - cython
-        - gdal 1.11.4
-        - setuptools
-    run:
-        - python
-        - affine
-        - cligj
-        - enum34  # [py27]
-        - numpy x.x
-        - snuggs
-        - gdal 1.11.4
-        - click-plugins
+  build:
+    - python
+    - numpy x.x
+    - cython
+    - setuptools
+    - gdal 2.1.*
+  run:
+    - python
+    - setuptools
+    - affine >=1.3.0
+    - boto3 >=1.2.4
+    - cligj
+    - enum34  # [py27]
+    - numpy x.x
+    - snuggs >=1.2
+    - gdal 2.1.*
+    - click-plugins
 
 test:
-    imports:
-        - rasterio
-    commands:
-        - rio --help
+  imports:
+    - rasterio
+  files:
+    - test_data/test.tif
+  commands:
+    - rio --help
+    - rio info $RECIPE_DIR/test_data/test.tif  # [not win]
+    - rio info %RECIPE_DIR%\test_data\test.tif  # [win]
+    - conda inspect linkages -p $PREFIX rasterio  # [not win]
+    - conda inspect objects -p $PREFIX rasterio  # [osx]
 
 about:
-    home: https://github.com/mapbox/rasterio
-    license: BSD 3-Clause
-    summary: Rasterio reads and writes geospatial raster datasets
+  home: https://github.com/mapbox/rasterio
+  license: BSD 3-Clause
+  summary: 'Rasterio reads and writes geospatial raster datasets.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
-        - ceholden
+  recipe-maintainers:
+    - ocefpaf
+    - ceholden

@@ -1,33 +1,35 @@
+{% set version = "1.0.2" %}
+
 package:
-    name: descartes
-    version: '1.0.2'
+  name: descartes
+  version: {{ version }}
 
 source:
-    fn: descartes-1.0.2.tar.gz
-    url: https://pypi.python.org/packages/source/d/descartes/descartes-1.0.2.tar.gz
-    md5: 2af859c63f73ef852c691f46a06e5938
+  fn: descartes-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/d/descartes/descartes-{{ version }}.tar.gz
+  sha256: 078ef4b50baeafd0cbde538750911ca60161829a8696ae2c7e5a6a1071af1257
 
 build:
-    script: python setup.py install --single-version-externally-managed --record record.txt
-    number: 0
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-    build:
-        - python
-        - setuptools
-    run:
-        - python
-        - matplotlib
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - matplotlib
 
 test:
-    imports:
-        - descartes
+  imports:
+    - descartes
 
 about:
-    home: http://bitbucket.org/sgillies/descartes/
-    license: BSD License
-    summary: 'Use geometric objects as matplotlib paths and patches'
+  home: http://bitbucket.org/sgillies/descartes/
+  license: BSD
+  summary: 'Use geometric objects as matplotlib paths and patches.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

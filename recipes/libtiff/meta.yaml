@@ -1,0 +1,56 @@
+{% set version = "4.0.6" %}
+
+package:
+  name: libtiff
+  version: {{ version }}
+
+source:
+  fn: tiff-{{ version }}.tar.gz
+  url: http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
+  sha256: 4d57a50907b510e3049a4bba0d7888930fdfc16ce49f1bf693e5b6247370d68c
+  patches:
+    # http://comments.gmane.org/gmane.comp.video.tiff/6889
+    - def_snprintf.patch  # [win]
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    - python  # [win]
+    - cmake  # [win]
+    - zlib 1.2*
+    - jpeg 8*
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - zlib 1.2*
+    - jpeg 8*
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+
+test:  # [not win]
+  commands:  # [not win]
+    - test -f ${PREFIX}/lib/libtiff.a  # [not win]
+    - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
+    - test -f ${PREFIX}/lib/libtiff.so  # [linux]
+    - test -f ${PREFIX}/lib/libtiff.dylib  # [osx]
+    - test -f ${PREFIX}/lib/libtiffxx.so  # [linux]
+    - test -f ${PREFIX}/lib/libtiffxx.dylib  # [osx]
+    - conda inspect linkages -p $PREFIX libtiff  # [not win]
+    - conda inspect objects -p $PREFIX libtiff  # [osx]
+
+about:
+  home: http://www.remotesensing.org/libtiff/
+  license: HPND
+  summary: 'Support for the Tag Image File Format (TIFF).'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

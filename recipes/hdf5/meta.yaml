@@ -1,0 +1,111 @@
+{% set version = "1.8.17" %}
+
+package:
+  name: hdf5
+  version: {{ version }}
+
+source:
+  fn: hdf5-{{version}}.tar.gz
+  url: https://support.hdfgroup.org/ftp/HDF5/current/src/hdf5-{{ version }}.tar.gz
+  md5: 7d572f8f3b798a628b8245af0391a0ca
+  patches:
+    - test_Makefile.in.patch
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+  detect_binary_files_with_prefix: True
+
+requirements:
+  build:
+    - python  # [win]
+    - libtool  # [not win]
+    # Use AppVeyor's cmake.
+    - cmake >=3.1  # [not win]
+    - zlib 1.2.*
+    - gcc  # [not win]
+    - libgfortran  # [linux]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - zlib 1.2.*
+    - libgfortran  # [not win]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+
+test:
+  requires:  # [not win]
+    - gcc  # [not win]
+  files:
+    - h5_cmprss.c
+    - h5tutr_cmprss.cpp
+    - h5_cmprss.f90
+    - compound_fortran2003.f90
+  commands:
+    # Check UNIX CLI tools.
+    {% set hdf5_unix_cmds = [
+        "h5c++",
+        "h5cc",
+        "h5perf_serial",
+        "h5redeploy",
+        "h5fc"
+    ] %}
+    {% for each_hdf5_unix_cmd in hdf5_unix_cmds %}
+    - command -v {{ each_hdf5_unix_cmd }}   # [not win]
+    {% endfor %}
+
+    # Check CLI tools.
+    {% set hdf5_cmds = [
+        "gif2h5",
+        "h52gif",
+        "h5copy",
+        "h5debug",
+        "h5diff",
+        "h5dump",
+        "h5import",
+        "h5jam",
+        "h5ls",
+        "h5mkgrp",
+        "h5repack",
+        "h5repart",
+        "h5stat",
+        "h5unjam"
+    ] %}
+    {% for each_hdf5_cmd in hdf5_cmds %}
+    - command -v {{ each_hdf5_cmd }}  # [not win]
+    - where {{ each_hdf5_cmd }}  # [win]
+    {% endfor %}
+
+    # Check libraries.
+    {% set hdf5_libs = [
+        "hdf5",
+        "hdf5_cpp",
+        "hdf5_hl",
+        "hdf5_hl_cpp"
+    ] %}
+    {% for each_hdf5_lib in hdf5_libs %}
+    - test -f $PREFIX/lib/lib{{ each_hdf5_lib }}.a  # [not win]
+    - test -f $PREFIX/lib/lib{{ each_hdf5_lib }}.dylib  # [osx]
+    - test -f $PREFIX/lib/lib{{ each_hdf5_lib }}.so  # [linux]
+    - if not exist %PREFIX%\\Library\\lib\\{{ each_hdf5_lib }}.lib exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\{{ each_hdf5_lib }}.dll exit 1  # [win]
+    {% endfor %}
+
+    - conda inspect linkages -p $PREFIX hdf5  # [not win]
+    - conda inspect objects -p $PREFIX hdf5  # [osx]
+
+about:
+  home: http://www.hdfgroup.org/HDF5/
+  license: HDF5
+  license_family: BSD
+  license_file: COPYING
+  summary: 'HDF5 is a data model, library, and file format for storing and managing data.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

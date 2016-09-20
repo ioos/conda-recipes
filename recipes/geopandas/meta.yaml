@@ -1,56 +1,57 @@
-{% set version = "0.2.0.dev0" %}
-{% set commit = "c15c2b7ebc7151261f00f1d29a838bfd82c6341e" %}
+{% set version = "0.2.1" %}
 
 package:
-    name: geopandas
-    version: {{ version }}
+  name: geopandas
+  version: {{ version }}
 
 source:
-    fn: geopandas-{{ version }}.tar.gz
-    url: https://github.com/geopandas/geopandas/archive/{{ commit }}.tar.gz
-    sha256: 0beb969e0a17a41076436ba7d536a5e763de9733665c42c6f902dc8490a5eaf0
+  fn: geopandas-{{ version }}.tar.gz
+  url: https://github.com/geopandas/geopandas/archive/v{{ version }}.tar.gz
+  sha256: 1e1845acbf6cf8dd2850aec9bfaa92892e462887903e3ea1abb8111e88a41206
 
 build:
-    number: 0
-    script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-    build:
-        - python
-        - setuptools
-        - cython
-    run:
-        - python
-        - pandas
-        - pyproj
-        - shapely
-        - fiona
-        - gdal 1.11.4
-        - six
-        - rtree
-        - descartes
-        - matplotlib
-        - psycopg2  # [not win]
-        - sqlalchemy
-        - geopy ==1.10.0
-        - pysal
+  build:
+    - python
+    - setuptools
+    - cython
+  run:
+    - python
+    - pandas
+    - pyproj
+    - shapely
+    - fiona
+    - gdal 2.1.*
+    - six
+    - rtree
+    - descartes
+    - matplotlib
+    - psycopg2  # [not win]
+    - sqlalchemy
+    - geopy 1.10.0
+    - pysal
 
 test:
-    imports:
-        - geopandas
-        - geopandas.io
-    files:
-        - test.cpg
-        - test.dbf
-        - test.shp
-        - test.shx
+  imports:
+    - geopandas
+    - geopandas.io
+  files:
+    - test_data/test.cpg
+    - test_data/test.dbf
+    - test_data/test.shp
+    - test_data/test.shx
+  commands:
+    - conda inspect linkages -p $PREFIX geopandas  # [not win]
+    - conda inspect objects -p $PREFIX geopandas  # [osx]
 
 about:
-    home: http://geopandas.org
-    license: BSD-3-clause
-    summary: Geographic pandas extensions
+  home: http://geopandas.org
+  license: BSD 3-clause
+  summary: 'Geographic pandas extensions.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
-        - jorisvandenbossche
+  recipe-maintainers:
+    - ocefpaf

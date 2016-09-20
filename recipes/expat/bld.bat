@@ -11,7 +11,3 @@ if errorlevel 1 exit 1
 
 nmake install
 if errorlevel 1 exit 1
-
-mkdir %SCRIPTS%
-move %LIBRARY_BIN%\xmlwf.exe %SCRIPTS%\xmlwf.exe || exit 1
-move %LIBRARY_BIN%\expat.dll %SCRIPTS%\expat.dll || exit 1

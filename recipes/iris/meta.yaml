@@ -1,59 +1,59 @@
-{% set version = "1.9.2" %}
+{% set version = "1.10.0" %}
 
 package:
-    name: iris
-    version: {{ version }}
+  name: iris
+  version: {{ version }}
 
 source:
-    fn: iris-v{{ version }}.tar.gz
-    url: https://github.com/SciTools/iris/archive/v{{ version }}.tar.gz
-    sha256: 93f2cfe1c14aad293103727004863d09f21ea61de337aa73cb96a706df0b6133
-    patches:
-        # Issue reported in https://github.com/SciTools/iris/issues/2004.
-        # We work around this in build.sh.
-        - no_compile_setup.patch  # [osx]
+  fn: iris-v{{ version }}.tar.gz
+  url: https://github.com/SciTools/iris/archive/v{{ version }}.tar.gz
+  sha256: e020b883d94b66e7931a05d211c1d539abb2674dcdeaa4a7da3d32ae4ad5c269
+  patches:
+    # Issue reported in https://github.com/SciTools/iris/issues/2004.
+    # We work around this in build.sh.
+    - no_compile_setup.patch  # [osx]
 
 build:
-    number: 0
+  number: 0
 
 requirements:
-    build:
-        - python
-        - setuptools
-        - numpy x.x
-        - scipy
-        - biggus
-        - cartopy
-        - netcdf4
-        - cf_units
-        - pyke
-        - libmo_unpack  # [not win]
-    run:
-        - python
-        - numpy x.x
-        - scipy
-        - biggus
-        - cartopy
-        - netcdf4
-        - cf_units
-        - pyke
-        - libmo_unpack  # [not win]
-        - matplotlib
-        - python-ecmwf_grib >=1.12.1  # [not win and not py3k]
+  build:
+    - python
+    - setuptools
+    - numpy
+    - scipy
+    - biggus >=0.14
+    - cartopy >=0.14
+    - netcdf4
+    - cf_units
+    - pyke
+    - mo_pack  # [not win]
+    - nc_time_axis
+    - iris-grib  # [not (win or py3k or osx)]
+  run:
+    - python
+    - numpy
+    - scipy
+    - biggus >=0.14
+    - cartopy >=0.14
+    - netcdf4
+    - cf_units
+    - pyke
+    - mo_pack  # [not win]
+    - matplotlib
+    - nc_time_axis
+    - iris-grib  # [not (win or py3k or osx)]
 
 test:
-    imports:
-        - iris
-        - iris.fileformats.pp_packing  # [not win]
-        - iris.fileformats._pyke_rules.compiled_krb
+  imports:
+    - iris
+    - iris.fileformats._pyke_rules.compiled_krb
 
 about:
-    home: http://www.scitools.org.uk/iris
-    license: GNU Lesser General Public License
-    summary: Analyse and visualise meteorological and oceanographic data sets.
+  home: http://www.scitools.org.uk/iris
+  license: GNU Lesser General Public License
+  summary: 'Analyse and visualise meteorological and oceanographic data sets.'
 
 extra:
-    recipe-maintainers:
-        - pelson
-        - rhattersley
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

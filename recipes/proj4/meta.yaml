@@ -1,0 +1,45 @@
+{% set version = "4.9.3" %}
+
+package:
+  name: proj4
+  version: {{ version }}
+
+source:
+  fn:  proj-{{ version }}.tar.gz
+  url: http://download.osgeo.org/proj/proj-{{ version }}RC1.tar.gz
+  sha256: d08ea946a1fba6a78fc9c36ee98f24c81dd30f392efd153f3ad5bb7982c9a14a
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    - python  # [win]
+    - cmake  # [win]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+
+test:
+  commands:
+    - echo -105 40 | proj +proj=utm +zone=13 +ellps=WGS84
+    - echo -117 30 | cs2cs +proj=latlong +datum=NAD27 +to +proj=latlong +datum=NAD83
+    - conda inspect linkages -p $PREFIX proj4  # [not win]
+    - conda inspect objects -p $PREFIX proj4  # [osx]
+
+about:
+  home: http://trac.osgeo.org/proj/
+  license: MIT
+  summary: 'Cartographic projection software.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

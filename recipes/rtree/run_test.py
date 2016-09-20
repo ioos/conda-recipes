@@ -158,7 +158,6 @@ def test_property():
 check_c_api()
 test_non_stream_input()
 
-if False:
-    test_stream_input()  # FIXME: I get a list full of zeros here!
-    test_index()  # FIXME: pickle tests are seg-faulting on conda.
-    test_property()  # FIXME: Same as above.
+test_stream_input()
+test_index()
+test_property()

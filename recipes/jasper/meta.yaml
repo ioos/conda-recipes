@@ -1,28 +1,35 @@
+{% set version = "1.900.1" %}
+
 package:
-    name: jasper
-    version: "1.900.1"
+  name: jasper
+  version: {{ version }}
 
 source:
-    fn: jasper-1.900.1.zip
-    url: http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
-    sha1: 9c5735f773922e580bf98c7c7dfda9bbed4c5191
+  fn: jasper-{{ version }}.zip
+  url: http://www.ece.uvic.ca/~frodo/jasper/software/jasper-{{ version }}.zip
+  sha1: 9c5735f773922e580bf98c7c7dfda9bbed4c5191
 
 build:
-    skip: True  # [win]
-    number: 5
+  number: 0
+  skip: True  # [win]
 
 requirements:
-    build:
-        - jpeg
-    run:
-        - jpeg
+  build:
+    - jpeg 8*
+  run:
+    - jpeg 8*
 
 test:
-    commands:
-        - jasper --version
-        - conda inspect linkages jasper --name _test
+  commands:
+    - jasper --version
+    - conda inspect linkages -p $PREFIX jasper  # [not win]
+    - conda inspect objects -p $PREFIX jasper  # [osx]
 
 about:
   home: http://www.ece.uvic.ca/~frodo/jasper/
   license: http://www.ece.uvic.ca/~frodo/jasper/LICENSE
-  summary: A reference implementation of the codec specified in the JPEG-2000 Part-1 standard.
+  summary: 'A reference implementation of the codec specified in the JPEG-2000 Part-1 standard.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

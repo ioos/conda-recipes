@@ -1,0 +1,50 @@
+{% set version = "1.12.0" %}
+
+package:
+  name: pysal
+  version: {{ version }}
+
+source:
+  fn: pysal-{{ version }}.tar.gz
+  url: https://github.com/pysal/pysal/archive/v{{ version }}.tar.gz
+  sha256: 9dfa61d960b925acde3070948cae0799167bd3ba867ba178c9f6ff67b515eec4
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - scipy
+  run:
+    - python
+    - scipy
+    - matplotlib
+    - seaborn
+    #- geopandas  # FIXME: conda-build-all does handle circular dependencies.
+    - scikit-learn
+    - bokeh
+    - geojson
+    - folium
+    - mplleaflet
+    - statsmodels
+    - numba
+    - numexpr
+
+test:
+  imports:
+    - pysal
+
+about:
+  home: http://pysal.org
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: LICENSE.txt
+  summary: 'Library of spatial analysis functions.'
+
+extra:
+  recipe-maintainers:
+    - sjsrey
+    - ocefpaf

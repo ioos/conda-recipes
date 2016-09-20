@@ -1,29 +1,37 @@
+{% set version = "1.1.3" %}
+
 package:
-    name: cf_units
-    version: "1.1"
+  name: cf_units
+  version: {{ version }}
 
 source:
-    git_url: https://github.com/SciTools/cf_units.git
-    git_tag: v1.1
+  fn: cf_units-{{ version }}.tar.gz
+  url: https://github.com/SciTools/cf_units/archive/v{{ version }}.tar.gz
+  sha256: a2041d5ee6804385cf77aaf9fd0a4aef119f829eff95e496a53e3fbef3fd3596
 
 build:
-    number: 0
+  number: 0
 
 requirements:
-    build:
-        - python
-    run:
-        - python
-        - six
-        - udunits2
-        - netcdf4
-        - numpy
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - six
+    - udunits2
+    - netcdf4
+    - numpy
 
 test:
-    imports:
-        - cf_units
+  imports:
+    - cf_units
 
 about:
-    home: http://www.scitools.org.uk/iris
-    license: GNU Lesser General Public License
-    summary: 'Units of measure as required by the Climate and Forecast (CF) metadata conventions.'
+  home: http://www.scitools.org.uk/iris
+  license: GNU Lesser General Public License
+  summary: 'Units of measure as required by the Climate and Forecast (CF) metadata conventions.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

@@ -1,34 +1,36 @@
-{% set version = "0.2.0" %}
+{% set version = "0.3.1" %}
 
 package:
-    name: pyepsg
-    version: {{ version }}
+  name: pyepsg
+  version: {{ version }}
 
 source:
-    git_url: https://github.com/rhattersley/pyepsg.git
-    git_tag: v{{ version }}
+  fn: pyepsg-{{ version }}.tar.gz
+  url: https://github.com/rhattersley/pyepsg/archive/v{{ version }}.tar.gz
+  sha256: e278656ad5fbe5ec97d08f690fa18b3d9149e842b4c6f383409aee5c5e8bf528
 
 build:
-    number: 0
-    script: python setup.py install
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-    build:
-        - python
-    run:
-        - python
-        - requests
+  build:
+    - python
+  run:
+    - python
+    - requests
 
 test:
-    imports:
-        - pyepsg
+  imports:
+    - pyepsg
 
 about:
-    home: https://pypi.python.org/pypi/pyepsg
-    license: LGPL
-    summary: Easy access to the EPSG database via http://epsg.io/
+  home: https://pypi.python.org/pypi/pyepsg
+  license: LGPL
+  summary: 'Easy access to the EPSG database via http://epsg.io/'
 
 extra:
-    recipe-maintainers:
-        - pelson
-        - ocefpaf
+  recipe-maintainers:
+    - pelson
+    - rhattersley
+    - ocefpaf

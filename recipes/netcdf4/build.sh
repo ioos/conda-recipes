@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ $(uname) == Darwin ]]; then
+    export LDFLAGS="-headerpad_max_install_names $LDFLAGS"
+fi
+
 SETUPCFG=$SRC_DIR\setup.cfg
 
 echo "[options]" > $SETUPCFG

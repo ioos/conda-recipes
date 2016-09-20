@@ -1,0 +1,48 @@
+{% set version = "8d" %}
+
+package:
+  name: jpeg
+  version: {{ version }}
+
+source:
+  fn: jpegsrc.v{{ version }}.tar.gz
+  url: http://www.ijg.org/files/jpegsrc.v{{ version }}.tar.gz
+  sha256: 00029b1473f0f0ea72fbca3230e8cb25797fbb27e58ae2e46bb8bf5a806fe0b3
+  patches:
+    - CMakeLists.txt.patch  # [win]
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    - python  # [win]
+    - cmake  # [win]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+
+test:
+  files:
+    - testorig.jpg
+  commands:
+    - djpeg -dct int -ppm -outfile testout.ppm testorig.jpg
+    - conda inspect linkages -p $PREFIX jpeg  # [not win]
+    - conda inspect objects -p $PREFIX jpeg  # [osx]
+
+about:
+  home: http://www.ijg.org/
+  license: Custom free software license
+  summary: 'read/write jpeg COM, EXIF, IPTC medata.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

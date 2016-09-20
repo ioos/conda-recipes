@@ -1,30 +1,47 @@
 package:
-    name: libiconv
-    version: 1.14
+  name: libiconv
+  version: 1.14
 
 source:
-    fn: libiconv-1.14.tar.gz
-    url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz
-    md5: e34509b1623cec449dfeb73d7ce9c6c6
-    patches:
-        - patch1.patch  # [linux]
+  fn: libiconv-1.14.tar.gz
+  url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz
+  md5: e34509b1623cec449dfeb73d7ce9c6c6
+  patches:
+    - glibc.patch  # [linux]
+    - CMakeLists.txt.patch  # [win]
+    - config.h.patch  # [win]
+    - configure.cmake.patch  # [win]
 
 build:
-    number: 1
-    skip: True  # [win]
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    - python
+    - cmake  # [win]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
 
 test:
-    commands:
-        - iconv --help
-        - conda inspect linkages -n _test libiconv  # [linux]
+  commands:
+    - iconv --help  # [not win]
+    - conda inspect linkages -p $PREFIX libiconv  # [not win]
+    - conda inspect objects -p $PREFIX libiconv  # [osx]
 
 about:
-    home: https://www.gnu.org/software/libiconv/
-    license: GPL and LGPL
-    summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
+  home: https://www.gnu.org/software/libiconv/
+  license: GPL and LGPL
+  summary: "Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)"
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
-        - jakirkham
-        - jhamman
+  recipe-maintainers:
+    - ocefpaf

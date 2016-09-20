@@ -1,63 +1,62 @@
-{% set version = "0.14.2" %}
+{% set version = "0.14.3" %}
 
 package:
-    name: cartopy
-    version: {{ version }}
+  name: cartopy
+  version: {{ version }}
 
 source:
-    fn: cartopy-{{ version }}.tar.gz
-    url: https://github.com/SciTools/cartopy/archive/v{{ version }}.tar.gz
-    sha256: 7ee4d38871b742cdde22f1982a10619bbe103c63575364988bd0be9c0ba57b6e
-    patches:
-        - cartopy.win.patch  # [win]
+  fn: cartopy-{{ version }}.tar.gz
+  url: https://github.com/SciTools/cartopy/archive/v{{ version }}.tar.gz
+  sha256: dce1c68fb4b3846e9d5e04c73ac12dd9b5bbdeee84e9819cddbb32d63b4dd426
+  patches:  # [win]
+    - cartopy.win.patch  # [win]
 
 build:
-    number: 0
+  number: 0
 
 requirements:
-    build:
-        - python
-        - setuptools
-        - six
-        - numpy x.x
-        - cython
-        - proj.4
-        - geos
-        # On OSX We need to effectively pin the geos version to the
-        # one used by the specific shapely being targetted (we're letting
-        # conda's package solver will deal with that).
-        - shapely >=1.5.6
-        - owslib
-        - pyshp
-        - pyepsg
-        - msinttypes  # [win]
-    run:
-        - python
-        - six
-        - mock
-        - nose
-        - pillow
-        - owslib
-        - numpy x.x
-        - proj.4
-        - shapely >=1.5.6
-        - scipy
-        - pyshp
-        - matplotlib
-        - pyepsg
+  build:
+    - python
+    - setuptools
+    - six
+    - numpy x.x
+    - cython
+    - proj4 4.9.3
+    - geos 3.4.*
+    - shapely >=1.5.6
+    - owslib
+    - pyshp
+    - pyepsg
+    - msinttypes  # [win]
+  run:
+    - python
+    - six
+    - mock
+    - nose
+    - pillow
+    - owslib
+    - numpy x.x
+    - proj4 4.9.3
+    - shapely >=1.5.6
+    - scipy
+    - pyshp
+    - matplotlib
+    - pyepsg
 
 test:
-    imports:
-        - cartopy
-        - cartopy.mpl.geoaxes
-        - cartopy.crs
+  imports:
+    - cartopy
+    - cartopy.mpl.geoaxes
+    - cartopy.crs
+  commands:
+    - conda inspect linkages -p $PREFIX cartopy  # [not win]
+    - conda inspect objects -p $PREFIX cartopy  # [osx]
 
 about:
-    home: http://scitools.org.uk/cartopy
-    license: GNU LGPL
-    summary: A library providing cartographic tools for python
+  home: http://scitools.org.uk/cartopy
+  license: GNU LGPL
+  summary: 'A library providing cartographic tools for python.'
 
 extra:
-    recipe-maintainers:
-        - pelson
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

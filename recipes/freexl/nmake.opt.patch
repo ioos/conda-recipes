@@ -1,0 +1,9 @@
+--- nmake.opt.orig	2016-06-08 17:20:18.905122300 +1000
++++ nmake.opt	2016-06-08 17:21:49.487153600 +1000
+@@ -1,5 +1,5 @@
+ # Directory tree where FreeXL will be installed.
+-INSTDIR=C:\OSGeo4W
++INSTDIR=$(LIBRARY_PREFIX)
+ 
+ # Uncomment the first for an optimized build, or the second for debug.
+ OPTFLAGS=	/nologo /Ox /fp:precise /W3 /MD /D_CRT_SECURE_NO_WARNINGS \

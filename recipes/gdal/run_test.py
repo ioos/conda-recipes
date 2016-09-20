@@ -1,13 +1,11 @@
+import os
+
 from osgeo import gdal
 from osgeo import ogr
 from osgeo import osr
 
-# This module does some tests.
-import os1_hw
-
 # Set GDAL_DATA. This is done normally done by the activate script,
-# but this doesn't happen in the testing environment.
-import os
+# but this doesn't happen in the testing environment
 if 'LIBRARY_PREFIX' in os.environ:
     # Windows.
     gdalData = os.path.join(os.environ['LIBRARY_PREFIX'], 'share', 'gdal')
@@ -17,36 +15,55 @@ else:
 
 os.environ['GDAL_DATA'] = gdalData
 
-driver = gdal.GetDriverByName('netCDF')
+driver = gdal.GetDriverByName("netCDF")
 assert driver is not None
 
-# FIXME: Commented out until HDF4 support for Windows available.
-#driver = gdal.GetDriverByName('HDF4')
-#assert driver is not None
+driver = gdal.GetDriverByName("HDF4")
+assert driver is not None
 
-driver = gdal.GetDriverByName('HDF5')
-assert driver is not None, 'HDF5 not available within GDAL'
+driver = gdal.GetDriverByName("HDF5")
+assert driver is not None
 
-driver = gdal.GetDriverByName('GTiff')
-assert driver is not None, 'GTiff not available within GDAL'
+driver = gdal.GetDriverByName("GTiff")
+assert driver is not None
 
-driver = gdal.GetDriverByName('PNG')
-assert driver is not None, 'PNG not available within GDAL'
+driver = gdal.GetDriverByName("PNG")
+assert driver is not None
 
-driver = gdal.GetDriverByName('JPEG')
-assert driver is not None, 'JPEG not available within GDAL'
+driver = gdal.GetDriverByName("JPEG")
+assert driver is not None
 
-# Only available when xerces-c++ successfully linked in.
-driver = ogr.GetDriverByName('GML')
-assert driver is not None, 'GML not available within GDAL'
+# only available when libkea successfully linked in.
+driver = gdal.GetDriverByName("KEA")
+assert driver is not None
 
-# Only available when openjpeg successfully linked in.
-driver = gdal.GetDriverByName('JP2OpenJPEG')
-assert driver is not None, 'JP2OpenJPEG not available within GDAL'
+# only available when xerces-c++ successfully linked in.
+driver = ogr.GetDriverByName("GML")
+assert driver is not None
 
-# Only available when curl successfully linked in.
-driver = gdal.GetDriverByName('WCS')
-assert driver is not None, 'WCS not available within GDAL'
+# only available when openjpeg successfully linked in.
+driver = gdal.GetDriverByName("JP2OpenJPEG")
+assert driver is not None
+
+# only available when curl successfully linked in.
+driver = gdal.GetDriverByName("WCS")
+assert driver is not None
+
+# only available when freexl successfully linked in.
+driver = ogr.GetDriverByName("XLS")
+assert driver is not None
+
+# only available when expat successfully linked in.
+driver = ogr.GetDriverByName("KML")
+assert driver is not None
+
+# only available when SQLite successfully linked in.
+driver = ogr.GetDriverByName("SQLite")
+assert driver is not None
+
+# only available when PostgreSQL successfully linked in.
+driver = ogr.GetDriverByName("PostgreSQL")
+assert driver is not None
 
 def has_geos():
     pnt1 = ogr.CreateGeometryFromWkt( 'POINT(10 20)' )
@@ -62,9 +79,9 @@ assert has_geos(), 'GEOS not available within GDAL'
 
 def has_proj():
     sr1 = osr.SpatialReference()
-    sr1.ImportFromEPSG(4326) # lat, lon
+    sr1.ImportFromEPSG(4326) # lat, lon.
     sr2 = osr.SpatialReference()
-    sr2.ImportFromEPSG(28355) # GDA94 / MGA zone 55.
+    sr2.ImportFromEPSG(28355) # GDA94/MGA zone 55.
     osrex = osr.GetUseExceptions()
     osr.UseExceptions()
     hasproj = True
@@ -77,3 +94,6 @@ def has_proj():
     return hasproj
 
 assert has_proj(), 'PROJ not available within GDAL'
+
+# This module does some additional tests.
+import extra_tests

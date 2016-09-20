@@ -1,0 +1,48 @@
+{% set version = "1.2.8" %}
+
+package:
+  name: zlib
+  version: {{ version }}
+
+source:
+  fn: zlib-{{ version }}.tar.gz
+  url: http://zlib.net/zlib-{{ version }}.tar.gz
+  sha256: 2a0dd0894c35b8736ff2bee925aab35b473a6c6b432b25e56442bacb0e72bc3a
+
+build:
+  number: 0
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+
+requirements:
+  build:
+    - python  # [win]
+    # Use AppVeyor's cmake.
+    #- cmake  # [win]
+    - msinttypes  # [win and py<35]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py35]
+
+test:
+  commands:
+    - test -f ${PREFIX}/lib/libz.a  # [not win]
+    - conda inspect linkages -p $PREFIX zlib  # [not win]
+    - conda inspect objects -p $PREFIX zlib  # [osx]
+
+about:
+  home: http://zlib.net/
+  license: zlib (http://zlib.net/zlib_license.html)
+  summary: 'Massively spiffy yet delicately unobtrusive compression library.'
+  license_family: Other
+  license_file: license.txt
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

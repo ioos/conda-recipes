@@ -5,7 +5,7 @@ if "%ARCH%"=="64" (
 )
 
 :: Work out MSVC_VER - needed for build process.
-:: Currently guess from Python version.
+:: Currently guess from Python version
 if "%CONDA_PY%" == "27" (
     set MSVC_VER=1500
 )
@@ -16,7 +16,7 @@ if "%CONDA_PY%" == "35" (
     set MSVC_VER=1900
 )
 
-if "%MSVC_VER%"=="" (
+IF "%MSVC_VER%"=="" (
     echo "Python version not supported. Please update bld.bat"
     exit 1
 )
@@ -31,6 +31,9 @@ set BLD_OPTS=%WIN64% ^
     INCDIR=%LIBRARY_INC% ^
     DATADIR=%LIBRARY_PREFIX%\share\gdal ^
     HTMLDIR=%LIBRARY_PREFIX%\share\doc\gdal ^
+    HDF4_DIR=%LIBRARY_PREFIX% ^
+    HDF4_LIB="%LIBRARY_LIB%\hdf.lib %LIBRARY_LIB%\mfhdf.lib %LIBRARY_LIB%\xdr.lib" ^
+    HDF4_HAS_MAXOPENFILES=YES ^
     HDF5_LIB=%LIBRARY_LIB%\hdf5.lib ^
     HDF5_DIR=%LIBRARY_PREFIX% ^
     GEOS_DIR=%LIBRARY_PREFIX% ^
@@ -44,12 +47,15 @@ set BLD_OPTS=%WIN64% ^
     NETCDF_SETTING=yes ^
     KEA_CFLAGS="-I%LIBRARY_INC%" ^
     KEA_LIB=%LIBRARY_LIB%\libkea.lib ^
-    TIFF_INC=%LIBRARY_INC% ^
+    TIFF_INC="-I%LIBRARY_INC%" ^
     TIFF_LIB=%LIBRARY_LIB%\libtiff_i.lib ^
     TIFF_OPTS=-DBIGTIFF_SUPPORT ^
     PNG_EXTERNAL_LIB=1 ^
-    PNGDIR=%LIBRARY_PREFIX% ^
+    PNGDIR=%LIBRARY_INC% ^
     PNG_LIB=%LIBRARY_LIB%\libpng.lib ^
+    JPEG_EXTERNAL_LIB=1 ^
+    JPEGDIR=%LIBRARY_INC% ^
+    JPEG_LIB=%LIBRARY_LIB%\libjpeg.lib ^
     PROJ_FLAGS=-DPROJ_STATIC ^
     PROJ_INCLUDE="-I%LIBRARY_INC%" ^
     PROJ_LIBRARY=%LIBRARY_LIB%\proj.lib ^
@@ -58,9 +64,17 @@ set BLD_OPTS=%WIN64% ^
     OPENJPEG_LIB=%LIBRARY_LIB%\openjp2.lib ^
     OPENJPEG_VERSION=20100 ^
     CURL_INC="-I%LIBRARY_INC%" ^
-    CURL_LIB="%LIBRARY_LIB%\libcurl.lib wsock32.lib wldap32.lib winmm.lib"
-rem      HDF4_DIR=%LIBRARY_PREFIX% ^
-rem      HDF4_LIB="%LIBRARY_LIB%\hdf.lib %LIBRARY_LIB%\mfhdf.lib %LIBRARY_LIB%\xdr.lib" ^
+    CURL_LIB="%LIBRARY_LIB%\libcurl.lib wsock32.lib wldap32.lib winmm.lib" ^
+    FREEXL_CFLAGS="-I%LIBRARY_INC%" ^
+    FREEXL_LIBS=%LIBRARY_LIB%\freexl_i.lib ^
+    EXPAT_DIR=%LIBRARY_PREFIX% ^
+    EXPAT_INCLUDE="-I%LIBRARY_INC%" ^
+    EXPAT_LIB=%LIBRARY_LIB%\expat.lib ^
+    SQLITE_INC="-I%LIBRARY_INC% -DHAVE_SPATIALITE" ^
+    SQLITE_LIB="%LIBRARY_LIB%\sqlite3.lib %LIBRARY_LIB%\spatialite_i.lib" ^
+    SPATIALITE_412_OR_LATER=yes ^
+    PG_INC_DIR=%LIBRARY_INC% ^
+    PG_LIB=%LIBRARY_LIB%\libpq.lib
 
 nmake /f makefile.vc %BLD_OPTS%
 if errorlevel 1 exit 1
