@@ -67,7 +67,7 @@ install:
     - cmd: conda config --add channels ioos
     - cmd: conda install --yes --quiet --channel conda-forge obvious-ci conda-build-all
     - cmd: obvci_install_conda_build_tools.py
-    - cmd: conda install --yes conda-build=1.20.0
+
     - cmd: conda info
 
 # Skip .NET project specific build phase.
