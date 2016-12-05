@@ -23,7 +23,7 @@ build:
 requirements:
   build:
     - python  # [win]
-    - cmake
+    - cmake  # [not win]
     - pkg-config  # [unix]
     - msinttypes  # [win]
     - curl
