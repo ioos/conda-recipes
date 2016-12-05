@@ -1,4 +1,4 @@
-{% set version = "4.4.1" %}
+{% set version = "4.4.1.1" %}
 
 package:
   name: libnetcdf
@@ -7,10 +7,11 @@ package:
 source:
   fn: v{{ version }}.tar.gz
   url: https://github.com/Unidata/netcdf-c/archive/v{{ version }}.tar.gz
-  sha256: 17599385fd76ccdced368f448f654de2ed000fece44dece9fb5d598798b4c9d6
-  patches:  # [win]
+  sha256: 7f040a0542ed3f6d27f3002b074e509614e18d6c515b2005d1537fec01b24909
+  patches:
     - dfile.c.patch  # [win]
     - dim.c.patch  # [win]
+    - semantics.c.patch  # [win]
 
 build:
   number: 0
@@ -22,9 +23,8 @@ build:
 requirements:
   build:
     - python  # [win]
-    # Use AppVeyor's cmake.
-    - cmake  # [not win]
-    - pkg-config  # [not win]
+    - cmake
+    - pkg-config  # [unix]
     - msinttypes  # [win]
     - curl
     - zlib 1.2.*
@@ -48,8 +48,8 @@ test:
     - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
     - test -f ${PREFIX}/lib/libnetcdf.so  # [linux]
     - test -f ${PREFIX}/lib/libnetcdf.dylib  # [osx]
-    - conda inspect linkages -p $PREFIX libnetcdf  # [linux]
-    - conda inspect objects -p $PREFIX libnetcdf  # [osx]
+    #- conda inspect linkages -p $PREFIX libnetcdf  # [not win]
+    #- conda inspect objects -p $PREFIX libnetcdf  # [osx]
 
 about:
   home: http://www.unidata.ucar.edu/software/netcdf/
@@ -58,4 +58,5 @@ about:
 
 extra:
   recipe-maintainers:
+    - groutr
     - ocefpaf
